@@ -106,6 +106,7 @@
 			<tag>PREVENTS_COMBAT_ESCAPE</tag>
 			<tag>NOT_FOR_SALE</tag>
 			<tag>FITS_ARM_WINGS</tag>
+			<tag>REMOVE_FROM_DRESSING_ROOM_OUTFITS</tag>
 		</itemTags>
 	</coreAttributes>
 	

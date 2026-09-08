@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sexAction>
 
+	<!-- TODO this is currently unused -->
+
 	<buttonPriority>0</buttonPriority>
 	<actionConditional><![CDATA[true]]></actionConditional>
 	<type>ORGASM</type>

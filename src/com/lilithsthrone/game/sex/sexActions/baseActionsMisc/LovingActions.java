@@ -109,7 +109,7 @@ public class LovingActions {
 	};
 	
 	public static final SexAction KISS_CHEEK = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,

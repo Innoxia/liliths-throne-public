@@ -25,13 +25,13 @@ public enum CumProduction {
 	THREE_AVERAGE("average", "an average amount of", 6, 16, 25, Wetness.THREE_WET, PresetColour.GENERIC_SIZE_FOUR, 0),
 	
 	/** This is a large amount of cum, although relatively speaking, it's not a huge quantity of liquid. */
-	FOUR_LARGE("large", "a large amount of", 16, 30, 5, Wetness.FOUR_SLIMY, PresetColour.GENERIC_SIZE_FIVE, 1),
+	FOUR_LARGE("large", "a large amount of", 16, 30, 5, Wetness.FOUR_SLIMY, PresetColour.GENERIC_SIZE_FIVE, 0),
 	
 	/** This is a very large amount of cum. (About a quarter of a can of coke.)*/
-	FIVE_HUGE("huge", "a huge amount of", 30, 100, 0, Wetness.FIVE_SLOPPY, PresetColour.GENERIC_SIZE_SIX, 2),
+	FIVE_HUGE("huge", "a huge amount of", 30, 100, 0, Wetness.FIVE_SLOPPY, PresetColour.GENERIC_SIZE_SIX, 1),
 	
 	/** This and SEVEN_MONSTROUS are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SIX_EXTREME("extreme", "an extreme amount of", 100, 1000, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN, 4),
+	SIX_EXTREME("extreme", "an extreme amount of", 100, 1000, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN, 3),
 	
 	/** This and SIX_EXTREME are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
 	SEVEN_MONSTROUS("monstrous", "a monstrous amount of", 1000, 10000, 0, Wetness.SEVEN_DROOLING, PresetColour.GENERIC_SIZE_EIGHT, 8);

@@ -132,8 +132,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private SizedStack<ShopTransaction> buybackStack;
 
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, AbstractSubspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
-		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
+	public PlayerCharacter(boolean isImported, NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, AbstractSubspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
+		super(isImported, nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(false, 0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -330,7 +330,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			System.out.println("Player loading start");
 		}
 		
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(true, new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 
 		if(debug) {
 			System.out.println("character created: "+((System.nanoTime()-time)/1000000000d));
@@ -1281,6 +1281,24 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	// Discoveries:
 	
+	public void applyDiscoveriesToProperties() {
+		for(AbstractItemType itemType : itemsDiscovered) {
+			Main.getProperties().addItemDiscovered(itemType);
+		}
+		for(AbstractWeaponType weaponType : weaponsDiscovered) {
+			Main.getProperties().addWeaponDiscovered(weaponType);
+		}
+		for(AbstractClothingType clothingType : clothingDiscovered) {
+			Main.getProperties().addClothingDiscovered(clothingType);
+		}
+		for(AbstractSubspecies subspecies : subspeciesDiscovered) {
+			Main.getProperties().addRaceDiscovered(subspecies, false);
+		}
+		for(AbstractSubspecies subspecies : subspeciesAdvancedKnowledge) {
+			Main.getProperties().addAdvancedRaceKnowledge(subspecies, false);
+		}
+	}
+	
 	public boolean addRaceDiscoveredFromBook(AbstractSubspecies subspecies) {
 		return racesDiscoveredFromBook.add(subspecies);
 	}
@@ -1334,6 +1352,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return weaponsDiscovered.contains(weaponType);
 	}
 
+	public Set<AbstractSubspecies> getSubspeciesDiscovered() {
+		return new HashSet<>(subspeciesDiscovered);
+	}
+	
 	/** <b>You should be using the Properties class to access this!</b> */
 	public int getSubspeciesDiscoveredCount() {
 		return subspeciesDiscovered.size();
@@ -1349,6 +1371,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return subspeciesDiscovered.contains(subspecies);
 	}
 
+	public Set<AbstractSubspecies> getSubspeciesAdvancedDiscovered() {
+		return new HashSet<>(subspeciesAdvancedKnowledge);
+	}
+	
 	/** <b>You should be using the Properties class to access this!</b> */
 	public int getSubspeciesAdvancedDiscoveredCount() {
 		return subspeciesAdvancedKnowledge.size();
@@ -1514,6 +1540,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
 			}
 			
+			boolean cameInsideLilaya = false;
 			// Penis cumming inside reaction:
 			if(target==OrgasmCumTarget.INSIDE
 					&& this.getCurrentPenisRawCumStorageValue()>0
@@ -1522,11 +1549,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					if(sexAction.getCondomFailure(this, Main.game.getNpc(Lilaya.class))!=CondomFailure.NONE) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, true);
 						sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM_BROKE"));
+						cameInsideLilaya = true;
 					} else {
 						sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM"));
 					}
 				} else {
 					sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE"));
+					cameInsideLilaya = true;
 				}
 				triggerEndScene = true;
 				
@@ -1545,6 +1574,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			
 			if(triggerEndScene) {
+				boolean cameInsideLilayaCopy = cameInsideLilaya;
 				return new SexActionOrgasmOverride(false) {
 					@Override
 					public String getDescription() {
@@ -1555,7 +1585,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					}
 					@Override
 					public boolean isEndsSex() {
-						return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
+						return (Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0) || cameInsideLilayaCopy)
 								&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
 					}
 				};

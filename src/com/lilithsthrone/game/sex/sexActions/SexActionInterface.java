@@ -129,12 +129,33 @@ public interface SexActionInterface {
 		return false;
 	}
 	
+	/**
+	 * @return The characters who should be used when parsing this action's description.
+	 *  This defaults to <code>Main.sex.getCharacterPerformingAction()</code> for 'npc' and <code>Main.sex.getCharacterTargetedForSexAction(this)</code> for 'npc2'.
+	 */
+	public default List<GameCharacter> getCharactersForParsing() {
+		return Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
+	}
+	
 	public abstract String getActionTitle();
 
 	public abstract String getActionDescription();
+
+//	/**
+//	 * @return A short, one-sentence description of this action, mainly to be used in recorded sex scene playbacks.
+//	 */
+//	public abstract String getBriefDescription();
+//
+//	@Override
+//	public String getBriefDescription() {
+//		return UtilText.returnStringAtRandom(
+//				"",
+//				"",
+//				"");
+//	}
 	
 	public abstract String getDescription();
-	
+
 	public default Colour getHighlightColour() {
 		return null;
 	}
@@ -600,10 +621,12 @@ public interface SexActionInterface {
 			}
 		}
 		
-		if(Main.sex.isCharacterImmobilised(performingCharacter)) {
-			if(!isAvailableDuringImmobilisation(Main.sex.getImmobilisationTypes(performingCharacter).keySet())) {
+		// If the performing character is immobilised in a way which prevents this action from being used, then it's disabled, unless it ends sex
+		// The logic being: if the character has enough control to ordinarily end sex, immobilisation shouldn't prevent it
+		if(Main.sex.isCharacterImmobilised(performingCharacter)
+				&& !this.isAvailableDuringImmobilisation(Main.sex.getImmobilisationTypes(performingCharacter).keySet())
+				&& !this.endsSex()) {
 				return false;
-			}
 		}
 		
 		boolean analAllowed = Main.game.isAnalContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ANUS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ANUS));
@@ -781,6 +804,7 @@ public interface SexActionInterface {
 			// Forbid self actions if control is limited to NONE:
 			if(this.getParticipantType()==SexParticipantType.SELF
 					&& !this.getActionType().isOrgasmOption()
+					&& !this.endsSex() // Still allow action if it's an 'end sex' action (otherwise being immobilised as a dom makes it so nobody can end sex)
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
 				return null;
 			}
@@ -1345,10 +1369,10 @@ public interface SexActionInterface {
 			return new Response(
 					this.endsSex()
 						?getActionTitle()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+						:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 					this.endsSex()
 						?getActionDescription()+getArousalHitWarning()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
+						:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning()),
 					Main.sex.SEX_DIALOGUE,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -1442,10 +1466,10 @@ public interface SexActionInterface {
 			return new ResponseEffectsOnly(
 					this.endsSex()
 						?getActionTitle()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+						:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 					this.endsSex()
 						?getActionDescription()+getArousalHitWarning()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning())){
+						:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning())){
 				@Override
 				public void effects() {
 					SexActionInterface.this.applyEffects();
@@ -1513,10 +1537,10 @@ public interface SexActionInterface {
 			return new Response(
 					this.endsSex()
 						?getActionTitle()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+						:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 					this.endsSex()
 						?getActionDescription()+getArousalHitWarning()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
+						:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning()),
 					null,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -1634,10 +1658,10 @@ public interface SexActionInterface {
 		return new Response(
 				this.endsSex()
 					?getActionTitle()
-					:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+					:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 				this.endsSex()
 					?getActionDescription()+getArousalHitWarning()
-					:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
+					:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning()),
 				null,
 				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),
@@ -1936,6 +1960,7 @@ public interface SexActionInterface {
 							return CondomFailure.CUM_OVERLOAD;
 						}
 						break;
+					case SPECIAL:
 					case MAJOR_BOOST:
 						break;
 					case MAJOR_DRAIN:

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_ANUS && sex.getOngoingSexAreas(npc, PENETRATION_PENIS, pc).contains(ORIFICE_VAGINA)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##sex.stopOngoingAction(npc, PENETRATION_PENIS, pc, ORIFICE_VAGINA)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		#IF(!pc.isAbleToAccessCoverableArea(CA_ANUS, false))
+			[##sex.manageClothingToAccessCoverableArea(npc, pc, CA_ANUS)]
+		#ENDIF
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Stop fucking]]></title>
+	<tooltip><![CDATA[Pull your cock out of [pc.namePos] [pc.pussy+].]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Having had enough fun with your [pc.pussyCapacity] pussy, [npc.name] pulls [npc.her] [npc.cock+] out of your well-fucked cunt, before sliding [npc.her] [npc.fingers+] over your [pc.ass+] and teasing, [npc.speechNoEffects(I haven't fucked this hole yet...)]
+				
+				#IF(!pc.isAbleToAccessCoverableArea(CA_ANUS, false) && pc.getClothingInSlot(IS_ANUS)!=null)
+					</p>
+					<p>
+						#IF(pc.getClothingInSlot(IS_ANUS).getClothingType()==CLOTHING_norin_anal_beads_anal_beads)
+							Grabbing hold of the end of your anal beads, [npc.name] roughly yanks the first sphere out of your [pc.asshole+]. You can't help but let out [pc.a_moan+] as you feel this first bead slip out of your ass, and continue to [pc.moan] like a slut as [npc.she] pulls out the other five. With your ass now ready to take [npc.namePos] [npc.cock+], you lewdly squeal as [npc.she] rubs [npc.her] thumb over your inviting orifice...
+						#ELSE
+							Grabbing hold of your buttplug, [npc.name] roughly yanks it out of your [pc.asshole+], before eagerly running one of [npc.her] thumbs over your inviting orifice...
+						#ENDIF
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

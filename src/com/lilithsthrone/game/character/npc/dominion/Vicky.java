@@ -59,7 +59,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -183,7 +182,7 @@ public class Vicky extends NPC {
 				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...",
 				37, Month.MAY, 26,
 				10, Gender.F_P_V_B_FUTANARI,
-				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
+				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(false, 10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
 
 		weaponsForSale = new HashMap<>();
 		itemsForSale = new HashMap<>();
@@ -447,7 +446,7 @@ public class Vicky extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CORSET_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_corset_dress", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_BLACK, false), true, this);
@@ -478,18 +477,20 @@ public class Vicky extends NPC {
 		
 		int requiredRoomForMiscItems = ItemType.getEssences().size()+SpellSchool.values().length+availableSpellBooks.size()+10;
 		
-		List<AbstractCoreType> types = new ArrayList<>();
+		List<AbstractWeaponType> weaponTypesAvailable = new ArrayList<>();
+		List<AbstractClothingType> clothingTypesAvailable = new ArrayList<>();
+		List<AbstractItemType> itemTypesAvailable = new ArrayList<>();
 		
 		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
 			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)
 					&& (!wt.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				types.add(wt);
+				weaponTypesAvailable.add(wt);
 			}
 		}
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)
 					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				types.add(item);
+				itemTypesAvailable.add(item);
 			}
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
@@ -497,29 +498,57 @@ public class Vicky extends NPC {
 				if(clothing!=null
 						&& clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_VICKY)
 						&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-					types.add(clothing);
+					clothingTypesAvailable.add(clothing);
 				} 
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
-		Collections.shuffle(types);
+		Collections.shuffle(weaponTypesAvailable);
+		Collections.shuffle(clothingTypesAvailable);
+		Collections.shuffle(itemTypesAvailable);
+
 		int count=0;
-		for(AbstractCoreType type : types) {
-			if(type instanceof AbstractWeaponType) {
-				weaponsForSale.put(Main.game.getItemGen().generateWeapon((AbstractWeaponType) type), 2+Util.random.nextInt(5));
-				
-			} else if(type instanceof AbstractItemType) {
-				itemsForSale.put(Main.game.getItemGen().generateItem((AbstractItemType) type), 2+Util.random.nextInt(5));
-				
-			} else if(type instanceof AbstractClothingType) {
-				clothingForSale.put(Main.game.getItemGen().generateClothing((AbstractClothingType) type), 2+Util.random.nextInt(5));
+		for(AbstractWeaponType type : weaponTypesAvailable) {
+			weaponsForSale.put(Main.game.getItemGen().generateWeapon((AbstractWeaponType) type), 2+Util.random.nextInt(5));
+			count++;
+			if(count>=this.getMaximumInventorySpace()) {
+				break;
 			}
+		}
+		count=0;
+		for(AbstractClothingType type : clothingTypesAvailable) {
+			clothingForSale.put(Main.game.getItemGen().generateClothing((AbstractClothingType) type, false), 2+Util.random.nextInt(5));
+			count++;
+			if(count>=this.getMaximumInventorySpace()) {
+				break;
+			}
+		}
+		count=0;
+		for(AbstractItemType type : itemTypesAvailable) {
+			itemsForSale.put(Main.game.getItemGen().generateItem((AbstractItemType) type), 2+Util.random.nextInt(5));
 			count++;
 			if(count>=this.getMaximumInventorySpace()-requiredRoomForMiscItems) {
 				break;
 			}
 		}
+		
+//		int count=0;
+//		for(AbstractCoreType type : types) {
+//			if(type instanceof AbstractWeaponType) {
+//				weaponsForSale.put(Main.game.getItemGen().generateWeapon((AbstractWeaponType) type), 2+Util.random.nextInt(5));
+//				
+//			} else if(type instanceof AbstractItemType) {
+//				itemsForSale.put(Main.game.getItemGen().generateItem((AbstractItemType) type), 2+Util.random.nextInt(5));
+//				
+//			} else if(type instanceof AbstractClothingType) {
+//				clothingForSale.put(Main.game.getItemGen().generateClothing((AbstractClothingType) type, false), 2+Util.random.nextInt(5));
+//			}
+//			count++;
+//			if(count>=this.getMaximumInventorySpace()-requiredRoomForMiscItems) {
+//				break;
+//			}
+//		}
 		
 		AbstractItem ingredient = Main.game.getItemGen().generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));

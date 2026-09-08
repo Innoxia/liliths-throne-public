@@ -106,6 +106,7 @@
 		
 		<place colour="#404040">innoxia_fields_elis_town_wall</place>
 		<place colour="#854040">innoxia_fields_elis_town_tower</place>
+		<place colour="#855940">innoxia_fields_elis_town_tower_yui</place>
 		
 		<place colour="#808080">innoxia_fields_elis_town_street</place>
 		<place colour="#a08080">innoxia_fields_elis_town_alley</place>

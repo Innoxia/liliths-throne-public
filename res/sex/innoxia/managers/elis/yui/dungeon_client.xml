@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<deskName><![CDATA[bondage bench]]></deskName>
+	<title/>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[OVER_DESK]]></position>
+	</positionsAvailable>
+	<publicSex>
+		<isPublic><![CDATA[false]]></isPublic>
+		<startingDescription/>
+		<randomDescriptions/>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable exclusive="false">
+				<slot><![CDATA[
+					#IF(pc.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG && pc.getGenitalArrangement()==GENITALS_CLOACA)
+						OVER_DESK_OVER_DESK_ON_BACK
+					#ELSE
+						OVER_DESK_OVER_DESK_ON_FRONT
+					#ENDIF
+				]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="false"><![CDATA[SUB_EAGER]]></sexPace>
+			<startingImmobilisation>
+				<applierId><![CDATA[yui]]></applierId>
+				<type><![CDATA[ROPE]]></type>
+			</startingImmobilisation>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>client</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<startingLubrications>
+				<lubedArea area="PENETRATION_PENIS">
+					<lubrication>
+						<luberId><![CDATA[pc]]></luberId>
+						<type><![CDATA[
+							#IF(client.hasFetish(FETISH_IMPREGNATION))
+								SALIVA
+							#ENDIF
+						]]></type>
+					</lubrication>
+				</lubedArea>
+			</startingLubrications>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[true]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[
+				#IF(client.hasFetish(FETISH_IMPREGNATION))
+					CREAMPIE
+				#ELSE
+					DEFAULT
+				#ENDIF
+			]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<!-- Only the penis is 'visible' (from feeling it) -->
+			<concealedSlots exclusive="true">
+				<viewingCharacter id="pc">
+					<inventorySlot><![CDATA[PENIS]]></inventorySlot>
+				</viewingCharacter>
+			</concealedSlots>
+			<preferredTarget/>
+			<preferences>
+				<character id="pc">
+					<foreplay copyForMain="false">
+						<performing><![CDATA[PENETRATION_PENIS]]></performing>
+						<targeted><![CDATA[
+							#IF(client.hasFetish(FETISH_IMPREGNATION))
+								ORIFICE_VAGINA
+							#ELSE
+								ORIFICE_MOUTH
+							#ENDIF
+						]]></targeted>
+					</foreplay>
+					<mainSex>
+						<performing><![CDATA[PENETRATION_PENIS]]></performing>
+						<targeted><![CDATA[
+							#IF(client.hasFetish(FETISH_IMPREGNATION))
+								ORIFICE_VAGINA
+							#ELSE
+								#IF(!sex.isOrgasmCountMet(client, 1, true))
+									ORIFICE_MOUTH
+								#ELSEIF(!sex.isOrgasmCountMet(client, 2, true) && pc.hasVagina())
+									ORIFICE_VAGINA
+								#ELSEIF(game.isAnalContentEnabled())
+									ORIFICE_ANUS
+								#ELSE
+									ORIFICE_MOUTH
+								#ENDIF
+							#ENDIF
+						]]></targeted>
+					</mainSex>
+				</character>
+			</preferences>
+			<uniqueSexActions>
+				<sexAction>innoxia_elis_yui_dungeon_swap_ends</sexAction>
+				<sexAction>innoxia_elis_yui_dungeon_end_vaginal</sexAction>
+			</uniqueSexActions>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition><![CDATA[
+				[#sex.isSatisfiedFromOrgasms(client, true) && (sex.isSatisfiedFromOrgasms(pc, true) || sex.isOrgasmCountMet(client, 3, true))]
+			]]></stopSexCondition>
+			<dirtyTalk/>
+		</characterInformation>
+		
+	</characterInformationContainer>
+		
+</sexManager>

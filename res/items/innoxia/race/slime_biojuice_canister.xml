@@ -13,6 +13,7 @@
 		<combatUseAllies>true</combatUseAllies>
 		<combatUseEnemies>false</combatUseEnemies>
 		<consumedOnUse>true</consumedOnUse>
+		<breakOutOfInventory>true</breakOutOfInventory>
 		
 		<rarity>RARE</rarity> 
 		

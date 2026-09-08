@@ -24,7 +24,7 @@
 	<applyEffects><![CDATA[
 		#IF(pc.getClothingInSlot(IS_VAGINA)==null)
 			[##var dollDildo = itemGen.generateClothing(CLOTHING_innoxia_vagina_insertable_dildo, COLOUR_CLOTHING_PINK_LIGHT, false)]
-			[##dollDildo.addEffect(ITEM_EFFECT_TYPE_CLOTHING, ENCHANTMENT_MODIFIER_CLOTHING_SPECIAL, ENCHANTMENT_MODIFIER_CLOTHING_VIBRATION, ENCHANTMENT_POTENCY_MAJOR_BOOST, 0)]
+			[##dollDildo.addEffect(ITEM_EFFECT_TYPE_CLOTHING, ENCHANTMENT_MODIFIER_CLOTHING_SEXUAL, ENCHANTMENT_MODIFIER_CLOTHING_VIBRATION, ENCHANTMENT_POTENCY_MAJOR_BOOST, 0)]
 			[##pc.equipClothingFromNowhere(dollDildo, IS_VAGINA, true, doll)]
 		#ELSE
 			[##pc.unequipClothingIntoVoid(IS_VAGINA, true, doll)]

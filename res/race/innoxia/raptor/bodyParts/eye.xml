@@ -6,7 +6,9 @@
 	
 	<coveringType>innoxia_raptor_eye</coveringType>
 	
-	<tags/>
+	<tags>
+		<tag>EYE_PERFECT_VISION</tag>
+	</tags>
 	
 	<defaultPairCount>1</defaultPairCount>
 	

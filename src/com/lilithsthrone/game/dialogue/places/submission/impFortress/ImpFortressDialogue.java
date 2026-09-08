@@ -1948,10 +1948,10 @@ public class ImpFortressDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(isDefeated()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_DEFEATED", getAllCharacters()));
-			} else if(isPacified()) {
+			if(isPacified() && Main.game.getCharactersPresent().contains(getBoss())) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_PACIFIED", getAllCharacters()));
+			} else if(isDefeated()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_DEFEATED", getAllCharacters()));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP", getAllCharacters()));
 			}
@@ -1962,7 +1962,7 @@ public class ImpFortressDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(isDefeated()) {
+				if(isDefeated() && !Main.game.getCharactersPresent().contains(getBoss())) {
 					return new Response("Enter", "The keep is deserted, and there's nothing of value inside...", null);
 				} else {
 					return new Response("Enter", "Push open the doors of the keep and step inside.", KEEP_ENTRY) {

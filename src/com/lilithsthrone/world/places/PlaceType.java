@@ -1801,8 +1801,8 @@ public class PlaceType {
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_FILLY_STATION = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Filly Rewards Station",
-			"Set into a small alcove on one side of the warehouse corridor, there's a curious-looking arcane vending machine, which is clearly marked as a 'Filly Rewards Station'.",
+			"[style.Mule] Rewards Station",
+			"Set into a small alcove on one side of the warehouse corridor, there's a curious-looking arcane vending machine, which is clearly marked as a '[style.Mule] Rewards Station'.",
 			"dominion/dominionExpress/fillyStation",
 			PresetColour.BASE_PINK_LIGHT,
 			DominionExpress.FILLY_STATION,
@@ -2036,6 +2036,9 @@ public class PlaceType {
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_LOUNGE)) {
 				return PlaceUpgrade.getSlaveLoungeUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_DRESSING_ROOM)) {
+				return PlaceUpgrade.getDressingRoomUpgrades();
 			}
 			
 			return PlaceUpgrade.getCoreRoomUpgrades();
@@ -5940,7 +5943,10 @@ public class PlaceType {
 			"river Hubur (wild)",
 			null,
 			"Far from Dominion, the river Hubur is a dangerous place in which to swim, as it is home to many wild freshwater races.",
-			new Colour(Util.newColour(0xc1f1ee)), null, null, "at the river Huber") {
+			new Colour(Util.newColour(0xc1f1ee)),
+			DialogueManager.getDialogueFromId("innoxia_places_shinrin_highlands_global_river"),
+			null,
+			"at the river Huber") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5952,11 +5958,18 @@ public class PlaceType {
 			WorldRegion.YOUKO_FOREST,
 			"Shinrin highlands",
 			null,
-			"The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here.",
-			new Colour(Util.newColour(0x6ccc74)), null, null, "in the Shinrin highlands") {
+			"The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here, and have cast spells over the land to prevent teleportation from working.",
+			PresetColour.MAP_BACKGROUND_SHINRIN_HIGHLANDS,
+			DialogueManager.getDialogueFromId("innoxia_places_shinrin_highlands_global_shinrin_highlands"),
+			null,
+			"in the Shinrin highlands") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
+				}
+				@Override
+				public TeleportPermissions getTeleportPermissions() {
+					return TeleportPermissions.NONE;
 				}
 	}.initDangerous();
 

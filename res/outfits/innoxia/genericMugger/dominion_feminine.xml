@@ -32,6 +32,7 @@
 		<cond6 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></cond6> <!-- is bipedal -->
 		<cond7 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond7> <!-- face covering -->
 		<cond8 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond8> <!-- balaclava -->
+		<cond9 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond9> <!-- beanie -->
 		
 		<presetColourGroup1>
 			<randomColour>CLOTHING_BLACK</randomColour>
@@ -239,6 +240,17 @@
 			<conditional><![CDATA[cond7 && cond8]]></conditional>
 			<types>
 				<type>innoxia_head_balaclava</type>
+			</types>
+			<primaryColours>
+				<colour>CLOTHING_BLACK</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		<clothingType>
+			<conditional><![CDATA[!cond8 && cond9]]></conditional>
+			<types>
+				<type>innoxia_head_beanie</type>
 			</types>
 			<primaryColours>
 				<colour>CLOTHING_BLACK</colour>

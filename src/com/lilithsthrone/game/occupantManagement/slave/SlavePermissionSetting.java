@@ -3,6 +3,7 @@ package com.lilithsthrone.game.occupantManagement.slave;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -35,6 +36,16 @@ public enum SlavePermissionSetting {
 	
 	// Sex:
 	
+	SEX_LUBE_PILL(false, "Lube pills", "Keep this slave on lube pills, which will result in their entire body being lubricated in sex scenes.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_lubrication"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.LUBE_PILL);
+		}
+	},
 	SEX_MASTURBATE(false, "Masturbation", "Allow this slave to masturbate."),
 	SEX_INITIATE_SLAVES(false, "Initiate Sex", "") {
 		@Override
@@ -99,6 +110,8 @@ public enum SlavePermissionSetting {
 
 	
 	// Pills:
+
+	PILLS_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
 	
 	PILLS_PROMISCUITY_PILLS(false, "", "") {
 		@Override
@@ -109,9 +122,15 @@ public enum SlavePermissionSetting {
 		public String getDescription() {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], greatly reducing both their fertility and virility.");
 		}
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
+		}
 	},
-	
-	PILLS_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
 	
 	PILLS_VIXENS_VIRILITY(false, "", "") {
 		@Override
@@ -121,6 +140,14 @@ public enum SlavePermissionSetting {
 		@Override
 		public String getDescription() {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_fertility.getNamePlural(false)], greatly increasing both their fertility and virility.");
+		}
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
 		}
 	},
 
@@ -132,6 +159,14 @@ public enum SlavePermissionSetting {
 		@Override
 		public String getDescription() {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_broodmother.getNamePlural(false)], massively increasing both their fertility and virility and [style.colourExcellent(doubling)] how many offspring they conceive.");
+		}
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.BROODMOTHER_PILL);
 		}
 	},
 	
@@ -207,9 +242,24 @@ public enum SlavePermissionSetting {
 	
 	
 	// Sleeping:
-	SLEEPING_DEFAULT(true, "Sleep Whenever", "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races."),
-	SLEEPING_NIGHT(false, "Sleep At Night", "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them."),
-	SLEEPING_DAY(false, "Sleep During Day", "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.")
+	SLEEPING_DEFAULT(true, "Sleep Whenever", "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.recalculateSleepHours();
+		}
+	},
+	SLEEPING_NIGHT(false, "Sleep At Night", "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.recalculateSleepHours();
+		}
+	},
+	SLEEPING_DAY(false, "Sleep During Day", "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.recalculateSleepHours();
+		}
+	},
 	
 	;
 	
@@ -243,4 +293,9 @@ public enum SlavePermissionSetting {
 		return true;
 	}
 	
+	public void applyEffectsOnAddition(GameCharacter character) {
+	}
+
+	public void applyEffectsOnRemoval(GameCharacter character) {
+	}
 }

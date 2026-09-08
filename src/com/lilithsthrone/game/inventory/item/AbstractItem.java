@@ -3,8 +3,8 @@ package com.lilithsthrone.game.inventory.item;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.w3c.dom.Document;
@@ -16,6 +16,9 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.EffectBenefit;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -23,6 +26,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -39,11 +43,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	protected AbstractItemType itemType;
 	protected List<ItemEffect> itemEffects;
 
+	private String overrideSpecialEffects;
+	
 	public AbstractItem(AbstractItemType itemType) {
 		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColourShades().get(0), itemType.getRarity(), null, itemType.getItemTags());
 
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();
+		
+		this.overrideSpecialEffects = "";
 	}
 	
 	@Override
@@ -51,7 +59,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		if(super.equals(o)) {
 			return (o instanceof AbstractItem)
 					&& ((AbstractItem)o).getItemType().equals(itemType)
-					&& ((AbstractItem)o).getEffects().equals(itemEffects);
+					&& ((AbstractItem)o).getEffects().equals(itemEffects)
+					&& ((AbstractItem)o).overrideSpecialEffects.equals(overrideSpecialEffects);
 		} else {
 			return false;
 		}
@@ -62,6 +71,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		int result = super.hashCode();
 		result = 31 * result + itemType.hashCode();
 		result = 31 * result + itemEffects.hashCode();
+		result = 31 * result + overrideSpecialEffects.hashCode();
 		return result;
 	}
 	
@@ -73,6 +83,12 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		XMLUtil.addAttribute(doc, element, "name", this.getName());
 		if(this.getColour(0)!=null) {
 			XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		}
+		
+		if(!this.overrideSpecialEffects.isEmpty()) {
+			Element innerElement = doc.createElement("overrideSpecialEffects");
+			element.appendChild(innerElement);
+			innerElement.appendChild(doc.createCDATASection(overrideSpecialEffects));
 		}
 		
 		if(!this.getEffects().isEmpty()) {
@@ -99,6 +115,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			if(!parentElement.getAttribute("name").isEmpty()) {
 				item.setName(parentElement.getAttribute("name"));
 			}
+
+			Element specialEffectsElement = (Element) parentElement.getElementsByTagName("overrideSpecialEffects").item(0);
+			if(specialEffectsElement!=null) {
+				item.overrideSpecialEffects = specialEffectsElement.getTextContent();
+			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 			Element ieElement = (Element) parentElement.getElementsByTagName("itemEffects").item(0);
@@ -124,6 +145,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			
 			return item;
+			
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractItem was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			ex.printStackTrace();
@@ -136,6 +158,9 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 
 	public boolean isBreakOutOfInventory() {
+		if(this.getItemType().isBreakOutOfInventory()) {
+			return true;
+		}
 		for(ItemEffect effect : this.getEffects()) {
 			if(effect.getItemEffectType().isBreakOutOfInventory()) {
 				return true;
@@ -152,14 +177,29 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	public void setItemEffects(List<ItemEffect> itemEffects) {
 		this.itemEffects = itemEffects;
 	}
-
+	
+	/**
+	 * Overwrites the item's specialEffect (which is ordinarily derived from the item's itemType), which is the String that's parsed during the item's applyEffects method.
+	 * <br/><b>NOTE:</b> Although hard-coded item types do not use the specialEffect, this method will still overwrite those effects.
+	 */
+	public void setOverrideSpecialEffects(String newSpecialEffects) {
+		overrideSpecialEffects = newSpecialEffects;
+	}
+	
 	public String applyEffect(GameCharacter user, GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
-		for(ItemEffect ie : getEffects()) {
-			sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
+		String targetNameBeforeEffects = UtilText.parse(target, "[npc.Name]");
+		
+		if(overrideSpecialEffects!=null && !overrideSpecialEffects.isEmpty()) {
+			sb.append(UtilText.parse(target, user, overrideSpecialEffects));
+			
+		} else {
+			for(ItemEffect ie : getEffects()) {
+				sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
+			}
+			sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		}
-		sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		
 		if(this.getItemType().getAppliedStatusEffects()!=null) {
 			for(Entry<AbstractStatusEffect, Value<String, Integer>> entry : this.getItemType().getAppliedStatusEffects().entrySet()) {
@@ -239,6 +279,63 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 		}
 		
+		if(this.getItemType().isBreakOutOfInventory()
+				&& Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY // Added so that manually using this item in a block of code won't break out of the scene
+				&& !Main.game.isInCombat()) { // Items which break out of inventory should be unavailable in combat, but just in case add a check here
+			if(Main.game.isInSex()) {
+				Main.game.setContent(new Response(
+						Util.capitaliseSentence(this.getItemType().getUseName()) +(user.equals(target)?" (Self)":" ("+targetNameBeforeEffects+")"),
+						"",
+						Main.sex.SEX_DIALOGUE) {
+					@Override
+					public void effects() {
+						Main.mainController.openInventory();
+						Main.sex.setUsingItemText(sb.toString());
+						Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+						Main.sex.setSexStarted(true);
+					}
+				});
+				
+			} else {
+//				Main.game.setContent(new Response(
+//						"",
+//						"",
+//						Main.game.getDefaultDialogue(false)) {
+//					@Override
+//					public boolean isStripContent() {
+//						return true;
+//					}
+//					@Override
+//					public void effects() {
+//						Main.game.appendToTextStartStringBuilder(sb.toString());
+//					}
+//				});
+
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
+					@Override
+					public void effects() {
+						Main.mainController.openInventory();
+						Main.game.appendToTextEndStringBuilder(sb.toString());
+					}
+				});
+				// Reload the current dialogue node so that the text applied via the appendToTextEndStringBuilder() method is shown:
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+					@Override
+					public String getTitle() {
+						return Util.capitaliseSentence(AbstractItem.this.getName()+": "+Util.capitaliseSentence(AbstractItem.this.getItemType().getUseName())) +(user.equals(target)?" (Self)":" ("+targetNameBeforeEffects+")");
+					}
+					@Override
+					public boolean isStripContent() {
+						return true;
+					}
+					@Override
+					public boolean isForceContinue() {
+						return true;
+					}
+				});
+			}
+		}
+		
 		return sb.toString();
 	}
 	
@@ -262,31 +359,43 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	// Getters & setters:
 	
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
-		return (withDeterminer
-				? (!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
-					? itemType.getDeterminer()
-					: UtilText.generateSingularDeterminer(name))
-				: "")
-				+ " "+(withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+		return UtilText.parse(this,
+				(withDeterminer
+					? (!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
+						? itemType.getDeterminer()
+						: UtilText.generateSingularDeterminer(name))
+					: "")
+				+ " "+(withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name));
 	}
 
 	@Override
 	public String getDisplayName(boolean withRarityColour) {
-		return Util.capitaliseSentence(
+		return UtilText.parse(this,
+				Util.capitaliseSentence(
 				(!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
 						? itemType.getDeterminer()
 						: UtilText.generateSingularDeterminer(name))
-				+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+				+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name)));
 	}
 
 	@Override
 	public String getDisplayNamePlural(boolean withRarityColour) {
-		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
+		return UtilText.parse(this,
+				Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural)));
 	}
 
+	/**
+	 * @return A basic, parsed, description of this clothing's type. (To be used in tooltips.)
+	 */
+	public String getTypeDescription(GameCharacter characterEquippedOn) {
+		String description = this.getItemType().getDescription();
+		
+		return UtilText.parse(characterEquippedOn, this, description);
+	}
+	
 	@Override
-	public String getDescription() {
-		return itemType.getDescription();
+	public String getDescription(GameCharacter characterEquippedOn) {
+		return getTypeDescription(characterEquippedOn);
 	}
 	
 	@Override

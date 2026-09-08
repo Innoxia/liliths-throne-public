@@ -38,7 +38,7 @@
 		<p>
 			Deciding to once again to enter Monica's store to see what she's got on offer, you push open the glass door and [pc.step] inside. A little bell rings out above your head as the door swings open, which causes the familiar cow-girl to look over in your direction. Having once again caught her just as she's finished serving a pair of customers, the slightly-chubby, incredibly-busty cow-girl flashes you a smile and calls out in a happy, friendly tone, [monica.speech(Hi, [pc.name]!)]
 		</p>
-		#IF(monica.isVisiblyPregnant() && monica.getPregnantLitter().getFather().equals(pc))
+		#IF(monica.isVisiblyPregnant() && monica.getPregnantLitter().isFather(pc))
 			<p>
 				#IF(!monica.isCharacterReactedToPregnancy(pc))
 					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you suddenly notice that the cow-girl's belly is visibly swollen, and as she sees what you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, you kind of got me pregnant... I haven't been sexually active with anyone else for a long time, so it had to have been you... I wonder if my boobs are going to get bigger from this?)]

@@ -1199,7 +1199,7 @@ public class MiscDialogue {
 
 			if(ClothingType.getAllClothingInSet(sb)!=null) {
 				for (AbstractClothingType ct : ClothingType.getAllClothingInSet(sb)) {
-					AbstractClothing clothing = Main.game.getItemGen().generateClothing(ct);
+					AbstractClothing clothing = Main.game.getItemGen().generateClothing(ct, false);
 					for(int i=0; i<ct.getColourReplacements().size(); i++) {
 						ColourReplacement cr = ct.getColourReplacement(i);
 						clothing.setColour(i, cr.getFirstOfDefaultColours());

@@ -56,7 +56,7 @@
 			</p>
 		#ELSE
 			<p>
-				As [npc.she] steps out from the shadows, you see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				As [npc.she] steps out from the shadows, you see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 gives you a smug smirk and a condescending glare.
 					#IF(npc.isAttractedTo(pc))
@@ -225,7 +225,7 @@
 			</p>
 		#ELSE
 			<p>
-				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 gives you a menacing glare. Unlike your previous encounters with [npc.herHim], [npc.name] doesn't seem interested in your money, and instead strikes an intimidating pose and prepares to demand something else.
 				#ELSE
@@ -329,7 +329,7 @@
 			</p>
 		#ELSE
 			<p>
-				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 gives you a menacing glare.
 					#IF(npc.isAttractedTo(pc))
@@ -424,7 +424,18 @@
 	#IF(npc.isVisiblyPregnant() && npc.getPregnantLitter().isFatherId(pc.getId()))
 		#IF(!npc.isCharacterReactedToPregnancy(pc))
 			<p>
-				As you [pc.step] forwards and start to say hello, you immediately notice that there's something very different about [npc.name]. [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and as you look down, you see the consequence of ejaculating inside of [npc.herHim], as [npc.sheIs] now sporting a [style.colourSex(pregnant belly)].
+				As you [pc.step] forwards and start to say hello, you immediately notice that there's something very different about [npc.name].
+				#IF(npc.isTaur())
+					 As [npc.she] turns to one side, you look down to see the consequence of
+				#ELSE
+					 [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and you look down to see the consequence of
+				#ENDIF
+				#IF(npc.isPregnancyFertilisationNormal())
+					 giving [npc.herHim] a creampie,
+				#ELSE
+					 having risky sex with [npc.herHim],
+				#ENDIF
+				 for [npc.sheIs] quite clearly sporting a [style.colourSex(pregnant belly)].
 			</p>
 			<p>
 				#IF(npc.isMute())
@@ -454,7 +465,7 @@
 			</p>
 		#ELSE
 			<p>
-				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 watches you approach.
 					#IF(npc.isAttractedTo(pc))
@@ -897,7 +908,7 @@
 			Pointing out to the [npc.race] that there's no motive for you to try and trick [npc.herHim], you reassure [npc.herHim] by saying that all you want to do is talk.
 		</p>
 		<p>
-			[npc.speech(You really aren't going to punish me or anything?)] the [npc.race] asks. As you shake your head to show that you have no intention of doing any such thing, [npc.she] decides to open up to you a little and explains, [npc.speech(Well, I lost my job out in the fields when I had to flee from Lunette's marauders... I don't have any money, and so there's no way for me to get food without doing this sort of thing...)]
+			[npc.speech(You really aren't going to punish me or anything?)] the [npc.race] asks. As you shake your head to show that you have no intention of doing any such thing, [npc.she] decides to open up to you a little and explains, [npc.speech(Well, I lost my job out in the fields when I had to flee from Lunette's daughters... I don't have any money, and so there's no way for me to get food without doing this sort of thing...)]
 		</p>
 		<p>
 			Leaving judgement of [npc.her] actions for another time, you give this [npc.race] your name, before asking for [npc.hers]. The [npc.race] looks a little uncomfortable and initially refuses to reply, but after you've remained silent and given [npc.herHim] a moment in which to think, you're rewarded with an answer, [npc.speech(My name's [npc.name]... Why do you want to know? You're not planning on handing me over to the Enforcers, are you?)]
@@ -922,7 +933,7 @@
 			Telling the [npc.race] that [npc.her] inability to speak isn't a problem, you reassure [npc.herHim] by saying that you have no intention of trying to trick [npc.herHim] or punish [npc.herHim] in any way for attacking you. Realising that it might take a while to try and figure out a way in which the two of you can communicate, you crouch down next to where the [npc.race] is still sitting on the floor trying to catch [npc.her] breath.
 		</p>
 		<p>
-			Through a series of gestures and questions, and with the help of a scarp of paper and a pencil, you manage to find out from the [npc.race] that [npc.she]'d lost [npc.her] job out in the Foloi Fields when [npc.she] had to flee from Lunette's marauders. With no money, friends, or nearby relatives, there's been no way for [npc.herHim] to get food without mugging people, and so that's why [npc.she] ended up falling into a life of crime.
+			Through a series of gestures and questions, and with the help of a scarp of paper and a pencil, you manage to find out from the [npc.race] that [npc.she]'d lost [npc.her] job out in the Foloi Fields when [npc.she] had to flee from Lunette's daughters. With no money, friends, or nearby relatives, there's been no way for [npc.herHim] to get food without mugging people, and so that's why [npc.she] ended up falling into a life of crime.
 		</p>
 		<p>
 			Leaving judgement of [npc.her] actions for another time, you give this [npc.race] your name, before asking for [npc.hers]. The [npc.race] looks a little uncomfortable and initially refuses to give it to you, but after you've remained silent and given [npc.herHim] a moment in which to think, you're rewarded with a short scribble on the paper, which reads; '[npc.name]'.
@@ -1504,7 +1515,7 @@
 	
 	<htmlContent tag="PEACEFUL_OFFER_ROOM_DIRECTIONS"><![CDATA[
 	<p>
-		Telling [npc.name] that you're happy to be able to help a friend in need, you inform [npc.herHim] that some pressing business is preventing you from accompanying [npc.herHim] back to Dominion at the moment, but that you'll come and visit [npc.herHim] there as soon as you can. Giving [npc.herHim] instructions to seek out Meraxis at the Red Dragon tavern, you tell your friend that the chuuni [meraxis.race] will teleport [npc.herHim] to [npc.her] new room in Lilaya's mansion, and that once there, the cat-girl maid, Rose, will help [npc.herHim] to get settled in.
+		Telling [npc.name] that you're happy to be able to help a friend in need, you inform [npc.herHim] that some pressing business is preventing you from accompanying [npc.herHim] back to Dominion at the moment, but that you'll come and visit [npc.herHim] there as soon as you can. Giving [npc.herHim] instructions to seek out Meraxis at The Red Dragon tavern, you tell your friend that the chuuni [meraxis.race] will teleport [npc.herHim] to [npc.her] new room in Lilaya's mansion, and that once there, the cat-girl maid, Rose, will help [npc.herHim] to get settled in.
 	</p>
 	<p>
 		Although [npc.she] looks to be a little nervous at the prospect of going to live in the home of a recognised daughter of an elder lilin, [npc.name] puts on a brave face and smiles as [npc.she]
@@ -1845,7 +1856,7 @@
 			<p>
 				As you repeat your new name back to [npc.herHim], [npc.name] looks down at you and lets out an amused humming noise.
 				#IF(!npc.isMute())
-					 Clearly not being attracted to you, [npc.name] states, [npc.speech(Come back soon, [pc.name], <i>or else</i>. Ive got plans for you!)]
+					 Clearly not being attracted to you, [npc.name] states, [npc.speech(Come back soon, [pc.name], <i>or else</i>. I've got plans for you!)]
 				#ELSE
 					 Clearly not being attracted to you, [npc.name] simply glares at you for a moment, before turning [npc.her] back on you.
 				#ENDIF

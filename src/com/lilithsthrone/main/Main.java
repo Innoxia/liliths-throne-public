@@ -65,7 +65,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.4.8.2
+ * @version 0.4.11
  * @author Innoxia
  */
 public class Main extends Application {
@@ -86,11 +86,12 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	
 	public static final String AUTHOR = "Innoxia";
-	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.10.7"; // Remember to do the stuff below!
+	public static final String NAME_OF_GAME = "Lilith's Throne"; // Sick of eclipse auto-correcting "Main.game.get..." to "Main.GAME_NAME.get..." so changed to NAME_OF_GAME in v0.4.11.4
+	public static final String VERSION_NUMBER = "0.4.11.6"; // Remember to do the stuff below!
 	/*
 	 * BEFORE BUILDING:
 	 * update pom.xml!
+	 * use smaller images folder
 	 * 
 	 * launch4j include JVM options:
 	 * -Dbuild.type=exe64 or -Dbuild.type=exe32 as appropriate
@@ -528,10 +529,18 @@ public class Main extends Application {
 		
 	}
 	
+	public static boolean CheckNotUnpacked() {
+		File dir = new File("");
+		String currentDir = dir.getAbsolutePath();
+		String tempDir = System.getProperty("java.io.tmpdir");
+//		System.err.println(currentDir);
+//		System.err.println(tempDir);
+		return currentDir.contains(tempDir);
+	}
+	
 	protected static void CheckForDataDirectory() {
 		File dir = new File("data/");
 		if(!dir.exists()) {
-			
 			Alert a = new Alert(AlertType.ERROR,
 					"Unable to find the 'data' folder ("+dir.getAbsolutePath()+"). Saving and error logging is disabled."
 							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
@@ -757,7 +766,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 				
-				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.MUSEUM, PlaceType.MUSEUM_ENTRANCE));
+				Main.game.setPlayer(new PlayerCharacter(false, new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.MUSEUM, PlaceType.MUSEUM_ENTRANCE));
 
 				Main.game.initNewGame(startingDialogueNode);
 
@@ -810,7 +819,7 @@ public class Main extends Application {
 	public static String getTitle() {
 		displayingTurnTimer = Main.game!=null && Main.game.isDebugMode() && Main.game.isStarted();
 		
-		return GAME_NAME
+		return NAME_OF_GAME
 				+ " " + VERSION_NUMBER
 				+ " " + VERSION_DESCRIPTION
 				+ (DEBUG?" (Debug Mode)":"")
@@ -918,6 +927,7 @@ public class Main extends Application {
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount();
+			properties.raceColour = game.getPlayer().getSubspecies().getColour(Main.game.getPlayer()).toWebHexString();
 			if (game.getPlayer().isFeminine()) {
 				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer().getBody());
 			} else {

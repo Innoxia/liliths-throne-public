@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.types;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
@@ -14,6 +15,13 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
  * @author Innoxia
  */
 public interface OrificeInterface {
+
+	/**
+	 * Checks for null character and also if the character's body is null (which indicates that it hasn't finished initialisation yet)
+	 */
+	default boolean isCharacterInitialised(GameCharacter gc) {
+		return gc!=null && gc.getBody()!=null && !CharacterUtils.isGeneratingOwnerlessBody();
+	}
 	
 	public Wetness getWetness(GameCharacter owner);
 	public String setWetness(GameCharacter owner, int wetness);

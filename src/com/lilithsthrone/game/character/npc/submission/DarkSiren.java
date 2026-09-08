@@ -92,7 +92,7 @@ public class DarkSiren extends NPC {
 				new NameTriplet("Meraxis"), "Lyssiethmartuilani",
 				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
-				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(false, 10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -431,15 +431,9 @@ public class DarkSiren extends NPC {
 	@Override
 	public String getArtworkFolderName() {
 		if(this.getTorsoType().getRace()==Race.HUMAN) {
-			if(this.isVisiblyPregnant()) {
-				return "MeraxisPregnant";
-			}
 			return "Meraxis";
 			
 		} else {
-			if(this.isVisiblyPregnant()) {
-				return "MeraxisDemonPregnant";
-			}
 			return "MeraxisDemon";
 		}
 	}
@@ -453,11 +447,20 @@ public class DarkSiren extends NPC {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS)
 				&& !Main.game.isBadEnd()
 				&& Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_fields_themiscyra")) {
-			if(!Main.game.getCharactersPresent().contains(this)) {
-				if(hour>=1 && hour<9) { // In room from 01:00 - 09:00
-					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
+			if(!Main.game.getCharactersPresent().contains(this) && this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_shinrin_highlands_shiranuisTrap")) {
+				if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_J_FINDING_TAKAHASHI)) {
+					if(Main.game.isHourBetween(1, 9)) {
+						this.setLocation(WorldType.getWorldTypeFromId("innoxia_shinrin_highlands_hideout"), PlaceType.getPlaceTypeFromId("innoxia_shinrin_highlands_hideout_bedroom_meraxis"), true);
+					} else {
+						this.setLocation(WorldType.getWorldTypeFromId("innoxia_shinrin_highlands_hideout"), PlaceType.getPlaceTypeFromId("innoxia_shinrin_highlands_hideout_seating"));
+					}
+					
 				} else {
-					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
+					if(Main.game.isHourBetween(1, 9)) {
+						this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
+					} else {
+						this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
+					}
 				}
 			}
 		}

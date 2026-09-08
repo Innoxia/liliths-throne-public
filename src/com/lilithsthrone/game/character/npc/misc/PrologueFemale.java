@@ -69,7 +69,7 @@ public class PrologueFemale extends NPC {
 				Gender.F_V_B_FEMALE,
 				Subspecies.HUMAN,
 				RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY,
 				PlaceType.GENERIC_HOLDING_CELL,
 				false);
@@ -186,7 +186,7 @@ public class PrologueFemale extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_plunge_dress", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_GREY_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_elbow_length_gloves", PresetColour.CLOTHING_BLACK, false), true, this);
@@ -201,6 +201,16 @@ public class PrologueFemale extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+
+//	@Override
+//	public boolean isSilentlyInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public void endSex() {

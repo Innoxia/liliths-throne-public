@@ -1,0 +1,136 @@
+<h2>v0.4.10.9</h2>
+
+<h3>Pusspuss's Artwork (https://twitter.com/PusspussARTZ):</h3>
+<ul>
+	<li>Added Hannah artwork (with pregnant variations, multi-breast variations, and different variations based on whether you're seeing her in the gym or in the bar, Light's Out).</li>
+</ul>
+
+<h3>FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):</h3>
+<ul>
+	<li>Added Natalya artwork (with pregnant and crotch-boob variations, although neither of these extra variations are currently seen in-game).</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Character sex preference code is now parsed on each call instead of once when initialised, allowing you to make more complex sex preferences.</li>
+	<li>Added 'FITS_BIPEDS' as an item tag to allow clothing to be tagged as only being able to fit bipedal bodies.</li>
+	<li>Added a 'category' element to custom sex actions, allowing you to set which response tab you want your action to be placed into.</li>
+	<li>Added a parser hook for LubricationType, using the prefix 'LUBRICATION_'.</li>
+	<li>Potency values are now correctly applied to the generated attribute when defining 'RESISTANCE_WEAPON' and 'DAMAGE_WEAPON' enchantment values for modded weapons, instead of always being TFPotency.MAJOR_BOOST.</li>
+	<li>Added 'essenceFormat' parsing command which works the same as 'moneyFormat' but for essences.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Re-enabled feral impregnation, with the offspring of ferals now always being the tauric equivalent of the mother (e.g. centaurs for feral horse, driders for feral spider, etc.).</li>
+	<li>Added a small amount of extra content for Yui (the demonic spider-girl in the Farmer's Market in Elis) - after choosing to 'Get dominated' by her, a new action, 'Beg for more', will lead into the new content.</li>
+	<li>After having sex with Callie once, you can now directly give her donations to progress to the next level of her store upgrades.</li>
+	<li>Added a small piece of content for Callie's shop, 'The Creamy Bakey'; if you've completed Natalya's quest, are wearing a filly choker, have performed anilingus on Callie at least once, and have upgraded her shop to the maximum level, then when entering her store you can encounter Natalya in there and have an anilingus-focused threesome.</li>
+	<li>Added a new option, 'Offspring using gender preferences' (accessed via 'Content options'->'Gender preferences'), which allows you to define whether or not you want offspring to use your preferences when determining their gender.</li>
+</ul>
+
+<h3>Outfit feature:</h3>
+<ul>
+	<li>Added 'Dressing Room' as a new room upgrade in Lilaya's mansion, which can be upgraded with 'Lyssieth's wardrobe', which gives you access to a new outfit feature.</li>
+	<li>You can create, edit, save/load outfit files and then purchase an instance of your created outfit to equip it to yourself or any of your slaves.</li>
+	<li>Outfit files are saved in the 'data/outfits' folder (not to be confused with 'res/outfits', which handles a different type of outfit generation on NPC spawns).</li>
+</ul>
+
+<h3>Inventory:</h3>
+<ul>
+	<li>Floor tiles now all have unlimited inventory space.</li>
+	<li>All weapons, clothing, and items which have a rarity of 'Quest' are now sorted to always be at the top of the 'Items Present' list.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added 'latex catsuit' clothing item (epic rarity, torso slot, 'latex lover' clothing set, sold by Saellatrix).</li>
+	<li>Added 'latex hood' clothing item (epic rarity, torso slot, 'latex lover' clothing set, sold by Saellatrix).</li>
+	<li>The 'full chastity belt' clothing item now correctly blocks access to the wearer's anus.</li>
+	<li>Slightly updated the 'blazer' clothing image, limited the colours which it can spawn as, and added secondary and tertiary colouring options.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added 'lube pill' item (lubricates entire body in sex scenes, sold by Ralph).</li>
+	<li>Slightly improved icons for pill items.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Made some minor improvements to the resisting variations when asking an orgasming partner to pull out.</li>
+	<li>Added a small change to the 'Orgasms' status effect icon and text when the linked character is satisfied from the number of orgasms they've received during the sex scene.</li>
+	<li>When unrestricting control of a submissive partner in sex, if they decide to then immobilise you (via constriction, cocoon, or Witch's Seal), you now retain the ability to modify their permissions and to stop the sex scene.</li>
+	<li>NPCs with a positive desire towards the 'cum stud' fetish no longer always choose to creampie.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Made some minor improvements to the resisting variations when asking an orgasming partner to pull out.</li>
+	<li>Added a small change to the 'Orgasms' status effect icon and text when the linked character is satisfied from the number of orgasms they've received during the sex scene.</li>
+	<li>When unrestricting control of a submissive partner in sex, if they decide to then immobilise you (via constriction, cocoon, or Witch's Seal), you now retain the ability to modify their permissions and to stop the sex scene.</li>
+	<li>NPCs with a positive desire towards the 'cum stud' fetish no longer always choose to creampie.</li>
+</ul>
+
+<h3>Slave management:</h3>
+<ul>
+	<li>Non-doll slaves can no longer be assigned the 'statue' job.</li>
+	<li>Added more functionality to the 'Manage people' menu, where if you're in the Job or Permission management screen, a tab appears which allows you to quickly switch between slaves.</li>
+	<li>Added copy & paste buttons to the Job Schedule, Job Settings, and Permissions sections of the slave management UI, allowing you to quickly copy & paste your settings between slaves.</li>
+	<li>Added new 'Lube pills' permission under the 'Sex' permission category, which makes your slave stay on lube pills.</li>
+	<li>Slaves will now consume pills via permission settings twice per day (at midday and midnight), which will be shown in the office's occupancy ledger, instead of having them invisibly applied at the end of every turn.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Characters who are infertile (via the barren trait or menopause) will no longer gain the 'risk of pregnancy' status effect, nor will anyone who receives a creampie from a character with the 'sterile' trait.</li>
+	<li>Elementals which are summoned by an NPC now have perks and spells automatically assigned to them based on their form (i.e. stone elementals will get earth spells/perks, fire elementals will get fire spells/perks, etc.).</li>
+	<li>Slightly altered the randomised colours for imps' clothing and arcanist hats in Submission random encounters.</li>
+	<li>When Yui equips clothing onto you as part of her demonstration scenes, you are now given the associated key to unlock them.</li>
+	<li>The 'Human Spawn Rate' setting (in Content Options -> Furry Preferences) now affects the subspecies of spawned slimes (i.e if your Human Spawn Rate is set to 50%, half of all slimes will have human bodies, 100% and all slimes will have human bodies, etc.). </li>
+	<li>Changed the 'artist priority' setting from a single artist preference to a priority list of all artists, with default ordering based on the number of artworks each artist has in the game (and your preferred artist will be placed at the top when loading into this version).</li>
+	<li>The clothing icons shown the encyclopedia are now displayed based on their appearance when equipped into the associated slot (e.g. the 'electrical tape' will show as two crosses when viewed in the 'nipple' slot section).</li>
+	<li>During bad ends you can now open your inventory to view your clothing (but cannot manipulate it in any way).</li>
+	<li>Added a minor variation to virginity loss text for when Sleip fucks you as a doll.</li>
+	<li>Improved the racial icon for owl-morphs.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo fixes and some minor scene improvements (Enforcer HQ corridor).</li>
+	<li>Fixed issue where the doll bad end content would break if you'd previously gained 100 obedience during Murk's bad end content.</li>
+	<li>Fixed bug where fetish-altering potions which were forced onto you (either after losing to an NPC in combat or after surrendering to them) would apply random fetish effects instead of the targeted ones which the NPC wanted (which was resulting in a never-ending process of fetishes being forced onto you after combat/surrender).</li>
+	<li>NPCs who are forcing transformations on the player will no longer try to shrink or grow crotch-boobs if the player doesn't have crotch-boobs.</li>
+	<li>Fixed bug where a character's default modifiers for milk, cum, and girlcum would always be restored when loading a game, even if they'd previously transformed them away.</li>
+	<li>Fixed bug where Oglix's elemental, Golix, wouldn't be present during any of her scenes.</li>
+	<li>In the fight vs Silence (which occurs if you defeat Shadow before defeating Silence), her elemental will no longer be duplicated.</li>
+	<li>Fixed bug where resetting your body via the debug menu would unequip all of your piercings.</li>
+	<li>Fixed bug where turning imps into slimes would make their minimum/maximum heights revert to standard values, allowing them to be transformed to normal heights and then reverted to flesh to make them into demons.</li>
+	<li>When accessing a slave's job or permissions via the button within the main slave management UI, the job/permission screen will no longer start partially scrolled down.</li>
+	<li>Fixed bug where most of Yui's scene where she locks the player in chastity was missing.</li>
+	<li>Fixed bug in sex where NPCs would sometimes fail to remove their partner's clothing which was blocking access to the sex area they wanted to interact with.</li>
+	<li>Fixed bug in sex scenes where clothing removals were meant to be restricted, where after changing position the clothing removal restrictions would be lost.</li>
+	<li>Text for a character's ass and anus becoming lubricated in sex scenes will no longer be shown if your anal content setting is turned off.</li>
+	<li>Fixed bug in the occupancy ledger, where filtering slave events by day would sometimes show events that didn't occur during that day (this isn't a retroactive fix, but newly-generated events going forwards will be placed under the correct day within the occupancy ledger).</li>
+	<li>The 'Kiss cheek' action is now correctly disabled while immobilised (to bring it in line with the behaviour of other 'loving' actions).</li>
+	<li>Fixed bug where offspring you enslaved and transformed into dolls would still be affected by incest, therefore</li>
+	<li>Fixed bug where after befriending a randomly-generated NPC, and then enslaving them, they would always use the resisting pace in sex scenes no matter their affection towards you.</li>
+	<li>After betraying an NPC, the 'Continue' action is now coloured red like the other removal ones to make it clear that they're about to be removed from the game.</li>
+	<li>Fixed bug in Nyan's blowjob sex scene, where she could get stuck repeatedly using the 'perform blowjob' sex action, which would make it impossible to end the sex scene.</li>
+	<li>When equipping a clothing item which doesn't get removed on equip (such as the new tape items), any hidden enchantments will now be revealed on the underlying item (e.g. the roll of tape) instead of only on the applied item (e.g. the tape in an inventory slot).</li>
+	<li>The 'Calming suggestion' and 'Lustful suggestion' sex actions are no longer available if the target is sleeping.</li>
+	<li>Fixed bug where the 'Arcane storm (protected)' status effect was only applying to interior locations within Dominion.</li>
+	<li>You no longer earn Faire tickets from using the buyback menu with Fae & Siliva.</li>
+	<li>Stopped background errors from being generated when mousing over an NPC's equipped clothing and weapons while in the buyback menu.</li>
+	<li>Fixed several issues with Vronti's sex scenes: incorrect position slots when performing a handjob; being able to swap into slots which were meant to be blocked; the vaginal sex option not being available after performing anilingus.</li>
+	<li>Fixed bug where if you tried equipping a clothing item which doesn't get removed on equip (such as the new tape items) into a blocked slot, the clothing would be duplicated.</li>
+	<li>Fixed issue where Fae & Silvia's sex scenes would softlock and throw background errors.</li>
+	<li>In the morning oral sex scene with Fae & Silvia (after they sleep over in your room), Silvia no longer starts the sex scene performing cunnilingus if your pussy is blocked.</li>
+	<li>Fixed bug where tooltips would not work for clothing items in the encyclopedia if they were present in more than one section (e.g. the 'electrical tape' item being present within the 'anus' and 'vagina' sections).</li>
+	<li>The bar upgrade in the spa is no longer missing a description in its information tooltip.</li>
+	<li>Fixed bug in sex scenes in which clothing unequipping was meant to be disabled, where you were still able to 'Discard/Drop/Store' the clothing.</li>
+	<li>The two tiles within 'The Creamy Bakey' map are now correctly treated as being indoors, and so characters within it are immune to weather effects.</li>
+	<li>Fixed inventory rendering issues in light mode.</li>
+	<li>Fixed issue where clothing that spawns with the sealing enchantment which costs 5 essences to remove wouldn't stack in the inventory with identical clothing which had had that enchantment removed and then re-added.</li>
+	<li>Fixed bug where sometimes the main content would not scroll back up to the top when a new scene was presented to you.</li>
+</ul>

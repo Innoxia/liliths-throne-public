@@ -157,15 +157,24 @@
 	<p>
 		With the badger-boy now at the most interesting part of the story, you wait for him to quickly serve a waiting customer, and then listen as he continues, [flash.speech(So, she was demanding that I'd surrender two rooms to her if she won, and so I said she'd have to work as a dish washer for a year if she lost. We went outside to have this 'duel', and she suddenly pulled out a huge scythe from mid-air. That's when I knew I'd fucked up... Pardon my language... I thought I'd just grab her and shake her about a bit until she surrendered, but before I even knew what was happening she was swinging that huge thing at me and casting all manner of spells. I couldn't land even one hit on her before I was on my back...)]
 	</p>
-	<p>
-		As she'd done this to secure accommodation for you, you can't help but feel somewhat responsible for Meraxis's behaviour. Asking Flash if the loss of two rooms is a serious problem for him, you're surprised to see a big smile break out across the badger-boy's face, and he chuckles as he replies, [flash.speech(Losing those two rooms is a small price to pay for what I've gained from all this. Sure, my ego took a beating and I lost a bit of respect from my regulars, but I was fortunate enough to have our duel witnessed by those succubi.)]
-	</p>
-	<p>
-		Flash motions over towards Meraxis's corner, and you look over to see what she calls her 'minions' lounging about on the sofas. Leaning down over the counter, Flash lowers his voice and reveals, [flash.speech(Those succubi are recognised daughters of one lilin or another, and they're not only what passes for the social elite here in Elis, but they're also filthy rich. They can be a little demanding on my staff, but between them they spend far more than I ever earned from renting those two rooms out upstairs.)]
-	</p>
-	<p>
-		Standing up straight again, Flash concludes, [flash.speech(So I don't harbour any ill-will towards Meraxis. She's not a bad girl, and so long as she thinks that she's the most important person in the room, she's surprisingly polite and well-mannered.)]
-	</p>
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+		<p>
+			As she'd done this to secure accommodation for you, you can't help but feel somewhat responsible for Meraxis's behaviour. Asking Flash if the loss of two rooms is a serious problem for him, you're surprised to see a big smile break out across the badger-boy's face, and he chuckles as he replies, [flash.speech(Losing those two rooms is a small price to pay for what I've gained from all this. Sure, my ego took a beating and I lost a bit of respect from my regulars, but I was fortunate enough to have our duel witnessed by those succubi.)]
+		</p>
+		<p>
+			Flash motions over towards Meraxis's corner, and you look over to see what she calls her 'minions' lounging about on the sofas. Leaning down over the counter, Flash lowers his voice and reveals, [flash.speech(Those succubi are recognised daughters of one lilin or another, and they're not only what passes for the social elite here in Elis, but they're also filthy rich. They can be a little demanding on my staff, but between them they spend far more than I ever earned from renting those two rooms out upstairs.)]
+		</p>
+		<p>
+			Standing up straight again, Flash concludes, [flash.speech(So I don't harbour any ill-will towards Meraxis. She's not a bad girl, and so long as she thinks that she's the most important person in the room, she's surprisingly polite and well-mannered.)]
+		</p>
+	#ELSE
+		<p>
+			As she'd done this to secure accommodation for you, you can't help but feel somewhat responsible for Meraxis's behaviour. Asking Flash if the loss of two rooms is a serious problem for him, you're surprised to see a big smile break out across the badger-boy's face, and he chuckles as he replies, [flash.speech(Losing those two rooms is a small price to pay for what I've gained from all this. Sure, my ego took a beating and I lost a bit of respect from my regulars, but I was fortunate enough to have our duel witnessed by those succubi who became her 'minions', and they spent so much money here that I've earned far more than I would have done from renting those two rooms out upstairs.)]
+		</p>
+		<p>
+			You point out that Meraxis has lost her demonic following, and as such Flash doesn't have that income any more. With a smile still on his face, Flash responds, [flash.speech(As I just said, I've already earned enough to be satisfied with how everything turned out. The truth is that those two rooms were standing empty for most of the time anyway, so I'm not too bothered either way. Perhaps I'm being too lenient, but somehow I've got a soft spot for that silly demon. I'll get the rooms back one day, and at that point I think I'll miss having her around.)]
+		</p>
+	#ENDIF
 	<p>
 		At that moment, several customers step up to the bar and call for Flash to serve them. With your conversation having reached its end, the badger-boy gives you a nod and steps over to start taking their orders, leaving you wondering what to do next...
 	</p>
@@ -209,7 +218,7 @@
 		After then being briefly interrupted by a customer asking for service, Flash steps back over to you and resumes his story, [flash.speech(I didn't intend to take over this place, but I guess fate wanted me to continue running a tavern... When I arrived in Elis, I decided to rent a room for a few days here in The Red Dragon, and it was while I was staying here that the owner, who was a tired old sheep-boy, revealed to me that he wanted to sell this place and go travelling. I decided to help him out and offered to buy this place from him, and a few days later I was the new owner and he was setting off on his travels.)]
 	</p>
 	<p>
-		Curious to find out more about the tavern's previous owner, you ask Flash what this sheep-boy was like, to which he responds, [flash.speech(Well, as I say, he was getting on in years and seemed to be pretty fed up with running this place. I found out that he was a direct descendant of the sheep-boy who originally built this tavern several centuries ago. The story goes that this original sheep-boy was an ordinary farmer, and then one day a huge, red dragon appeared and offered him a great pile of golden treasure. All the farmer had to do in exchange was hand over his tools and teach this dragon how to farm, if you can believe that! Of course, the farmer agreed, and with his new fortune he had this tavern built. That's how this place got its name, from the red dragon in the story.)]
+		Curious to find out more about the tavern's previous owner, you ask Flash what this sheep-boy was like, to which he responds, [flash.speech(Well, as I say, he was getting on in years and seemed to be pretty fed up with running this place. I found out that he was a direct descendant of the sheep-boy who originally built this tavern several centuries ago. The story goes that this original sheep-boy was an ordinary farmer, and then one day a huge, red dragon appeared and offered him a great pile of golden treasure. All the farmer had to do in exchange was hand over his tools and teach this dragon how to farm, if you can believe that! Of course, the farmer agreed, and with his new fortune, he had this tavern built. That's how this place got its name, from the red dragon in the story.)]
 	</p>
 	<p>
 		Wanting to know what became of the tavern's previous owner, you ask Flash if he ever returned to Elis. Shaking his head, the badger-boy reveals, [flash.speech(He never returned, no. That was over five years ago now. He told me that he wanted to travel up into the mountains of the moon and try to find the red dragon who gave his ancestor his fortune. Dragons can live for a very long time, from what I understand, so I suppose it's not entirely unreasonable to think that this red dragon might still be alive up there. Well, whatever the case may be, there's been no word of the previous owner of this place, nor of the red dragon.)]
@@ -777,44 +786,58 @@
 	</htmlContent>
 	
 	<htmlContent tag="MERAXIS"><![CDATA[
-	<p>
-		#IF(game.getCharactersPresent().contains(meraxis))
-			As usual, Meraxis has occupied the sofa in this corner of the tavern, and has several of the local succubi fawning over her. She's so caught up in regaling her companions with one of her
-			#IF(pc.hasTraitActivated(PERK_CHUUNI))
-				 impressive tales
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+		<p>
+			#IF(game.getCharactersPresent().contains(meraxis))
+				As usual, Meraxis has occupied the sofa in this corner of the tavern, and has several of the local succubi fawning over her. She's so caught up in regaling her companions with one of her
+				#IF(pc.hasTraitActivated(PERK_CHUUNI))
+					 impressive tales
+				#ELSE
+					 exaggerated tales
+				#ENDIF
+				 that she hasn't seen you approach, affording you the opportunity to turn around and leave. Then again, if you had things to talk to her about, you could always continue forwards and greet her.
 			#ELSE
-				 exaggerated tales
+				Although the sofa in this corner of the tavern is Meraxis's favourite spot, neither she nor her succubi followers are anywhere to be seen at the moment. If you wanted to speak with her, you'll have to head upstairs and see if she's in her room.
 			#ENDIF
-			 that she hasn't seen you approach, affording you the opportunity to turn around and leave. Then again, if you had things to talk to her about, you could always continue forwards and greet her.
-		#ELSE
-			Although the sofa in this corner of the tavern is Meraxis's favourite spot, neither she nor her succubi followers are anywhere to be seen at the moment. If you wanted to speak with her, you'll have to head upstairs and see if she's in her room.
-		#ENDIF
-	</p>
+		</p>
+	#ELSE
+		<p>
+			#IF(game.getCharactersPresent().contains(meraxis))
+				As usual, Meraxis has occupied the sofa in this corner of the tavern, but after the events at Wall's End, she no longer has any succubi fawning over her. Despite sitting alone, she's completely oblivious to her surroundings, as she's got her nose buried in what looks to be a book of spells. As such, she hasn't seen you approach, affording you the opportunity to turn around and leave. Then again, if you had things to talk to her about, you could always continue forwards and greet her.
+			#ELSE
+				Although the sofa in this corner of the tavern is Meraxis's favourite spot, she's nowhere to be seen at the moment. If you wanted to speak with her, you'll have to head upstairs and see if she's in her room.
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MERAXIS_APPROACH"><![CDATA[
 	#IF(pc.hasTraitActivated(PERK_CHUUNI))
 		<p>
-			As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make a dramatic entrance without interrupting her. [pc.Stepping] forwards so as to stand right in front of your nemesis, you strike an intimidating pose and ask, [pc.speech(What dark acts of sorcery have you prepared for me this time, my arch-nemesis?)]
+			#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+				As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make a dramatic entrance without interrupting her. [pc.Stepping] forwards so as to stand right in front of your nemesis, you strike an intimidating pose and ask, [pc.speech(What dark acts of sorcery have you prepared for me this time, my arch-nemesis?)]
+			#ELSE
+				As you approach Meraxis, she momentarily lowers her spell book and lets out a little sigh, allowing you to make a dramatic entrance without interrupting her. [pc.Stepping] forwards so as to stand right in front of your nemesis, you strike an intimidating pose and ask, [pc.speech(What dark acts of sorcery have you prepared for me this time, my arch-nemesis?)]
+			#ENDIF
 		</p>
 		#IF(siren.isVisiblyPregnant())
 			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and matching your pose with one of her own. As she moves, you see that she's using one hand to cradle her conspicuously-swollen belly, and she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
-				#IF(siren.getPregnantLitter().getFather().equals(pc))
+				#IF(siren.getPregnantLitter().isFather(pc))
 					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
 				#ELSE
-					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+					#IF(siren.getPregnantLitter().isFather(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
 					#ELSE
 						 [siren.speech(Yeah, that's right, mommy ended up getting her own daughter pregnant... I <i>knew</i> she was gonna get me knocked up... I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
 					#ENDIF
 				#ENDIF
 			#ELSE
-				#IF(siren.getPregnantLitter().getFather().equals(pc))
+				#IF(siren.getPregnantLitter().isFather(pc))
 					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
 				#ELSE
-					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+					#IF(siren.getPregnantLitter().isFather(lilaya))
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
 					#ELSE
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to mommy... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
@@ -833,25 +856,29 @@
 		#ENDIF
 	#ELSE
 		<p>
-			As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make your entrance without interrupting her. [pc.Stepping] forwards so as to catch her attention, you offer Meraxis a friendly greeting and ask her if she has a moment to talk.
+			#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+				As you approach Meraxis, you hear that she's just finished the story which she was telling to her minions, allowing you to make your entrance without interrupting her. [pc.Stepping] forwards so as to catch her attention, you offer Meraxis a friendly greeting and ask her if she has a moment to talk.
+			#ELSE
+				As you approach Meraxis, she momentarily lowers her spell book and lets out a little sigh, allowing you to make your entrance without interrupting her. [pc.Stepping] forwards so as to catch her attention, you offer Meraxis a friendly greeting and ask her if she has a moment to talk.
+			#ENDIF
 		</p>
 		#IF(siren.isVisiblyPregnant())
 			[meraxis.speech(Mwhahaha!)] Meraxis laughs, before jumping up to her feet and striking what she must think is an intimidating pose. As she moves, you see that she's using one hand to cradle her conspicuously-swollen belly, and she sighs,
 			#IF(!siren.isCharacterReactedToPregnancy(pc))
-				#IF(siren.getPregnantLitter().getFather().equals(pc))
+				#IF(siren.getPregnantLitter().isFather(pc))
 					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
 				#ELSE
-					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+					#IF(siren.getPregnantLitter().isFather(lilaya))
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
 					#ELSE
 						 [siren.speech(Yeah, that's right, mommy ended up getting her own daughter pregnant... I <i>knew</i> she was gonna get me knocked up... I-I'm no less capable like this, by the way! I could still annihilate you with ease! Now, what do you want?!)]
 					#ENDIF
 				#ENDIF
 			#ELSE
-				#IF(siren.getPregnantLitter().getFather().equals(pc))
+				#IF(siren.getPregnantLitter().isFather(pc))
 					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... B-But this doesn't mean you're not my nemesis anymore! Now, what do you want?!)]
 				#ELSE
-					#IF(siren.getPregnantLitter().getFather().equals(lilaya))
+					#IF(siren.getPregnantLitter().isFather(lilaya))
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
 					#ELSE
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to mommy... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! Now, what do you want?!)]
@@ -870,27 +897,50 @@
 		#ENDIF
 	#ENDIF
 	<p>
-		Both Meraxis and her succubi followers all wait to hear your response...
+		#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+			Both Meraxis and her succubi followers all wait to hear your response...
+		#ELSE
+			With a questioning look on her face, Meraxis waits to hear your response...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MERAXIS_TALK_TAKAHASHI"><![CDATA[
-	<p>
-		Recalling what Meraxis suggested to Lyssieth, you ask her if she's had any luck tracking down the youko who used to work for her in her Submission citadel. Shaking her head, the chuuni [meraxis.race] replies, [meraxis.speech(I must unfortunately report that my mystical divinations have not yet produced results. It was aeons ago that we first met, but thanks to my unparalleled memory I can say for certain that it was in this very tavern where Takahashi and I had our first, fateful encounter. I was hoping that she'd sense my malevolent presence and return to find me here, but alas, that has proven not to be the case...)]
-	</p>
-	<p>
-		As Takahashi was a candidate for being your guide to finding and securing assistance from the youko, you press Meraxis on the matter and ask her if she has any idea where Takahashi could have gone. Leaning back on the sofa, she sighs and says, [meraxis.speech(When the youko wish not to be found, you will never be able to track them down. All we can do is wait for a celestial portent to indicate that fate will lead us to her! Besides, mommy said that you should meet Minotallys before worrying about the youko...)]
-	</p>
-	<p>
-		Seeing the smirks on her minions' faces as she uses the word 'mommy', Meraxis blushes and covers up her embarrassment by pointing at you and declaring, [meraxis.speech(Begone, my nemesis, unless you have something further you wish to say!)]
-	</p>
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+		<p>
+			Recalling what Meraxis suggested to Lyssieth, you ask her if she's had any luck tracking down the youko who used to work for her in her Submission citadel. Shaking her head, the chuuni [meraxis.race] replies, [meraxis.speech(I must unfortunately report that my mystical divinations have not yet produced results. It was aeons ago that we first met, but thanks to my unparalleled memory I can say for certain that it was in this very tavern where Takahashi and I had our first, fateful encounter. I was hoping that she'd sense my malevolent presence and return to find me here, but alas, that has proven not to be the case...)]
+		</p>
+		<p>
+			As Takahashi was a candidate for being your guide to finding and securing assistance from the youko, you press Meraxis on the matter and ask her if she has any idea where Takahashi could have gone. Leaning back on the sofa, she sighs and says, [meraxis.speech(When the youko wish not to be found, you will never be able to track them down. All we can do is wait for a celestial portent to indicate that fate will lead us to her! Besides, mommy said that you should meet Minotallys before worrying about the youko...)]
+		</p>
+		<p>
+			Seeing the smirks on her minions' faces as she uses the word 'mommy', Meraxis blushes and covers up her embarrassment by pointing at you and declaring, [meraxis.speech(Begone, my nemesis, unless you have something further you wish to say!)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to know more about Meraxis's youko friend, you ask the chuuni [meraxis.race] what she can tell you about Takahashi.
+		</p>
+		<p>
+			Leaning back on the sofa, she sighs and says, [meraxis.speech(She's a three-tailed youko, and is a follower of the trickster youko lilin. Even though she likes tricking and transforming others, and so most people don't trust her, she's my best friend, and I know that she'd have come to see me here if she was able to. I just hope that we can find her at my old hideout...)]
+		</p>
+		<p>
+			You ask Meraxis if Takahashi has ever gone missing like this before.
+		</p>
+		<p>
+			[meraxis.speech(She's a free spirit, and sometimes leaves to get up to mischief, but in the past she'd always let me know when she'd be back. After you destroyed my fortress, I saw her once, and she said she was going back to the Shinrin Highlands for a while. She promised to seek me out and meet me here in Elis whenever I chose to come here, but I've heard nothing from her,)] Meraxis says. She seems a little upset by this, but after shaking her head, she confidently declares, [meraxis.speech(I'm sure we'll find her at my old hideout! If there's anything else you wanted to know about her, you can ask her directly then!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MERAXIS_LEAVE"><![CDATA[
 	<p>
-		Not having anything more to discuss with Meraxis, you say goodbye and [pc.step] away from her and her minions, leaving them to continue talking with one another.
+		#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+			Not having anything more to discuss with Meraxis, you say goodbye and [pc.step] away from her and her minions, leaving them to continue talking with one another.
+		#ELSE
+			Not having anything more to discuss with Meraxis, you say goodbye and [pc.step] away from her, leaving her to continue reading her spell book.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -929,17 +979,21 @@
 			[meraxis.speech(You speak sense, my nemesis,)] Meraxis replies, before stifling a yawn and continuing, [meraxis.speech(I shall enter my dark slumber, from which I may not awaken for a thousand years!)]
 		</p>
 		<p>
-			After unlocking the door to her room, the chuuni demon turns to face you and mumbles, [meraxis.speech(Oh, and... Well, thanks, [pc.name]... I've kind of always wanted to be a demon, but I wasn't able to do it alone...)]
+			After unlocking the door to her room, the chuuni [meraxis.race] turns to face you and mumbles, [meraxis.speech(Oh, and... Well, thanks, [pc.name]... I've kind of always wanted to be a demon, but I wasn't able to do it alone...)]
 		</p>
 		<p>
 			Not wanting you to see her in this embarrassed state for too long, Meraxis quickly darts inside her room, and before you can even respond she slams the door shut after her. Smiling to yourself, you turn away from the locked door to her room and prepare to continue on your way...
 		</p>
 	#ELSE
 		<p>
-			[meraxis.speech(You dare try to trick me, my nemesis?)] Meraxis replies, before striking a heroic pose and continuing, [meraxis.speech(I shall not waste time by sleeping! I must go and show my minions my new form! Mwhahaha!)]
+			#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+				[meraxis.speech(You dare try to trick me, my nemesis?)] Meraxis replies, before striking a heroic pose and continuing, [meraxis.speech(I shall not waste time by sleeping! I must go and show my minions my new form! Mwhahaha!)]
+			#ELSE
+				[meraxis.speech(You dare try to trick me, my nemesis?)] Meraxis replies, before striking a heroic pose and continuing, [meraxis.speech(I shall not waste time by sleeping! I must go and practice poses in my new form! Mwhahaha!)]
+			#ENDIF
 		</p>
 		<p>
-			Before leaving, however, the chuuni demon turns to face you and mumbles, [meraxis.speech(Oh, and... Well, thanks, [pc.name]... I've kind of always wanted to be a demon, but I wasn't able to do it alone...)]
+			Before leaving, however, the chuuni [meraxis.race] turns to face you and mumbles, [meraxis.speech(Oh, and... Well, thanks, [pc.name]... I've kind of always wanted to be a demon, but I wasn't able to do it alone...)]
 		</p>
 		<p>
 			Not wanting you to see her in this embarrassed state for too long, Meraxis quickly darts off down the corridor, and before you can even respond she disappears around the corner at the far end. Smiling to yourself, you prepare to continue on your way...
@@ -958,12 +1012,21 @@
 	<p>
 		[meraxis.speech(Something important?)] she excitedly asks with a bright glint in her eye. Leaning forwards on her seat, she guesses, [meraxis.speech(Have you discovered a universe-shattering artefact? Or maybe Elis needs saving from a cataclysmic disaster!)]
 	</p>
-	<p>
-		Although you're happy to see how eager she is to find out what you've got in store for her, you don't want anyone else finding out about your plan. As such, you pointedly glance over to the succubi who are sitting beside the [meraxis.race] and tell her that you need to discuss it in secret.
-	</p>
-	<p>
-		[meraxis.speech(Very well, I understand! Remain seated, my minions; I'll be right back!)] Meraxis declares, before standing up and following you as you lead her out into the privacy of the tavern's beer garden. Once there, the [meraxis.race] turns to face you and impatiently asks, [meraxis.speech(Well, what is it, [pc.name]? Is it about defeating Lunette?)]
-	</p>
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+		<p>
+			Although you're happy to see how eager she is to find out what you've got in store for her, you don't want anyone else finding out about your plan. As such, you pointedly glance over to the succubi who are sitting beside the [meraxis.race] and tell her that you need to discuss it in secret.
+		</p>
+		<p>
+			[meraxis.speech(Very well, I understand! Remain seated, my minions; I'll be right back!)] Meraxis declares, before standing up and following you as you lead her out into the privacy of the tavern's beer garden. Once there, the [meraxis.race] turns to face you and impatiently asks, [meraxis.speech(Well, what is it, [pc.name]? Is it about defeating Lunette?)]
+		</p>
+	#ELSE
+		<p>
+			Although you're happy to see how eager she is to find out what you've got in store for her, you don't want anyone else finding out about your plan. As such, you tell her that you can't reveal any more details in a public place such as this.
+		</p>
+		<p>
+			[meraxis.speech(Very well, I understand!)] Meraxis declares, before standing up and following you as you lead her out into the privacy of the tavern's beer garden. Once there, the [meraxis.race] turns to face you and impatiently asks, [meraxis.speech(Well, what is it, [pc.name]? Is it about defeating Lunette?)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -972,7 +1035,12 @@
 		Having second thoughts about leading Meraxis into the clutches of Lunexis, but also not wanting to betray your Mistress, you decide that now's not the time for this. Shaking your head, you tell the [meraxis.race] that you're not quite ready to reveal your secret after all.
 	</p>
 	<p>
-		[meraxis.speech(You think that you can hide your secrets from me?!)] Meraxis declares, before striking one of her wild poses and letting out a loud laugh. Pointing an accusatory finger at you, she declares, [meraxis.speech(I shall discover what you're hiding before long, my nemesis! For now, however, I must return to my minions. Until next time!)]
+		[meraxis.speech(You think that you can hide your secrets from me?!)] Meraxis declares, before striking one of her wild poses and letting out a loud laugh. Pointing an accusatory finger at you, she declares,
+		#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+			 [meraxis.speech(I shall discover what you're hiding before long, my nemesis! For now, however, I must return to my minions. Until next time!)]
+		#ELSE
+			 [meraxis.speech(I shall discover what you're hiding before long, my nemesis! Until next time!)]
+		#ENDIF
 	</p>
 	<p>
 		With that, Meraxis dashes off back into the tavern, leaving you to let out a sigh of relief and continue on your way...
@@ -990,7 +1058,11 @@
 		#ENDIF
 	</p>
 	<p>
-		Meraxis's cheeks turn a bright shade of red as she hears you say this, and as her succubi 'minions' do their best to stifle their amused giggles, the chuuni [meraxis.race] stands up and loudly declares, [meraxis.speech(I will not back down from your challenge, my ultimate nemesis! You shall soon discover how foolish you were to challenge me in such a fashion!)]
+		#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+			Meraxis's cheeks turn a bright shade of red as she hears you say this, and as her succubi 'minions' do their best to stifle their amused giggles, the chuuni [meraxis.race] stands up and loudly declares, [meraxis.speech(I will not back down from your challenge, my ultimate nemesis! You shall soon discover how foolish you were to challenge me in such a fashion!)]
+		#ELSE
+			Meraxis's cheeks turn a bright shade of red as she hears you say this, and in order to conceal her embarrassment, the chuuni [meraxis.race] stands up and loudly declares, [meraxis.speech(I will not back down from your challenge, my ultimate nemesis! You shall soon discover how foolish you were to challenge me in such a fashion!)]
+		#ENDIF
 	</p>
 	<p>
 		Stepping forwards, Meraxis grabs you by the [pc.hand(true)] and hastily pulls you along after her as she heads towards the stairs which lead to the upper floor. After a quick ascent, the two of you head down the corridor and find yourselves standing before the door to Meraxis's room. Producing a key, the [meraxis.race] unlocks this door and pulls you inside, before locking it after you and declaring, [meraxis.speech(Now you are in my lair! You stand no chance against me in here!)] 

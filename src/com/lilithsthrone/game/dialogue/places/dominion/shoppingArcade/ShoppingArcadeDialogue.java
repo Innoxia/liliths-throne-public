@@ -344,7 +344,7 @@ public class ShoppingArcadeDialogue {
 							
 							((Scarlett)Main.game.getNpc(Scarlett.class)).completeBodyReset();
 							Main.game.getNpc(Scarlett.class).setLocation(Main.game.getPlayer(), true);
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar")), true, Main.game.getNpc(Scarlett.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), false), true, Main.game.getNpc(Scarlett.class));
 						}
 					};
 				}

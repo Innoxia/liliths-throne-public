@@ -8,7 +8,7 @@
 		An arrow-shaped sign sits in the middle of the street, and as you approach, you see that it's sporting the words <i>'Harpy Nests'</i>. Looking to the side of the road in the direction that the arrow is pointing, you find yourself looking up at one of the tallest buildings in Dominion.
 	</p>
 	<p>
-		At eight stories in height, it's not exactly a sky-scraper, but with most of Dominion's buildings typically only being four or five stories tall at most, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area are the pair of huge glass doors set into its frontage.
+		At eight stories in height, it's not exactly a sky-scraper, but with most of Dominion's buildings typically only being four or five stories tall at most, this structure is large enough to clearly stand out as a building of some importance. Despite its unusual height, the only other feature setting it apart from all the other buildings in this area is the pair of huge glass doors set into its frontage.
 	</p>
 	<p>
 		Looking through the doors, you see a brightly-lit, extravagantly-decorated lobby. Rows of elevators are set into either side of the room, and you notice that there are an unusual amount of harpies loitering around on the many comfortable-looking sofas that litter the area.
@@ -268,16 +268,24 @@
 			#ENDIF
 		</p>
 		<p>
-			#IF(game.getNonCompanionCharactersPresent().isEmpty())
-				As you continue travelling down the [style.colourBad(dangerous)] walkways, you can't help but shake the feeling that you're being watched. An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest. It's probably only a matter of time before one of them decides to openly confront you...
-			#ELSEIF(npc.isRelatedTo(pc))
-				Despite the potential for a harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
-			#ELSEIF(!npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
-				Despite the potential for a harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
-			#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION))
-				You sometimes see an Enforcer patrolling a walkway off in the distance, reminding you that it's now [style.colourGood(safe)] for people to be travelling throughout the Harpy Nests. Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble...
+			#IF(!game.getNonCompanionCharactersPresent().isEmpty())
+				#IF(npc.isRelatedTo(pc))
+					Despite the potential for a harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+				#ELSEIF(!npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+					Despite the potential for a harpy to swoop down and attack you, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+				#ELSE
+					#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION))
+						You sometimes see an Enforcer patrolling a walkway off in the distance, reminding you that it's now [style.colourGood(safe)] for people to be travelling throughout the Harpy Nests. You know that [npc.name(a)] hangs out in this area, and so if you wanted to you could search for [npc.herHim] and confront you again...
+					#ELSE
+						As you continue travelling down the [style.colourBad(dangerous)] walkways, you can't help but shake the feeling that you're being watched. You know that [npc.name(a)] hangs out in this area, and so if you were to look for trouble, [npc.she] would undoubtedly decide to confront you again...
+					#ENDIF
+				#ENDIF
 			#ELSE
-				As you continue travelling down the [style.colourBad(dangerous)] walkways, you can't help but shake the feeling that you're being watched. An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest. It's probably only a matter of time before one of them decides to openly confront you...
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION))
+					You sometimes see an Enforcer patrolling a walkway off in the distance, reminding you that it's now [style.colourGood(safe)] for people to be travelling throughout the Harpy Nests. Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble...
+				#ELSE
+					As you continue travelling down the [style.colourBad(dangerous)] walkways, you can't help but shake the feeling that you're being watched. An occasional flash of colour out of the corner of your [pc.eye(true)] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest. It's probably only a matter of time before one of them decides to openly confront you...
+				#ENDIF
 			#ENDIF
 		</p>
 	#ENDIF

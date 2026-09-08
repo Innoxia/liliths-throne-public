@@ -53,7 +53,7 @@ public class BasicSlave extends NPC {
 				21, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
 				3,
 				null, null, null,
-				new CharacterInventory(0),
+				new CharacterInventory(false, 0),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 

@@ -97,7 +97,7 @@ public enum Height {
 	}
 	
 	public static int getMaximumHeightForCharacterCreation() {
-		return 200;
+		return 215;
 	}
 	
 	public static Height getHeightFromInt(int centimeters) {

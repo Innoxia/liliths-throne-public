@@ -937,7 +937,11 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Takahashi]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Ask Meraxis if she's managed to find Takahashi, the youko who used to work at her citadel in Submission.
+					#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))
+						Ask Meraxis if she's managed to find Takahashi, the youko who used to work at her citadel in Submission.
+					#ELSE
+						Ask Meraxis if she can tell you more about Takahashi.
+					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_f0_meraxis_talk]]></nextDialogue>
 				<effects><![CDATA[
@@ -998,6 +1002,20 @@
 						[#meraxis.setLocation(pc)]
 					]]></effects>
 				</response>
+			<!-- Moving to the Shinrin Highlands -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_3_J_FINDING_TAKAHASHI]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Hideout[style.colourBad(*)]]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Meraxis that you're ready to set off to the Shinrin Highlands in order to find her friend, Takahashi.
+					<br/>[style.italicsMinorBad(After this, Meraxis will move her permanent location to the hideout and will no longer be able to be found here in The Red Dragon.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_travelToHideout_start]]></nextDialogue>
+			</response>
 			<!-- Demon TF -->
 			<response>
 				<availabilityConditional><![CDATA[
@@ -1060,7 +1078,15 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
-		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f0_meraxis_approach"/>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f0_meraxis_approach">
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Takahashi]]></responseTitle>
+				<responseTooltip><![CDATA[You're already asking Meraxis about Takahashi...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
 	</scene>
 	
 	<scene id="lunexis_plan">

@@ -34,7 +34,7 @@ public class GenericFemaleNPC extends NPC {
 		super(isImported, new NameTriplet("unknown female"), null, "Unknown.",
 				25, Month.JUNE, 15,
 				1, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				new CharacterInventory(false, 0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
 	@Override

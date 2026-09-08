@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -25,6 +26,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.managers.dominion.SMRalphDiscountBig;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -1218,13 +1221,16 @@ public class RalphOral {
 						+ "<br/><br/>");
 			}
 				
-			UtilText.nodeContentSB.append("Ralph steps back, and, not even bothering to pull his trousers up, walks off to the front of the shop."
+			UtilText.nodeContentSB.append("Ralph steps back, and after kicking off his trousers, walks over to the front of the shop."
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Wanting to see what's going on, you shuffle your way out from beneath the counter and try to stand up."
 					+ "<br/><br/>"
 					+ "Almost instantly, a huge jolt of cramp shoots up through your legs, and you let out a little cry as you bend over and grab the edge of the counter."
-					+ " Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pushes you down, face first, onto the counter-top."
-					+ " You let out a little moan at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
+					+ " Suddenly, you feel a strong pair of hands grab your hips, and before you can react, "
+					+(Main.game.getPlayer().isTaur()
+						?"Ralph firmly guides you forwards, forcing you to mount the counter-top."
+						:"Ralph pushes you down, face first, onto the counter-top.")
+					+ " You let out a little moan at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he growls into your ear, "
 					+ UtilText.parseSpeech(
 						(Main.sex.getCharacterPerformingAction().isWearingCondom()
 							?"So you want a bigger discount, huh?! You know, it's a shame you insisted on the condom, but I'll still give you another twenty percent if you let me fuck you."
@@ -1235,13 +1241,27 @@ public class RalphOral {
 					+"<br/><br/>"
 					+ "By now, you don't really care about the discount, all you want is to feel that delicious cock sliding in between your legs."
 					+ " Even before Ralph's finished giving you his offer, you're moaning in agreement, and he lets out a little laugh as he reaches down to grope your "
-					+ (Main.game.getPlayer().getVaginaType()==VaginaType.HORSE_MORPH?"needy horse-pussy.":"hot little pussy.")
-					+"<br/><br/>"
-					+(Main.game.getPlayer().isVisiblyPregnant()
-						?"Being very careful not to bump your pregnant belly against the counter, Ralph pushes your upper-torso down onto the counter top."
-							+ " Grabbing your hips, he wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal."
-						:"Pushing your top-half down onto the counter top, Ralph wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal.")
-					+ " His wide, flared head slowly pushes its way into you, and you pant and squirm as your folds lewdly spread around his animalistic horse-cock."
+					+ (Main.game.getPlayer().getVaginaType()==VaginaType.HORSE_MORPH?"needy horse-pussy.":"hot little pussy."));
+			
+			UtilText.nodeContentSB.append("<br/><br/>");
+			if(Main.game.getPlayer().isVisiblyPregnant()) {
+				if(Main.game.getPlayer().isTaur()) {
+					UtilText.nodeContentSB.append("Being very careful not to bump your pregnant belly against the counter, Ralph pushes your upper-torso down onto the counter top.");
+				} else {
+					UtilText.nodeContentSB.append("Being very careful not to bump your pregnant belly against the counter, Ralph guides you forwards and makes you mount the top of the counter.");
+				}
+				UtilText.nodeContentSB.append(" Grabbing your hips, he wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal.");
+				
+			} else {
+				if(Main.game.getPlayer().isTaur()) {
+					UtilText.nodeContentSB.append("After guiding you forwards and making you mount the top of the counter,"
+							+ " Ralph wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal.");
+				} else {
+					UtilText.nodeContentSB.append("Pushing your top-half down onto the counter top, Ralph wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal.");
+				}
+			}
+			UtilText.nodeContentSB.append(
+					" His wide, flared head slowly pushes its way into you, and you pant and squirm as your folds lewdly spread around his animalistic horse-cock."
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry snatch, and you gasp and moan as he starts fucking you on the shop's counter-top."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
@@ -1253,8 +1273,20 @@ public class RalphOral {
 		}
 
 		@Override
+		public String applyPreParsingEffects() {
+			Main.sex.setSexManager(
+					new SMRalphDiscountBig(
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotUnique.RALPH_DOM_SEX)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.RALPH_SUB_SEX))));
+			return "";
+		}
+		@Override
 		public void applyEffects() {
 			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA, new ArrayList<>());
+			AbstractClothing trousers = Main.game.getNpc(Ralph.class).getClothingInSlot(InventorySlot.LEG);
+			if(trousers!=null) {
+				Main.game.getNpc(Ralph.class).unequipClothingOntoFloor(trousers, true, Main.game.getNpc(Ralph.class));
+			}
 			
 			SexFlags.customerAtCounter = false;
 			if(SexFlags.alertedCustomer) {
@@ -1320,7 +1352,7 @@ public class RalphOral {
 						+ "<br/><br/>");
 			}
 			
-			UtilText.nodeContentSB.append("Ralph steps back, and, not even bothering to pull his trousers up, walks off to the front of the shop."
+			UtilText.nodeContentSB.append("Ralph steps back, and after kicking off his trousers, walks over to the front of the shop."
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Before you have time to get out from under the counter, however, the imposing figure of Ralph moves back into view, blocking your way."
 					+ "<br/><br/>"
@@ -1348,10 +1380,21 @@ public class RalphOral {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
+		@Override
+		public String applyPreParsingEffects() {
+			Main.sex.setSexManager(
+					new SMRalphDiscountBig(
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotUnique.RALPH_DOM_SEX)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.RALPH_SUB_SEX))));
+			return "";
+		}
 		@Override
 		public void applyEffects() {
 			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS, new ArrayList<>());
+			AbstractClothing trousers = Main.game.getNpc(Ralph.class).getClothingInSlot(InventorySlot.LEG);
+			if(trousers!=null) {
+				Main.game.getNpc(Ralph.class).unequipClothingOntoFloor(trousers, true, Main.game.getNpc(Ralph.class));
+			}
 			
 			SexFlags.customerAtCounter = false;
 			if(SexFlags.alertedCustomer) {
@@ -1394,16 +1437,29 @@ public class RalphOral {
 
 		@Override
 		public String getDescription() {
-			return (Main.game.getPlayer().isVisiblyPregnant()
-						?"Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pulls you back slightly, moving your pregnant belly safely away from the counter's edge."
-								+ " Making sure that he's given you enough room, he suddenly slams his massive cock fully into you, causing you to rock forwards as you let out a desperate wail."
-								+ " Encouraged by your lewd reaction, Ralph starts rapidly thrusting his hips forwards and back, relentlessly pounding away at your slutty cunt."
-								+ " With his legs in position on either side of yours, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your slit."
-						:"Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty cunt."
-							+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock between your legs.")
-					+ (Main.sex.getCharacterPerformingAction().isWearingCondom()
+			StringBuilder sb = new StringBuilder();
+			
+			if(Main.game.getPlayer().isVisiblyPregnant()) {
+				if(Main.game.getPlayer().isTaur()) {
+					sb.append("Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pulls you back slightly, and as you step back with your hind legs,"
+							+ " he suddenly slams his massive cock fully into you, causing you to rock forwards and let out a desperate wail.");
+				} else {
+					sb.append("Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pulls you back slightly, moving your pregnant belly safely away from the counter's edge."
+							+ " Making sure that he's given you enough room, he suddenly slams his massive cock fully into you, causing you to rock forwards and let out a desperate wail.");
+				}
+				sb.append(" Encouraged by your lewd reaction, Ralph starts rapidly thrusting his hips forwards and back, relentlessly pounding away at your slutty cunt."
+								+ " With his legs in position on either side of yours, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your slit.");
+				
+			} else {
+				sb.append("Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty cunt."
+							+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock between your legs.");
+			}
+			
+			sb.append((Main.sex.getCharacterPerformingAction().isWearingCondom()
 						?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
-						:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
+						:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling."));
+			
+			return sb.toString();
 		}
 		
 	};
@@ -1851,8 +1907,11 @@ public class RalphOral {
 							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, and with a wet sucking sound, slips his rapidly-softening member out of your well-used slit."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your entrance."
-							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled pussy against his now-flaccid equine cock."
-							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,"
+							+(Main.game.getPlayer().isTaur()
+								?" Looking back over your shoulder, you playfully push back against Ralph, rubbing your cum-filled pussy against his now-flaccid equine cock."
+										+ " It seems as though he's not up for round two, however, and you pout at him as he laughs,"
+								:" Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled pussy against his now-flaccid equine cock."
+									+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,")
 							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				}
 				
@@ -1878,8 +1937,11 @@ public class RalphOral {
 							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, and with a wet sucking sound, slips his rapidly-softening member out of your well-used fuck hole."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your rear entrance."
-							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled asshole against his now-flaccid equine cock."
-							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,"
+							+(Main.game.getPlayer().isTaur()
+								?" Looking back over your shoulder, you playfully push back against Ralph, rubbing your cum-filled asshole against his now-flaccid equine cock."
+										+ " It seems as though he's not up for round two, however, and you pout at him as he laughs,"
+								:" Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled asshole against his now-flaccid equine cock."
+									+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,")
 							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				}
 				

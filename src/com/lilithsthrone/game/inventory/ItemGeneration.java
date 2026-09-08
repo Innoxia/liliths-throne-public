@@ -14,6 +14,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.RandomPotionEnchantment;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractFilledBreastPump;
@@ -32,7 +33,7 @@ import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.3.9
- * @version 0.4
+ * @version 0.4.11.4
  * @author Innoxia
  */
 public class ItemGeneration {
@@ -55,7 +56,13 @@ public class ItemGeneration {
 		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
-	
+	public String applyRandomPotionEffect(GameCharacter target) {
+		return RandomPotionEnchantment.applyRandomPotionEffect(target);
+	}
+
+	public String applyPotionEffect(String effectId, GameCharacter target) {
+		return RandomPotionEnchantment.applyPotionEffect(effectId, target);
+	}
 	
 	// Weapon generation:
 	
@@ -143,6 +150,10 @@ public class ItemGeneration {
 	
 	// Clothing generation:
 	
+	public AbstractClothing generateClothing(AbstractClothing clothingToCopy) {
+		return new AbstractClothing(clothingToCopy) {};
+	}
+	
 	public AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		return this.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
 	}
@@ -192,7 +203,9 @@ public class ItemGeneration {
 		return this.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colourShade, null, null, allowRandomEnchantment);
 	}
 
-	/** Uses random colour.*/
+	/** Uses random colour.
+	 * <br/><b>Should not be used, as random enchantment is true by default which may not be intended behaviour.</b> */
+	@Deprecated
 	public AbstractClothing generateClothing(AbstractClothingType clothingType) {
 		return this.generateClothing(clothingType, null, true);
 	}

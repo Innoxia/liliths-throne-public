@@ -37,11 +37,11 @@ public class PenisMouth {
 	
 	// -- Methods for multiple ongoing characters:
 	
-	static List<GameCharacter> getOngoingCharacters(GameCharacter characterReceivingBlowjob) {
+	private static List<GameCharacter> getOngoingCharacters(GameCharacter characterReceivingBlowjob) {
 		return new ArrayList<>(Main.sex.getOngoingCharactersUsingAreas(characterReceivingBlowjob, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH));
 	}
 
-	private static List<GameCharacter> getCharactersForParsing(GameCharacter characterReceivingBlowjob) {
+	private static List<GameCharacter> getMultipleOngoingCharactersForParsing(GameCharacter characterReceivingBlowjob) {
 		List<GameCharacter> characters = Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()));
 		for(GameCharacter c : getOngoingCharacters(characterReceivingBlowjob)) {
 			if(!characters.contains(c)) {
@@ -80,6 +80,15 @@ public class PenisMouth {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
+			GameCharacter performer = Main.sex.getCharacterPerformingAction();
+			GameCharacter primary = PenisMouth.getPrimaryBlowjobPerformer(performer);
+			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
+
+			return Util.newArrayListOfValues(performer, primary, target);
+		}
 		
 		@Override
 		public void applyEffects(){
@@ -100,8 +109,7 @@ public class PenisMouth {
 		public String getActionDescription() {
 			GameCharacter primary = PenisMouth.getPrimaryBlowjobPerformer(Main.sex.getCharacterPerformingAction());
 			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
-			return UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), primary, target),
-					"Pull your [npc.cock] out of [npc2.namePos] mouth and slap "+(primary.equals(target)?"[npc2.her]":"[npc3.namePos]")+" face with it.");
+			return "Pull your [npc.cock] out of [npc2.namePos] mouth and slap "+(primary.equals(target)?"[npc2.her]":"[npc3.namePos]")+" face with it.";
 		}
 
 		@Override
@@ -111,8 +119,7 @@ public class PenisMouth {
 			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
 			
 			if(Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.PERFORMING_ORAL)) {
-				return UtilText.parse(Util.newArrayListOfValues(performer, primary, target),
-						UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 							"Grinning down at "+PenisMouth.getOngoingNames(performer)+", [npc.name] [npc.verb(pull)] back, sliding [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
 								+ " As [npc3.name] [npc3.verb(look)] up at [npc.herHim], [npc.she] quickly [npc.verb(slap)] [npc.her] hard shaft against [npc3.her] cheek, splattering "
 									+(Main.sex.hasLubricationTypeFromAnyone(target, SexAreaOrifice.MOUTH, LubricationType.PRECUM)?"cummy":"wet")
@@ -131,16 +138,15 @@ public class PenisMouth {
 							"Quickly pulling [npc.her] [npc.cock+] out from [npc2.namePos] mouth, [npc.name] [npc.verb(hold)] the base in one hand while holding "+(primary.equals(target)?"[npc2.her]":"[npc3.namePos]")+" head still with the other."
 								+ " As [npc3.name] [npc2.verb(look)] up to see what's happening, [npc3.sheIs] met with a wet slap as [npc.name] [npc.verb(swing)] [npc.her] "
 									+(Main.sex.hasLubricationTypeFromAnyone(target, SexAreaOrifice.MOUTH, LubricationType.PRECUM)?"slimy":"saliva-coated")+" [npc.cock] against [npc3.her] cheek."
-								+ " As [npc3.name] [npc3.verb(open)] [npc3.her] mouth in shock, [npc.name] [npc.verb(use)] the opportunity to thrust [npc.her] [npc.cock+] down [npc3.her] throat."));
+								+ " As [npc3.name] [npc3.verb(open)] [npc3.her] mouth in shock, [npc.name] [npc.verb(use)] the opportunity to thrust [npc.her] [npc.cock+] down [npc3.her] throat.");
 				
 			} else {
-				return UtilText.parse(Util.newArrayListOfValues(performer, primary, target),
-						UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 							"Pulling [npc.her] [npc.hips] back, [npc.name] [npc.verb(slide)] [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
 								+ " Before "+(primary.equals(target)?"[npc2.she]":"[npc3.name]")+" can react, [npc.she] quickly [npc.verb(slap)] [npc.her] hard shaft against [npc3.her] cheek, splattering saliva "
 								+(Main.sex.hasLubricationTypeFromAnyone(performer, SexAreaPenetration.PENIS, LubricationType.PRECUM)?"and precum":"")
 								+" across [npc3.her] [npc3.face], before thrusting [npc.her] [npc.cock+] down [npc3.her] throat.",
-	
+								
 							"Pulling back, [npc.name] [npc.verb(slide)] [npc.her] [npc.cock+] free from [npc2.namePos] mouth,"
 									+ " and with [npc.a_moan+], [npc.she] [npc.verb(proceed)] to slap the saliva-coated [npc.cockHead] against "+(primary.equals(target)?"[npc2.her]":"[npc3.namePos]")+" [npc3.face],"
 									+ " before sliding [npc.her] throbbing length down [npc3.her] throat.",
@@ -149,10 +155,10 @@ public class PenisMouth {
 									+(primary.equals(target)?"[npc2.her]":"[npc3.namePos]")+" [npc2.face]."
 								+ " With a streak of "+(Main.sex.hasLubricationTypeFromAnyone(performer, SexAreaPenetration.PENIS, LubricationType.PRECUM)?"cummy":"wet")
 									+" saliva now drooling down [npc3.her] cheek, [npc3.name] [npc3.verb(open)] [npc3.her] [npc3.eyes] wide in surprise as [npc.name] [npc.verb(force)] [npc.her] [npc.cock] down [npc3.her] throat.",
-	
+									
 							"Quickly pulling [npc.her] [npc.hips+] back, [npc.name] [npc.verb(draw)] [npc.her] [npc.cock+] out from [npc2.namePos] mouth, before starting to slap [npc.her] slimy length against "
 									+(primary.equals(target)?"[npc2.her]":"[npc3.namePos]")+" cheeks."
-								+ " Before [npc3.name] can react, [npc.name] suddenly [npc.verb(push)] [npc.her] [npc.hips] forwards, ramming [npc.her] [npc.cock+] down [npc3.her] throat."));
+								+ " Before [npc3.name] can react, [npc.name] suddenly [npc.verb(push)] [npc.her] [npc.hips] forwards, ramming [npc.her] [npc.cock+] down [npc3.her] throat.");
 			}
 		}
 	};
@@ -227,7 +233,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(UtilText.parse(Util.newArrayListOfValues(performer, primary, secondary),
 							start[rnd]));
 				}
-
+				
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						mid = new String[] {
@@ -1445,18 +1451,14 @@ public class PenisMouth {
 
 		@Override
 		public String getDescription() {
-			GameCharacter performer = Main.sex.getCharacterPerformingAction();
-			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
-
-			return UtilText.parse(performer, target,
-					UtilText.returnStringAtRandom(
+			return UtilText.returnStringAtRandom(
 						"Letting out a muffled [npc.moan], [npc.name] [npc.verb(concentrate)] on squeezing the extra internal muscles within [npc.her] throat down around [npc2.namePos] [npc2.cock+].",
 						(!isTargetedCharacterInanimate()
 							?"[npc.Name] [npc.verb(let)] out a muffled [npc.moan] as [npc.she] [npc.verb(focus)] on controlling the extra muscles lining the insides of [npc.her] throat."
 								+ " Gripping and squeezing them down around the [npc2.cock+] in [npc.her] mouth, [npc.name] [npc.verb(cause)] [npc2.name] to let out an involuntary cry of pleasure."
 							:""),
 						"[npc.Name] [npc.verb(find)] [npc.her] letting out a series of muffled [npc.moans] as [npc.she] [npc.verb(concentrate)] on squeezing the extra muscles within [npc.her] throat down around [npc2.namePos] [npc2.cock+].",
-						"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on controlling the extra muscles deep within [npc.her] throat, gripping them down and massaging [npc2.namePos] [npc2.cock+]."));
+						"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on controlling the extra muscles deep within [npc.her] throat, gripping them down and massaging [npc2.namePos] [npc2.cock+].");
 		}
 	};
 	
@@ -1671,8 +1673,9 @@ public class PenisMouth {
 			return PenisMouth.getOngoingCharacters(Main.sex.getCharacterPerformingAction());
 		}
 
-		private List<GameCharacter> getCharactersForParsing() {
-			return PenisMouth.getCharactersForParsing(Main.sex.getCharacterPerformingAction());
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
+			return PenisMouth.getMultipleOngoingCharactersForParsing(Main.sex.getCharacterPerformingAction());
 		}
 		
 		private String getOngoingNames() {
@@ -2640,9 +2643,10 @@ public class PenisMouth {
 		private List<GameCharacter> getOngoingCharacters() {
 			return PenisMouth.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this));
 		}
-
-		private List<GameCharacter> getCharactersForParsing() {
-			return PenisMouth.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
+		
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
+			return PenisMouth.getMultipleOngoingCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		private String getOngoingNames() {

@@ -441,7 +441,7 @@
 
 	<htmlContent tag="CITY_EXIT_BAT_CAVERNS"><![CDATA[
 	<p>
-		Once again you find yourself near to the shaft which links Dominion to the Bat Caverns far below. The tunnel entrance itself is completely concealed behind a brick wall that's topped with barbed wire, with only an old, rusted sign to declare its presence.
+		Once again you find yourself near the shaft which links Dominion to the Bat Caverns far below. The tunnel entrance itself is completely concealed behind a brick wall that's topped with barbed wire, with only an old, rusted sign to declare its presence.
 	</p>
 	<p>
 		#IF(pc.isAbleToFly())

@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -226,7 +227,7 @@ public class RoomPlayer {
 										?"24 hours"
 										:((timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
 												+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")))
-									+ "until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+									+ " until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
 							AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 						@Override
 						public void effects() {
@@ -1237,7 +1238,7 @@ public class RoomPlayer {
 				if(slave.getSlaveJob(hour)==SlaveJob.BEDROOM
 						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
 						&& slave.isAttractedTo(Main.game.getPlayer())
-						&& slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
+						&& (slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE) || !((NPC)slave).hasFlag(NPCFlagValue.slaveBedroomHadSleepSex))) {
 					charactersPresent.add(slave);
 				}
 				
@@ -1792,6 +1793,9 @@ public class RoomPlayer {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().addStatusEffect(StatusEffect.SLEEPING_HEAVY, -1);
+								for(GameCharacter slave : hornySlaves) {
+									((NPC)slave).addFlag(NPCFlagValue.slaveBedroomHadSleepSex);
+								}
 							}
 						};
 						

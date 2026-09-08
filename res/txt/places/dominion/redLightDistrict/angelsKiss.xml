@@ -353,7 +353,7 @@
 	
 	<htmlContent tag="ANGELS_KISS_BEDROOM_BUNNY_ENTER_REPEAT"><![CDATA[
 	#IF(bunny.isVisiblyPregnant())
-		#IF(bunny.getPregnantLitter().getFather().equals(player))
+		#IF(bunny.getPregnantLitter().isFather(player))
 			<p>
 				[pc.Stepping] into the rabbit-girl's bedroom and announcing your presence with a quick hello, you watch as Bunny's large, rabbit-like ears twitch in response to your greeting, before she laboriously sits up and looks over at the door. Seeing that it's you, she points down at her swollen belly and excitedly calls out,
 				#IF(!bunny.isCharacterReactedToPregnancy(pc))
@@ -507,7 +507,7 @@
 	
 	<htmlContent tag="ANGELS_KISS_BEDROOM_LOPPY"><![CDATA[
 	<p>
-		The bedroom at this end of the corridor has its door left wide open, and as you approach to take a look inside, you see that it's occupied by a solitary prostitute. Gazing out of the window on the far side of the room, a floppy-eared, cotton-tailed rabbit-girl has her back is turned towards you. Her floppy rabbit-ears occasionally twitch back and forth, and as you watch, she lets out a wistful sigh and groans, [loppy.speech(I'm so bored...)]
+		The bedroom at this end of the corridor has its door left wide open, and as you approach to take a look inside, you see that it's occupied by a solitary prostitute. Gazing out of the window on the far side of the room, a floppy-eared, cotton-tailed rabbit-girl has her back turned towards you. Her floppy rabbit-ears occasionally twitch back and forth, and as you watch, she lets out a wistful sigh and groans, [loppy.speech(I'm so bored...)]
 	</p>
 	<p>
 		You could enter her room and call out a greeting, or instead turn around and return the way you came...
@@ -650,7 +650,7 @@
 	<p>
 		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room. Following in her footsteps, and looking every bit as excited as her sister, is Bunny.
 		#IF(bunny.isVisiblyPregnant())
-			#IF(bunny.getPregnantLitter().getFather().equals(player))
+			#IF(bunny.getPregnantLitter().isFather(player))
 				#IF(!bunny.isCharacterReactedToPregnancy(pc))
 					 As she sees that it's you, Bunny lets out an excited squeal and points down to her clearly-swollen belly, before exclaiming, [bunny.speech([pc.name]! Look at what you did; you got me knocked up! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
 				#ELSE

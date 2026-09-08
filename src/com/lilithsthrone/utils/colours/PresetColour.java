@@ -94,12 +94,12 @@ public class PresetColour {
 	public static Colour BASE_BLACK = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("black")) {};
 	public static Colour BASE_PITCH_BLACK = new Colour(false, BaseColour.PITCH_BLACK, "black", Util.newArrayListOfValues("black")) {};
 	
-	
-	
+
 	// Game colours:
 	public static Colour BACKGROUND_DARK = new Colour(false, Util.newColour(0x19191a), Util.newColour(0xf0f0f0), "grey") {};
 	public static Colour BACKGROUND = new Colour(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey") {};
 	public static Colour BACKGROUND_ALT = new Colour(false, Util.newColour(0x292929), Util.newColour(0xbbbbbb), "grey") {};
+	public static Colour BACKGROUND_LIGHT = new Colour(false, Util.newColour(0x666666), Util.newColour(0xeeeeee), "grey") {};
 	
 	public static Colour BACKGROUND_DAY = new Colour(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey") {};
 	public static Colour BACKGROUND_TWILIGHT = new Colour(false, Util.newColour(0x191919), Util.newColour(0xbbbbbb), "black") {};
@@ -113,6 +113,7 @@ public class PresetColour {
 	public static Colour MAP_BACKGROUND_BLUE = new Colour(false,  Util.newColour(0xbbbbdd), Util.newColour(0xbbbbdd), "light blue") {};
 	public static Colour MAP_BACKGROUND_GREEN = new Colour(false,  Util.newColour(0xbbddbb), Util.newColour(0xbbddbb), "light green") {};
 	public static Colour MAP_BACKGROUND_GREEN_DARK = new Colour(false,  Util.newColour(0x5E685E), Util.newColour(0x5E685E), "dark green") {};
+	public static Colour MAP_BACKGROUND_SHINRIN_HIGHLANDS = new Colour(false, Util.newColour(0x6ccc74), Util.newColour(0x6ccc74), "green") {};
 
 	public static Colour GENERIC_NPC_REMOVAL = new Colour(false, BaseColour.RED_LIGHT, "red") {};
 	public static Colour GENERIC_SEX = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex", "sexSub", "subSex", "sub", "submissive")) {};
@@ -691,6 +692,7 @@ public class PresetColour {
 	public static Colour EYE_GREY_GREEN = new Colour(false, Util.newColour(0xA9BA9D), Util.newColour(0xA9BA9D), "grey-green") {};
 	public static Colour EYE_GREEN = new Colour(false, BaseColour.GREEN_DARK, "green") {}.setLinkedColourLighter(EYE_GREY_GREEN);
 	// Blue:
+	public static Colour EYE_BLUE_GREY = new Colour(false, BaseColour.BLUE_GREY, "blue-grey") {};
 	public static Colour EYE_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
 	public static Colour EYE_BLUE = new Colour(false, BaseColour.BLUE, "blue") {}.setLinkedColourLighter(EYE_BLUE_LIGHT);
 	public static Colour EYE_AQUA = new Colour(false, BaseColour.AQUA, "aqua") {}.setLinkedColourLighter(EYE_BLUE);
@@ -1104,6 +1106,7 @@ public class PresetColour {
 			PresetColour.EYE_BLUE_DARK,
 			PresetColour.EYE_BLUE,
 			PresetColour.EYE_BLUE_LIGHT,
+			PresetColour.EYE_BLUE_GREY,
 			PresetColour.EYE_AQUA,
 			PresetColour.EYE_GREEN,
 			PresetColour.EYE_GREY_GREEN,

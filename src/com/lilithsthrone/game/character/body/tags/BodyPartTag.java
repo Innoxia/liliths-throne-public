@@ -9,7 +9,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.4
- * @version 0.4.0
+ * @version 0.4.11.2
  * @author Innoxia, Stadler76
  */
 public enum BodyPartTag {
@@ -70,6 +70,12 @@ public enum BodyPartTag {
 	FACE_NATURAL_BALDNESS_SCALY,
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for races which have human-like skin. */
 	FACE_NATURAL_BALDNESS_SKIN,
+	
+
+	// Eyes:
+
+	/** Tags the eyes as being immune to visual impairment; should only be sued for mythological/demonic races. */
+	EYE_PERFECT_VISION,
 	
 	
 	// Ears:

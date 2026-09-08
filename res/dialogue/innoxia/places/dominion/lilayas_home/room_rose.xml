@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="lilaya_kitty">
+		<preParsingEffects><![CDATA[
+			[#rose.initKittyScene()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/lilayasHome/room_rose">LILAYA_KITTY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[You should give your [lilaya.relation(pc)] and her lover some privacy... Right?]]></responseTooltip>
+                <nextDialogue stripContent="false" defaultPlaceType="LILAYA_HOME_CORRIDOR"/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_LILAYA_HOME_CORRIDOR)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/lilayasHome/room_rose', 'LILAYA_KITTY_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Continue watching]]></responseTitle>
+                <responseTooltip><![CDATA[
+					Watching your [lilaya.relation(pc)] submissively service her maid is too hot to pass up on...
+                ]]></responseTooltip>
+                <colour><![CDATA[TEXT]]></colour>
+                <nextDialogue/>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects/>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_VOYEURIST]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+                <requiredPerks/>
+                <requiredFemininity/>
+                <requiredSubspecies/>
+                <tradingVariables/>
+                <combatVariables/>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[innoxia_dominion_lilayas_home_lilaya_kitty]]></id>
+                    <startingPosition><![CDATA[SITTING]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>rose</id>
+                            <slot><![CDATA[SITTING_SITTING]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>lilaya</id>
+                            <slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators>
+                        <character>
+                            <id>pc</id>
+                        </character>
+                    </submissiveSpectators>
+                    <postSexDialogue><![CDATA[innoxia_places_dominion_lilayas_home_room_rose_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/places/dominion/lilayasHome/room_rose">LILAYA_KITTY_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[lilaya]]></performer>
+							<target><![CDATA[rose]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+                </sexVariablesWithManager>
+            </response>
+		</responses>
+	</scene>
+	
+	<scene id ="after_sex">
+		<preParsingEffects><![CDATA[
+			[#rose.initKittyScene()]
+		]]></preParsingEffects>
+		<title><![CDATA[Show's over]]></title>
+		<tooltip><![CDATA[Rose has had enough of this...]]></tooltip>
+		<preParsingEffects/>
+		<content folderPath="txt/places/dominion/lilayasHome/room_rose">LILAYA_KITTY_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Satisfied that you were able to witness such a hot display, you leave Rose's room behind you and continue on your way.]]></responseTooltip>
+                <nextDialogue stripContent="false" defaultPlaceType="LILAYA_HOME_CORRIDOR"/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_LILAYA_HOME_CORRIDOR)]
+					[#rose.endKittyScene()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

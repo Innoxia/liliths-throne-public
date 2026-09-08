@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -19,11 +17,16 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
@@ -39,6 +42,8 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public abstract class AbstractEncounter {
 
+	//TODO remove the handling of hard-coded encounters and use the ExternalEncounterData instead of the Overridden getDialogues() method.
+	
 	protected static AbstractCoreItem randomItem;
 	
 	protected static final double INCEST_ENCOUNTER_RATE = 0.2f;
@@ -52,46 +57,6 @@ public abstract class AbstractEncounter {
 
 	private List<String> placeTypeIds;
 	private List<ExternalEncounterData> possibleEncounters;
-	
-	/**
-	 * Utility class to store data loaded from external files.
-	 */
-	private class ExternalEncounterData {
-		private String name;
-		private String triggerConditional;
-		private boolean opportunistic;
-		private String dialogueId;
-		
-		public ExternalEncounterData(String name, String triggerConditional, boolean opportunistic, String dialogueId) {
-			this.name = name;
-			this.triggerConditional = triggerConditional;
-			this.opportunistic = opportunistic;
-			this.dialogueId = dialogueId;
-		}
-		
-		public float getTriggerChance() {
-			try {
-				return Float.valueOf(UtilText.parse(this.getTriggerConditional()).trim());
-			} catch(Exception ex) {
-				System.err.println("Error in AbstractEncounter's ExternalEncounterData: getTriggerChance() for '"+getName()+"' failed to parse!");
-				ex.printStackTrace();
-				return 0f;
-			}
-		}
-		
-		public String getName() {
-			return name;
-		}
-		public String getTriggerConditional() {
-			return triggerConditional;
-		}
-		public boolean isOpportunistic() {
-			return opportunistic;
-		}
-		public String getDialogueId() {
-			return dialogueId;
-		}
-	}
 	
 	public AbstractEncounter() {
 	}
@@ -373,10 +338,21 @@ public abstract class AbstractEncounter {
 		return null;
 	}
 	
-	protected abstract DialogueNode initialiseEncounter(EncounterType node);
+	public abstract DialogueNode initialiseEncounter(EncounterType node);
 	
 	public abstract Map<EncounterType, Float> getDialogues();
-
+	
+	/**
+	 * <b>IMPORTANT NOTE:</b> This is only used for encounters defined externally via xml files, and will return null if this AbstractEncounter is hard-coded.
+	 * @return A List of ExternalEncounterData representing all of the dialogues which can trigger via this AbstractEncounter.
+	 */
+	public List<ExternalEncounterData> getPossibleEncounters() throws NullPointerException {
+		if(!this.fromExternalFile) {
+			throw new NullPointerException();
+		}
+		return possibleEncounters;
+	}
+	
 	public boolean isAnyEncounterAvailable() {
 		return getBaseRandomEncounter(true)!=null;
 	}
@@ -435,6 +411,17 @@ public abstract class AbstractEncounter {
 			Main.game.encounterAtSeconds = new Value<>(Main.game.getSecondsPassed(), dialogueNode);
 		}
 	}
+//	
+//	/**
+//	 * @return The DialogueNode which is returned when the EncounterType is triggered.
+//	 * @throws IllegalArgumentException This is thrown if isFromExternalFile() returns true, as externally-defined Encounters do not use EncounterType.
+//	 */
+//	public DialogueNode getAssociatedDialogueNode(EncounterType type) throws IllegalArgumentException {
+//		if(this.isFromExternalFile()) {
+//			throw new IllegalArgumentException();
+//		}
+//		
+//	}
 	
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 		
@@ -613,5 +600,47 @@ public abstract class AbstractEncounter {
 	public List<String> getPlaceTypeIds() {
 		return placeTypeIds;
 	}
+	
+	public static Response exploreArea() {
+		return exploreArea("this area");
+	}
 
+	public static Response exploreArea(String areaDescription) {
+		return new ResponseEffectsOnly(
+				"Explore",
+				"Explore " + areaDescription + ". Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+			@Override
+			public int getSecondsPassed() {
+				return 30*60;
+			}
+			@Override
+			public void effects() {
+				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
+				Main.game.setContent(new Response("", "", dn));
+			}
+		};
+	}
+
+	public static Response useOffspringMap() {
+//		System.out.println("AVAILABLE: "+ItemType.OFFSPRING_MAP.isAbleToBeUsed(Main.game.getPlayer(), Main.game.getPlayer()));
+		
+		if(!Main.game.getPlayer().hasItemType(ItemType.OFFSPRING_MAP)) {
+			return new Response("Offspring Map",
+							UtilText.parse("You do not have an offspring map..."
+									+ "<br/><i>An offspring map can be purchased from [vanessa.name] in City Hall.</i>"),
+					null);
+		} else if (!ItemType.OFFSPRING_MAP.isAbleToBeUsed(Main.game.getPlayer(), Main.game.getPlayer())) {
+			return new Response("Offspring Map",
+					ItemType.OFFSPRING_MAP.getUnableToBeUsedDescription(Main.game.getPlayer(), Main.game.getPlayer()),
+					null);
+		} else {
+			return new ResponseEffectsOnly("Offspring Map",
+					ItemType.OFFSPRING_MAP.getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+				@Override
+				public void effects() {
+					Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.OFFSPRING_MAP), Main.game.getPlayer(), false);
+				}
+			};
+		}
+    }
 }

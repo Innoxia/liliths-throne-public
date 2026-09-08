@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.markings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.comparators.ItemEffectComparator;
 
 /**
  * @since 0.2.6
@@ -444,7 +446,18 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return type;
 	}
 
+	private int effectsHashCode = -1;
+	
+	private void sortEffects() {
+		Collections.sort(effects, new ItemEffectComparator());
+	}
+	
+	@Override
 	public List<ItemEffect> getEffects() {
+		if(effects.hashCode()!=effectsHashCode) {
+			sortEffects();
+			effectsHashCode = effects.hashCode();
+		}
 		return effects;
 	}
 	
@@ -484,23 +497,37 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		this.writing = new TattooWriting(text, colour, glow, styles);
 	}
 	
-	/**
-	 * For examples.
-	 */
-	public String getFormattedWritingOutput(String input) {
-		return (this.getWriting().getStyles().contains(TattooWritingStyle.BOLD)?"<b>":"")
-				+ (this.getWriting().getStyles().contains(TattooWritingStyle.ITALICISED)?"<i>":"")
-				+"<span style='color:"+getWriting().getColour().toWebHexString()+";'>"+(getWriting().isGlow()?UtilText.applyGlow(input, getWriting().getColour()):input)+"</span>"
-				+(this.getWriting().getStyles().contains(TattooWritingStyle.BOLD)?"</b>":"")
-				+ (this.getWriting().getStyles().contains(TattooWritingStyle.ITALICISED)?"</i>":"");
+	public String getFormattedWritingOutput() {
+		return getFormattedWritingOutput(getWriting().getText());
 	}
 	
-	public String getFormattedWritingOutput() {
-		return (this.getWriting().getStyles().contains(TattooWritingStyle.BOLD)?"<b>":"")
-				+ (this.getWriting().getStyles().contains(TattooWritingStyle.ITALICISED)?"<i>":"")
-				+"<span style='color:"+getWriting().getColour().toWebHexString()+";'>"+(getWriting().isGlow()?UtilText.applyGlow(getWriting().getText(), getWriting().getColour()):getWriting().getText())+"</span>"
-				+(this.getWriting().getStyles().contains(TattooWritingStyle.BOLD)?"</b>":"")
-				+ (this.getWriting().getStyles().contains(TattooWritingStyle.ITALICISED)?"</i>":"");
+	public String getFormattedWritingOutput(String input) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(this.getWriting().getStyles().contains(TattooWritingStyle.BOLD)) {
+			sb.append("<b>");
+		}
+		if(this.getWriting().getStyles().contains(TattooWritingStyle.ITALICISED)) {
+			sb.append("<i>");
+		}
+		
+//		String textShadowColour = "#888";
+		//-webkit-text-stroke: 2px "+textShadowColour+"; paint-order: stroke fill;
+		
+		sb.append("<span style='color:"+getWriting().getColour().toWebHexString()+";'>");
+		//text-shadow: -1px -1px 0 "+textShadowColour+", 1px -1px 0 "+textShadowColour+", -1px 1px 0 "+textShadowColour+", 1px 1px 0 "+textShadowColour+";'>");
+			sb.append((getWriting().isGlow()
+					?UtilText.applyGlow(input, getWriting().getColour())
+					:input));
+		sb.append("</span>");
+		
+		if(this.getWriting().getStyles().contains(TattooWritingStyle.ITALICISED)) {
+			sb.append("</i>");
+		}
+		if(this.getWriting().getStyles().contains(TattooWritingStyle.BOLD)) {
+			sb.append("</b>");
+		}
+		return sb.toString();
 	}
 
 	public TattooCounter getCounter() {
@@ -560,8 +587,8 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 
 	@Override
-	public String getDescription() {
-		return this.getType().getDescription();
+	public String getDescription(GameCharacter characterEquippedOn) {
+		return UtilText.parse(characterEquippedOn, this.getType().getDescription());
 	}
 
 	public String getBodyOverviewDescription() {

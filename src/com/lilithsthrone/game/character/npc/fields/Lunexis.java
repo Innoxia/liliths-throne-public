@@ -105,7 +105,7 @@ public class Lunexis extends NPC {
 				517, Month.JANUARY, 15,
 				35,
 				null, null, null,
-				new CharacterInventory(10_000),
+				new CharacterInventory(false, 10_000),
 				WorldType.getWorldTypeFromId("innoxia_fields_themiscyra"), PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_plaza"),
 				true);
 		

@@ -58,7 +58,7 @@ public class AlleywayDemonDialogue {
 	}
 	
 	private static boolean isWantsToFight() {
-		return getDemon().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
+		return getDemon().isAffectionAggressionTrigger(Main.game.getPlayer());
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -92,6 +92,9 @@ public class AlleywayDemonDialogue {
 	public static final DialogueNode DEMON_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			if(!isWantsToFight()) { // Catch for if the player has somehow raised this npc's affection without using the talk option. Should be impossible but someone managed it somehow (maybe with mods)
+				getDemon().setPlayerKnowsName(true);
+			}
 			talked = false;
 			getDemon().generatePostCombatPotions();
 			transformationsApplied = false;
@@ -788,7 +791,19 @@ public class AlleywayDemonDialogue {
 			boolean rapePlay = getDemon().isPostCombatRapePlay();
 			
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
+				return new Response("Continue",
+						"Carry on your way..."
+							+ (getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)
+								?UtilText.parse(getDemon(), "<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]")
+								:""),
+						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+						return super.getHighlightColour();
+					}
 					@Override
 					public void effects() {
 						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
@@ -995,7 +1010,7 @@ public class AlleywayDemonDialogue {
 				GameCharacter companion = getMainCompanion();
 
 				if(!Main.game.isNonConEnabled() && !getDemon().isAttractedTo(companion)) {
-					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
+					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc.herHim]!"), null);
 					
 				} else if(!companion.isAttractedTo(getDemon())) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);

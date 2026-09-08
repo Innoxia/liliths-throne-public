@@ -17,6 +17,6 @@
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
 	<teleportPermissions/>
-	<weatherImmunities/>
+	<weatherImmunities immuneToAll="true"/>
 	<applyInventoryInit/>
 </placeType>

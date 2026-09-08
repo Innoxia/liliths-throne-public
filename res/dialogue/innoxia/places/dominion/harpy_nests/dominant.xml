@@ -355,7 +355,7 @@
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST'))]
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_END'))]
 			#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
-				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#pc.resetInventory(true)]
 				[#game.setBadEnd("Bound Bird")]
 			#ENDIF
 		]]></preParsingEffects>
@@ -438,7 +438,7 @@
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_MATRIARCH'))]
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/dominant', 'COMBAT_LOST_END'))]
 			#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
-				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#pc.resetInventory(true)]
 				[#game.setBadEnd("Bound Bird")]
 			#ENDIF
 		]]></preParsingEffects>

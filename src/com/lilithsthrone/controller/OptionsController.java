@@ -76,6 +76,22 @@ public class OptionsController {
 	}
 	
 	public static void initGenderListeners() {
+		// OFFSPRING_GENDER_PREF_
+		for(int i=com.lilithsthrone.game.Properties.offspringGenderName.length-1; i>=0; i--) {
+			String id = "OFFSPRING_GENDER_PREF_"+i;
+			int javaWooooooooooooooooooooooooooooooooOOOOOoooOOOOOoooOOOOOOooOOOOOooo = i;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().offspringGenderLevel = javaWooooooooooooooooooooooooooooooooOOOOOoooOOOOOoooOOOOOOooOOOOOooo;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						Util.capitaliseSentence(Properties.offspringGenderName[i]),
+						Properties.offspringGenderDescription[i]));
+			}
+		}
+		
 		for (Gender g : Gender.values()) {
 			for (ContentPreferenceValue preference : ContentPreferenceValue.values()) {
 				if (MainController.document.getElementById(preference+"_"+g) != null) {
@@ -283,8 +299,10 @@ public class OptionsController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-						Main.getProperties().setFeminineFurryPreference(subspecies, preference);
-						Main.getProperties().setMasculineFurryPreference(subspecies, preference);
+						if(subspecies.isFurryPreferencesEnabled() && subspecies.isDisplayedInFurryPreferences()) {
+							Main.getProperties().setFeminineFurryPreference(subspecies, preference);
+							Main.getProperties().setMasculineFurryPreference(subspecies, preference);
+						}
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -296,8 +314,10 @@ public class OptionsController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-						Main.getProperties().setFeminineSubspeciesPreference(subspecies, preference);
-						Main.getProperties().setMasculineSubspeciesPreference(subspecies, preference);
+						if(subspecies.isSpawnPreferencesEnabled() && subspecies.isDisplayedInFurryPreferences()) {
+							Main.getProperties().setFeminineSubspeciesPreference(subspecies, preference);
+							Main.getProperties().setMasculineSubspeciesPreference(subspecies, preference);
+						}
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -453,10 +473,18 @@ public class OptionsController {
 		}
 		
 		for (Artist artist : Artwork.allArtists) {
-			id = "ARTIST_"+artist.getFolderName();
+			id = "ARTIST_"+artist.getFolderName()+"_UP";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					Main.getProperties().preferredArtist = artist.getFolderName();
+					Main.getProperties().modifyArtistPriority(artist.getFolderName(), -1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "ARTIST_"+artist.getFolderName()+"_DOWN";
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().modifyArtistPriority(artist.getFolderName(), 1);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);

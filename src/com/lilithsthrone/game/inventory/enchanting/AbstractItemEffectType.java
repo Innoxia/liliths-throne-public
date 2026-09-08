@@ -78,7 +78,6 @@ import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
-import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -178,7 +177,7 @@ public abstract class AbstractItemEffectType {
 		return new HashMap<>();
 	}
 	
-	public List<TFModifier> getPrimaryModifiers() {
+	public List<TFModifier> getPrimaryModifiers(AbstractCoreItem targetItem) {
 		return new ArrayList<>();
 	}
 	
@@ -194,30 +193,30 @@ public abstract class AbstractItemEffectType {
 		return 0;
 	}
 
-	public int getSmallLimitChange() {
-		if (EnchantmentDialogue.getSecondaryMod() == TFModifier.TF_MOD_WETNESS
-				&& (EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS
-						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS_CROTCH
-						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
+	public int getSmallLimitChange(TFModifier primaryModifier, TFModifier secondaryModifier) {
+		if (secondaryModifier == TFModifier.TF_MOD_WETNESS
+				&& (primaryModifier == TFModifier.TF_BREASTS
+						|| primaryModifier == TFModifier.TF_BREASTS_CROTCH
+						|| primaryModifier == TFModifier.TF_PENIS)) {
 			// Increase small change for fluids
 			return 10;
 		}
 		return 1;
 	}
 
-	public int getLargeLimitChange() {
-		if (EnchantmentDialogue.getSecondaryMod() == TFModifier.TF_MOD_WETNESS
-				&& (EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS
-						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_BREASTS_CROTCH
-						|| EnchantmentDialogue.getPrimaryMod() == TFModifier.TF_PENIS)) {
+	public int getLargeLimitChange(TFModifier primaryModifier, TFModifier secondaryModifier) {
+		if (secondaryModifier == TFModifier.TF_MOD_WETNESS
+				&& (primaryModifier == TFModifier.TF_BREASTS
+						|| primaryModifier == TFModifier.TF_BREASTS_CROTCH
+						|| primaryModifier == TFModifier.TF_PENIS)) {
 			// Decrease large change for fluids
 			return 500;
 		}
-		return Math.max(5, getMaximumLimit()/10);
+		return Math.max(5, getMaximumLimit(primaryModifier, secondaryModifier)/10);
 	}
 
-	public int getMaximumLimit() {
-		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
+	public int getMaximumLimit(TFModifier primaryModifier, TFModifier secondaryModifier) {
+		return getLimits(primaryModifier, secondaryModifier);
 	}
 	
 	public static String getBookEffect(GameCharacter reader, AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies, boolean withDescription) {
@@ -664,7 +663,8 @@ public abstract class AbstractItemEffectType {
 			case TF_BREASTS:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cup size", CupSize.getCupSizeFromInt(limit).getCupSizeName()+"-cup"));
+						CupSize cupSize = CupSize.getCupSizeFromInt(limit);
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cup size", cupSize.getCupSizeName()+(cupSize==CupSize.FLAT?"":"-cup")));
 						break;
 					case TF_MOD_SIZE_SECONDARY:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "nipple size", NippleSize.getNippleSizeFromInt(limit).getName()));
@@ -977,6 +977,7 @@ public abstract class AbstractItemEffectType {
 				return ("In a week, makes "+changeAdd+".");
 			case BOOST:
 				return ("In a day, makes "+changeAdd+".");
+			case SPECIAL:
 			case MAJOR_BOOST:
 				return ("In an hour, makes "+changeAdd+".");
 			case MINOR_DRAIN:
@@ -995,6 +996,7 @@ public abstract class AbstractItemEffectType {
 				return ("Weekly "+subject+" increase. (Limit: "+limit+")");
 			case BOOST:
 				return ("Daily "+subject+" increase. (Limit: "+limit+")");
+			case SPECIAL:
 			case MAJOR_BOOST:
 				return ("Hourly "+subject+" increase. (Limit: "+limit+")");
 			case MINOR_DRAIN:
@@ -1052,6 +1054,7 @@ public abstract class AbstractItemEffectType {
 			case BOOST:
 				secondsRequired = 24 * 60 * 60;
 				break;
+			case SPECIAL:
 			case MAJOR_BOOST:
 				secondsRequired = 60 * 60;
 				break;
@@ -2082,6 +2085,7 @@ public abstract class AbstractItemEffectType {
 							}
 						}
 						break;
+					case SPECIAL:
 					case MAJOR_BOOST:
 						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
 							addResourceDescriptionsRestore(60, restorationType);
@@ -2216,6 +2220,7 @@ public abstract class AbstractItemEffectType {
 						}
 					}
 					break;
+				case SPECIAL:
 				case MAJOR_BOOST:
 					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
 						sb.append(applyRestoration(target, restorationType, 0.6f));
@@ -5363,6 +5368,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourMinorGood(++)] Cum storage (+" + Units.fluid(largeChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeMinorBoost); } };
 							case BOOST:
 								return new RacialEffectUtil("[style.colourGood(++)] Cum storage (+" + Units.fluid(largeChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeBoost); } };
+							case SPECIAL:
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("[style.colourExcellent(++)] Cum storage (+" + Units.fluid(largeChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementPenisCumStorage(largeChangeMajorBoost); } };
 						}
@@ -5493,6 +5499,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourMinorGood(++)] Milk storage (+" + Units.fluid(largeChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMinorBoost); } };
 							case BOOST:
 								return new RacialEffectUtil("[style.colourGood(++)] Milk storage (+" + Units.fluid(largeChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeBoost); } };
+							case SPECIAL:
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("[style.colourExcellent(++)] Milk storage (+" + Units.fluid(largeChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMajorBoost); } };
 						}
@@ -5623,6 +5630,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourMinorGood(++)] Udder-milk storage (" + Units.fluid(largeChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementBreastCrotchMilkStorage(largeChangeMinorBoost); } };
 							case BOOST:
 								return new RacialEffectUtil("[style.colourGood(++)] Udder-milk storage (" + Units.fluid(largeChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementBreastCrotchMilkStorage(largeChangeBoost); } };
+							case SPECIAL:
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("[style.colourExcellent(++)] Udder-milk storage (" + Units.fluid(largeChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementBreastCrotchMilkStorage(largeChangeMajorBoost); } };
 						}
@@ -5753,6 +5761,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("[style.colourMinorGood(++)] Vaginal lubrication (+" + Units.fluid(smallChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementVaginaWetness(smallChangeMinorBoost); } };
 							case BOOST:
 								return new RacialEffectUtil("[style.colourGood(++)] Vaginal lubrication (+" + Units.fluid(smallChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementVaginaWetness(smallChangeBoost); } };
+							case SPECIAL:
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("[style.colourExcellent(++)] Vaginal lubrication (+" + Units.fluid(smallChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementVaginaWetness(smallChangeMajorBoost); } };
 						}

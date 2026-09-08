@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[true]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[false]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Vigorous]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

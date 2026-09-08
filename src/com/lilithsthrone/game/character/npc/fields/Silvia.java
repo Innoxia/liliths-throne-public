@@ -82,7 +82,7 @@ public class Silvia extends NPC {
 				31, Month.MAY, 1,
 				15,
 				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_clothing"),
 				true);
 
@@ -253,17 +253,7 @@ public class Silvia extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
-		if(this.getBreastRows()>1) {
-			if(this.isVisiblyPregnant()) {
-				return "SilviaMultiBoobPregnant";
-			}
-			return "SilviaMultiBoob";
-		} else {
-			if(this.isVisiblyPregnant()) {
-				return "SilviaPregnant";
-			}
-			return "Silvia";
-		}
+		return "Silvia";
 	}
 	
 	@Override

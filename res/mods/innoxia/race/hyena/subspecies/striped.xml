@@ -13,9 +13,9 @@
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<applySubspeciesChanges><![CDATA[
-		[#targetedBody.getVagina().getClitoris().setGirth(null, 0)]
-		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 0)]
-		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_STRIPED)]
+		[#targetedBody.getVagina().getClitoris().setGirth(npc, 0)]
+		[#targetedBody.getVagina().getClitoris().setClitorisSize(npc, 0)]
+		[##targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_STRIPED)]
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_hyena)

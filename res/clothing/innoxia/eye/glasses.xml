@@ -6,7 +6,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[glasses]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[glasses]]></namePlural>
-		<description><![CDATA[A pair of unisex, thin-rimmed glasses.]]></description>
+		<description><![CDATA[A pair of unisex, thin-rimmed glasses. The pair of corrective lenses which are housed in the metal frame are enchanted in such a way as to be able to correct any vision impairment the wearer might suffer from.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>EYES</slot>
@@ -52,6 +52,7 @@
 	
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>PRESCRIPTION_GLASSES</tag>
 		</itemTags>
 	</coreAttributes>
 

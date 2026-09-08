@@ -167,7 +167,7 @@ public class Clitoris implements BodyPartInterface {
 	}
 	
 	public String setClitorisSize(GameCharacter owner, int clitSize) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.clitSize = Math.max(0, Math.min(clitSize, ClitorisSize.SEVEN_STALLION.getMaximumValue()));
 			return "";
 		}
@@ -211,7 +211,7 @@ public class Clitoris implements BodyPartInterface {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
+								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation  building up within [npc.her] [npc.pussy]"
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].<br/>"
 								+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
 						+ "</p>");
@@ -234,7 +234,7 @@ public class Clitoris implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenetrationGirth.FOUR_FAT.getValue()
 	 */
 	public String setGirth(GameCharacter owner, int girth) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
@@ -324,7 +324,7 @@ public class Clitoris implements BodyPartInterface {
 			}
 		}
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -554,7 +554,7 @@ public class Clitoris implements BodyPartInterface {
 	
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Clitoris.class) && getType().getRace().isFeralPartsAvailable());

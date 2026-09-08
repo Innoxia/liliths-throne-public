@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>120</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[keyhole crop top]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[keyhole crop tops]]></namePlural> 
+		<description><![CDATA[A small, sleeveless crop top with a stylish cutout that reveals some cleavage.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>keyhole_croptop.svg</imageName>
+		<imageEquippedName/>
+		<stickers/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(guide)] [npc.her] [npc.arms] through the crop top's sleeves as [npc.she] [npc.verb(pull)] it down over [npc.her] head.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the crop top's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.arms] through the crop top's sleeves as [npc.she] [npc.verb(force)] it down over [npc2.her] head.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] crop top.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] crop top.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] crop top.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

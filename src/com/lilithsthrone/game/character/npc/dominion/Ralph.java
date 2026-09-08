@@ -50,7 +50,6 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -80,7 +79,7 @@ public class Ralph extends NPC {
 				"Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				34, Month.MAY, 17,
 				10, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
+				new CharacterInventory(false, 10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 		
 		if(!isImported) {
 			dailyUpdate();
@@ -110,6 +109,10 @@ public class Ralph extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.LEWD);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.11.1")) { // For some reason my test save didn't have Ralph as having these fetishes, so I made sure to re-add them in
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
 		}
 	}
 
@@ -286,7 +289,7 @@ public class Ralph extends NPC {
 					}
 					
 				} else {
-					this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+					this.addClothing(Main.game.getItemGen().generateClothing(clothing, false), false);
 				}
 			}
 		}
@@ -377,7 +380,7 @@ public class Ralph extends NPC {
 				base*=10;
 			}
 		}
-		return Math.max(getBuyModifier(), (base * ((100-SexFlags.ralphDiscount)/100f)) * (Main.game.getPlayer().hasTrait(Perk.JOB_STUDENT, true)?0.75f:1));
+		return Math.max(getBuyModifier(), (base * ((100-Main.game.getDialogueFlags().ralphDiscount)/100f)) * (Main.game.getPlayer().hasTrait(Perk.JOB_STUDENT, true)?0.75f:1));
 	}
 	
 	@Override
@@ -423,7 +426,7 @@ public class Ralph extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(!target.equals(equipper) && Main.game.isInSex()) {
+		if(!target.equals(equipper) && Main.game.isInSex() && !target.isAsleep()) {
 			if(Main.sex.getSexManager().getPosition() == SexPosition.OVER_DESK && target.equals(this)) {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.isCondom()) {

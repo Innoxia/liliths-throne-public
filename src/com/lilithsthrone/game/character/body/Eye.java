@@ -68,7 +68,7 @@ public class Eye implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, AbstractEyeType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			irisShape = type.getDefaultIrisShape();
 			pupilShape = type.getDefaultPupilShape();
@@ -150,7 +150,7 @@ public class Eye implements BodyPartInterface {
 	}
 
 	public String setIrisShape(GameCharacter owner, EyeShape irisShape) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.irisShape = irisShape;
 			return "";
 		}
@@ -172,7 +172,7 @@ public class Eye implements BodyPartInterface {
 	}
 
 	public String setPupilShape(GameCharacter owner, EyeShape pupilShape) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.pupilShape = pupilShape;
 			return "";
 		}
@@ -226,7 +226,7 @@ public class Eye implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Eye.class) && getType().getRace().isFeralPartsAvailable());

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(4.862 0 0 4.862 -29.454 -33.454)" stroke-width=".20568">
+  <g transform="translate(.38452 -.55915)">
+   <g transform="matrix(.85738 0 0 .85738 10.307 -2.0854)">
+    <g transform="translate(-1.5717 .75597)" stroke-width=".20568">
+     <path d="m26.844 23.607a15.353 15.353 0 0 0-15.354 15.354 15.353 15.353 0 0 0 15.354 15.354 15.353 15.353 0 0 0 15.354-15.354 15.353 15.353 0 0 0-15.354-15.354zm0 4.6328a10.721 10.721 0 0 1 10.721 10.721 10.721 10.721 0 0 1-10.721 10.721 10.721 10.721 0 0 1-10.721-10.721 10.721 10.721 0 0 1 10.721-10.721z" fill="#faa" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+     <path d="m39.384 30.251 9.3565-9.3565-0.05593 5.5961 3.7729 3.7605 0.05127-16.97-17.114-0.06189 3.717 3.702 6.1165-1e-6 -9.5616 9.6129" fill="#faa" stroke="#000" stroke-linejoin="round"/>
+     <g transform="translate(-5.1781 13.227)">
+      <g transform="translate(.86105 -5.0411)" fill="#faa" fill-rule="evenodd" stroke="#000" stroke-width=".20568">
+       <path d="m28.511 45.746 0.014 4.8-6.637 0.027v4.558h6.516l0.03 7.095h5.39l-0.057-7.041 6.622-0.054-0.013-4.612h-6.61l0.017-4.766" fill="#faa" stroke-width=".20568"/>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

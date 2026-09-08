@@ -79,7 +79,7 @@ public class LunetteRanged extends NPC {
 				Util.random.nextInt(100)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				30,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 
@@ -365,7 +365,7 @@ public class LunetteRanged extends NPC {
 		return null; // Post-combat responses are handled in the dialogue itself
 	}
 
-	public int getPaymentDemand() {
+	public long getPaymentDemand() {
 		return (Math.max(2500, Math.min(Main.game.getPlayer().getMoney()/10, 10000))/500) * 500; // Round to nearest 500
 	}
 	

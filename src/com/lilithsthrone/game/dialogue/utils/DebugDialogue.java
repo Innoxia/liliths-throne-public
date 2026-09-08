@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -14,10 +16,14 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -48,6 +54,9 @@ import com.lilithsthrone.game.combat.moves.CombatMoveCategory;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
+import com.lilithsthrone.game.dialogue.encounters.EncounterType;
+import com.lilithsthrone.game.dialogue.encounters.ExternalEncounterData;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -58,6 +67,8 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.RandomEnchantment;
+import com.lilithsthrone.game.inventory.enchanting.RandomPotionEnchantment;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
@@ -78,8 +89,10 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
+ * What a mess...
+ * 
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.10.10
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -88,7 +101,13 @@ public class DebugDialogue {
 	
 	private static Femininity filterFemininity = Femininity.ANDROGYNOUS;
 	
+	private static GameCharacter targetedCharacter;
+	
 	public static final DialogueNode DEBUG_MENU = new DialogueNode("A powerful tool", "Open debug menu.", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			targetedCharacter = null; // Reset this value when opening the debug menu to make sure that the targetedCharacter is not from a previous save file
+		}
 		
 		@Override
 		public String getContent() {
@@ -248,7 +267,8 @@ public class DebugDialogue {
 					};
 					
 				} else if (index == 13) {
-					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+//					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+					return new Response("Encounters", "View all encounters which can trigger on this tile.", ENCOUNTER_MENU);
 					
 				} else if (index == 14) {
 					return new Response("Sticker unlocks: ",
@@ -327,6 +347,11 @@ public class DebugDialogue {
 						};
 					}
 					
+				} else if(index==25) {
+					return new Response("Enchanted clothing", "View a list of all of the randomly-enchanted clothing which can spawn.", RANDOM_ENCHANTMENT_CLOTHING);
+					
+				} else if(index==26) {
+					return new Response("Enchanted potions", "View a list of all of the randomly-enchanted Youko potions which can spawn.", RANDOM_ENCHANTMENT_POTIONS);
 				}
 				
 				
@@ -531,6 +556,7 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 							if(Main.game.getPlayer().hasHymen()) {
 								Main.game.getPlayer().setVaginaVirgin(false);
 								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
@@ -544,6 +570,7 @@ public class DebugDialogue {
 					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 							if(Main.game.getPlayer().hasHymen()) {
 								Main.game.getPlayer().setVaginaVirgin(false);
 								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
@@ -634,7 +661,7 @@ public class DebugDialogue {
 						};
 						
 				} else if (index == 14) {
-					return new Response("+1000 filly points", "Gives you the maximum amount of filly points (can be used after qualifying as a filly in Dominion Express).", DEBUG_MENU){
+					return new Response("+1000 [style.mule] points", "Gives you the maximum amount of [style.mule] points (can be used after qualifying as a [style.mule] in Dominion Express).", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getDialogueFlags().incrementNatalyaPoints(1000));
@@ -949,6 +976,22 @@ public class DebugDialogue {
 							}
 							doll.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.HUMAN, RaceStage.GREATER, true);
 							doll.setBodyMaterial(BodyMaterial.SILICONE);
+							doll.setTailType(TailType.DEMON_COMMON);
+							doll.setWingType(WingType.DEMON_COMMON);
+							doll.setHornType(HornType.STRAIGHT);
+							doll.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+							doll.setArmRows(3);
+							
+							doll.setPiercedEar(true);
+							doll.setPiercedLip(true);
+							doll.setPiercedNavel(true);
+							doll.setPiercedNipples(true);
+							doll.setPiercedNipplesCrotch(true);
+							doll.setPiercedNose(true);
+							doll.setPiercedPenis(true);
+							doll.setPiercedTongue(true);
+							doll.setPiercedVagina(true);
+							
 							doll.setName("Dress-up doll");
 							doll.setLocation(Main.game.getPlayer());
 							Main.game.setActiveNPC(doll);
@@ -1071,6 +1114,8 @@ public class DebugDialogue {
 				}
 				
 				UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+" "+os.getSurname()+"</span>");
+				
+				UtilText.nodeContentSB.append(" (<i style='color:"+os.getGender().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getGender().getName())+"</i>)");
 				
 				UtilText.nodeContentSB.append(" ("+os.getSubspecies().getName(os.getBody()));
 				if(os.getSubspecies()==Subspecies.HALF_DEMON) {
@@ -1494,7 +1539,7 @@ public class DebugDialogue {
 							inventorySB.append("<br/>");
 							inventorySB.append("Femininity: <span style='color:"+outfit.getFemininity().getColour().toWebHexString()+";'>"+outfit.getFemininity().toString()+"</span>");
 							inventorySB.append("<br/>");
-							inventorySB.append("Conditional: <span style='font-family:monospace; font-size:0.75em;'>"+outfit.getConditional()+"</span>");
+							inventorySB.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+outfit.getConditional()+"</span>");
 							
 							inventorySB.append("<br/>");
 							inventorySB.append("Leg configurations: ");
@@ -1590,6 +1635,102 @@ public class DebugDialogue {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static Map<AbstractEncounter, Float> encounters;
+	public static final DialogueNode ENCOUNTER_MENU = new DialogueNode("Available Encounters", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			encounters = Main.game.getPlayerCell().getPlaceType().getPossibleEncountersMap(true);
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Encounters: "+encounters.size()+"</h5>");
+			int i=0;
+			for(Entry<AbstractEncounter, Float> entry : encounters.entrySet()) {
+				AbstractEncounter encounter = entry.getKey();
+				float chance = entry.getValue();
+				String id = encounter.getId();
+				
+				sb.append("<div class='container-full-width' style='border:1px solid "+(encounter.isFromExternalFile()?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString()+";"
+						+ " width:95%; padding:4px; margin:4px 2.5% 4px 2.5%; background-color:"+(i%2==0?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
+
+					sb.append("<div class='container-full-width' style='position:relative; padding:0; margin:0; width:100%; background-color:#00000000; -webkit-user-select:auto; text-align:left;'>");
+						if(encounter.isFromExternalFile()) {
+							sb.append(UtilText.parse("[style.colourGreenLight(MOD)] "));
+						} else {
+							sb.append(UtilText.parse("[style.colourRedLight(RES)] "));
+						}
+						sb.append("<b>"+id+": "+chance+"%</b>");
+						sb.append("<br/>");
+
+						sb.append("Encounters:");
+						if(encounter.isFromExternalFile()) {
+							int encounterIndex=0;
+							int rowCount=0;
+							for(ExternalEncounterData data : encounter.getPossibleEncounters()) {
+								float triggerChance = data.getTriggerChance();
+								rowCount++;
+								sb.append("<div class='container-full-width' style='margin:2px 0; padding:4px; width:100%;position:relative;"
+										+ " background:"+(rowCount%2==0?PresetColour.BACKGROUND.getShades()[3]:PresetColour.BACKGROUND_ALT.getShades()[3])+";'>");
+									sb.append(data.getName()+": "+(triggerChance==0?"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>":"<span>")+triggerChance+"%</span>");
+									sb.append("<br/>");
+									sb.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+data.getTriggerConditional()+"</span>");
+									sb.append("<br/>");
+									sb.append("Dialogue triggered: "+data.getDialogueId());
+									sb.append("<div class='normal-button' id='DEBUG_ENCOUNTER_"+id+"_"+encounterIndex+"'"
+											+ " style='position:absolute; text-align:center; width:18%; height:auto; margin:1%; top:-8px; right:2px; padding:2px;"
+											+ " font-size:0.9em; color:"+(triggerChance==0?PresetColour.GENERIC_BAD:PresetColour.GENERIC_MINOR_GOOD).toWebHexString()+";'>");
+										sb.append("Trigger");
+									sb.append("</div>");
+								sb.append("</div>");
+								encounterIndex++;
+							}
+							
+						} else {
+							int rowCount = 0;
+							for(Entry<EncounterType, Float> typeEntry : encounter.getDialogues().entrySet()) {
+								rowCount++;
+								EncounterType et = typeEntry.getKey();
+								float etChance = typeEntry.getValue();
+								sb.append("<div class='container-full-width' style='margin:2px 0; padding:4px; width:100%;position:relative;"
+										+ " background:"+(rowCount%2==0?PresetColour.BACKGROUND.getShades()[3]:PresetColour.BACKGROUND_ALT.getShades()[3])+";'>");
+									sb.append(et.toString()+": "+etChance+"%");
+									sb.append("<div class='normal-button' id='DEBUG_ENCOUNTER_"+id+"_"+et+"'"
+											+ " style='position:absolute; text-align:center; width:18%; height:auto; margin:1%; top:-8px; right:2px; padding:2px; font-size:0.9em; color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>");
+										sb.append("Trigger");
+									sb.append("</div>");
+								sb.append("</div>");
+							}
+						}
+						
+						
+//							sb.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+outfit.getConditional()+"</span>");
+							
+					sb.append("</div>");
+					
+				sb.append("</div>");
+				i++;
+			}
+			sb.append("</div>");
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+		@Override
+		public boolean isContentParsed() {
+			return false;
 		}
 	};
 	
@@ -1774,12 +1915,19 @@ public class DebugDialogue {
 	};
 	
 	public static final DialogueNode BODY_PART_RACE_RESET = new DialogueNode("Reset body", "Set race.", false) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			// Just in case this dialogue node is accessed before initialising targetedCharacter, or if targetedCharacter is no longer present:
+			if(targetedCharacter==null
+					|| (!targetedCharacter.isPlayer() && !Main.game.getCharactersPresent().contains(targetedCharacter))) {
+				targetedCharacter = Main.game.getPlayer();
+			}
+		}
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("<p>"
-						+ "Select one of the races to reset your body to the default values of that race. (i.e. Regenerate your current body as that of a different race.)"
+						+ UtilText.parse(targetedCharacter, "Select one of the races to reset [npc.namePos] body to the default values of that race. (i.e. Regenerate [npc.her] current body as that of a different race.)")
 					+ "</p>"
 					+ "<p>"
 						+ "[style.colourTfPartial(Partial)]: Sets body to human, with selected race's antennae, eyes, ears, hair, horns, tail, and wings.</br>"
@@ -1790,7 +1938,7 @@ public class DebugDialogue {
 					+ "<p>"
 					+ "<b>IDs:</b><br/>");
 			for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-				sb.append("<span style='color:"+sub.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(Main.game.getPlayer().getBody()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
+				sb.append("<span style='color:"+sub.getColour(targetedCharacter).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(targetedCharacter.getBody()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
 				sb.append("</br>");
 			}
 			
@@ -1798,7 +1946,6 @@ public class DebugDialogue {
 			
 			return sb.toString();
 		}
-		
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index == 0) {
@@ -1812,12 +1959,51 @@ public class DebugDialogue {
 				
 			} else if(index == 3) {
 				return "[style.colourTfGreater(Greater)]";
+				
+			} else if (index == 4) {
+				return "Target";
 			}
 			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==4) {
+				if (index == 1) {
+					if (targetedCharacter == Main.game.getPlayer()) {
+						return new Response(Main.game.getPlayer().getName(), "You are the current target.", null);
+					} else {
+						return new Response(Main.game.getPlayer().getName(), "Target yourself.", BODY_PART_RACE_RESET) {
+							@Override
+							public void effects() {
+								targetedCharacter = Main.game.getPlayer();
+							}
+						};
+					}
+					
+				} else {
+					index-=2;
+				}
+
+				if (index >= Main.game.getCharactersPresent().size() || index<0) {
+					return null;
+				}
+				GameCharacter gc = Main.game.getCharactersPresent().get(index);
+				if (!gc.isUnique()) {
+					if (targetedCharacter == gc) {
+						return new Response(gc.getName(), gc.getName()+" is the current target.", null);
+					} else {
+						return new Response(gc.getName(), "Change target to "+gc.getName(), BODY_PART_RACE_RESET) {
+							@Override
+							public void effects() {
+								targetedCharacter = gc;
+							}
+						};
+					}
+				}
+			
+			}
+			
 			List<AbstractSubspecies> availableSubspecies = new ArrayList<>();
 			availableSubspecies.addAll(Subspecies.getAllSubspecies());
 			availableSubspecies.removeIf(s->s.getRace()==Race.ELEMENTAL);
@@ -1833,14 +2019,14 @@ public class DebugDialogue {
 					@Override
 					public void effects() {
 						if(subspecies==Subspecies.HALF_DEMON) {
-							Main.game.getPlayer().setSubspeciesOverride(null);
-							Main.game.getPlayer().setBody(
-									Main.game.getCharacterUtils().generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
+							targetedCharacter.setSubspeciesOverride(null);
+							targetedCharacter.setBody(
+									Main.game.getCharacterUtils().generateHalfDemonBody(targetedCharacter, targetedCharacter.getGender(), Subspecies.HUMAN, false),
 									false);
-//							System.out.println("Subspecies override: "+Main.game.getPlayer().getSubspeciesOverride());
+//							System.out.println("Subspecies override: "+targetedCharacter.getSubspeciesOverride());
 							
 						} else {
-							Main.game.getPlayer().setSubspeciesOverride(null);
+							targetedCharacter.setSubspeciesOverride(null);
 							RaceStage stage = responseTab==0
 									?RaceStage.PARTIAL
 									:(responseTab==1
@@ -1866,9 +2052,9 @@ public class DebugDialogue {
 							}
 							
 							Main.game.getCharacterUtils().reassignBody(
-									Main.game.getPlayer(),
-									Main.game.getPlayer().getBody(),
-									Main.game.getPlayer().getGender(),
+									targetedCharacter,
+									targetedCharacter.getBody(),
+									targetedCharacter.getGender(),
 									subspecies,
 									stage,
 									false);
@@ -2663,4 +2849,167 @@ public class DebugDialogue {
 		}
 	};
 
+
+	public static final DialogueNode RANDOM_ENCHANTMENT_CLOTHING = new DialogueNode("Random Clothing Enchantments", "", false) {
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorGood(Positive Enchantments:)]</h4>"));
+			int i=0;
+			for(RandomEnchantment randomEnchantment : RandomEnchantment.getAllPositiveClothingEnchantments()) {
+				sb.append(getFormattedEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorBad(Negative Enchantments:)]</h4>"));
+			i=0;
+			for(RandomEnchantment randomEnchantment : RandomEnchantment.getAllNegativeClothingEnchantments()) {
+				sb.append(getFormattedEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+		@Override
+		public boolean isContentParsed() {
+			return false;
+		}
+	};
+	
+	public static List<String> randomEnchantmentClothingIds = Util.newArrayListOfValues("innoxia_groin_panties", "innoxia_torso_tshirt", "WRIST_MENS_WATCH");
+	
+	private static String getFormattedEnchantmentEntry(boolean oddRow, RandomEnchantment randomEnchantment) {
+		StringBuilder sb = new StringBuilder();
+		
+		String preParsingString = randomEnchantment.getConditionalPreParsingString();
+		UtilText.parse(Main.game.getPlayer(), preParsingString); // Parse the conditional to make sure that any variables for name have been set
+		preParsingString = preParsingString.replaceAll("(?<!^)\\[#", "<br/>\\[#"); // Format it for display
+		
+		sb.append("<div class='container-full-width' style='width:95%; padding:4px; margin:4px 2.5% 4px 2.5%; background-color:"+(oddRow?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; text-align:center; background:#00000000;'>");
+				sb.append("<b>"+Util.capitaliseSentence(UtilText.parse(randomEnchantment.getName(null)))+"</b>");
+			sb.append("</div>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; font-family:monospace; font-size:0.75em;background:#00000000;'>");
+				if(randomEnchantment.isMod()) {
+					sb.append(UtilText.parse("[style.colourGreenLight(MOD)] "));
+				} else {
+					sb.append(UtilText.parse("[style.colourBlueLight(RES)] "));
+				}
+				sb.append(RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment));
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+				sb.append("spawnWeighting:<br/>");
+				sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+randomEnchantment.getSpawnWeighting()+"</span>");
+			sb.append("</div>");
+			
+			if(!preParsingString.isEmpty()) {
+				sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+					sb.append("conditionalPreParsing:<br/>");
+					sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+preParsingString+"</span>");
+				sb.append("</div>");
+			}
+			
+			
+			sb.append("<div class='container-full-width' style='margin:0; padding:0; background:#00000000; text-align:center;'>");
+				sb.append("<div class='normal-button' id='RANDOM_ENCHANTMENT_"+randomEnchantmentClothingIds.get(0)+"_"+RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.FEMININE.toWebHexString()+";'>Spawn Panties</div>");
+				sb.append("<div class='normal-button' id='RANDOM_ENCHANTMENT_"+randomEnchantmentClothingIds.get(1)+"_"+RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.ANDROGYNOUS.toWebHexString()+";'>Spawn T-shirt</div>");
+				sb.append("<div class='normal-button' id='RANDOM_ENCHANTMENT_"+randomEnchantmentClothingIds.get(2)+"_"+RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.MASCULINE.toWebHexString()+";'>Spawn Watch</div>");
+			sb.append("</div>");
+			
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
+	
+	//TODO
+	public static final DialogueNode RANDOM_ENCHANTMENT_POTIONS = new DialogueNode("Random Potion Enchantments", "", false) {
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorGood(Positive Enchantments:)]</h4>"));
+			int i=0;
+			for(RandomPotionEnchantment randomEnchantment : RandomPotionEnchantment.getAllPositivePotionEnchantments()) {
+				sb.append(getFormattedPotionEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorBad(Negative Enchantments:)]</h4>"));
+			i=0;
+			for(RandomPotionEnchantment randomEnchantment : RandomPotionEnchantment.getAllNegativePotionEnchantments()) {
+				sb.append(getFormattedPotionEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+		@Override
+		public boolean isContentParsed() {
+			return false;
+		}
+	};
+	
+	private static String getFormattedPotionEnchantmentEntry(boolean oddRow, RandomPotionEnchantment randomEnchantment) {
+		StringBuilder sb = new StringBuilder();
+		
+		String preParsingString = randomEnchantment.getConditionalPreParsingString();
+		UtilText.parse(Main.game.getPlayer(), preParsingString); // Parse the conditional to make sure that any variables for name have been set
+		preParsingString = preParsingString.replaceAll("(?<!^)\\[#", "<br/>\\[#"); // Format it for display
+		
+		sb.append("<div class='container-full-width' style='width:95%; padding:4px; margin:4px 2.5% 4px 2.5%; background-color:"+(oddRow?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; text-align:center; background:#00000000;'>");
+				sb.append("<b>"+Util.capitaliseSentence(UtilText.parse(randomEnchantment.getName(null)))+"</b>");
+			sb.append("</div>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; font-family:monospace; font-size:0.75em;background:#00000000;'>");
+				if(randomEnchantment.isMod()) {
+					sb.append(UtilText.parse("[style.colourGreenLight(MOD)] "));
+				} else {
+					sb.append(UtilText.parse("[style.colourBlueLight(RES)] "));
+				}
+				sb.append(RandomPotionEnchantment.getIdFromRandomEnchantment(randomEnchantment));
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+				sb.append("spawnWeighting:<br/>");
+				sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+randomEnchantment.getSpawnWeighting()+"</span>");
+			sb.append("</div>");
+			
+			if(!preParsingString.isEmpty()) {
+				sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+					sb.append("conditionalPreParsing:<br/>");
+					sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+preParsingString+"</span>");
+				sb.append("</div>");
+			}
+			
+			
+			sb.append("<div class='container-full-width' style='margin:0; padding:0; background:#00000000; text-align:center;'>");
+				sb.append("<div class='normal-button' id='RANDOM_POTION_ENCHANTMENT_"+RandomPotionEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>Spawn potion</div>");
+			sb.append("</div>");
+			
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
 }

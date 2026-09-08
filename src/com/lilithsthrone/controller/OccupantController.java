@@ -366,6 +366,63 @@ public class OccupantController {
 	
 	public static void initSlaveJobListeners() {
 		String id;
+		
+		// Copy & paste settings:
+		// Schedule:
+		id = "copySlaveJobSchedule";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				CompanionManagement.copyJobSchedule();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Copy Job Schedule",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							"Copy [npc.namePos] job schedule, which will then enable you to paste this exact same schedule onto other slaves within their own job management screen.")));
+		}
+		id = "pasteSlaveJobSchedule";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CompanionManagement.isJobSchedulePasteAvailable()) {
+					boolean fullyPasted = CompanionManagement.pasteJobSchedule();
+					if(fullyPasted) {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					} else {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), PresetColour.GENERIC_BAD, "Some jobs were unable to be pasted!");
+					}
+				}
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Paste Job Schedule",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							CompanionManagement.isJobSchedulePasteAvailable()
+								?"Paste the currently copied job schedule, thereby making [npc.name] have the exact same job schedule as the one which you've copied."
+								:"You haven't copied a job schedule yet, so you can't paste it to replace [npc.namePos]...")));
+		}
+		// Job settings:
+		id = "copySlaveJobSettings";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				CompanionManagement.copyJobSettings();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Copy Job Settings",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							"Copy [npc.namePos] job settings, which will then enable you to paste these exact same settings onto other slaves within their own job management screen.")));
+		}
+		id = "pasteSlaveJobSettings";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CompanionManagement.isJobSettingsPasteAvailable()) {
+					CompanionManagement.pasteJobSettings();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Paste Job Settings",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							CompanionManagement.isJobSettingsPasteAvailable()
+								?"Paste the currently copied job settings, thereby making [npc.name] have the exact same job settings as those which you've copied."
+								:"You haven't copied a set of job settings yet, so you can't paste them to replace [npc.namePos]...")));
+		}
+		
 		// Job hours:
 		for (int i = 0; i<24; i++) {
 			id = i+"_WORK";
@@ -498,10 +555,37 @@ public class OccupantController {
 	}
 	
 	public static void initSlavePermissionsListeners() {
+		// Copy & paste settings:
+		// Permissions:
+		String id = "copyPermissions";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				CompanionManagement.copyPermissions();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Copy Permissions",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							"Copy [npc.namePos] permissions, which will then enable you to paste these exact same permissions onto other slaves within their own permissions management screen.")));
+		}
+		id = "pastePermissions";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CompanionManagement.isPermissionsPasteAvailable()) {
+					CompanionManagement.pastePermissions();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Paste Permissions",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							CompanionManagement.isPermissionsPasteAvailable()
+								?"Paste the currently copied permissions, thereby making [npc.name] have the exact same permissions as those which you've copied."
+								:"You haven't copied a set of permissions yet, so you can't paste them to replace [npc.namePos]...")));
+		}
+		
 		// Permissions:
 		for (SlavePermission permission : SlavePermission.values()) {
 			for (SlavePermissionSetting setting : permission.getSettings()) {
-				String id = setting+"_ADD";
+				id = setting+"_ADD";
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.getDialogueFlags().getManagementCompanion().addSlavePermissionSetting(permission, setting);
@@ -558,8 +642,11 @@ public class OccupantController {
 					});
 				}, false);
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
-						"<b>Sort By "+friendlyName+"</b>",
-						osm.getSortingDescription()));
+						osm==OccupantSortingMethod.NONE
+							?"No Sorting"
+							:"Sort By "+friendlyName,
+						osm.getSortingDescription(),
+						18*2));
 			}
 		}
 		
@@ -618,13 +705,18 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Inspect Slave",
-							UtilText.parse(slave, "Inspect [npc.name].")));
+							UtilText.parse(slave, "Inspect [npc.name]."),
+							18));
 				}
 				
 				id = slaveId+"_JOB";
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(slave)) {
+							@Override
+							public boolean isIgnoreContentScroll() {
+								return true;
+							}
 							@Override
 							public void effects() {
 								CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
@@ -633,13 +725,18 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Slave's Job",
-							UtilText.parse(slave, "Set [npc.namePos] job and work hours.")));
+							UtilText.parse(slave, "Set [npc.namePos] job and work hours."),
+							18));
 				}
 				
 				id = slaveId+"_PERMISSIONS";
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlavePermissionsDialogue(slave)) {
+							@Override
+							public boolean isIgnoreContentScroll() {
+								return true;
+							}
 							@Override
 							public void effects() {
 								CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
@@ -648,7 +745,8 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Slave's Permissions",
-							UtilText.parse(slave, "Manage [npc.namePos] permissions.")));
+							UtilText.parse(slave, "Manage [npc.namePos] permissions."),
+							18));
 				}
 				
 				id = slaveId+"_INVENTORY";
@@ -658,7 +756,8 @@ public class OccupantController {
 						Main.mainController.openInventory(slave, InventoryInteraction.FULL_MANAGEMENT);
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Slave's Inventory",
-							UtilText.parse(slave, "Manage [npc.namePos] inventory.")));
+							UtilText.parse(slave, "Manage [npc.namePos] inventory."),
+							18));
 				}
 				
 				id = slaveId+"_TRANSFER";
@@ -677,13 +776,15 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
-							UtilText.parse(slave, "Move [npc.name] to your current location.")));
+							UtilText.parse(slave, "Move [npc.name] to your current location."),
+							18));
 				}
 				
 				id = slaveId+"_TRANSFER_DISABLED_FULL";
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
-							UtilText.parse(slave, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here.")));
+							UtilText.parse(slave, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here."),
+							18*2));
 				}
 				id = slaveId+"_TRANSFER_DISABLED_INAPPPROPRIATE";
 				if (MainController.document.getElementById(id) != null) {
@@ -693,12 +794,14 @@ public class OccupantController {
 									+(slave.isDoll()
 										?"<br/><i>Dolls can only use doll closets as their home tile...</i>"
 										:"<br/><i>Slaves can only use slave rooms as their home tile...</i>")
-									)));
+									),
+							18*3));
 				}
 				id = slaveId+"_TRANSFER_DISABLED_ALREADY_HERE";
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
-							UtilText.parse(slave, "You cannot move [npc.name] to this location, as [npc.sheIs] already treating this room as [npc.her] home!")));
+							UtilText.parse(slave, "You cannot move [npc.name] to this location, as [npc.sheIs] already treating this room as [npc.her] home!"),
+							18*2));
 				}
 				
 				id = slaveId+"_SELL";
@@ -708,20 +811,26 @@ public class OccupantController {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
+									Main.game.getPlayer().incrementMoney((long) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
 									Main.game.getDialogueFlags().getSlaveTrader().addSlave(slave);
 									slave.setLocation(Main.game.getDialogueFlags().getSlaveTrader().getWorldLocation(), Main.game.getDialogueFlags().getSlaveTrader().getLocation(), true);
 								}
 							});
 						}
 					}, false);
-					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Sell Slave",
-							UtilText.parse(slave,
-									(slave.isAbleToBeSold()
-											?"[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", PresetColour.GENERIC_GOOD)+"<br/>"
+					
+					if(slave.isAbleToBeSold()) {
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Sell Slave",
+								UtilText.parse(slave,
+										"[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", PresetColour.GENERIC_GOOD)
+											+"<br/>"
 											+"However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
-											+UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", PresetColour.GENERIC_ARCANE)+"."
-											:"[npc.Name] cannot be sold!"))));
+											+UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", PresetColour.GENERIC_ARCANE)+".")));
+					} else {
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Sell Slave",
+								UtilText.parse(slave,"[npc.Name] cannot be sold!"),
+								18));
+					}
 				}
 				
 				id = slaveId+"_SELL_DISABLED";
@@ -730,7 +839,10 @@ public class OccupantController {
 							UtilText.parse(slave,
 									slave.isAbleToBeSold()
 											?"You cannot sell [npc.name], as there's nobody here to sell [npc.herHim] to."
-											:"[npc.Name] cannot be sold!")));
+											:"[npc.Name] cannot be sold!"),
+							slave.isAbleToBeSold()
+								?18*2
+								:18));
 				}
 				
 				id = slaveId+"_COSMETICS";
@@ -746,13 +858,15 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Send to Kate",
-							UtilText.parse(slave, "Send [npc.name] to Kate's beauty salon, 'Succubi's Secrets', to get [npc.her] appearance changed.")));
+							UtilText.parse(slave, "Send [npc.name] to Kate's beauty salon, 'Succubi's Secrets', to get [npc.her] appearance changed."),
+							18*2));
 				}
 				
 				id = slaveId+"_COSMETICS_DISABLED";
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Send Slave to Kate",
-							UtilText.parse(slave, "You haven't met Kate yet!")));
+							UtilText.parse(slave, "You haven't met Kate yet!"),
+							18));
 				}
 			}
 		}
@@ -780,13 +894,16 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Inspect Character",
-							UtilText.parse(occupant, "Inspect [npc.name].")));
+							UtilText.parse(occupant, "Inspect [npc.name]."),
+							18));
 				}
 				
 				id = occupantId+"_JOB";
 				if (MainController.document.getElementById(id) != null) {
 					if(occupant.hasJob()) {
-						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", UtilText.parse(occupant, "[npc.name] already has a permanent job, so cannot be assigned to work within the mansion...")));
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job",
+								UtilText.parse(occupant, "[npc.name] already has a permanent job, so cannot be assigned to work within the mansion..."),
+								18*2));
 						
 					} else {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -798,23 +915,30 @@ public class OccupantController {
 								}
 							});
 						}, false);
-						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", UtilText.parse(occupant, "Assign [npc.name] some temporary work.")));
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job",
+								UtilText.parse(occupant, "Assign [npc.name] some temporary work."),
+								18));
 					}
 				}
 				
 				id = occupantId+"_PERMISSIONS";
 				if (MainController.document.getElementById(id) != null) {
-					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Permissions", "You cannot manage a free-willed occupant's permissions."));
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Permissions",
+							"You cannot manage a free-willed occupant's permissions.",
+							18*2));
 				}
 				
 				id = occupantId+"_INVENTORY";
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-						Main.game.getDialogueFlags().setManagementCompanion(occupant);
+//						Main.game.getDialogueFlags().setManagementCompanion(occupant);
+						CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), occupant);
 						Main.mainController.openInventory(occupant, InventoryInteraction.FULL_MANAGEMENT);
+						
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Inventory",
-							UtilText.parse(occupant, "Manage [npc.namePos] inventory.")));
+							UtilText.parse(occupant, "Manage [npc.namePos] inventory."),
+							18));
 				}
 				
 				id = occupantId+"_TRANSFER";
@@ -829,13 +953,15 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Here",
-							UtilText.parse(occupant, "Move [npc.name] to your current location.")));
+							UtilText.parse(occupant, "Move [npc.name] to your current location."),
+							18));
 				}
 				
 				id = occupantId+"_TRANSFER_DISABLED";
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Here",
-							UtilText.parse(occupant, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here.")));
+							UtilText.parse(occupant, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here."),
+							18*2));
 				}
 				
 				id = occupantId+"_COSMETICS";
@@ -851,12 +977,15 @@ public class OccupantController {
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Send to Kate",
-							UtilText.parse(occupant, "Send [npc.name] to Kate's beauty salon, 'Succubi's Secrets', to get [npc.her] appearance changed.")));
+							UtilText.parse(occupant, "Send [npc.name] to Kate's beauty salon, 'Succubi's Secrets', to get [npc.her] appearance changed."),
+							18*2));
 				}
 				
 				id = occupantId+"_COSMETICS_DISABLED";
 				if (MainController.document.getElementById(id) != null) {
-					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Send to Kate", "You haven't met Kate yet!"));
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Send to Kate",
+							"You haven't met Kate yet!",
+							18));
 				}
 			}
 		}

@@ -116,7 +116,7 @@
 	
 	<htmlContent tag="KEEP_ENTRY_PACIFIED_DEMAND_BREEDING"><![CDATA[
 	<p>
-		In the very centre of the hall, you spot the familiar occupants of [npc.namePos] dojo gathered around the bamboo poles. The [npc.race] [npc.himself] is the first to notice your arrival, and, sheathing his sword and placing his hands on his hips, he booms, [npc.speech(Back again, hmm?! And with a flat stomach! Good! I was just thinking that I need a break, so come over here and let me put some imps in that belly of yours!)]
+		In the very centre of the hall, you spot the familiar occupants of [npc.namePos] dojo gathered around the bamboo poles. The [npc.race] [npc.himself] is the first to notice your arrival, and, sheathing his sword and placing his hands on his hips, he booms, [npc.speech(Back again, hmm?! And with a flat stomach?! Good! I was just thinking that I need a break, so come over here and let me put some imps in that belly of yours!)]
 	</p>
 	]]>
 	</htmlContent>

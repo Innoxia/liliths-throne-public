@@ -73,6 +73,8 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -97,7 +99,7 @@ public class Sleip extends NPC {
 				"Sleip is one of two nightmare bodyguards who protect Angelixx at all times.",
 				28, Month.AUGUST, 28,
 				20, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30),
+				new CharacterInventory(false, 30),
 				WorldType.getWorldTypeFromId("innoxia_dominion_angelixx_apartment"), PlaceType.getPlaceTypeFromId("innoxia_dominion_angelixx_apartment_bedroom"),
 				true);
 		if(!isImported) {
@@ -531,8 +533,28 @@ public class Sleip extends NPC {
 			}
 			player.setVaginaType(player.getTrueRace().getRacialBody().getVaginaType());
 		}
-		
-		
-	
 	}
+	
+
+	@Override
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(receivingCharacter.isPlayer() && receivingCharacter.isDoll() && penetrated==SexAreaOrifice.VAGINA) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<p>");
+				sb.append("[sleip.speechNoEffects(It doesn't get better than breaking in a virgin doll pussy!)]"
+						+ " Sleip hungrily grunts as he slams his fat horse-cock deep into your silicone twat."
+						+ " Having been the first to penetrate your new pussy, the nightmare taunts you by growling,"
+						+ " [sleip.speechNoEffects(You'll always remember my cock as being your first, doll, but to me you're just a forgettable fuck!)]");
+			sb.append("</p>");
+			sb.append("<p>");
+				sb.append("You can't help but moan and shuffle about on the table as the demonic horse-boy hilts his massive, bestial shaft deep into your artificial cunt."
+						+ " Losing your virginity in such a rough, dominant manner sends a wave of submissive pleasure through your new body, and suddenly all you can think about is being a good doll for whoever wants to fuck you.");
+			sb.append("</p>");
+			
+			return sb.toString();
+		}
+		
+		return super.getSpecialPlayerVirginityLoss(penetratingCharacter, penetrating, receivingCharacter, penetrated);
+	}
+
 }

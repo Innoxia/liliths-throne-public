@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Unlucky]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="CRITICAL_DAMAGE" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

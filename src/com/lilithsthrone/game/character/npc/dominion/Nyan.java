@@ -110,7 +110,7 @@ public class Nyan extends NPC {
 						+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				21, Month.APRIL, 12,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
-				new CharacterInventory(10), WorldType.NYANS_APARTMENT, PlaceType.NYAN_APARTMENT_NYAN_BEDROOM, true);
+				new CharacterInventory(false, 10), WorldType.NYANS_APARTMENT, PlaceType.NYAN_APARTMENT_NYAN_BEDROOM, true);
 		
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();
@@ -403,7 +403,7 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_WHITE,
 					PresetColour.CLOTHING_YELLOW,
 					PresetColour.CLOTHING_PURPLE_LIGHT));
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, dressColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_skater_dress", dressColour, false), true, this);
 			
 		} else {
 			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_CLEAR));
@@ -533,7 +533,7 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_GREEN_LIME,
 					PresetColour.CLOTHING_PURPLE_LIGHT,
 					PresetColour.CLOTHING_BLACK));
-			dress = Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, dressColour, false);
+			dress = Main.game.getItemGen().generateClothing("innoxia_torso_skater_dress", dressColour, false);
 
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband_bow", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GREY, dressColour, false), true, this);
 			
@@ -569,9 +569,6 @@ public class Nyan extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
-		if(this.isVisiblyPregnant()) {
-			return "NyanPregnant";
-		}
 		return "Nyan";
 		//TODO NyanSpecials
 	}

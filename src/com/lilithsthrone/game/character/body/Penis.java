@@ -148,6 +148,7 @@ public class Penis implements BodyPartInterface {
 				}
 			} else {
 				list.add("soft");
+				list.add("flaccid");
 				if(owner.isErectionPreventedPhysically()) {
 					list.add("caged");
 					list.add("imprisoned");
@@ -225,7 +226,7 @@ public class Penis implements BodyPartInterface {
 			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
 		}
 		
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			testicle.setType(owner, type.getTesticleType());
 			if(owner!=null) {
@@ -367,7 +368,7 @@ public class Penis implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
 	 */
 	public String setPenisGirth(GameCharacter owner, int girth) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
@@ -456,7 +457,7 @@ public class Penis implements BodyPartInterface {
 			}
 		}
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -549,7 +550,7 @@ public class Penis implements BodyPartInterface {
 			return owner == null ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(owner==null || owner.getBody()==null) {
+		if(!isCharacterInitialised(owner) || owner.getBody()==null) {
 			penisModifiers.add(modifier);
 			return "";
 		}
@@ -711,7 +712,7 @@ public class Penis implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null || getType()==PenisType.NONE) {
+		if(!isCharacterInitialised(owner) || getType()==PenisType.NONE) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Penis.class) && getType().getRace().isFeralPartsAvailable());

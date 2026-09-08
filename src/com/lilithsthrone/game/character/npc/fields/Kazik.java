@@ -81,7 +81,7 @@ public class Kazik extends NPC {
 				27, Month.NOVEMBER, 11,
 				30,
 				Gender.M_P_MALE, Subspecies.getSubspeciesFromId("dsg_ferret_subspecies_ferret"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_trinkets"),
 				true);
 

@@ -28,7 +28,11 @@
 			<sexPace/>
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
-			<control/>
+			<control><![CDATA[
+				#IF(!flags.hasFlag(FLAG_innoxia_vronti_blowjob_given))
+					ONGOING_ONLY
+				#ENDIF
+			]]></control>
 			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
 			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>

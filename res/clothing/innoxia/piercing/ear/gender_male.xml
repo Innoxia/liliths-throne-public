@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>200</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[male glyph earring]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[male glyph earrings]]></namePlural>
+		<description><![CDATA[Freely-moving hinged icons of a male glyph hang from these earrings.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>MASCULINE</femininity>
+		<slot>PIERCING_EAR</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>gender_core.svg</imageName>
+		<imageEquippedName/>
+		
+		<stickers>
+			<category id="glyph_shape" priority="1">
+				<categoryName><![CDATA[Glyph shape]]></categoryName>
+				<sticker id="circle" priority="1" defaultSticker="true" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Circle]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">gender_stickers/male_circle.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="heart" priority="2" defaultSticker="true" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Heart]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">gender_stickers/male_heart.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE_GREY</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the earrings into [npc.her] [npc.ears].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the earrings into [npc2.namePos] [npc2.ears].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(clip)] the earrings into [npc2.namePos] [npc2.ears].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] earrings and [npc.verb(take)] them out.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] earrings and [npc.verb(take)] them out.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] earrings and roughly [npc.verb(pull)] them out.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
+<!-- This item of clothing had its default name changed from 'filly' to 'mule', along with references throughout the game, in v0.4.10.10 -->
+
 <clothing>
 	<coreAttributes>
 		<value>1000</value>
 		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA['Filly' choker]]></name>
-		<namePlural pluralByDefault="false"><![CDATA['Filly' chokers]]></namePlural>
-		<description><![CDATA[A sturdy, leather choker, which is fastened around the wearer's neck by means of a metal buckle. A series of large metal letters are fastened to the front of the collar and boldly spell out the word 'Filly'.]]></description>
+		<name><![CDATA[choker]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[chokers]]></namePlural>
+		<description><![CDATA[A sturdy, leather choker, which is fastened around the wearer's neck by means of a metal buckle. A series of large metal letters are fastened to the front of the collar and boldly spell out the word ]]></description>
 		<physicalResistance>0</physicalResistance>
-		<femininity>FEMININE</femininity>
+		<femininity>ANDROGYNOUS</femininity>
 		<equipSlots>
 		  <slot>NECK</slot>
 		</equipSlots>
@@ -17,6 +19,36 @@
 		<imageName>filly_choker.svg</imageName>
 		<imageEquippedName/>
 		
+		<stickers>
+			<category id="txt" priority="1">
+				<categoryName><![CDATA[Text]]></categoryName>
+				<sticker id="mule" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Mule]]></stickerName>
+					<namePrefix priority="1"><![CDATA[<i>'Mule'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'MULE'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">filly_choker_stickers/mule.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="filly" priority="2" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Filly]]></stickerName>
+					<namePrefix priority="1"><![CDATA[<i>'Filly'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'FILLY'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">filly_choker_stickers/filly.svg</imageName>
+					<itemTagsAdded>
+						<tag>FILLY_NAMING</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+
 		<effects>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SERVITUDE" timer="0"/>

@@ -78,7 +78,7 @@ public class Kruger extends NPC {
 				Gender.M_P_MALE,
 				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
 				RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.NIGHTLIFE_CLUB,
 				PlaceType.WATERING_HOLE_VIP_AREA,
 				true);

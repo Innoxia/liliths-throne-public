@@ -1773,6 +1773,19 @@ public class ItemType {
 		}
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
+//			System.out.println("###");
+//			System.out.println(target.isPlayer());
+//			System.out.println(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()==0);
+//			System.out.println(Util.newArrayListOfValues(
+//					Encounter.DOMINION_ALLEY,
+//					Encounter.DOMINION_CANAL,
+//					Encounter.HARPY_NEST_WALKWAYS,
+//					Encounter.SUBMISSION_TUNNELS,
+//					Encounter.BAT_CAVERN,
+//					Encounter.getEncounterFromId("innoxia_elis_alleyway")
+//				).contains(target.getLocationPlace().getPlaceType().getCoreEncounterType()));
+//			System.out.println(Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"));
+			
 			return target.isPlayer()
 					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()==0
 					&& ((Util.newArrayListOfValues(
@@ -1782,7 +1795,7 @@ public class ItemType {
 							Encounter.SUBMISSION_TUNNELS,
 							Encounter.BAT_CAVERN,
 							Encounter.getEncounterFromId("innoxia_elis_alleyway")
-						).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
+						).contains(target.getLocationPlace().getPlaceType().getCoreEncounterType()))
 						|| Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"));
 		}
 		@Override
@@ -3204,7 +3217,8 @@ public class ItemType {
 	
 	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies mainSubspecies, List<AbstractSubspecies> additionalUnlockSubspecies) {
 		return new AbstractItemEffectType(Util.newArrayListOfValues(
-				"Adds "+mainSubspecies.getName(null)+" encyclopedia entry and reveals racial status effect attributes",
+				"Adds "+mainSubspecies.getName(null)+" encyclopedia entry",
+				"Reveals racial status effect attributes",
 				"[style.colourExcellent(Grants Unique Perk:)]",
 				Perk.getSubspeciesRelatedPerk(mainSubspecies).getName(null)
 				//"[style.boldExcellent(+10)] <b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"+mainSubspecies.getDamageMultiplier().getName()+"</b>"

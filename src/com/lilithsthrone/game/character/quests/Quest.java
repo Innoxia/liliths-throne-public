@@ -390,7 +390,7 @@ public enum Quest {
 				Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
 			}
 			if(!Main.game.getPlayer().hasClothingType(ClothingType.FINGER_LYSSIETHS_RING, true)) {
-				Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false);
+				Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING, false), false);
 			}
 		}
 	},
@@ -500,7 +500,8 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army.";
+			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army."
+					+ " When you're ready, you need to meet with Meraxis and have her guide you there.";
 		}
 
 		@Override
@@ -603,15 +604,50 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_I_ARION_REPORT(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_I_ELIS_DEFENCE_PLAN(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Report to Minotallys";
 		}
 		@Override
 		public String getDescription() {
+			return "Now that the SWORD Enforcers are working on preparing the town's defences, you need to head back to the town hall to report this to Minotallys.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "After meeting with Minotallys, Ursa, Hammer and Ghost, and Meraxis in the town hall, a plan for how to defend Elis from Lunette was made.";
+		}
+	},
+	
+	MAIN_3_J_FINDING_TAKAHASHI(QuestType.MAIN, 30, 25) {
+		@Override
+		public String getName() {
+			return "Finding Takahashi";
+		}
+		@Override
+		public String getDescription() {
+			return "Meraxis is convinced that she can enlist the aid of the youko with the help of her youko friend, Takahashi."
+					+ " The most likely place to find Takahashi is in Meraxis's old hideout in the Shinrin Highlands."
+					+ " When ready, you need to speak with Meraxis and travel to the Shinrin Highlands in order to find her friend.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You discovered that Meraxis's secret hideout had been occupied by a seven-tailed youko, who had captured Takahashi and was using her as a servant."
+					+ " After being discovered, the seven-tailed youko fled, allowing Meraxis and Takahashi to reclaim their old hideout.";
+		}
+	},
+	
+	MAIN_3_K_WEAPONS_CACHE(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Getting the Guns";
+		}
+		@Override
+		public String getDescription() {
 			return "[style.italicsBad(This is as far as the main quest goes for now! It will be updated soon!)]"
-					+ "<br/>Now that the SWORD Enforcers are working on preparing the town's defences, you need to head back to the town hall to report this to Minotallys.";
+					+"<br/>"
+					+"The guns which Meraxis stole from Lyssieth are in the possession of a nine-tailed youko."
+					+ " Takahashi knows where this youko lives, and so when you're ready the three of you can set off to reclaim these weapons.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -619,14 +655,30 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_J_TODO(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_L_YOUKO_LILIN(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "The Youko Lilin";
+		}
+		@Override
+		public String getDescription() {
+			return "Now the weapons have been secured, the defence of Elis is only lacking arcane users who can repel the spells which Lunette's daughters will be using."
+					+ " In order to get the youko to help with this, you need to seek out the two youko lilin and convince them to help you.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	MAIN_3_M_DEFENCE_OF_ELIS(QuestType.MAIN, 1, 25) {//TODO
 		@Override
 		public String getName() {
 			return "";
 		}
 		@Override
 		public String getDescription() {
-			return "";
+			return "With the youko's aid secured and the stockpile of arcane muskets in your hands, all that's left to do is trigger Lunette's assault on the town.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -634,6 +686,40 @@ public enum Quest {
 		}
 	},
 	
+	MAIN_3_N_DEFEAT_LUNETTE(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "";
+		}
+		@Override
+		public String getDescription() {
+			return "The assault on Elis has begun! Thanks to your actions and those of the youko and the musket-armed militia, Lunette's daughters have been repelled, but the elder lilin herself still needs to be dealt with."
+					+ " It's up to you, Meraxis, and Minotallys to defeat her centaur form.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	MAIN_3_O_DEFEAT_LUNETTE2(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "";
+		}
+		@Override
+		public String getDescription() {
+			return "You managed to defeat Lunette, but as her centaur body tumbled to the ground, she transformed into her true, demonic form."
+					+ " You need to stall her until Lyssieth can arrive and subdue her sister.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "-";
+		}
+	},
+	
+	//"[style.italicsBad(This is as far as the main quest goes for now! It will be updated soon!)]"
+	//+"<br/>"
 
 	// Side Quests:
 
@@ -2618,22 +2704,22 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "Natalya, the Stable Mistress at the company Dominion Express, has offered you the opportunity to be interviewed for the position of 'filly'.";
+			return "Natalya, the Stable Mistress at the company Dominion Express, has offered you the opportunity to be interviewed for the position of '[style.mule]'.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You accepted Natalya's offer of an interview for the position of 'filly' at Dominion Express.";
+			return "You accepted Natalya's offer of an interview for the position of '[style.mule]' at Dominion Express.";
 		}
 	},
 
 	ROMANCE_NATALYA_2_CONTRACT_SIGNED(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
-			return "Natalya's Filly";
+			return "Natalya's [style.Mule]";
 		}
 		@Override
 		public String getDescription() {
-			return "Having accepted the offer of an interview for the position of 'filly', you now need to successfully pass it and sign the contract.";
+			return "Having accepted the offer of an interview for the position of '[style.mule]', you now need to successfully pass it and sign the contract.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -2644,7 +2730,7 @@ public enum Quest {
 	ROMANCE_NATALYA_3_TRAINING_1(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
-			return "Filly Training";
+			return "[style.Mule] Training";
 		}
 		@Override
 		public String getDescription() {
@@ -2652,7 +2738,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
+			return "After being transformed into [style.a_shemale] taur, you began your [style.mule] training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
 		}
 	},
 
@@ -2682,7 +2768,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
+			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your [style.mule] training is complete.";
 		}
 	},
 
@@ -2771,6 +2857,9 @@ public enum Quest {
 		}
 		if(quest.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
 			return Quest.MAIN_3_D_TO_THEMISCYRA;
+		}
+		if(quest.equalsIgnoreCase("MAIN_3_I_ARION_REPORT")) {
+			return Quest.MAIN_3_I_ELIS_DEFENCE_PLAN;
 		}
 		
 		return Quest.valueOf(quest);

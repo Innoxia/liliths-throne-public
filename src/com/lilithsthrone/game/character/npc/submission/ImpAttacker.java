@@ -83,7 +83,7 @@ public class ImpAttacker extends NPC {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
+				new CharacterInventory(false, 10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 		
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
@@ -174,7 +174,7 @@ public class ImpAttacker extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) { //TODO gang tattoos?
-		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
+		this.incrementMoney((long) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 

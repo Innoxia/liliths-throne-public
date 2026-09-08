@@ -352,11 +352,12 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public void applyRaceChanges(Body body) {
+		public String applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.DOG_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
+			return "";
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -400,11 +401,12 @@ public class Race {
 			return super.getNamePlural(body, feral);
 		}
 		@Override
-		public void applyRaceChanges(Body body) {
+		public String applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.WOLF_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
+			return "";
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -428,11 +430,12 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public void applyRaceChanges(Body body) {
+		public String applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.FOX_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
+			return "";
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -515,7 +518,7 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public void applyRaceChanges(Body body) {
+		public String applyRaceChanges(Body body) {
 			// 75% chance for genitals to be dark:
 			if(Math.random()<0.75f) {
 				Colour lightColour = Util.randomItemFrom(Util.newArrayListOfValues(
@@ -539,6 +542,7 @@ public class Race {
 					body.getCoverings().put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, darkColour, PresetColour.ORIFICE_INTERIOR));
 				}
 			}
+			return "";
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -606,11 +610,12 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public void applyRaceChanges(Body body) {
+		public String applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.RAT_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE));
 			}
+			return "";
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -803,7 +808,7 @@ public class Race {
 				PresetColour.SPELL_SCHOOL_ARCANE,
 				Disposition.NEUTRAL,
 				RacialClass.OTHER,
-				CombatBehaviour.BALANCED,
+				CombatBehaviour.SPELLS,
 				0.5f,
 				1,
 				1,
@@ -1574,6 +1579,18 @@ public class Race {
 					@Override
 					public String getDescription(GameCharacter owner) {
 						return "Increases damage vs "+race.getNamePlural(true)+".";
+					}
+					@Override
+					public int getOrderPriority() {
+						// Come on now...
+						int i = name.toLowerCase().charAt(0) * 1_000_000;
+						if(name.length()>1) {
+							i += name.toLowerCase().charAt(1) * 1_000;
+						}
+						if(name.length()>2) {
+							i += name.toLowerCase().charAt(2);
+						}
+						return i;
 					}
 				};
 				String id = "DAMAGE_"+Race.getIdFromRace(race);

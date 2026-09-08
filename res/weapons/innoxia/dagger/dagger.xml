@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
+		<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
+	
+		Your weapon's id (which is very important to the game), is calculated from your weapon's folder and .xml name using the following code:
+			modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
+		So if this file was in 'mods/innoxia/items/weapons/daggers/demon_dagger.xml', then particular weapon's id would be: "innoxia_daggers_demon_dagger".
+		
+		PARSING NOTE:
+			You can use 'thisItem' as a parsing target to access this weapon's methods for parsing. See 'res/clothing/innoxia/tape.roll.xml' for an example of this in use for an item of clothing, but the same formatting should work for weapons (but make sure to use AbstractWeapon's methods, not AbstractClothing's).
+			The 'thisItem' parsing target should work in name, description, hitDescriptions, and missDescriptions fields. -->
 		
 		<!-- How attribution to the mod author (you!) should be displayed in the weapon's tooltip. If left blank or not included, a default attribution based on folder name will be used. (I have commented out this example, as I don't want items created by myself to have author attribution.)-->
 		<!-- <authorTag><![CDATA[A discreet inscription at the base of the dagger's blade informs you that it was made by 'Innoxia'.]]></authorTag> -->
@@ -34,10 +43,22 @@
 		<!-- The name of this weapon. -->
 		<name appendDamageName="true"><![CDATA[Demon's Dagger]]></name> <!-- You can leave out the 'appendDamageName' attribute, but if you never want this weapon to be described by its damage type, then set it as false. (i.e. If set to false, this dagger would always be called 'Demon's Dagger' instead of, for example, 'Forceful Demon's Dagger')-->
 		
-		<!-- The plural name of this weapon. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
+		<!-- The plural name of this weapon.
+			If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
 		<namePlural pluralByDefault="false"><![CDATA[Demon's Daggers]]></namePlural> 
 		
-		<!-- The description/lore of this weapon. -->
+		<!-- The description/lore of this weapon.
+			If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon.
+			You can use 'npc' to access the character who's got this weapon equipped, but if you do you should do an npc null check first (as this weapon may be on the ground with no owner), like so:
+				<description><![CDATA[
+					#IF(npc!=null)
+						This is [npc.namePos] dagger!
+					#ELSE
+						This is a dagger!
+					#ENDIF
+					 It's worth [style.moneyFormat([#thisItem.getValue()], span)]!
+				]]></description> 
+		-->
 		<description><![CDATA[A finely crafted dagger, with a blade made out of enchanted ethereal energy. Issued to agents of the Enforcers' elite ORICL branch, this dagger is primarily intended to be a symbol of status, but is nonetheless completely functional.]]></description> 
 		
 		<!-- How the weapon is used.

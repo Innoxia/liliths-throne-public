@@ -110,7 +110,7 @@ public class Amber extends NPC {
 				117, Month.OCTOBER, 17,
 				15,
 				null, null, null,
-				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
+				new CharacterInventory(false, 10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 		
 	}
 	

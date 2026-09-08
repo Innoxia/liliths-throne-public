@@ -69,7 +69,7 @@ public class SubmissionAttacker extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
+				new CharacterInventory(false, 10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 
 		if(!isImported) {
 			// Set random level from 5 to 8:
@@ -105,6 +105,8 @@ public class SubmissionAttacker extends NPC {
 				this.setBody(gender, randomSpecies, RaceStage.GREATER, true);
 				
 			} else {
+				// Already picked a race, and it's not Slime or Imp as checked above so respect that pick
+				availableRaces = Util.newHashMapOfValues(new Util.Value<>(randomSpecies, 1));
 				this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			}
 			
@@ -192,7 +194,7 @@ public class SubmissionAttacker extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
+		this.incrementMoney((long) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		

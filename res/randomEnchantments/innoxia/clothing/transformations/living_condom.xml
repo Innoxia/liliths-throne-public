@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of the living condom]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_CUM_ADDICT" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_CREAMPIE_RETENTION" mod2="TF_FACE" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_CREAMPIE_RETENTION" mod2="TF_VAGINA" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_CREAMPIE_RETENTION" mod2="TF_SPINNERET" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAnalContentEnabled()]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_CREAMPIE_RETENTION" mod2="TF_ASS" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isNipplePenEnabled()]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_CREAMPIE_RETENTION" mod2="TF_BREASTS" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isUdderContentEnabled()]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_CREAMPIE_RETENTION" mod2="TF_BREASTS_CROTCH" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

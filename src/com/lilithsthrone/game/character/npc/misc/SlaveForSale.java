@@ -57,7 +57,7 @@ public class SlaveForSale extends NPC {
 				21, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
 				1,
 				null, null, null,
-				new CharacterInventory(0),
+				new CharacterInventory(false, 0),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 		
@@ -183,7 +183,7 @@ public class SlaveForSale extends NPC {
 			return super.getDescription();
 		}
 		if(this.isSlave()) {
-			return UtilText.parse(this, "For one reason or another, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
+			return UtilText.parse(this, "For one reason or another, [npc.nameIsFull] a slave, and is no more than [npc.her] owner's property.");
 			
 		} else {
 			return UtilText.parse(this, "After a period of being your slave, [npc.nameIsFull] now your trusted friend.");

@@ -197,9 +197,6 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_VAGINAL_GIVING; }
-		
-		@Override
-		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_ORAL_RECEIVING = new AbstractFetish(60,
@@ -456,8 +453,6 @@ public class Fetish {
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_LACTATION_OTHERS; }
 		
-		@Override
-		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_LEG_LOVER = new AbstractFetish(60,
@@ -717,7 +712,7 @@ public class Fetish {
 	
 	public static AbstractFetish FETISH_PENIS_GIVING = new AbstractFetish(60,
 			"cock stud",
-			"using their cock",
+			"using own cock",
 			"fetish_dick_dealer",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,

@@ -6,7 +6,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[half-moon reading glasses]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[half-moon reading glasses]]></namePlural>
-		<description><![CDATA[A pair of unisex, half-moon glasses. They're designed to help overcome any long-sightedness the wearer may suffer from, allowing them to read documents and focus on up-close objects.]]></description>
+		<description><![CDATA[A pair of unisex, half-moon glasses. This design is typically used to help the wearer overcome any long-sightedness they may suffer from, allowing them to read documents and focus on up-close objects. This particular pair, however, are good for correcting both short and long-sightedness.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>EYES</slot>
@@ -52,6 +52,7 @@
 	
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>PRESCRIPTION_GLASSES</tag>
 		</itemTags>
 	</coreAttributes>
 

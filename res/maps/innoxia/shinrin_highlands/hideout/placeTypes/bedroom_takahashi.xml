@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[Takahashi's bedroom]]></name>
+	<tooltipDescription><![CDATA[Several bookshelves have been squeezed into Takahashi's bedroom, and are filled with books, potions, and stacks of papers.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Takahashi's bedroom]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>bedroom</svgName>
+	<colour>BASE_BLUE_LIGHT</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_bedroom_takahashi</dialogue>
+	<populationPresent/>
+	<furniturePresent deskName="bed">true</furniturePresent>
+	<wallsPresent wallName="bookshelf">true</wallsPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

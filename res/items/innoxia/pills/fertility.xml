@@ -20,7 +20,17 @@
 		<!-- The plural name of this item. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this item. -->
 		<namePlural pluralByDefault="false"><![CDATA[breeder pills]]></namePlural>
 		
-		<!-- The description/lore of this item. -->
+		<!-- The description/lore of this item.
+			You can use 'npc' to access the character who's the owner of this item, but if you do you should do an npc null check first (as this item may be on the ground with no owner), like so:
+				<description><![CDATA[
+					#IF(npc!=null)
+						This is [npc.namePos] breeder pill!
+					#ELSE
+						This is a breeder pill!
+					#ENDIF
+					 It's worth [style.moneyFormat([#thisItem.getValue()], span)]!
+				]]></description> 
+		-->
 		<description><![CDATA[A small, light-purple pill, individually packaged in a foil and plastic wrapper. While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Enhancer', it's colloquially known as a 'breeder pill', and temporarily boosts both fertility and virility when ingested.]]></description> 
 		
 		<!-- How the item is used. This should be a single verb, and is used as the title of the action when using it. -->
@@ -37,6 +47,12 @@
 		
 		<!-- 'true' if this item is consumed on use. Most items have this set to 'true'. -->
 		<consumedOnUse>true</consumedOnUse>
+		
+		<!-- 'true' if using this item should close the player's inventory and display the item's effects as a full dialogue.
+			This is very rarely set to true, and is defaulted to false if omitted or left blank.
+			NOTE: If this is set to true, then this item cannot be used in combat, and will ignore the 'combatUseAllies' element above.
+			An example where this is true is in the 'res/items/innoxia/race/slime_biojuice_canister.xml' file. -->
+		<breakOutOfInventory>false</breakOutOfInventory>
 		
 		<!-- The rarity of this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>COMMON</rarity> 
@@ -68,7 +84,7 @@
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
 		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
-		<colourPrimary>CLOTHING_PURPLE_LIGHT</colourPrimary>
+		<colourPrimary>CLOTHING_PINK</colourPrimary>
 		<colourSecondary/>
 		<colourTertiary/>
 		
@@ -152,10 +168,10 @@
 	-->
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] a breeder pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
+		[npc.Name] [npc.verb(pop)] the breeder pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] a breeder pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
+		[npc.Name] [npc.verb(pop)] the breeder pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
 		]]></otherUse>
 	</useDescriptions>
 

@@ -135,7 +135,7 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
 	<p>
-		#IF(attacker.isPostCombatWantsSex(pc))
+		#IF(attacker.isPostCombatWantsSex())
 			#IF(attacker.isPostCombatRapePlay())
 				Deciding to play along with [attacker.name] as [attacker.she] pretends to resist, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to engage in some rape-play with [attacker.herHim]...
 			#ELSE

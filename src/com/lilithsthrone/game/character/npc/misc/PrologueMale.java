@@ -68,7 +68,7 @@ public class PrologueMale extends NPC {
 				Gender.M_P_MALE,
 				Subspecies.HUMAN,
 				RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY,
 				PlaceType.GENERIC_HOLDING_CELL,
 				false);

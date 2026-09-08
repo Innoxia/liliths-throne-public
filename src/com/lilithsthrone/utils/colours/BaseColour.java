@@ -68,6 +68,7 @@ public enum BaseColour {
 	BLUE_DARK(Util.newColour(0x0090BF), Util.newColour(0x002E43)),
 	BLUE_STEEL(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
 	BLUE_PALE(Util.newColour(0xd9f8ff), Util.newColour(0x69bcd1)),
+	BLUE_GREY(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
 
 	GREY_LIGHT(Util.newColour(0xd3d3d3), Util.newColour(0x999999)),
 	GREY(Util.newColour(0xB3B3B3), Util.newColour(0x777777)),

@@ -174,6 +174,8 @@ public class Artwork {
 			filteredImages.removeIf(s -> s.toLowerCase().contains("#nopreg") && character.isVisiblyPregnant());
 			filteredImages.removeIf(s -> s.toLowerCase().contains("#udders") && (!Main.game.isUdderContentEnabled() || !character.hasBreastsCrotch()));
 			filteredImages.removeIf(s -> s.toLowerCase().contains("#noudders") && Main.game.isUdderContentEnabled() && character.hasBreastsCrotch());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#multiboob") && character.getBreastRows()==1);
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#nomultiboob") && character.getBreastRows()>1);
 		}
 		return filteredImages;
 	}

@@ -350,6 +350,10 @@ public class Litter implements XMLSaving {
 		return this.motherId.equals(motherId);
 	}
 
+	/**
+	 * @return The father of this Litter.
+	 * <br/><b>Be careful, as this can return null!</b>
+	 */
 	public GameCharacter getFather() {
 		try {
 			return Main.game.getNPCById(fatherId);
@@ -358,6 +362,10 @@ public class Litter implements XMLSaving {
 		}
 	}
 
+	public boolean isFather(GameCharacter potentialFather) {
+		return Objects.equals(potentialFather, getFather());
+	}
+	
 	public String getFatherName() {
 		if(getFather()==null) {
 			return "someone";

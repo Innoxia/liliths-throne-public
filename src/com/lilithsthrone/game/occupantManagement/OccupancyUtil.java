@@ -91,6 +91,9 @@ public class OccupancyUtil implements XMLSaving {
 	// Slave income:
 	private Map<NPC, Integer> dailyIncome;
 	
+	/** When a PlaceUpgrade is removed, this boolean is set to true, as there's a possibility that slave jobs are no longer valid and so need recalculating. */
+	private boolean slaveJobsRecalculationRequired;
+
 	public OccupancyUtil() {
 		charactersAtJob = new HashMap<>();
 		for(SlaveJob job : SlaveJob.values()) {
@@ -191,6 +194,14 @@ public class OccupancyUtil implements XMLSaving {
 			System.err.println("Warning: SlaveryUtil failed to import!");
 			return null;
 		}
+	}
+	
+	public boolean isSlaveJobsRecalculationRequired() {
+		return slaveJobsRecalculationRequired;
+	}
+
+	public void setSlaveJobsRecalculationRequired(boolean slaveJobsRecalculationRequired) {
+		this.slaveJobsRecalculationRequired = slaveJobsRecalculationRequired;
 	}
 	
 	public void handleSlaveRemoval(GameCharacter character) {
@@ -548,6 +559,33 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 			}
+
+			if(hour%24==12) { // At midday:
+				SlaveryEventLogEntry dailyEntry = new SlaveryEventLogEntry(hour,
+						slave,
+						null,
+						SlaveEvent.MIDDAY_UPDATE,
+						null,
+						true);
+				// Pills:
+				if(slave.getSlavePermissionSettings().get(SlavePermission.SEX).contains(SlavePermissionSetting.SEX_LUBE_PILL)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_LUBE, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_STERILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_VIXENS_VIRILITY)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_FERTILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_BROODMOTHER)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_BROODMOTHER, slave, true);
+				}
+				
+				if(dailyEntry.getTags()!=null || dailyEntry.getExtraEffects()!=null) {
+					Main.game.addSlaveryEvent(day, dailyEntry);
+				}
+			}
+			
 			
 			if(hour%24==0) { // At the start of a new day:
 				SlaveryEventLogEntry dailyEntry = new SlaveryEventLogEntry(hour,
@@ -560,6 +598,20 @@ public class OccupancyUtil implements XMLSaving {
 				// Payments:
 				if(dailyIncome.containsKey(slave)) {
 					dailyEntry.addExtraEffect("[style.boldGood(Earned)] "+UtilText.formatAsMoney(dailyIncome.get(slave)));
+				}
+				
+				// Pills:
+				if(slave.getSlavePermissionSettings().get(SlavePermission.SEX).contains(SlavePermissionSetting.SEX_LUBE_PILL)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_LUBE, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_STERILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_VIXENS_VIRILITY)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_FERTILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_BROODMOTHER)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_BROODMOTHER, slave, true);
 				}
 				
 				if(!slave.isDoll()) { // Dolls do not gain/lose muscle or body size

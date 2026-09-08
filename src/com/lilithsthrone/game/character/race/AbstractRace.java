@@ -337,11 +337,15 @@ public abstract class AbstractRace {
 	/**
 	 * Applies any special racial changes to the body which is passed in. This is called <b>before</b> Subspecies.applySpeciesChanges()
 	 */
-	public void applyRaceChanges(Body body) {
+	public String applyRaceChanges(Body body) {
 		if(this.isFromExternalFile()) {
 			UtilText.setBodyForParsing("targetedBody", body);
-			UtilText.parse(raceChangeString);
+			String returnString = UtilText.parse(raceChangeString);
+			// Try to catch and remove unwanted text being returned from methods:
+			returnString = returnString.replaceAll("(?<=\\s|^)(null|true|false)(?=\\s|$)", "");
+			return returnString;
 		}
+		return "";
 	}
 	
 	public boolean isFeralPartsAvailable() {

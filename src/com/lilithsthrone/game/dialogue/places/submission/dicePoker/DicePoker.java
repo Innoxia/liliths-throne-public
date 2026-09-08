@@ -186,7 +186,7 @@ public class DicePoker {
 		diceToReroll.clear();
 	}
 	
-	private static int getRaiseAmount() {
+	private static long getRaiseAmount() {
 		if(Main.game.getPlayer().getMoney()<table.getRaiseAmount()) {
 			return Main.game.getPlayer().getMoney();
 		} else {

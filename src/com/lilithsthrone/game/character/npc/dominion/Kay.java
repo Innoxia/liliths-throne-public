@@ -71,7 +71,7 @@ public class Kay extends NPC {
 				24, Month.MAY, 11,
 				10,
 				Gender.M_P_MALE, Subspecies.CAT_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.TEXTILES_WAREHOUSE, PlaceType.TEXTILE_WAREHOUSE_OFFICE, true);
 	}
 	

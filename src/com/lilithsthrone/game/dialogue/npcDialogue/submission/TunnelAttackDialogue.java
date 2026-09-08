@@ -48,7 +48,7 @@ public class TunnelAttackDialogue {
 	private static boolean transformationsApplied = false;
 	
 	private static boolean isWantsToFight() {
-		return getMugger().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
+		return getMugger().isAffectionAggressionTrigger(Main.game.getPlayer());
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -97,6 +97,9 @@ public class TunnelAttackDialogue {
 	public static final DialogueNode TUNNEL_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			if(!isWantsToFight()) { // Catch for if the player has somehow raised this npc's affection without using the talk option. Should be impossible but someone managed it somehow (maybe with mods)
+				getMugger().setPlayerKnowsName(true);
+			}
 			getMugger().generatePostCombatPotions();
 			transformationsApplied = false;
 			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);
@@ -828,7 +831,19 @@ public class TunnelAttackDialogue {
 			boolean rapePlay = getMugger().isPostCombatRapePlay();
 			
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
+				return new Response("Continue",
+						"Carry on your way..."
+							+ (getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)
+									?UtilText.parse(getMugger(), "<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]")
+									:""),
+						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+						return super.getHighlightColour();
+					}
 					@Override
 					public void effects() {
 						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
@@ -1032,7 +1047,7 @@ public class TunnelAttackDialogue {
 				GameCharacter companion = getMainCompanion();
 
 				if(!Main.game.isNonConEnabled() && !getMugger().isAttractedTo(companion)) {
-					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getMugger(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
+					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getMugger(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc.herHim]!"), null);
 					
 				} else if(!companion.isAttractedTo(getMugger())) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getMugger(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);

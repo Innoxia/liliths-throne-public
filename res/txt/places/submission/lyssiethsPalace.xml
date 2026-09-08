@@ -127,11 +127,11 @@
 			#IF !siren.isCharacterReactedToPregnancy(pc)
 			#THEN
 				 As she stands up from behind her desk, you see that she's using one hand to cradle her conspicuously-swollen belly, and as she notices what it is you're looking at, she sighs,
-				#IF siren.getPregnantLitter().getFather().equals(pc)
+				#IF siren.getPregnantLitter().isFather(pc)
 				#THEN
 					 [siren.speech(Yeah, that's right, you ended up getting me pregnant... I <i>knew</i> you were gonna get me knocked up... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore! S-So, what do you want?!)]
 				#ELSE
-					#IF siren.getPregnantLitter().getFather().equals(lilaya)
+					#IF siren.getPregnantLitter().isFather(lilaya)
 					#THEN
 						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! S-So, what do you want?!)]
 					#ELSE
@@ -140,11 +140,11 @@
 				#ENDIF
 			#ELSE
 				 As she stands up from behind her desk, you see that her belly is still conspicuously-swollen, and as she notices what it is you're looking at, she sighs,
-				#IF siren.getPregnantLitter().getFather().equals(pc)
+				#IF siren.getPregnantLitter().isFather(pc)
 				#THEN
 					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore! S-So, what do you want?!)]
 				#ELSE
-					#IF siren.getPregnantLitter().getFather().equals(lilaya)
+					#IF siren.getPregnantLitter().isFather(lilaya)
 					#THEN
 						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! S-So, what do you want?!)]
 					#ELSE
@@ -230,7 +230,7 @@
 		As usual, the elder lilin is in her human form, appearing as a stunningly-beautiful, olive-skinned woman, who looks to be in her mid-forties. Her huge, [lyssieth.cupSize]-cup breasts threaten to spill out of her blouse's plunging neckline at any moment, and, as she stands up to greet you, you see that her long, perfect legs are shown-off by the large gap in one side of her long, black, asymmetrical skirt.
 		#IF lyssieth.isVisiblyPregnant()
 		#THEN
-			#IF pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(lyssieth)
+			#IF pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(lyssieth)
 			#THEN
 				#IF !pc.isCharacterReactedToPregnancy(lyssieth)
 				#THEN
@@ -257,7 +257,7 @@
 				#ENDIF
 			#ENDIF
 		#ELSE
-			#IF pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(lyssieth)
+			#IF pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(lyssieth)
 			#THEN
 				#IF !lyssieth.isCharacterReactedToPregnancy(pc)
 				#THEN

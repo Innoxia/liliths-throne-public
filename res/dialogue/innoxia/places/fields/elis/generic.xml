@@ -672,6 +672,80 @@
 				]]></nextDialogue>
 				<effects/>
 			</response>
+			<!-- Waiting for Yui: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Yui]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_unavailable_today))
+						As you've already refused Yui's offer today, you aren't going to be able to meet her here until next Friday...
+					#ELSE
+						#IF(!game.isHourBetween(20, 23))
+							Yui told you to meet her here between [style.italicsMinorBad([units.time(20)]-[units.time(23)])], on a
+						#ELSE
+							Yui told you to meet her here between [style.italicsMinorGood([units.time(20)]-[units.time(23)])], 
+						#ENDIF
+						#IF(game.getDayOfWeek()==DOW_FRIDAY)
+							 [style.colourMinorGood(Friday)],
+						#ELSE
+							 [style.colourMinorBad(Friday)],
+						#ENDIF
+						#IF(game.isHourBetween(20, 23) && game.getDayOfWeek()==DOW_FRIDAY)
+							 so you could wait here for her to show herself...
+						#ELSE
+							 so she won't show up at the moment...
+						#ENDIF
+						
+						#IF(!pc.hasFetish(FETISH_MASOCHIST))
+							<br/>As you're [style.italicsBad(not a masochist)], you've got a bad feeling about this and [style.italicsBad(decide not to meet with Yui)]...
+						#ELSEIF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || (!game.isAnalContentEnabled() && !pc.hasVagina()) || pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+							<br/>As you have
+							#IF(pc.isAnyEquippedClothingSealed())
+								 [style.italicsSealed(sealed)] clothing equipped,
+							#ENDIF
+							#IF(pc.isHasAnyPregnancyEffects())
+								#IF(pc.isAnyEquippedClothingSealed() && pc.getDirtySlots().size()==0)
+									 and
+								#ENDIF
+								 a [style.italicsSex(pregnancy-related status effect)] active,
+							#ENDIF
+							#IF(pc.getDirtySlots().size()>0)
+								#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects())
+									 and
+								#ENDIF
+								 [style.italicsDirty(dirty inventory slots)], 
+							#ENDIF
+							#IF(!game.isAnalContentEnabled() && !pc.hasVagina())
+								#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0)
+									 and
+								#ENDIF
+								 [style.italicsSex(no vagina)], 
+							#ENDIF
+							#IF(pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+								#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || (!game.isAnalContentEnabled() && !pc.hasVagina()))
+									 and
+								#ENDIF
+								 [style.italicsTfGeneric(a non-bipedal lower body)], 
+							#ENDIF
+							 [style.italicsBad(Yui won't show up)]!
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_unavailable_today) || !game.isHourBetween(20, 23) || game.getDayOfWeek()!=DOW_FRIDAY || pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || (!game.isAnalContentEnabled() && !pc.hasVagina()) || pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+						null
+					#ELSE
+						innoxia_places_fields_elis_yui_alleyway_meeting
+					#ENDIF
+				]]></nextDialogue>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+				</requiredFetishes>
+			</response>
 		</responses>
 	</scene>
 	
@@ -726,6 +800,94 @@
 					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_fields)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'TOWER_FLY_TO_FIELDS'))]
 				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- A standard tower tile (the one in the south-west corner), but this one has the entrance to Yui's basement. -->
+	<scene id="tower_yui">
+		<author><![CDATA[Innoxia]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/generic">TOWER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_generic_tower">
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.hasFlag(FLAG_innoxia_yui_dungeon_unlocked)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[
+					#IF(pc.isAbleToFly())
+						2
+					#ELSE
+						1
+					#ENDIF
+				]]></index>
+				<responseTitle><![CDATA[Yui]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_unavailable_today))
+						As you've already refused Yui's offer this evening, you aren't going to be able to meet her here until
+						#IF(game.getDayOfWeek()==DOW_MONDAY)
+							 Wednesday evening...
+						#ELSE
+							 Monday evening...
+						#ENDIF
+					#ELSE
+						#IF(!game.isHourBetween(20, 23))
+							Yui told you to meet her here between [style.italicsMinorBad([units.time(20)]-[units.time(23)])], on a
+						#ELSE
+							Yui told you to meet her here between [style.italicsMinorGood([units.time(20)]-[units.time(23)])], 
+						#ENDIF
+						#IF(game.getDayOfWeek()==DOW_MONDAY)
+							 [style.colourMinorGood(Monday)] or Wednesday.
+						#ELSEIF(game.getDayOfWeek()==DOW_WEDNESDAY)
+							 Monday or [style.colourMinorGood(Wednesday)],
+						#ELSE
+							 [style.colourMinorBad(Monday or Wednesday)],
+						#ENDIF
+						#IF(game.isHourBetween(20, 23)&& (game.getDayOfWeek()==DOW_MONDAY || game.getDayOfWeek()==DOW_WEDNESDAY))
+							 so you could wait here for her to show herself...
+						#ELSE
+							 so she won't show up at the moment...
+						#ENDIF
+						
+						#IF(!pc.hasFetish(FETISH_MASOCHIST))
+							<br/>As you're [style.italicsBad(not a masochist)], you've got a bad feeling about this and [style.italicsBad(decide not to meet with Yui)]...
+						#ELSEIF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0)
+							<br/>As you have
+							#IF(pc.isAnyEquippedClothingSealed())
+								 [style.italicsSealed(sealed)] clothing equipped,
+							#ENDIF
+							#IF(pc.isHasAnyPregnancyEffects())
+								#IF(pc.isAnyEquippedClothingSealed() && pc.getDirtySlots().size()==0)
+									 and
+								#ENDIF
+								 a [style.italicsSex(pregnancy-related status effect)] active,
+							#ENDIF
+							#IF(pc.getDirtySlots().size()>0)
+								#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects())
+									 and
+								#ENDIF
+								 [style.italicsDirty(dirty inventory slots)], 
+							#ENDIF
+							 [style.italicsBad(Yui won't show up)]!
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_unavailable_today) || !game.isHourBetween(20, 23) || (game.getDayOfWeek()!=DOW_MONDAY && game.getDayOfWeek()!=DOW_WEDNESDAY) || pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0)
+						null
+					#ELSE
+						innoxia_places_fields_elis_yui_dungeon_meeting
+					#ENDIF
+				]]></nextDialogue>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+				</requiredFetishes>
 			</response>
 		</responses>
 	</scene>

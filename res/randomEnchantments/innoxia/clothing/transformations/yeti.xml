@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		#IF(game.isFacialHairEnabled() && game.isPubicHairEnabled() && game.isBodyHairEnabled())
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of the Yeti]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- 66% chance of normal TF speed (daily TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="7" mod1="TF_FACE" mod2="TF_MOD_BODY_HAIR" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_CORE" mod2="TF_MOD_BODY_HAIR" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_ARMS" mod2="TF_MOD_BODY_HAIR" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="100" mod1="TF_HAIR" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAssHairEnabled() && flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="7" mod1="TF_ASS" mod2="TF_MOD_BODY_HAIR" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 33% chance of rapid TF (hourly instead of daily) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="7" mod1="TF_FACE" mod2="TF_MOD_BODY_HAIR" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_CORE" mod2="TF_MOD_BODY_HAIR" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_ARMS" mod2="TF_MOD_BODY_HAIR" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="100" mod1="TF_HAIR" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAssHairEnabled() && flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="7" mod1="TF_ASS" mod2="TF_MOD_BODY_HAIR" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	
+</enchantment>

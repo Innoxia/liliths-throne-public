@@ -45,7 +45,7 @@ public enum FetishDesire {
 		this.colour = colour;
 		
 		modifiersList = new ArrayList<>();
-		modifiersList.add("Modifies sex actions' [style.boldLust("+ Util.capitaliseSentence(Attribute.LUST.getAbbreviatedName())+ " increments)]");
+		modifiersList.add("Modifies [style.boldLust("+ Util.capitaliseSentence(Attribute.LUST.getAbbreviatedName())+ " increments)] of sex actions");
 
 		
 		try {

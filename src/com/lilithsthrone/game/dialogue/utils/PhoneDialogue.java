@@ -130,10 +130,16 @@ public class PhoneDialogue {
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
 			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
-				this.relationships.add(0, "Incubator-mother");
+				int insertIndex = 0;
+				this.relationships.add(insertIndex, "Incubator-mother");
 
+				if(npc.getMother()!=null && npc.getMother().isPlayer()) {
+					insertIndex++;
+					this.relationships.add(insertIndex, "mother");
+				}
 				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
-					this.relationships.add(1, "father");
+					insertIndex++;
+					this.relationships.add(insertIndex, "father");
 				}
 
 			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
@@ -174,10 +180,16 @@ public class PhoneDialogue {
 //			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(os, Relationship.Parent);
 //			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(os.getIncubator()!=null && os.getIncubator().isPlayer()) {
-				this.relationships.add(0, "Incubator-mother");
-
+				int insertIndex = 0;
+				this.relationships.add(insertIndex, "Incubator-mother");
+				
+				if(os.getMother()!=null && os.getMother().isPlayer()) {
+					insertIndex++;
+					this.relationships.add(insertIndex, "mother");
+				}
 				if(os.getFather()!=null && os.getFather().isPlayer()) {
-					this.relationships.add(1, "father");
+					insertIndex++;
+					this.relationships.add(insertIndex, "father");
 				}
 
 			} else if(os.getMother()!=null && os.getMother().isPlayer()) {
@@ -2078,6 +2090,8 @@ public class PhoneDialogue {
 			int daughtersFathered=0;
 			int offspringIncubatedCount=0;
 			
+			List<String> implantedLittersEncountered = new ArrayList<>();
+			
 			// Birthed with player as the mother:
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
@@ -2090,16 +2104,21 @@ public class PhoneDialogue {
 			}
 			// Egg-incubated offspring who have been birthed:
 			for (Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+				implantedLittersEncountered.add(litter.getId());
 				for (String id : litter.getOffspring()) {
 					if (id.contains("NPCOffspring")) {
 						//NPCOffspring is always born
 						offspringIncubatedCount += 1;
+						sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+						daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 					} else {
 						try {
 							OffspringSeed o = Main.game.getOffspringSeedById(id);
 							//OffspringSeed may be born or unborn
 							if (o.isBorn()) {
 								offspringIncubatedCount += 1;
+								sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+								daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 							}
 						} catch (Exception ex) {
 							ex.printStackTrace();
@@ -2109,19 +2128,25 @@ public class PhoneDialogue {
 			}
 			// Egg-implanted offspring who have been birthed:
 			for (Litter litter : Main.game.getPlayer().getLittersImplanted()) {
-				for (String id : litter.getOffspring()) {
-					if (id.contains("NPCOffspring")) {
-						//NPCOffspring is always born
-						offspringIncubatedCount += 1;
-					} else {
-						try {
-							OffspringSeed o = Main.game.getOffspringSeedById(id);
-							//OffspringSeed may be born or unborn
-							if (o.isBorn()) {
-								offspringIncubatedCount += 1;
+				if(!implantedLittersEncountered.contains(litter.getId())) {
+					for (String id : litter.getOffspring()) {
+						if (id.contains("NPCOffspring")) {
+							//NPCOffspring is always born
+							offspringIncubatedCount += 1;
+							sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+							daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+						} else {
+							try {
+								OffspringSeed o = Main.game.getOffspringSeedById(id);
+								//OffspringSeed may be born or unborn
+								if (o.isBorn()) {
+									offspringIncubatedCount += 1;
+									sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+									daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
 							}
-						} catch (Exception ex) {
-							ex.printStackTrace();
 						}
 					}
 				}
@@ -2137,7 +2162,7 @@ public class PhoneDialogue {
 			int childrenMet = Main.game.getOffspring().size();
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered+offspringIncubatedCount);
 			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
-
+			
 			UtilText.nodeContentSB.append(
 					"<div class='subTitle'>Total offspring: "+ totalChildren+" (Children met: "+ percentageMet +"%)</div>"
 					
@@ -3086,6 +3111,20 @@ public class PhoneDialogue {
 	private static Map<String, List<InventorySlot>> clothingSlotCategories;
 	private static String clothingSlotKey;
 	
+	/**
+	 * @return A list of all clothing which is available to the player in a normal game. i.e. A list of all clothing excluding silly mode or cheat items.
+	 */
+	public static List<AbstractClothingType> getClothingDiscoveredList() {
+		return clothingDiscoveredList;
+	}
+
+	/**
+	 * @return A list of all weapons which are available to the player in a normal game. i.e. A list of all weapons excluding silly mode or cheat items.
+	 */
+	public static List<AbstractWeaponType> getWeaponsDiscoveredList() {
+		return weaponsDiscoveredList;
+	}
+	
 	static {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.removeIf((it) -> it.getItemTags().contains(ItemTag.CHEAT_ITEM) || it.getItemTags().contains(ItemTag.SILLY_MODE));
@@ -3274,13 +3313,13 @@ public class PhoneDialogue {
 					continue;
 				}
 				boolean discovered = Main.getProperties().isClothingDiscovered(clothingType);
-				String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+"; width:8%;'>"
-									+ "<div class='inventory-icon-content'>"+(discovered?clothingType.getSVGImageRandomColour(true, false, false):"")+"</div>"
-									+ "<div class='overlay"+(discovered?"' id='"+clothingType.getId()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
-								+ "</div>";
 				
 				for(InventorySlot slot : clothingType.getEquipSlots()) {
 					if(slots.contains(slot)) {
+						String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+"; width:8%;'>"
+								+ "<div class='inventory-icon-content'>"+(discovered?clothingType.getSVGImageRandomColour(slot, true, false, false):"")+"</div>"
+								+ "<div class='overlay"+(discovered?"' id='"+clothingType.getId()+"_"+slot.toString()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
+							+ "</div>";
 						sbMap.get(slot).append(entry);
 						discoveredMap.put(slot, new Value<>(discoveredMap.get(slot).getKey()+(discovered?1:0), discoveredMap.get(slot).getValue()+1));
 					}
@@ -3518,22 +3557,79 @@ public class PhoneDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
+			// Race (X/Y), book icon if advanced knowledge found
+			
 			UtilText.nodeContentSB.append(
 					"<p style='text-align:center;'>"
-						+ "You have encountered the following races in your travels:<br/>"
-						+ "(Discovered races are [style.boldGood(highlighted)], while undiscovered races are [style.colourDisabled(greyed out)].)"
+						+ "You have encountered the following races in your travels:"
+						+ "<br/>"
+						+ "The number of discovered subspecies for each race are shown in brackets."
+						+ "<br/>"
+						+ "If you have unlocked advanced knowledge of the race, its icon will be shown."
+//						+ "Discovered races are [style.boldGood(highlighted)], while undiscovered races are [style.colourDisabled(greyed out)]."
 					+ "</p>");
 			List<AbstractRace> sortedRaces = new ArrayList<>();
 			sortedRaces.addAll(Race.getAllRaces());
 			sortedRaces.remove(Race.NONE);
 			sortedRaces.sort((r1, r2) -> r1.getName(false).compareTo(r2.getName(false)));
+			int unknownRaces=0;
 			for(AbstractRace race : sortedRaces) {
-				UtilText.nodeContentSB.append("<div style='box-sizing: border-box; text-align:center; width:50%; padding:8px; margin:0; float:left;'>");
-				if(racesDiscovered.contains(race)) {
-					UtilText.nodeContentSB.append("<b style='color:"+race.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(race.getName(false)) + "</b>");
-				} else {
-					UtilText.nodeContentSB.append("[style.colourDisabled(" + Util.capitaliseSentence(race.getName(false)) + ")]");
+				int discoveredSubspecies = 0;
+				int totalSubspecies = 0;
+				boolean fullKnowledge = true;
+				for(AbstractSubspecies subspecies : Subspecies.getSubspeciesOfRace(race)) {
+					if(subspeciesDiscovered.contains(subspecies)) {
+						discoveredSubspecies++;
+					}
+					if(!Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
+						fullKnowledge = false;
+					}
+					totalSubspecies++;
 				}
+				if(discoveredSubspecies==0) {
+					unknownRaces++;
+					continue;
+				}
+				String icon = 
+						"<div class='inventory-item-slot' style='width:10%; margin:0; "+(!fullKnowledge?"opacity:0.25;":"")+" pointer-events:none;'>"
+							+(fullKnowledge
+								?AbstractSubspecies.getMainSubspeciesOfRace(race).getSVGString(null)
+								:"")//"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown()+"</div>")
+						+"</div>";
+				
+				String discoveredInfo =
+						"<div style='float:left; width:20%; margin:0; text-align:right;'>"
+							+(discoveredSubspecies==0
+								?"[style.colourDisabled((?/?))]"
+								:(discoveredSubspecies==totalSubspecies
+									?"[style.colourGood("
+									:"")
+										+"("+discoveredSubspecies+"/"+totalSubspecies+")"
+								+ (discoveredSubspecies==totalSubspecies?")]":""))
+						+ "</div>";
+				//position:relative; width:"+(Util.random.nextInt(23)+10)+"%; padding:2px; margin:0.5%; float:left;filter:blur(1px) grayscale(0.8); font-size:12px; transform: rotate("+(-20+Util.random.nextInt(41))+"deg);'>
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='position:relative; width:32%; padding:2px; margin:0.5%; float:left;'>");
+					UtilText.nodeContentSB.append("<div class='overlay' id='ENCYCLOPEDIA_RACE_"+Race.getIdFromRace(race)+"'></div>");
+					UtilText.nodeContentSB.append(icon);
+					UtilText.nodeContentSB.append("<div style='float:left; text-align:center; width:70%; margin:0;'>");
+							if(discoveredSubspecies==0) {
+								UtilText.nodeContentSB.append("[style.colourDisabled(???)]");
+							} else if(racesDiscovered.contains(race)) {
+								UtilText.nodeContentSB.append("<span style='color:"+race.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(race.getName(false)) + "</span>");
+							} else {
+								UtilText.nodeContentSB.append("[style.colourDisabled(" + Util.capitaliseSentence(race.getName(false))+")]");
+							}
+						UtilText.nodeContentSB.append("</div>");
+					UtilText.nodeContentSB.append(discoveredInfo);
+				UtilText.nodeContentSB.append("</div>");
+			}
+			for(int i=0; i<unknownRaces;i++) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='position:relative; width:32%; padding:2px; margin:0.5%; float:left;'>");
+					UtilText.nodeContentSB.append("<div class='inventory-item-slot' style='width:10%; margin:0; opacity:0.2;'></div>");
+					UtilText.nodeContentSB.append("<div style='float:left; text-align:center; width:70%; margin:0;'>");
+								UtilText.nodeContentSB.append("[style.colourDisabled(???)]");
+						UtilText.nodeContentSB.append("</div>");
+					UtilText.nodeContentSB.append("<div style='float:left; width:20%; margin:0; text-align:right;'>[style.colourDisabled((?/?))]</div>");
 				UtilText.nodeContentSB.append("</div>");
 			}
 			
@@ -3551,17 +3647,7 @@ public class PhoneDialogue {
 						SUBSPECIES){
 					@Override
 					public void effects() {
-						raceSelected = racesDiscovered.get(index - 1);
-						subspeciesSelected = AbstractSubspecies.getMainSubspeciesOfRace(raceSelected);
-						if(!subspeciesDiscovered.contains(subspeciesSelected)) {
-							for(AbstractSubspecies sub : subspeciesDiscovered) {
-								if(sub.getRace()==raceSelected) {
-									subspeciesSelected = sub;
-									break;
-								}
-							}
-						}
-						bodyForSubspeciesSelected = Main.game.getCharacterUtils().generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
+						applyRaceSelection(racesDiscovered.get(index - 1));
 					}
 				};
 			
@@ -3575,6 +3661,20 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
+	
+	public static void applyRaceSelection(AbstractRace race) {
+		raceSelected = race;
+		subspeciesSelected = AbstractSubspecies.getMainSubspeciesOfRace(raceSelected);
+		if(!subspeciesDiscovered.contains(subspeciesSelected)) {
+			for(AbstractSubspecies sub : subspeciesDiscovered) {
+				if(sub.getRace()==raceSelected) {
+					subspeciesSelected = sub;
+					break;
+				}
+			}
+		}
+		bodyForSubspeciesSelected = Main.game.getCharacterUtils().generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
+	}
 	
 	private static List<String> getSubspeciesModifiersAsStringList(AbstractSubspecies subspecies) {
 		LinkedHashMap<AbstractAttribute, Float> attMods;
@@ -4037,7 +4137,7 @@ public class PhoneDialogue {
 			} else if(index==1) {
 				return "Submission";
 			} else if(index==2) {
-				return "Elis";
+				return "Foloi Fields";
 			}
 			return null;
 		}
@@ -4054,7 +4154,7 @@ public class PhoneDialogue {
 				boolean correctRegion = false;
 				if(world.getWorldRegion()==WorldRegion.SUBMISSION) {
 					correctRegion = responseTab==1;
-				} else if(world.getWorldRegion()==WorldRegion.FIELD_CITY || world.getWorldRegion()==WorldRegion.FIELDS) {
+				} else if(world.getWorldRegion()==WorldRegion.FIELD_CITY || world.getWorldRegion()==WorldRegion.FIELDS || world.getWorldRegion()==WorldRegion.YOUKO_FOREST) {
 					correctRegion = responseTab==2;
 				} else {
 					correctRegion = responseTab==0;

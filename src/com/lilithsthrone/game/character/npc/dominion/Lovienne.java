@@ -53,7 +53,7 @@ public class Lovienne extends NPC {
 				7901, Month.MARCH, 22,
 				1000,
 				Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
 		

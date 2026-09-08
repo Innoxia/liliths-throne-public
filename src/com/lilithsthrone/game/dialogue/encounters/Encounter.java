@@ -49,10 +49,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -88,7 +85,7 @@ public class Encounter {
 						:null));
 		}
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.SLAVE_USES_YOU) {
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
@@ -148,7 +145,7 @@ public class Encounter {
 						:null));
 		}
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.SLAVE_USES_YOU) {
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
@@ -271,7 +268,7 @@ public class Encounter {
 		}
 		
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK) {
 				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.DIRTY);
 				try {
@@ -353,7 +350,7 @@ public class Encounter {
 		}
 		
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY) {
 				Main.game.setActiveNPC(Main.game.getNpc(RentalMommy.class));
 				Main.game.getNpc(RentalMommy.class).setLocation(WorldType.DOMINION, Main.game.getPlayer().getLocation(), true);
@@ -424,7 +421,7 @@ public class Encounter {
 		}
 		
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_ALLEY_ATTACK) {
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -464,6 +461,9 @@ public class Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			} else if(node == EncounterType.DOMINION_FIND_ITEM) {
+//				for(AbstractItemType it : ItemType.getDominionAlleywayItems()) {
+//					System.out.println(it.getId()+" | "+it.getName(false));
+//				}
 				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
 					randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
 					
@@ -479,22 +479,27 @@ public class Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
-				if(Math.random()<0.01f) {
-					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-					
-				} else {
-					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
-					randomClothingList.removeIf((clothing) ->
-							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
-							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
-							|| clothing.getRarity()==Rarity.EPIC
-							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-				}
+//				if(Math.random()<0.01f) {
+//					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//					
+//				} else {
+//					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
+//					randomClothingList.removeIf((clothing) ->
+//							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+//							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
+////							|| clothing.getRarity()==Rarity.EPIC
+//							|| clothing.getRarity()==Rarity.LEGENDARY);
+//					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+//					
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//				}
+
+				Main.game.generateAlleywayClothing();
+				randomItem = Main.game.getAlleywayClothing();
+				Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
@@ -537,7 +542,7 @@ public class Encounter {
             return map;
         }
         @Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			// Prioritise re-encountering the NPC on this tile:
 			List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			if(!encounterPossibilities.isEmpty()) {
@@ -575,7 +580,7 @@ public class Encounter {
 		}
 		
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node==EncounterType.DOMINION_ALLEY_ATTACK) {
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -627,22 +632,26 @@ public class Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
-				if(Math.random()<0.01f) {
-					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-					
-				} else {
-					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
-					randomClothingList.removeIf((clothing) ->
-							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
-							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
-							|| clothing.getRarity()==Rarity.EPIC
-							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-				}
+//				if(Math.random()<0.01f) {
+//					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//					
+//				} else {
+//					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
+//					randomClothingList.removeIf((clothing) ->
+//							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+//							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
+////							|| clothing.getRarity()==Rarity.EPIC
+//							|| clothing.getRarity()==Rarity.LEGENDARY);
+//					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//				}
+
+				Main.game.generateAlleywayClothing();
+				randomItem = Main.game.getAlleywayClothing();
+				Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
@@ -675,7 +684,7 @@ public class Encounter {
 			return Util.newHashMapOfValues(new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 10f));
 		}
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
 				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
@@ -695,7 +704,7 @@ public class Encounter {
 		}
 		
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK && (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) || Main.game.getCurrentWeather()==Weather.MAGIC_STORM)) {
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -755,7 +764,7 @@ public class Encounter {
 		}
 
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK) {
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -817,7 +826,7 @@ public class Encounter {
                     return map;
                 }
                 @Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			
 			if(node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
 				List<String> impAdjectives = new ArrayList<>();
@@ -1126,7 +1135,7 @@ public class Encounter {
         }
 
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.BAT_CAVERN_LURKER_ATTACK) {
 
 				// Prioritise re-encountering the NPC on this tile:
@@ -1217,7 +1226,7 @@ public class Encounter {
             return map;
         }
         @Override
-        protected DialogueNode initialiseEncounter(EncounterType node) {
+        public DialogueNode initialiseEncounter(EncounterType node) {
             if(node == EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK) {
                 Main.game.setActiveNPC(new RebelBaseInsaneSurvivor(Gender.getGenderFromUserPreferences(false, false)));
                 try {
@@ -1267,7 +1276,7 @@ public class Encounter {
 			return super.getBaseRandomEncounter(forceEncounter);
 		}
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.VENGAR_CAPTIVE_SERVE) {
 				return VengarCaptiveDialogue.VENGARS_HALL_SERVE;
 				
@@ -1314,7 +1323,7 @@ public class Encounter {
 			return super.getBaseRandomEncounter(forceEncounter);
 		}
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.VENGAR_CAPTIVE_CLEAN_ROOM) {
 				return VengarCaptiveDialogue.VENGARS_BEDROOM_CLEAN;
 				
@@ -1360,7 +1369,7 @@ public class Encounter {
 			return map;
 		}
 		@Override
-		protected DialogueNode initialiseEncounter(EncounterType node) {
+		public DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_PARK_NATALYA) {
 				return DominionPark.NATALYA_ENCOUNTER_START;
 			}
@@ -1440,7 +1449,7 @@ public class Encounter {
 				try {
 					AbstractEncounter encounter = new AbstractEncounter(innerEntry.getValue(), entry.getKey(), true) {
 						@Override
-						protected DialogueNode initialiseEncounter(EncounterType node) {
+						public DialogueNode initialiseEncounter(EncounterType node) {
 							return null;
 						}
 						@Override
@@ -1467,7 +1476,7 @@ public class Encounter {
 				try {
 					AbstractEncounter encounter = new AbstractEncounter(innerEntry.getValue(), entry.getKey(), false) {
 						@Override
-						protected DialogueNode initialiseEncounter(EncounterType node) {
+						public DialogueNode initialiseEncounter(EncounterType node) {
 							return null;
 						}
 						@Override

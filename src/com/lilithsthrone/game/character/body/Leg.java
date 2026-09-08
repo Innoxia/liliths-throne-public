@@ -57,10 +57,10 @@ public class Leg implements BodyPartInterface {
 
 	//TODO check
 	/**
-	 * @return A description of the change. Returns an empty String if owner==null or if footStructure==FootStructure.TENTACLED
+	 * @return A description of the change. Returns an empty String if !isCharacterInitialised(owner) or if footStructure==FootStructure.TENTACLED
 	 */
 	public String setFootStructure(GameCharacter owner, FootStructure footStructure) {
-		if(owner==null || footStructure==FootStructure.TENTACLED) {
+		if(!isCharacterInitialised(owner) || footStructure==FootStructure.TENTACLED) {
 			this.footStructure = footStructure;
 			return "";
 		}
@@ -159,7 +159,7 @@ public class Leg implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractLegType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			this.footStructure = type.getDefaultFootStructure(this.getLegConfiguration());
 			if(owner!=null) {
@@ -221,7 +221,7 @@ public class Leg implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Leg.class) && getType().getRace().isFeralPartsAvailable());
@@ -239,7 +239,7 @@ public class Leg implements BodyPartInterface {
 	 * Sets the tails' length as a percentage of the owner's height. Value is bound to >=2f && <=10f
 	 */
 	public String setLengthAsPercentageOfHeight(GameCharacter owner, float lengthAsPercentageOfHeight) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			// Allow for setting down to feral minimum, as this could be loading of a feral part:
 			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN_FERAL, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
 			return "";

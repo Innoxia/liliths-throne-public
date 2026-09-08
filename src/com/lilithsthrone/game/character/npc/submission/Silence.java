@@ -61,7 +61,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -90,7 +89,7 @@ public class Silence extends NPC {
 				"",
 				21, Month.MAY, 16,
 				15, Gender.F_V_B_FEMALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
+				new CharacterInventory(false, 30), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
 	}
 
 	@Override
@@ -273,7 +272,7 @@ public class Silence extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_skirt", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_sleeveless_turtleneck", PresetColour.CLOTHING_WHITE, false), true, this);
 
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
@@ -335,17 +334,7 @@ public class Silence extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
-		if(this.getBreastRows()>1) {
-			if(this.isVisiblyPregnant()) {
-				return "SilenceMultiBoobPregnant";
-			}
-			return "SilenceMultiBoob";
-		} else {
-			if(this.isVisiblyPregnant()) {
-				return "SilencePregnant";
-			}
-			return "Silence";
-		}
+		return "Silence";
 	}
 	
 	@Override
@@ -400,6 +389,12 @@ public class Silence extends NPC {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveSilenceSatisfied, true);
 	}
 	
+	// Elemental:
+	
+	public void initElemental() {
+		
+	}
+	
 	// Combat:
 
 	@Override
@@ -415,14 +410,14 @@ public class Silence extends NPC {
 	@Override
 	public CombatBehaviour getCombatBehaviour() {
 		if(Main.game.isInCombat()) {
-			boolean spellsAvailable = false;
-			for(GameCharacter character : Main.combat.getAllCombatants(true)) {
-				if(!getWeightedSpellsAvailable(character).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()) {
-					spellsAvailable = true;
-					break;
-				}
-			}
-			if(spellsAvailable) {
+//			boolean spellsAvailable = false;
+//			for(GameCharacter character : Main.combat.getAllCombatants(true)) {
+//				if(!getWeightedSpellsAvailable(character).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()) {
+//					spellsAvailable = true;
+//					break;
+//				}
+//			}
+			if(!getWeightedSpellsAvailable(this).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()) {
 				return CombatBehaviour.SPELLS;
 			}
 		}

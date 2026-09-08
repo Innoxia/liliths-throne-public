@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,6 @@ import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
-import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
@@ -63,6 +63,7 @@ import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.91
@@ -101,7 +102,7 @@ public class Subspecies {
 //			"A fox-morph with a serpentine lower body, devoid of legs.",
 //			Util.newHashMapOfValues(WorldType.DOMINION)) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
 //			//apply fox coloring
 //		}
 //	};
@@ -119,7 +120,7 @@ public class Subspecies {
 //			"A fox-morph a bestial lower body that walks on four legs.",
 //			Util.newHashMapOfValues(WorldType.DOMINION)) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
 //			//apply fox coloring
 //		}
 //	};
@@ -319,8 +320,9 @@ public class Subspecies {
 			return 10_000;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setSubspeciesOverride(ELDER_LILIN);
+			return "";
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -389,8 +391,9 @@ public class Subspecies {
 			return 5_000;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setSubspeciesOverride(LILIN);
+			return "";
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -488,16 +491,18 @@ public class Subspecies {
 			return "demon";
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			if(Math.random()<0.25f && body.getLeg().getType().equals(LegType.DEMON_COMMON)) {
-				body.getLeg().setType(null, LegType.DEMON_HOOFED);
+				sb.append(body.getLeg().setType(target, LegType.DEMON_HOOFED));
 			}
 			if(Math.random()<0.2f && body.getPenis().getType()!=PenisType.NONE) {
-				body.getPenis().getTesticle().setTesticleCount(null, 4);
+				sb.append(body.getPenis().getTesticle().setTesticleCount(target, 4));
 			}
 			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
-				body.setTailType(TailType.DEMON_COMMON);
+				sb.append(body.setTailType(target, TailType.DEMON_COMMON));
 			}
+			return sb.toString();
 		}
 		
 		@Override
@@ -655,10 +660,12 @@ public class Subspecies {
 			return 5;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
-				body.setTailType(TailType.DEMON_COMMON);
+				sb.append(body.setTailType(target, TailType.DEMON_COMMON));
 			}
+			return sb.toString();
 		}
 
 		@Override
@@ -810,13 +817,21 @@ public class Subspecies {
 			return 1;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue());
-			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(8)); // 3-7 inches
-			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
-			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
-				body.setTailType(TailType.DEMON_COMMON);
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue()));
+			} else {
+				body.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue());
 			}
+			sb.append(body.getPenis().setPenisLength(target, 8+Util.random.nextInt(8))); // 3-7 inches
+			sb.append(body.getWing().setSize(target,  WingSize.THREE_LARGE.getValue()));
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				sb.append(body.setTailType(target, TailType.DEMON_COMMON));
+			}
+			
+			return sb.toString();
 		}
 		@Override
 		public boolean isShortStature() {
@@ -894,13 +909,21 @@ public class Subspecies {
 			return 2;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue());
-			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(12)); // 3-8 inches
-			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
-			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
-				body.setTailType(TailType.DEMON_COMMON);
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue()));
+			} else {
+				body.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue());
 			}
+			sb.append(body.getPenis().setPenisLength(target, 8+Util.random.nextInt(12))); // 3-8 inches
+			sb.append(body.getWing().setSize(target, WingSize.THREE_LARGE.getValue()));
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				sb.append(body.setTailType(target, TailType.DEMON_COMMON));
+			}
+			
+			return sb.toString();
 		}
 		@Override
 		public boolean isShortStature() {
@@ -1170,15 +1193,19 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.setCovering(target, BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false)));
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
 				if(Math.random()<0.5f) {
-					body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
+					sb.append(body.getEar().setType(target, EarType.DOG_MORPH_POINTED));
 				} else {
-					body.getEar().setType(null, EarType.DOG_MORPH_FOLDED);
+					sb.append(body.getEar().setType(target, EarType.DOG_MORPH_FOLDED));
 				}
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -1282,27 +1309,31 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			Colour secondaryColour = PresetColour.COVERING_BROWN;
 			double rand = Math.random();
+			
 			if(rand<0.3f) {
 				secondaryColour = PresetColour.COVERING_TAN;
 			} else if(rand<0.6f) {
 				secondaryColour = PresetColour.COVERING_BROWN_DARK;
 			}
-			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+			sb.append(body.setCovering(target, BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, secondaryColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, secondaryColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getPenis().getType()==PenisType.DOG_MORPH) {
-				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+				sb.append(body.setCovering(target, BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED)));
 			}
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
-				body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
+				sb.append(body.getEar().setType(target, EarType.DOG_MORPH_POINTED));
 			}
 			if(body.getTail().getType()==TailType.DOG_MORPH) {
-				body.getTail().setType(null, TailType.DOG_MORPH_STUBBY);
+				sb.append(body.getTail().setType(target, TailType.DOG_MORPH_STUBBY));
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -1406,13 +1437,17 @@ public class Subspecies {
 			new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TEN),
 			new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.setCovering(target, BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false)));
 
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
-				body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
+				sb.append(body.getEar().setType(target, EarType.DOG_MORPH_POINTED));
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -1541,16 +1576,20 @@ public class Subspecies {
 			return super.getSingularFemaleName(body);
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
 					PresetColour.COVERING_GREY,
 					PresetColour.COVERING_BLACK,
 					PresetColour.COVERING_JET_BLACK);
 			
 			Colour c = Util.randomItemFrom(naturalWolfFurColours);
-			body.getCoverings().put(BodyCoveringType.LYCAN_FUR, new Covering(BodyCoveringType.LYCAN_FUR, c));
-			body.getCoverings().put(BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c));
+			
+			sb.append(body.setCovering(target, BodyCoveringType.LYCAN_FUR, new Covering(BodyCoveringType.LYCAN_FUR, c)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c)));
+			
+			return sb.toString();
 		}
 		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
@@ -1630,7 +1669,8 @@ public class Subspecies {
 					new Value<>(PerkCategory.PHYSICAL, 6),
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
-			PresetColour.RACE_FOX_MORPH, SubspeciesPreference.FOUR_ABUNDANT,
+			PresetColour.RACE_FOX_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic fox, known as a 'fox-morph' when bipedal, and a 'foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
@@ -1640,10 +1680,10 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			AbstractSubspecies.applyFoxColoring(body);
+			return "";
 		}
-
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
@@ -1711,21 +1751,26 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
 			body.updateCoverings(false, false, true, true);
+			return sb.toString();
 		}
-
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)
+							?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR)
+							:BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
-				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE && body.getTail().getType()!=TailType.FOX_MORPH_MAGIC) {
+				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE
+						&& (body.getEar().getType()!=EarType.FOX_MORPH_BIG)
+						&& body.getTail().getType()!=TailType.FOX_MORPH_MAGIC) {
 					return 150;
 				}
 			}
@@ -1791,31 +1836,29 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
 			Colour fennecColour = Util.randomItemFrom(Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN));
 			
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
-				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+				sb.append(body.setCovering(target, BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED)));
 			}
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
-				body.getEar().setType(null, EarType.FOX_MORPH_BIG);
+				sb.append(body.getEar().setType(target, EarType.FOX_MORPH_BIG));
 			}
+			
+			return sb.toString();
 		}
 
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
-				Covering fox_fur = body.getCoverings().get(foxFur);
-				List<Colour> fennecColours = Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN);
-				
-				if (fennecColours.contains(fox_fur.getPrimaryColour())
-						&& (fennecColours.contains(fox_fur.getSecondaryColour()) || fox_fur.getPattern()==CoveringPattern.NONE)
-						&& (body.getEar().getType()==EarType.FOX_MORPH_BIG)
+				if ((body.getEar().getType()==EarType.FOX_MORPH_BIG)
 						&& body.getTail().getType() != TailType.FOX_MORPH_MAGIC) {
 					return 150;
 				}
@@ -1876,7 +1919,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A fox-morph, empowered by the gifts of a Lilin.",
+			"An anthropomorphic fox, which one of the two youko lilin has transformed so as to have arcane-imbued tails.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -1884,6 +1927,10 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
+		}
+		@Override
+		public float getChanceForMaleOffspring() {
+			return 0.1f; // same as demons
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
@@ -1898,11 +1945,13 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			AbstractSubspecies.applyFoxColoring(body);
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
-				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
+			return sb.toString();
 		}
 		
 		@Override
@@ -2017,7 +2066,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arctic fox-morph, empowered by the gifts of a Lilin.",
+			"An anthropomorphic arctic fox, which one of the two youko lilin has transformed so as to have arcane-imbued tails.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -2025,6 +2074,10 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
+		}
+		@Override
+		public float getChanceForMaleOffspring() {
+			return 0.1f; // same as demons
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
@@ -2039,15 +2092,17 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
-				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
 			body.updateCoverings(false, false, true, true);
+			return sb.toString();
 		}
 		
 		@Override
@@ -2093,7 +2148,9 @@ public class Subspecies {
 				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
-				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE &&  body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
+				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE
+						&& (body.getEar().getType()!=EarType.FOX_MORPH_BIG)
+						&& body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
 					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT_ARCTIC);
 					return 250;
 				}
@@ -2149,7 +2206,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A fennec-morph, empowered by the gifts of a Lilin.",
+			"An anthropomorphic fennec fox, which one of the two youko lilin has transformed so as to have arcane-imbued tails.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -2157,6 +2214,10 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
+		}
+		@Override
+		public float getChanceForMaleOffspring() {
+			return 0.1f; // same as demons
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
@@ -2171,25 +2232,27 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			Colour fennecColour = PresetColour.COVERING_BLEACH_BLONDE;
 			double rand = Math.random();
 			if(rand<0.5f) {
 				fennecColour = PresetColour.COVERING_DIRTY_BLONDE;
 			}
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
-				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+				sb.append(body.setCovering(target, BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED)));
 			}
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
-				body.getEar().setType(null, EarType.FOX_MORPH_BIG);
+				sb.append(body.getEar().setType(target, EarType.FOX_MORPH_BIG));
 			}
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
-				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
+			return sb.toString();
 		}
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
@@ -2228,13 +2291,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
-				Covering fox_fur = body.getCoverings().get(foxFur);
-				List<Colour> fennecColours = Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN);
-				
-				if (fennecColours.contains(fox_fur.getPrimaryColour())
-						&& (fennecColours.contains(fox_fur.getSecondaryColour()) || fox_fur.getPattern()==CoveringPattern.NONE)
-						&& (body.getEar().getType()==EarType.FOX_MORPH_BIG)
+				if ((body.getEar().getType()==EarType.FOX_MORPH_BIG)
 						&& body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
 					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT_FENNEC);
 					return 250;
@@ -2342,10 +2399,6 @@ public class Subspecies {
 			return super.getSingularFemaleName(body);
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-		}
-
-		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				return 100;
@@ -2412,7 +2465,8 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			Colour primaryColor = PresetColour.COVERING_BROWN;
 			double rand = Math.random();
 			if(rand<0.3f) {
@@ -2420,20 +2474,20 @@ public class Subspecies {
 			} else if(rand<0.6f) {
 				primaryColor = PresetColour.COVERING_BROWN_DARK;
 			}
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, PresetColour.COVERING_BLACK, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, PresetColour.COVERING_BLACK, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, PresetColour.COVERING_BLACK, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, PresetColour.COVERING_BLACK, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getEar().getType().getRace()==Race.CAT_MORPH) {
-				body.getEar().setType(null, EarType.CAT_MORPH_TUFTED);
+				sb.append(body.getEar().setType(target, EarType.CAT_MORPH_TUFTED));
 			}
 			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
-				body.getTail().setType(null, TailType.CAT_MORPH_SHORT);
+				sb.append(body.getTail().setType(target, TailType.CAT_MORPH_SHORT));
 			}
 			if(body.getHair().getType().getRace()==Race.CAT_MORPH) {
-				body.getHair().setType(null, HairType.CAT_MORPH_SIDEFLUFF);
+				sb.append(body.getHair().setType(target, HairType.CAT_MORPH_SIDEFLUFF));
 			}
+			return sb.toString();
 		}
-
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
@@ -2509,34 +2563,44 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
 			Colour primaryColor = PresetColour.COVERING_ORANGE;
 			double rand = Math.random();
 			if(rand<0.35f) {
 				primaryColor = PresetColour.COVERING_TAN;
 			}
 			Colour secondaryColor = PresetColour.COVERING_BLACK;
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
-				body.getTail().setType(null, TailType.CAT_MORPH);
+				sb.append(body.getTail().setType(target, TailType.CAT_MORPH));
 			}
 			
 			// Body size adjustment
 			if(body.getBreast().getRawSizeValue()>CupSize.B.getMeasurement()) {
 				rand = Math.random();
 				if(rand<0.35f) {
-					body.getBreast().setSize(null, CupSize.B.getMeasurement());
+					sb.append(body.getBreast().setSize(target, CupSize.B.getMeasurement()));
 				} else if(rand<0.70f) {
-					body.getBreast().setSize(null, CupSize.A.getMeasurement());
+					sb.append(body.getBreast().setSize(target, CupSize.A.getMeasurement()));
 				} else {
-					body.getBreast().setSize(null, CupSize.AA.getMeasurement());
+					sb.append(body.getBreast().setSize(target, CupSize.AA.getMeasurement()));
 				}
 			}
 			
-			body.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
-			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setBodySize(BodySize.ZERO_SKINNY.getMedianValue()));
+				sb.append(target.setMuscle(Muscle.FOUR_RIPPED.getMedianValue()));
+				
+			} else {
+				body.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
+				body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+			}
+			
+			return sb.toString();
 		}
 
 		@Override
@@ -2617,10 +2681,12 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			if(body.getEar().getType().getRace()==Race.CAT_MORPH) {
-				body.getEar().setType(null, EarType.CAT_MORPH_TUFTED);
+				sb.append(body.getEar().setType(target, EarType.CAT_MORPH_TUFTED));
 			}
+			return sb.toString();
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -2694,7 +2760,7 @@ public class Subspecies {
 //				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 //			null) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
 //			Colour primaryColor = PresetColour.COVERING_WHITE;
 //			Colour secondaryColor = PresetColour.COVERING_BLACK;
 //			double rand = Math.random();
@@ -2705,8 +2771,8 @@ public class Subspecies {
 //			} else if(rand<0.65f) {
 //				primaryColor = PresetColour.COVERING_BLACK;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -2799,15 +2865,15 @@ public class Subspecies {
 //				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 //			null) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
 //			Colour primaryColor = PresetColour.COVERING_SANDY;
 //			Colour secondaryColor = PresetColour.COVERING_BLACK;
 //			double rand = Math.random();
 //			if(rand<0.05f) {
 //				primaryColor = PresetColour.COVERING_BLACK;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -2896,7 +2962,7 @@ public class Subspecies {
 //				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 //			null) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
 //			Colour primaryColor = PresetColour.COVERING_TAN;
 //			Colour secondaryColor = PresetColour.COVERING_BLACK;
 //			double rand = Math.random();
@@ -2906,8 +2972,8 @@ public class Subspecies {
 //			else if(rand<0.1f) {
 //				primaryColor = PresetColour.COVERING_WHITE;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -2993,7 +3059,7 @@ public class Subspecies {
 //				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 //			null) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
 //			Colour primaryColor = PresetColour.COVERING_ORANGE;
 //			Colour secondaryColor = PresetColour.COVERING_BLACK;
 //			double rand = Math.random();
@@ -3004,8 +3070,8 @@ public class Subspecies {
 //			} else if(rand<0.16f) {
 //				primaryColor = PresetColour.COVERING_BLACK;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -3096,12 +3162,16 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.NONE);
-			body.getWing().setType(null, WingType.NONE);
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.NONE));
+			sb.append(body.getWing().setType(target, WingType.NONE));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3194,15 +3264,19 @@ public class Subspecies {
 				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
-			body.getHorn().setHornRows(null, 1);
-			body.getHorn().setHornsPerRow(null, 1);
-			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
-			body.getWing().setType(null, WingType.NONE);
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.HORSE_STRAIGHT));
+			sb.append(body.getHorn().setHornRows(target, 1));
+			sb.append(body.getHorn().setHornsPerRow(target, 1));
+			sb.append(body.getHorn().setHornLength(target, HornLength.TWO_LONG.getMedianValue()));
+			sb.append(body.getWing().setType(target, WingType.NONE));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3295,12 +3369,18 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.NONE);
-			body.setWing(new Wing(WingType.FEATHERED, WingSize.THREE_LARGE.getValue()));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.NONE));
+			sb.append(body.setWingType(target, WingType.FEATHERED));
+			sb.append(body.setWingSize(target, WingSize.THREE_LARGE.getValue()));
+			
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3397,15 +3477,20 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
-			body.getHorn().setHornRows(null, 1);
-			body.getHorn().setHornsPerRow(null, 1);
-			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
-			body.setWing(new Wing(WingType.FEATHERED, WingSize.THREE_LARGE.getValue()));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.HORSE_STRAIGHT));
+			sb.append(body.getHorn().setHornRows(target, 1));
+			sb.append(body.getHorn().setHornsPerRow(target, 1));
+			sb.append(body.getHorn().setHornLength(target, HornLength.TWO_LONG.getMedianValue()));
+			sb.append(body.setWingType(target, WingType.FEATHERED));
+			sb.append(body.setWingSize(target, WingSize.THREE_LARGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3500,16 +3585,24 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.NONE);
-			body.getWing().setType(null, WingType.NONE);
-			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
-			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.NONE));
+			sb.append(body.getWing().setType(target, WingType.NONE));
+			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
+			} else {
+				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
-			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
-			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
+			}
+			sb.append(body.getPenis().getTesticle().getCum().addFluidModifier(target, FluidModifier.MUSKY));
+			sb.append(body.getVagina().getGirlcum().addFluidModifier(target, FluidModifier.MUSKY));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3578,16 +3671,27 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.NONE);
-			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
-			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
-			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.NONE));
+			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
+			} else {
+				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
-			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
-			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+			
+			sb.append(body.setWingType(target, WingType.FEATHERED));
+			sb.append(body.setWingSize(target, WingSize.FOUR_HUGE.getValue()));
+			
+			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
+			}
+			sb.append(body.getPenis().getTesticle().getCum().addFluidModifier(target, FluidModifier.MUSKY));
+			sb.append(body.getVagina().getGirlcum().addFluidModifier(target, FluidModifier.MUSKY));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3663,19 +3767,28 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
-			body.getHorn().setHornRows(null, 1);
-			body.getHorn().setHornsPerRow(null, 1);
-			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
-			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
-			body.getWing().setType(null, WingType.NONE);
-			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.HORSE_STRAIGHT));
+			sb.append(body.getHorn().setHornRows(target, 1));
+			sb.append(body.getHorn().setHornsPerRow(target, 1));
+			sb.append(body.getHorn().setHornLength(target, HornLength.TWO_LONG.getMedianValue()));
+			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
+			} else {
+				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
-			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
-			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+			
+			sb.append(body.getWing().setType(target, WingType.NONE));
+			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
+			}
+			sb.append(body.getPenis().getTesticle().getCum().addFluidModifier(target, FluidModifier.MUSKY));
+			sb.append(body.getVagina().getGirlcum().addFluidModifier(target, FluidModifier.MUSKY));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3746,19 +3859,30 @@ public class Subspecies {
 			return true;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
-			body.getHorn().setHornRows(null, 1);
-			body.getHorn().setHornsPerRow(null, 1);
-			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
-			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
-			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
-			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.HORSE_STRAIGHT));
+			sb.append(body.getHorn().setHornRows(target, 1));
+			sb.append(body.getHorn().setHornsPerRow(target, 1));
+			sb.append(body.getHorn().setHornLength(target, HornLength.TWO_LONG.getMedianValue()));
+			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
+			} else {
+				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
-			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
-			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+			
+			sb.append(body.setWingType(target, WingType.FEATHERED));
+			sb.append(body.setWingSize(target, WingSize.FOUR_HUGE.getValue()));
+			
+			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
+			}
+			sb.append(body.getPenis().getTesticle().getCum().addFluidModifier(target, FluidModifier.MUSKY));
+			sb.append(body.getVagina().getGirlcum().addFluidModifier(target, FluidModifier.MUSKY));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3850,20 +3974,25 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.NONE);
-			body.getWing().setType(null, WingType.NONE);
-			body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.STRIPED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.NONE));
+			sb.append(body.getWing().setType(target, WingType.NONE));
+			
+			sb.append(body.setCovering(target, BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.STRIPED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
 			body.updateCoverings(true, true, true, true);
 			
 			if(body.getTail().getType()==TailType.HORSE_MORPH) {
-				body.getTail().setType(null, TailType.HORSE_MORPH_ZEBRA);
+				sb.append(body.getTail().setType(target, TailType.HORSE_MORPH_ZEBRA));
 			}
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -3970,22 +4099,27 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getHorn().setType(null, HornType.NONE);
-			body.getWing().setType(null, WingType.NONE);
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(body.getHorn().setType(target, HornType.NONE));
+			sb.append(body.getWing().setType(target, WingType.NONE));
+			
 			if(Math.random()<0.75f) { // 75% of donkey morphs are the classic brown with white markings:
-				body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
-				body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
-				body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_DARK, false, PresetColour.SKIN_DARK, false));
+				sb.append(body.setCovering(target, BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false)));
+				sb.append(body.setCovering(target, BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false)));
+				sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_DARK, false, PresetColour.SKIN_DARK, false)));
 			}
 			body.updateCoverings(true, true, true, true);
 			
 			if(body.getEar().getType()==EarType.HORSE_MORPH) {
-				body.getEar().setType(null, EarType.HORSE_MORPH_UPRIGHT);
+				sb.append(body.getEar().setType(target, EarType.HORSE_MORPH_UPRIGHT));
 			}
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
-				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
+				sb.append(body.getHair().setStyle(target, HairStyle.NONE)); // Sets hair style to mane
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -4340,10 +4474,12 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
-				body.getHair().setNeckFluff(null, Math.random()<0.1f);
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER && Math.random()<0.1f) {
+				sb.append(body.getHair().setNeckFluff(target, true));
 			}
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -4434,13 +4570,17 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, null) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
-				body.getEar().setType(null, EarType.RABBIT_MORPH_FLOPPY);
+				sb.append(body.getEar().setType(target, EarType.RABBIT_MORPH_FLOPPY));
 			}
-			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER) {
-				body.getHair().setNeckFluff(null, Math.random()<0.1f);
+			if(body.isFeminine() && body.getRaceStage()==RaceStage.GREATER && Math.random()<0.1f) {
+				sb.append(body.getHair().setNeckFluff(target, true));
 			}
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -4740,15 +4880,18 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			Colour ravenColour = PresetColour.COVERING_BLACK;
 			if(Math.random()<0.5f) {
 				ravenColour = PresetColour.COVERING_JET_BLACK;
 			}
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, ravenColour, false, ravenColour, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, ravenColour, false, ravenColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -4849,11 +4992,14 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -4957,11 +5103,11 @@ public class Subspecies {
 //			null, Util.newArrayListOfValues(
 //					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 //		@Override
-//		public void applySpeciesChanges(Body body) {
-//			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-//			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-//			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
+//		public String applySpeciesChanges(GameCharacter target, Body body) {
+//			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
 //		}
 //		@Override
 //		public String[] getHalfDemonName(GameCharacter character) {
@@ -5073,15 +5219,18 @@ public class Subspecies {
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE)), null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			CoveringPattern pattern = CoveringPattern.OMBRE;
 			if(Math.random()<0.5f) {
 				pattern = CoveringPattern.HIGHLIGHTS;
 			}
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, pattern, PresetColour.COVERING_ORANGE, true, PresetColour.COVERING_YELLOW, true));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, pattern, PresetColour.COVERING_RED, true, PresetColour.COVERING_ORANGE, true));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_RED, true, PresetColour.COVERING_RED, true));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_ORANGE, false, PresetColour.SKIN_ORANGE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, pattern, PresetColour.COVERING_ORANGE, true, PresetColour.COVERING_YELLOW, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, pattern, PresetColour.COVERING_RED, true, PresetColour.COVERING_ORANGE, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_RED, true, PresetColour.COVERING_RED, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_ORANGE, false, PresetColour.SKIN_ORANGE, false)));
+			
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -5183,9 +5332,10 @@ public class Subspecies {
 			return ItemType.getItemTypeFromId(getTransformativeItemId());
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			// Slime subspecies are set in the Main.game.getCharacterUtils().generateBody() method
 			body.setBodyMaterial(BodyMaterial.SLIME);
+			return ""; // Don't append the slime change as that will surely be handled elsewhere...
 		}
 
 		@Override
@@ -5368,13 +5518,15 @@ public class Subspecies {
 			return null;
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			// Doll subspecies are set in the Main.game.getCharacterUtils().generateBody() method
 			body.setBodyMaterial(BodyMaterial.SILICONE);
 			body.getBreast().setMilk(new FluidMilk(FluidType.MILK_DOLL, false));
 			body.getBreastCrotch().setMilk(new FluidMilk(FluidType.MILK_DOLL, true));
 			body.getPenis().getTesticle().setCum(new FluidCum(FluidType.CUM_DOLL));
 			body.getVagina().setGirlcum(new FluidGirlCum(FluidType.GIRL_CUM_DOLL));
+			
+			return "";
 		}
 		@Override
 		public String getName(Body body) {
@@ -5529,8 +5681,9 @@ public class Subspecies {
 			return ItemType.getLoreBook(this);
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setBodyMaterial(BodyMaterial.FIRE);
+			return "";
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
@@ -5615,8 +5768,9 @@ public class Subspecies {
 			return ELEMENTAL_FIRE.getSubspeciesOverridePriority();
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setBodyMaterial(BodyMaterial.STONE);
+			return "";
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
@@ -5702,8 +5856,9 @@ public class Subspecies {
 			return ELEMENTAL_FIRE.getSubspeciesOverridePriority();
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setBodyMaterial(BodyMaterial.WATER);
+			return "";
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
@@ -5788,8 +5943,9 @@ public class Subspecies {
 			return ELEMENTAL_FIRE.getSubspeciesOverridePriority();
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setBodyMaterial(BodyMaterial.AIR);
+			return "";
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
@@ -5874,8 +6030,9 @@ public class Subspecies {
 			return ELEMENTAL_FIRE.getSubspeciesOverridePriority();
 		}
 		@Override
-		public void applySpeciesChanges(Body body) {
+		public String applySpeciesChanges(GameCharacter target, Body body) {
 			body.setBodyMaterial(BodyMaterial.ARCANE);
+			return "";
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
@@ -5930,6 +6087,7 @@ public class Subspecies {
 	
 	protected static Map<AbstractSubspecies, SubspeciesSpawnRarity> dominionStormImmuneSpecies;
 	protected static Map<AbstractRace, List<AbstractSubspecies>> subspeciesFromRace;
+	
 	
 	public static AbstractSubspecies getSubspeciesFromId(String id) {
 		if(id.equalsIgnoreCase("CAT_MORPH_LEOPARD_SNOW")) {
@@ -6158,6 +6316,27 @@ public class Subspecies {
 		return map;
 	}
 
+	/**
+	 * @return All Subspecies which do not have an override, cannot self transform, and which spawn in Dominion, Submission, or Elis.
+	 * <br/><b>NOTE:</b> This should be updated in the future to include common races for all areas of the game.
+	 */
+	public static List<AbstractSubspecies> getCommonSubspecies(Collection<AbstractSubspecies> subspeciesToExclude) {
+		List<AbstractSubspecies> commonSubspecies = new ArrayList<>();
+		
+		for(AbstractSubspecies subspecies : getAllSubspecies()) {
+			if(!subspeciesToExclude.contains(subspecies)
+				&& subspecies.getSubspeciesOverridePriority()==0
+				&& !subspecies.isAbleToSelfTransform()
+				&& (subspecies.isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS)
+					|| subspecies.isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS)
+					|| subspecies.isAbleToNaturallySpawnInLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")))) {
+				commonSubspecies.add(subspecies);
+			}
+		}
+		
+		return commonSubspecies;
+	}
+	
 	public static List<AbstractSubspecies> getSubspeciesOfRace(AbstractRace race) {
 		return subspeciesFromRace.get(race);
 	}

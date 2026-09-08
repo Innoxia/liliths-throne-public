@@ -128,7 +128,7 @@ public enum QuestLine {
 			QuestType.RELATIONSHIP,
 			QuestTree.helenaTree),
 
-	ROMANCE_NATALYA("Filly Training", "Having completed Mistress Natalya's training, you are now a qualified filly and are expected to sexually service Dominion Express's centaur slaves.",
+	ROMANCE_NATALYA("[style.Mule] Training", "Having completed Mistress Natalya's training, you are now a qualified [style.mule] and are expected to sexually service Dominion Express's centaur slaves.",
 			QuestType.RELATIONSHIP,
 			QuestTree.natalyaTree),
 

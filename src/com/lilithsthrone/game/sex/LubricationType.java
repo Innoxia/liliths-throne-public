@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.6?
- * @version 0.3.8.8
+ * @version 0.4.11.1
  * @author Innoxia
  */
 public enum LubricationType {
@@ -47,11 +47,19 @@ public enum LubricationType {
 	}
 	
 	public String getName(GameCharacter owner) {
+		return getName(owner, false);
+	}
+	
+	public String getName(GameCharacter owner, boolean coloured) {
 		if(owner==null) {
 			return nullOwnerName;
 		}
-		return UtilText.parse(owner, name);
-	};
+		if(coloured) {
+			return "<span style='color:"+getColour().toWebHexString()+";'>"+UtilText.parse(owner, name)+"</span>";
+		} else {
+			return UtilText.parse(owner, name);
+		}
+	}
 	
 	public Colour getColour() {
 		return colour;

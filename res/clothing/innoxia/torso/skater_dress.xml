@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>400</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[skater dress]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[skater dresses]]></namePlural>
+		<description><![CDATA[A sleeveless skater dress, held up by a pair of thin straps that loop over the wearer's shoulders.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>skater_dress.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] on the skater dress, tidying the skirt down before moving the straps into a comfortable position on [npc.her] shoulders.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the skater dress over [npc2.namePos] head and down around [npc2.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc2.her] shoulders.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the skater dress over [npc2.namePos] head and down around [npc2.her] torso.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] skater dress up over [npc.her] head and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] skater dress up over [npc2.her] head and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] skater dress up over [npc2.her] head and [npc.verb(take)] it off.]]>
+		</otherRough>
+	</displacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] skater dress.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] skater dress.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] hold of the skirt of [npc2.namePos] skater dress, before roughly pulling it up.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_UP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the skirt of [npc.her] skater dress back down into the proper position.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the skirt [npc2.namePos] skater dress back down into the proper position.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the skirt [npc2.namePos] skater dress back down into the proper position.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_DOWN">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(shrug)] off the shoulder straps of [npc.her] skater dress and [npc.verb(allow)] the top half to fall down around [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the straps of [npc2.namePos] skater dress down off [npc2.her] shoulders, before tugging it down around [npc.her] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the straps of [npc2.namePos] skater dress down off [npc2.her] shoulders, before forcefully yanking it down around [npc.her] waist.]]>
+	  </otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the top half of [npc.her] skater dress back up into its proper position.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the top half of [npc2.namePos] skater dress back up into its proper position.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(yank)] the top half of [npc2.namePos] skater dress back up into its proper position.]]>
+		</otherRough>
+	</replacementText>
+
+	
+</clothing>

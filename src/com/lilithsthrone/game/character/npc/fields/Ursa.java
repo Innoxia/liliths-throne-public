@@ -73,7 +73,7 @@ public class Ursa extends NPC {
 				44, Month.JUNE, 28,
 				35,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("dsg_bear_subspecies_bear"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_themiscyra"), PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_plaza"),
 				true);
 	}

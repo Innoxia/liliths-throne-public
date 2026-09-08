@@ -20,13 +20,22 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.4.6.4
- * @version 0.4.6.4
+ * @version 0.4.10.9
  * @author Maxis010, Innoxia
  */
 public class EnchantmentController {
 	static void initEnchantmentMenuListeners() {
+		String id = "apply_enchanted_item_name";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+				EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+		
 		// Tooltips:
-		String id = "MOD_PRIMARY_ENCHANTING";
+		id = "MOD_PRIMARY_ENCHANTING";
 		if (MainController.document.getElementById(id) != null) {
 			MainController.addTooltipListeners(id,
 					new TooltipInventoryEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod()),
@@ -55,40 +64,46 @@ public class EnchantmentController {
 		}
 		
 		AbstractItemEffectType effect = EnchantmentDialogue.getIngredient().getEnchantmentEffect();
-		int maxLimit = effect.getMaximumLimit();
+		int maxLimit = effect.getMaximumLimit(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 		int currentLimit = EnchantmentDialogue.getLimit();
-		
+
 		if (currentLimit>0) {
 			id = "LIMIT_MINIMUM";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addEventListener(MainController.document, id, "click", new EnchantmentEventListener().setLimit(0), false);
+				MainController.addEventListener(MainController.document, id, "click",
+						new EnchantmentEventListener().setLimit(0), false);
 			}
 			
 			id = "LIMIT_DECREASE_LARGE";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addEventListener(MainController.document, id, "click", new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()-effect.getLargeLimitChange())), false);
+				MainController.addEventListener(MainController.document, id, "click",
+						new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.getLimit()-effect.getLargeLimitChange(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()))), false);
 			}
 			
 			id = "LIMIT_DECREASE";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addEventListener(MainController.document, id, "click", new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()-effect.getSmallLimitChange()), false);
+				MainController.addEventListener(MainController.document, id, "click",
+						new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()-effect.getSmallLimitChange(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())), false);
 			}
 		}
 		
 		if (currentLimit<maxLimit) {
 			id = "LIMIT_INCREASE";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addEventListener(MainController.document, id, "click", new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()+effect.getSmallLimitChange()), false);
+				MainController.addEventListener(MainController.document, id, "click",
+						new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()+effect.getSmallLimitChange(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())), false);
 			}
 			
 			id = "LIMIT_INCREASE_LARGE";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addEventListener(MainController.document, id, "click", new EnchantmentEventListener().setLimit(Math.min(maxLimit, EnchantmentDialogue.getLimit()+effect.getLargeLimitChange())), false);
+				MainController.addEventListener(MainController.document, id, "click",
+						new EnchantmentEventListener().setLimit(Math.min(maxLimit, EnchantmentDialogue.getLimit()+effect.getLargeLimitChange(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()))), false);
 			}
 			
 			id = "LIMIT_MAXIMUM";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addEventListener(MainController.document, id, "click", new EnchantmentEventListener().setLimit(maxLimit), false);
+				MainController.addEventListener(MainController.document, id, "click",
+						new EnchantmentEventListener().setLimit(maxLimit), false);
 			}
 		}
 		
@@ -154,7 +169,7 @@ public class EnchantmentController {
 		}
 		
 		// Choosing a primary modifier:
-		for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers()) {
+		for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers(EnchantmentDialogue.getIngredient())) {
 			id = "MOD_PRIMARY_"+tfMod.hashCode();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id,

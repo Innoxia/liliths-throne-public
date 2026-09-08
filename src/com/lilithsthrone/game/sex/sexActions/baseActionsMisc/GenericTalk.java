@@ -170,7 +170,7 @@ public class GenericTalk {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to give [npc2.name] an audible reminder that [npc2.sheIs] [npc.her] bitch, [npc.she] [npc.verb(let)] out a particularly aggressive growl.",
-						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out a deep, menacing growl to let [npc2.name] know that [npc2.sheIs] still [npc.her] worthless bitch.",
+						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead [npc.verb(decide)] to let out a deep, menacing growl to let [npc2.name] know that [npc2.sheIs] still [npc.her] worthless bitch.",
 						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a particularly threatening growl, letting [npc2.name] know that [npc2.sheIs] going to be treated like a pathetic fuck-toy.",
 						"Although [npc.her] mouth is blocked, making [npc.herHim] unable to speak,"
 								+ " [npc.nameIsFull] not deterred from making one of the most menacing growls [npc.she] can muster, letting [npc2.name] know that [npc2.sheIs] going to be treated like a submissive bitch."));
@@ -239,7 +239,7 @@ public class GenericTalk {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to give [npc2.name] an audible indication that [npc.sheIs] enjoying [npc.herself], [npc.she] [npc.verb(let)] out a particularly pathetic whine.",
-						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out an incredibly submissive, horny whine to let [npc2.name] know that [npc.sheIs] enjoying [npc.herself].",
+						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead [npc.verb(decide)] to let out an incredibly submissive, horny whine to let [npc2.name] know that [npc.sheIs] enjoying [npc.herself].",
 						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a pathetic, horny whine, letting [npc2.name] know that [npc.sheIs] happy to remain [npc2.her] submissive bitch.",
 						"Although [npc.her] mouth is blocked, making [npc.herHim] unable to speak,"
 								+ " [npc.nameIsFull] not deterred from making one of the most pathetic whines [npc.she] can, letting [npc2.name] know that [npc.sheIs] enjoying being [npc2.her] submissive bitch."));
@@ -308,7 +308,7 @@ public class GenericTalk {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to give [npc2.name] a reminder of [npc.her] feelings, [npc.she] [npc.verb(let)] out a particularly loving sigh.",
-						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out a soft, whimsical sigh to let [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim].",
+						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead [npc.verb(decide)] to let out a soft, whimsical sigh to let [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim].",
 						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a gentle, pining sigh, letting [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim]."));
 				
 			} else {
@@ -376,7 +376,7 @@ public class GenericTalk {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to tell [npc2.name] that [npc2.her] feelings are reciprocated, [npc.she] [npc.verb(let)] out a deeply loving moan.",
-						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out a loving moan to let [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim] too.",
+						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead [npc.verb(decide)] to let out a loving moan to let [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim] too.",
 						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a loving moan, letting [npc2.name] know that [npc.she] [npc.verb(love)] [npc2.herHim] too."));
 				
 			} else {

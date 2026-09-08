@@ -37,7 +37,15 @@
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		A series of doors line either side of this rather ordinary-looking corridor, each one marked with a different name and title. You scan each one for the name '[brax.name]' as you walk along, smiling in your most disarming manner at any Enforcers that you pass along the way.
+		Finding yourself in the nerve-centre of police operations in Dominion, a constant stream of Enforcers walk, jog, and sometimes even run past you as you [pc.walk] down the corridor. Although some of them throw suspicious glances your way, you're not challenged by any of these Enforcers, and so you're able to continue on your way without issue.
+	</p>
+	<p>
+		Numerous doors line the sides of the corridor you're travelling down, and you notice that identically-shaped brass plaques have been mounted to the wall beside each one of them. Engraved into these plaques are different names and titles,
+		#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+			 and you make sure to keep a lookout for one which reads '[brax.name]'.
+		#ELSE
+			 although as you've already found [brax.namePos] office you don't pay much attention to them.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -45,11 +53,13 @@
 	<htmlContent tag="CORRIDOR_BRAX_WARNING"><![CDATA[
 	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
 		<p>
-			The door nearest to you is marked with the name 'Inspector [brax.nameFull]', letting you know that this is the office you were looking for.
+			Suddenly you spot the name that you've been searching for. Beside the door nearest to you, the writing 'Inspector [brax.nameFull]' is engraved into a brass plaque, letting you know that this is the office you've been looking for.
+		</p>
+		<p style='text-align:center;'>
 			#IF(pc.getLevel()<5)
-				 [style.italicsBad(Be prepared for a difficult fight before entering his office!)]
+				[style.italicsBad(Be prepared for a difficult fight before entering [brax.namePos] office!)]
 			#ELSE
-				 [style.italicsMinorBad(Be prepared for a potentially difficult fight before entering his office!)]
+				[style.italicsMinorBad(Be prepared for a potentially difficult fight before entering [brax.namePos] office!)]
 			#ENDIF
 		</p>
 	#ENDIF
@@ -545,10 +555,10 @@
 		With a tug, you get [brax.name] to follow you into Candi's little office. Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar.
 	</p>
 	<p>
-		[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl. [pc.speech(Mmm, you want to be the one punishing me, don't you?)]
+		[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl. [pc.speech(You want to be the one punishing me, don't you?)]
 	</p>
 	<p>
-		[brax.speech(If I wasn't on the verge of being enslaved, I'd give you a hard fuck to teach you a lesson right now!)] [brax.name] growls as [brax.he] steps up to you.
+		[brax.speech(I'd love to give you a hard fuck to teach you a lesson right now!)] [brax.name] growls as [brax.he] steps up to you.
 	</p>
 	<p>
 		Letting out a playful giggle, you trace [pc.a_finger] over [brax.his] chest. [pc.speech(Well, I won't tell if you won't... Or is Candi's pet too submissive to try anyth- eek!)]

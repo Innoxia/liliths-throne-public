@@ -9,7 +9,11 @@
 	
 	PLEASE NOTE: This clothing item will not show up in the game, due to the rarity being set to LEGENDARY, and no shopkeepers being defined as selling this item. You can spawn it from the debug menu if you wish. The debug menu is accessed by typing "buggy" (without quotes) at any point in the game. It is best to do this when not in the middle of combat, sex, or movement-locked dialogue, as it will break you out of it.
 	
-	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
+	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!
+	
+	PARSING NOTE:
+		You can use 'thisItem' as a parsing target to access this clothing's methods for parsing. See 'res/clothing/innoxia/tape.roll.xml' for an example of this in use.
+		The 'thisItem' parsing target should work in both the name and description fields. -->
 	
 	<coreAttributes>
 		<!-- How attribution to the mod author (you!) should be displayed in the clothing's tooltip. If left blank or not included, a default attribution based on folder name will be used. (I have commented out this example, as I don't want items created by myself to have author attribution.)-->
@@ -24,16 +28,27 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		
 		<!-- The *singular* name of this clothing.
-			- Example: I've named this "template sock", as the singular for "template socks" is of course "sock"... -->
-		<name appendColourName="true"><![CDATA[template sock]]></name> <!-- You can leave out the 'appendColourName' attribute, but if you never want this clothing to be described by its colour, then set it as false. (i.e. If set to false, this clothing would always be called 'template socks' instead of, for example, 'white template socks')-->
+			- Example: I've named this "template sock", as the singular for "template socks" is of course "sock"...
+			You can leave out the 'appendColourName' attribute, but if you never want this clothing to be described by its colour, then set it as false.
+				i.e. If set to false, this clothing would always be called 'template socks' instead of, for example, 'white template socks' 
+			The 'appendEnchantmentPostfix' attribute works in the same way; you can omit it to default to true, but if you set it to false then this clothing type will never automatically append an automatically-generated enchantment postfix.
+				An example of this would be if a normal item was enchanted with an enslavement enchantment, that item would be have "of enslavement" added to the end of its name. -->
+		<name appendColourName="true" appendEnchantmentPostfix="true"><![CDATA[template sock]]></name>
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whether this item is naturally referred to as a plural (use true for things like socks or gloves).
-			- Example: I've named the plural as "template socks", and defined pluralByDefault as true, so that this item will be referred to by this plural name in all but extremely exceptional circumstances.-->
+			- Example: I've named the plural as "template socks", and defined pluralByDefault as true, so that this item will be referred to by this plural name in all but extremely exceptional circumstances. -->
 		<namePlural pluralByDefault="true"><![CDATA[template socks]]></namePlural> 
 		
 		<!-- This is the description which is shown in tooltips and on the item's inspection page.
-			- Example: The description for ordinary, "boring" items of clothing might be a little dry, but as they won't be read by the player much, it doesn't really matter.-->
-		<description><![CDATA[An ordinary pair of socks, intended to be worn on the feet in order to absorb perspiration and provide both insulation and comfort. A silly person may choose to wear them on their hands...]]></description> 
+			- Example: The description for ordinary, "boring" items of clothing might be a little dry, but as they won't be read by the player much, it doesn't really matter.
+			You can use 'npc' to access the character who's got this clothing equipped, but if you do you should do an npc null check first (as this clothing may be on the ground with no owner), as shown in the example below.  -->
+		<description><![CDATA[
+			#IF(npc!=null)
+				[npc.NamePos] ordinary pair of socks, intended to be worn on the feet in order to absorb perspiration and provide both insulation and comfort. If [npc.name] [npc.is] a silly person, [npc.she] may choose to wear them on [npc.her] hands...
+			#ELSE
+				An ordinary pair of socks, intended to be worn on the feet in order to absorb perspiration and provide both insulation and comfort. A silly person may choose to wear them on their hands...
+			#ENDIF
+		]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0, but if it's armour, then values of 1 up to 5 would be fitting (any more than that might be very OP). Physical resistance is a very powerful stat, so please keep within the range of 0-5. For all normal clothing, the value should be 0. This accepts decimal values, so for things like leather jackets (which aren't really armour, but are still protective), you can use 0.5 or so.
 			- Example: Left as 0, as it's nomral, unarmoured clothing. -->
@@ -79,6 +94,8 @@
 		<stickers/>
 		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
+			Please note that there is a 'SPECIAL' potency value, which can apply special effects not seen on normal items.
+				For comments on the SPECIAL potency and what effects it alters (namely the CLOTHING_SEALING effect), see this file: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/enchanting/TFPotency.java
 			- Example: The first defined effect will give +3 to physical damage, while the second will give the wearer the masturbation fetish while worn. -->
 		<effects> 
 				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>

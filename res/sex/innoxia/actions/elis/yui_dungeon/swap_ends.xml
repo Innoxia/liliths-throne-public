@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#((sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_VAGINA || sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_ANUS) && sex.getSexPositionSlot(npc)!=SEX_SLOT_OVER_DESK_BETWEEN_LEGS)
+			|| (sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_MOUTH && sex.getSexPositionSlot(npc)!=SEX_SLOT_OVER_DESK_RECEIVING_ORAL)]
+	]]></actionConditional>
+	<type>POSITIONING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		#IF(sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_MOUTH)
+			[##sex.changePositions(SEX_POSITION_OVER_DESK, sex.positionData(pc, SEX_SLOT_OVER_DESK_OVER_DESK_ON_FRONT), sex.positionData(npc, SEX_SLOT_OVER_DESK_RECEIVING_ORAL))]
+		#ELSE
+			[##sex.changePositions(SEX_POSITION_OVER_DESK, sex.positionData(pc, SEX_SLOT_OVER_DESK_OVER_DESK_ON_FRONT), sex.positionData(npc, SEX_SLOT_OVER_DESK_BETWEEN_LEGS))]
+		#ENDIF
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Swap end]]></title>
+	<tooltip><![CDATA[Move around to the other end of your partner.]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				#IF(sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_MOUTH)
+					Having had enough of fucking you, [npc.name] slides [npc.her] [npc.cock+] free, before swiftly moving around to the other end of the bondage bench and slapping [npc.her] [npc.cock+] against your [pc.face+].
+				#ELSE
+					Having had enough of fucking your face, [npc.name] slides [npc.her] [npc.cock+] out of your mouth, before swiftly moving around to the other end of the bondage bench and slapping [npc.her] [npc.cock+] against your
+					#IF(sex.getCurrentSexPreference(npc, pc).getTargetedSexArea()==ORIFICE_VAGINA)
+						 [pc.pussy+].
+					#ELSE
+						 [pc.asshole+].
+					#ENDIF
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>
