@@ -141,9 +141,9 @@ public class NPCRegistry {
     private static final boolean TIME_TESTING = false, ENABLE_NPC_THREADING = true, TIME_TEST_INDIVIDUAL_NPCS = false;
 
 
-    public static void initUniqueNPCs() {
+    public static void initUniqueNPCs(boolean skipRelationships) {
         if (ENABLE_NPC_THREADING) {
-            initUniqueNPCsThreaded();
+            initUniqueNPCsThreaded(skipRelationships);
             return;
         }
         long timeStarted = System.nanoTime();
@@ -161,14 +161,14 @@ public class NPCRegistry {
         initWallsEndNPCs();
         initSubmissionNPCs();
 
-        initRelations(Main.game.getNPCMap().keySet());
+        if (!skipRelationships) initRelations(Main.game.getNPCMap().keySet());
 
         if (TIME_TESTING)
             PreInitializationThread.logTime("initUniqueNPCs took", System.nanoTime() - timeStarted);
     }
 
     /* "Arbitrarily" separated NPC groupings */
-    private static void initUniqueNPCsThreaded() {
+    private static void initUniqueNPCsThreaded(boolean skipRelationships) {
         long waits = 0, timeStarted = System.nanoTime();
         new NPCThread("initMiscNPCs").start();
         new NPCThread("initDominionNPCs").start();
@@ -188,7 +188,7 @@ public class NPCRegistry {
                 waits++;
             }
 
-        initRelations(Main.game.getNPCMap().keySet());
+        if (!skipRelationships) initRelations(Main.game.getNPCMap().keySet());
         if (TIME_TESTING)
             PreInitializationThread.logTime("Threading took [ " + waits + " ] wait cycles! or ", System.nanoTime() - timeStarted);
     }

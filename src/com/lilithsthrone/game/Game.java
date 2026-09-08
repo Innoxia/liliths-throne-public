@@ -1442,7 +1442,7 @@ public class Game implements XMLSaving {
 				}
 
 				// Add in new NPCS:
-				NPCRegistry.initUniqueNPCs();
+				NPCRegistry.initUniqueNPCs(true);
 
 				//TODO This needs more thorough testing...
 				// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
@@ -2277,7 +2277,7 @@ public class Game implements XMLSaving {
 		NPCMap.clear();
 		OffspringSeedMap.clear();
 		NPCThread.deInitialize();
-		NPCRegistry.initUniqueNPCs();
+		NPCRegistry.initUniqueNPCs(false);
 
 		// This is due to the fact that on new world creation, the player is placed at coordinates (0, 0), which reveals the three squares at the bottom left corner of the map:
 		Main.game.getActiveWorld().getCell(0, 0).setDiscovered(false);
