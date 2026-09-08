@@ -5,12 +5,20 @@
 	<tooltipDescription><![CDATA[Hidden away deep in the Foloi forests, the town of Themiscyra is home to an all-female population, who are known as the Amazons.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[near Themiscyra]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
-	<colour>BASE_BLUE_LIGHT</colour>
+	<colour>BASE_CRIMSON</colour><!--BASE_BLUE_LIGHT-->
 	<backgroundColour>MAP_BACKGROUND_GREEN_DARK</backgroundColour>
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_fields_themiscyra_exterior</dialogue>
-	<populationPresent/>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="HUNDREDS">LUNETTE_DAUGTHER</populationType>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
 	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>false</loiteringEnabled>
 	<globalMapTile>true</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>

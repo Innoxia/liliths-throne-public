@@ -89,9 +89,13 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_H_SWORD_MISSION);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_I_ARION_REPORT);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_I_ELIS_DEFENCE_PLAN);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_J_TODO);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_J_FINDING_TAKAHASHI);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_K_WEAPONS_CACHE);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_L_YOUKO_LILIN);
 		node2.addChild(node1);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));

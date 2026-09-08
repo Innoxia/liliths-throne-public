@@ -124,6 +124,15 @@ public class CharacterInventory implements XMLSaving {
 		this.maxInventorySpace = maxInventorySpace;
 	}
 	
+	public CharacterInventory duplicateInventory() {
+		Document doc = Main.getDocBuilder().newDocument();
+		Element mainNode = doc.createElement("mainNode");
+		this.saveAsXML(mainNode, doc);
+		CharacterInventory newInventory = loadFromXML(mainNode, doc);
+		
+		return newInventory;
+	}
+	
 	public static CharacterInventory getCopyOfInventory(CharacterInventory inventoryToCopy) {
 		Document doc = Main.getDocBuilder().newDocument();
 		Element mainNode = doc.createElement("mainNode");
@@ -567,6 +576,13 @@ public class CharacterInventory implements XMLSaving {
 				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
 
+	/**
+	 * @return A float from 0->1 representing the percentage of space that's occupied in this inventory.
+	 */
+	public float getInventorySpaceTaken() {
+		return getInventorySlotsTaken() / (float)getMaximumInventorySpace();
+	}
+	
 	/**
 	 * @return true if this inventory contains any unique clothing, weapons, or items.
 	 */

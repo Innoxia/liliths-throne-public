@@ -58,7 +58,7 @@ public class Ear implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, AbstractEarType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			if(owner!=null) {
 				owner.postTransformationCalculation();
@@ -141,7 +141,7 @@ public class Ear implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Ear.class) && getType().getRace().isFeralPartsAvailable());

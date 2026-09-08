@@ -239,84 +239,82 @@ public class AbstractPlaceType {
 				if(coreElement.getOptionalFirstOf("populationPresent").isPresent()) {
 					if(!coreElement.getMandatoryFirstOf("populationPresent").getAttribute("copyPlaceType").isEmpty()) {
 						copyPlaceTypePopulationId = coreElement.getMandatoryFirstOf("populationPresent").getAttribute("copyPlaceType");
+					}
+					for(Element population : coreElement.getMandatoryFirstOf("populationPresent").getAllOf("population")) {
+						int startMinutes = -1;
+						int endMinutes = -1;
+						boolean usingDaylightHours = false;
+						boolean inclusiveRange = true;
+						if(Boolean.valueOf(population.getAttribute("night"))) {
+							usingDaylightHours = true;
+							inclusiveRange = false;
+							
+						} else if(Boolean.valueOf(population.getAttribute("day"))) {
+							usingDaylightHours = true;
+							
+						} else {
+							if(!population.getAttribute("startMinutes").isEmpty()) {
+								startMinutes = Integer.valueOf(population.getAttribute("startMinutes"));
+							}
+							if(!population.getAttribute("endMinutes").isEmpty()) {
+								endMinutes = Integer.valueOf(population.getAttribute("endMinutes"));
+							}
+							if(!population.getAttribute("inclusiveRange").isEmpty()) {
+								inclusiveRange = Boolean.valueOf(population.getAttribute("inclusiveRange"));
+							}
+						}
+						String conditional = "";
+						if(population.getOptionalFirstOf("conditional").isPresent()) {
+							conditional = population.getMandatoryFirstOf("conditional").getTextContent();
+						}
 						
-					} else {
-						for(Element population : coreElement.getMandatoryFirstOf("populationPresent").getAllOf("population")) {
-							int startMinutes = -1;
-							int endMinutes = -1;
-							boolean usingDaylightHours = false;
-							boolean inclusiveRange = true;
-							if(Boolean.valueOf(population.getAttribute("night"))) {
-								usingDaylightHours = true;
-								inclusiveRange = false;
-								
-							} else if(Boolean.valueOf(population.getAttribute("day"))) {
-								usingDaylightHours = true;
-								
-							} else {
-								if(!population.getAttribute("startMinutes").isEmpty()) {
-									startMinutes = Integer.valueOf(population.getAttribute("startMinutes"));
-								}
-								if(!population.getAttribute("endMinutes").isEmpty()) {
-									endMinutes = Integer.valueOf(population.getAttribute("endMinutes"));
-								}
-								if(!population.getAttribute("inclusiveRange").isEmpty()) {
-									inclusiveRange = Boolean.valueOf(population.getAttribute("inclusiveRange"));
-								}
-							}
-							String conditional = "";
-							if(population.getOptionalFirstOf("conditional").isPresent()) {
-								conditional = population.getMandatoryFirstOf("conditional").getTextContent();
+						String populationTypeString = population.getMandatoryFirstOf("populationType").getTextContent();
+						boolean plural = Boolean.valueOf(population.getMandatoryFirstOf("populationType").getAttribute("plural"));
+						PopulationDensity density = PopulationDensity.valueOf(population.getMandatoryFirstOf("populationType").getAttribute("density"));
+						AbstractPopulationType popType;
+						if(PopulationType.hasId(populationTypeString)) {
+							popType = PopulationType.getPopulationTypeFromId(populationTypeString);
+						} else {
+							popType = new AbstractPopulationType(populationTypeString, populationTypeString) {};
+						}
+						
+						if(population.getMandatoryFirstOf("subspeciesPresent").getAttribute("worldType").isEmpty()) {
+							List<String> subspeciesIds = new ArrayList<>();
+							for(Element subspecies : population.getMandatoryFirstOf("subspeciesPresent").getAllOf("subspecies")) {
+								String subId = subspecies.getTextContent();
+								subspeciesIds.add(subId);
 							}
 							
-							String populationTypeString = population.getMandatoryFirstOf("populationType").getTextContent();
-							boolean plural = Boolean.valueOf(population.getMandatoryFirstOf("populationType").getAttribute("plural"));
-							PopulationDensity density = PopulationDensity.valueOf(population.getMandatoryFirstOf("populationType").getAttribute("density"));
-							AbstractPopulationType popType;
-							if(PopulationType.hasId(populationTypeString)) {
-								popType = PopulationType.getPopulationTypeFromId(populationTypeString);
-							} else {
-								popType = new AbstractPopulationType(populationTypeString, populationTypeString) {};
+							Population pop = new Population(plural, popType, density, null);
+							pop.setConditional(conditional);
+							pop.setSubspeciesIdToAdd(subspeciesIds);
+							
+							pop.setDayStartOverride(startMinutes);
+							pop.setDayEndOverride(endMinutes);
+							pop.setUsingDaylightHours(usingDaylightHours);
+							pop.setInclusiveTimeRange(inclusiveRange);
+							
+							populations.add(pop);
+							
+						} else {
+							String popDaySubspeciesWorldTypeId = population.getMandatoryFirstOf("subspeciesPresent").getAttribute("worldType");
+							List<String> subspeciesIds = new ArrayList<>();
+							for(Element subspecies : population.getMandatoryFirstOf("subspeciesPresent").getAllOf("subspeciesToRemove")) {
+								subspeciesIds.add(subspecies.getTextContent());
 							}
 							
-							if(population.getMandatoryFirstOf("subspeciesPresent").getAttribute("worldType").isEmpty()) {
-								List<String> subspeciesIds = new ArrayList<>();
-								for(Element subspecies : population.getMandatoryFirstOf("subspeciesPresent").getAllOf("subspecies")) {
-									String subId = subspecies.getTextContent();
-									subspeciesIds.add(subId);
-								}
-								
-								Population pop = new Population(plural, popType, density, null);
-								pop.setConditional(conditional);
-								pop.setSubspeciesIdToAdd(subspeciesIds);
-								
-								pop.setDayStartOverride(startMinutes);
-								pop.setDayEndOverride(endMinutes);
-								pop.setUsingDaylightHours(usingDaylightHours);
-								pop.setInclusiveTimeRange(inclusiveRange);
-								
-								populations.add(pop);
-								
-							} else {
-								String popDaySubspeciesWorldTypeId = population.getMandatoryFirstOf("subspeciesPresent").getAttribute("worldType");
-								List<String> subspeciesIds = new ArrayList<>();
-								for(Element subspecies : population.getMandatoryFirstOf("subspeciesPresent").getAllOf("subspeciesToRemove")) {
-									subspeciesIds.add(subspecies.getTextContent());
-								}
-								
-								Population pop = new Population(plural, popType, density, null);
-								pop.setConditional(conditional);
-								pop.setSubspeciesPlaceTypeId(id);
-								pop.setSubspeciesWorldTypeId(popDaySubspeciesWorldTypeId);
-								pop.setSubspeciesIdToRemove(subspeciesIds);
-								
-								pop.setDayStartOverride(startMinutes);
-								pop.setDayEndOverride(endMinutes);
-								pop.setUsingDaylightHours(usingDaylightHours);
-								pop.setInclusiveTimeRange(inclusiveRange);
-								
-								populations.add(pop);
-							}
+							Population pop = new Population(plural, popType, density, null);
+							pop.setConditional(conditional);
+							pop.setSubspeciesPlaceTypeId(id);
+							pop.setSubspeciesWorldTypeId(popDaySubspeciesWorldTypeId);
+							pop.setSubspeciesIdToRemove(subspeciesIds);
+							
+							pop.setDayStartOverride(startMinutes);
+							pop.setDayEndOverride(endMinutes);
+							pop.setUsingDaylightHours(usingDaylightHours);
+							pop.setInclusiveTimeRange(inclusiveRange);
+							
+							populations.add(pop);
 						}
 					}
 				}
@@ -535,16 +533,7 @@ public class AbstractPlaceType {
 	 * <br/>If you want this place type's core encounter, use getCoreEncounterType().
 	 */
 	public AbstractEncounter getEncounterType() {
-		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
-		
-		if(encounterType!=null && encounterType.getTotalChanceValue()>0) {
-			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
-		}
-		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
-			if(enc.getTotalChanceValue()>0) {
-				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
-			}
-		}
+		Map<AbstractEncounter, Float> possibleEncountersMap = getPossibleEncountersMap(false);
 		
 		if(possibleEncountersMap.isEmpty()) {
 			return null;
@@ -559,6 +548,25 @@ public class AbstractPlaceType {
 		
 		return ae;
 	}
+
+	/**
+	 * @return A mapping of every possible AbstractEncounter which can trigger on this PlaceType to the chance of the AbstractEncounter being triggered.
+	 */
+	public Map<AbstractEncounter, Float> getPossibleEncountersMap(boolean includeZeroChances) {
+		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
+		
+		if(encounterType!=null && (includeZeroChances || encounterType.getTotalChanceValue()>0)) {
+			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
+		}
+		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
+			if(enc.getTotalChanceValue()>0 || includeZeroChances) {
+				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			}
+		}
+		
+		return possibleEncountersMap;
+	}
+	
 	
 	protected DialogueNode getBaseDialogue(Cell cell) {
 		return dialogue;
@@ -590,13 +598,11 @@ public class AbstractPlaceType {
 		
 		if(fromExternalFile) {
 			if(copyPlaceTypePopulationId!=null && !copyPlaceTypePopulationId.isEmpty()) {
-				return PlaceType.getPlaceTypeFromId(copyPlaceTypePopulationId).getPopulation();
-				
-			} else {
-				for(Population pop : populations) {
-					if(pop.isAvailableFromConditional() && pop.isAvailableFromCurrentTime()) {
-						returnPopulation.add(pop);
-					}
+				returnPopulation.addAll(PlaceType.getPlaceTypeFromId(copyPlaceTypePopulationId).getPopulation());
+			}
+			for(Population pop : populations) {
+				if(pop.isAvailableFromConditional() && pop.isAvailableFromCurrentTime()) {
+					returnPopulation.add(pop);
 				}
 			}
 		}

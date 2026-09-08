@@ -122,7 +122,10 @@
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL"/>
 	
-		<itemTags/>
+		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>USED_BY_BONDAGE_APPLIERS</tag>
+		</itemTags>
 	</coreAttributes>
 
   <replacementText type="REMOVE_OR_EQUIP">

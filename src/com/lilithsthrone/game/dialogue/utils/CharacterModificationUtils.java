@@ -1050,7 +1050,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This affects some minor descriptions and is also used for determining if a sex scene is categorised as 'size-difference' or not.</i>"
 						+ (!Main.game.isInNewWorld()
 							?"<br/>[style.italicsMinorBad(Height is limited to [units.sizes("+Height.getMaximumHeightForCharacterCreation()+")]"
-									+ " during character creation, but can be raised to [units.sizes("+Height.SEVEN_COLOSSAL.getMaximumValue()+")] later on.)]"
+									+ " during character creation, but can later be raised to [units.sizes("+Height.SEVEN_COLOSSAL.getMaximumValue()+")].)]"
 							:"")),
 				"HEIGHT",
 				BodyChanging.getTarget().getHeightValue(),

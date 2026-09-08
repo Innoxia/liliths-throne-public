@@ -273,7 +273,10 @@ public class RalphsSnacks {
 							+ UtilText.parseSpeech("This is a respectable shop, so if anyone comes in, you're to keep quiet! For each customer that hears you, I'm going to knock five percent off our deal.", Main.game.getNpc(Ralph.class))
 						+ "</p>"
 						+ "<p>"
-							+ "By this time, Ralph's led you behind the shop's front desk, and you see that there's a hollow space beneath the counter-top, large enough for you to kneel inside quite comfortably."
+							+ "By this time, Ralph has led you behind the shop's front desk, and you see that there's a hollow space beneath the counter-top"
+							+(Main.game.getPlayer().isTaur()
+								?". Even with the size of your lower [pc.legRace]'s body, there's just about enough room for you to duck down into."
+								:", large enough for you to kneel inside quite comfortably.")
 							+ " The desk's solid front conceals you from the rest of the shop, and you realise that if you keep quiet, any customers will be completely oblivious as to what's going on."
 							+ " Ralph places his hands on your shoulders, and, feeling that it's too late to back out now, you allow him to push you to your knees."
 							+ " Shuffling back, you occupy the space under his desk, and Ralph steps forwards, bringing the massive bulge in his trousers right up to your face."

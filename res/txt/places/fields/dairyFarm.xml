@@ -359,7 +359,7 @@
 	
 	<htmlContent tag="RECEPTION_TALK_LUNETTE"><![CDATA[
 	<p>
-		Wanting to know why this farm has been spared from the destruction wrought by Lunette's marauders, you ask Dale what he knows about the elder lilin or her daughters.
+		Wanting to know why this farm has been spared from the destruction wrought by Lunette's daughters, you ask Dale what he knows about the elder lilin or her army of demonic centauresses.
 	</p>
 	<p>
 		[dale.speech(Well, I don't really know anything special about Lunette herself, other than what anyone else could tell you about her,)] he replies, before glancing around and lowering his voice to reveal, [dale.speech(As for why this farm isn't attacked like most of the others in the Fields... Well, I probably shouldn't be telling you this, but I heard from one of the other workers that Evelyx has some kind of deal with Lunette...)]

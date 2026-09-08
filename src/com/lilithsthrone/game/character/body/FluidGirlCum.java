@@ -214,7 +214,7 @@ public class FluidGirlCum implements FluidInterface {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
-		if(owner==null && !fluidModifiers.contains(fluidModifier)) {
+		if(!isCharacterInitialised(owner) && !fluidModifiers.contains(fluidModifier)) {
 			fluidModifiers.add(fluidModifier);
 			return "";
 		}
@@ -385,7 +385,7 @@ public class FluidGirlCum implements FluidInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(FluidGirlCum.class) && getType().getRace().isFeralPartsAvailable());

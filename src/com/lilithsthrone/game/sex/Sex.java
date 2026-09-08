@@ -297,6 +297,9 @@ public class Sex {
 	
 	private AbstractClothing selectedClothing;
 	
+	// Sex scene recording:
+	
+//	private SexSceneRecording sceneRecording;
 
 	public Sex() {
 		sexManagerLoader = new SexManagerLoader();
@@ -1008,6 +1011,8 @@ public class Sex {
 		
 		// Populate available SexAction list:
 		populatePlayerSexLists();
+		
+//		sceneRecording = new SexSceneRecording(Main.game.getId(), getAllParticipants());
 		
 		sexInitFinished = true;
 		
@@ -2014,6 +2019,7 @@ public class Sex {
 	 */
 	public void endSexTurn(SexActionInterface sexActionPlayer) {
 		sexSB = new StringBuilder();
+//		StringBuilder sceneRecordingSB = new StringBuilder();
 		
 		// Reset knotted map:
 		getCharactersKnottedTogether().clear();
@@ -2022,9 +2028,11 @@ public class Sex {
 //		System.out.println("startTurnPlayerArousal: "+startTurnPlayerArousal);
 		
 		// preDescriptionBaseEffects() and getFluidFlavourDescription() should already be formatted in p tags, so just enclose .getDescription() in them:
-		sexSB.append(sexActionPlayer.preDescriptionBaseEffects()
-					+"<p>"
-						+ sexActionPlayer.getDescription()
+		String preDescriptionBaseEffects = sexActionPlayer.preDescriptionBaseEffects();
+		String description = sexActionPlayer.getDescription();
+		sexSB.append(preDescriptionBaseEffects
+					+ "<p>"
+						+ description
 					+ "</p>"
 					+ sexActionPlayer.getFluidFlavourDescription(Main.game.getPlayer(), Main.sex.getTargetedPartner(Main.game.getPlayer())));
 		
@@ -2038,15 +2046,31 @@ public class Sex {
 		
 		sexSB.append(endString);
 		
+		// Recording the player's move:
+//		sceneRecordingSB.setLength(0);
+//		sceneRecordingSB.append(
+//				preDescriptionBaseEffects
+//						+ "<p>"
+//							+ description
+//						+ "</p>");
+//		sceneRecordingSB.append(endString);
+//		String recordingString = UtilText.parse(sexActionPlayer.getCharactersForParsing(), sceneRecordingSB.toString(), ParserTag.SEX_DESCRIPTION);
+//		List<String> participantIds = new ArrayList<>();
+//		sexActionPlayer.getCharactersForParsing().stream().forEach(character -> participantIds.add(character.getId()));
+//		SexActionRecording ai = new SexActionRecording(0, Main.game.getPlayer().getId(), participantIds, UtilText.parse(sexActionPlayer.getCharactersForParsing(), sexActionPlayer.getActionTitle()), recordingString);
+//		sceneRecording.addActionInformation(turn, ai);
+		
 		String s;
 		if(sexActionPlayer.getLimitation()==null
 				&& sexActionPlayer!=SexActionUtility.CLOTHING_REMOVAL
 				&& sexActionPlayer!=SexActionUtility.CLOTHING_DYE) {
-			s = UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
+			s = UtilText.parse(sexActionPlayer.getCharactersForParsing(), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
+//			s = UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
 			
 		} else {
 			s = UtilText.parse(Main.sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
 		}
+		
 		sexSB.setLength(0);
 		sexSB.append(s);
 
@@ -2084,8 +2108,10 @@ public class Sex {
 					}
 				}
 				
+//				int participantIndex = 0;
 				for(GameCharacter character : Main.sex.getAllParticipants()) {
 					if(!character.isPlayer()) {
+//						participantIndex++;
 						Main.sex.setCharacterPerformingAction(character);
 						
 						if(sexActionPlayer.getActionType()!=SexActionType.ORGASM && sexActionPlayer.getActionType()!=SexActionType.ORGASM_DENIAL) {
@@ -2100,12 +2126,14 @@ public class Sex {
 							}
 							
 							if(itemUseInformation==null || itemUseInformation.getKey().equals(character)) {
+								preDescriptionBaseEffects = sexActionPartner.preDescriptionBaseEffects();
+								description = sexActionPartner.getDescription();
 								sexSB.append("<br/>"
 										+ "<p>"
 											+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
 											+ "</br>"
-											+ sexActionPartner.preDescriptionBaseEffects()
-											+ sexActionPartner.getDescription()
+											+ preDescriptionBaseEffects
+											+ description
 											+ sexActionPartner.getFluidFlavourDescription(character, Main.sex.getTargetedPartner(character))
 										+ "</p>");
 					
@@ -2120,10 +2148,25 @@ public class Sex {
 								
 								sexSB.append(endString);
 								
+								// Recording the NPC's move:
+//								sceneRecordingSB.setLength(0);
+//								sceneRecordingSB.append(
+//										preDescriptionBaseEffects
+//												+ "<p>"
+//													+ description
+//												+ "</p>");
+//								sceneRecordingSB.append(endString);
+//								recordingString = UtilText.parse(sexActionPartner.getCharactersForParsing(), sceneRecordingSB.toString(), ParserTag.SEX_DESCRIPTION);
+//								List<String> participantIds2 = new ArrayList<>();
+//								sexActionPartner.getCharactersForParsing().stream().forEach(c -> participantIds2.add(c.getId()));
+//								ai = new SexActionRecording(participantIndex, character.getId(), participantIds2, UtilText.parse(sexActionPartner.getCharactersForParsing(), sexActionPartner.getActionTitle()), recordingString);
+//								sceneRecording.addActionInformation(turn, ai);
+								
+								
 								if(sexActionPartner.getLimitation()==null
 										&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
 										&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
-									s = UtilText.parse(character, Main.sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
+									s = UtilText.parse(sexActionPartner.getCharactersForParsing(), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
 									
 								} else {
 									s = UtilText.parse(character, sexSB.toString(), ParserTag.SEX_DESCRIPTION);
@@ -2172,6 +2215,40 @@ public class Sex {
 		if(SEX_DIALOGUE.getResponseTabTitle(1)!=null && preOrgasmTargeting!=null) {
 			Main.game.setResponseTab(preOrgasmTargeting.getKey());
 			preOrgasmTargeting = null;
+		}
+		
+		if(sexFinished) {
+			// Format of ID_playerName_time
+//			String name = Main.game.getId()
+//					+ "_" + Main.game.getPlayer().getName()
+//					+ "_" + LocalDateTime.now().getDayOfMonth()
+//						+ String.format("%02d",LocalDateTime.now().getMonthValue())
+//						+ (LocalDateTime.now().getYear()%100)
+//						+ String.format("%02d",LocalDateTime.now().getHour())
+//						+ String.format("%02d",LocalDateTime.now().getMinute());
+			
+//			SexSceneRecording.saveToExternalXMLFile(sceneRecording, name);
+			
+//			try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/sexTestingOutput.txt"))) {
+//				for(int i=1; i<=sceneRecording.getLength(); i++) {
+//				    writer.write("SEX TURN: "+i);
+//					for(SexActionRecording actionInformation : sceneRecording.getActionInformationList(i)) {
+//					    writer.newLine();
+//					    writer.write(actionInformation.getTurnIndex() +" | " + actionInformation.getPerformerId()+" | "+actionInformation.getParticipantIds());
+//					    writer.newLine();
+//					    writer.write(">");
+//					    writer.write(actionInformation.getActionTitle());
+//					    writer.newLine();
+//					    writer.write(actionInformation.getActionDescription());
+//					}
+//				    writer.newLine();
+//				    writer.write("########");
+//				    writer.newLine();
+//				}
+//			} catch (IOException e) {
+//			    e.printStackTrace();
+//			}
+//			sceneRecording
 		}
 		
 		turn++;
@@ -2503,6 +2580,7 @@ public class Sex {
 						} else {
 							// Add action as normal:
 							int weight = ((NPC)Main.sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
+//							System.out.println(Main.sex.getCharacterPerformingAction().getNameIgnoresPlayerKnowledge() +": "+ sexAction.getActionTitle());
 							
 							if(weight>=0 || sexAction.equals(GenericActions.PARTNER_STOP_SEX_NOT_HAVING_FUN) || sexAction.getCategory()==SexActionCategory.POSITIONING) { // Positioning actions should always be available
 								switch(sexAction.getPriority()){

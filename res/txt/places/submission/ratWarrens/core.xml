@@ -957,7 +957,7 @@
 			Looking up, you see that you're once again in the large cavern which serves as Murk's milk storage room. Before you, dozens of metal milk pails have been stacked up on shelving units, while in front of them, there's a curious collection of old, tatty-looking furniture arrayed next to a battered wooden door. While the stacks of rotting tables and broken chairs look as though they haven't seen use for many years, there are several crates and cabinets which appear to have been kept in relatively good condition. The most striking feature of this furniture dump is a faded red sofa, which catches your eye not only because of its splash of colour, but also due to the fact that Murk is once again sitting in the middle of it.
 		</p>
 		<p>
-			[murk.speechNoEffects(Fancy seein' ya 'ere again!)] the brown-furred rat-boy sneers in a slovenly tone. Reaching up to scratch his chubby belly, Murk flashes you an evil grin, before suddenly letting out a loud, foul belch. Moving his hungry gaze up from you to look at the [npc.race] which dragged you into this place, he snarls, [murk.speechNoEffects(Took ya long enough ta get [pc.herHim] subdued! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
+			[murk.speechNoEffects(Fancy seein' ya 'ere again!)] the brown-furred rat-boy sneers in a slovenly tone. Reaching up to scratch his chubby belly, Murk flashes you an evil grin, before suddenly letting out a loud, foul belch. Moving his hungry gaze up from you to look at the [npc.race] which dragged you into this place, he snarls, [murk.speechNoEffects(Took ya long enough ta get [pc.herHim] subdued! So, you's gonna 'and [pc.herHim] over ta me then, are ya?)]
 		</p>
 		<p>
 			[npc.speech(If ya write off me debt, then sure,)] [npc.name] responds, [npc.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
@@ -982,7 +982,7 @@
 			Although it's impossible to know the full, erect length of it due to the fact that it's withdrawn into its sheath, you can see that the circumference of the rat-boy's dark-skinned cock is absolutely massive. The pair of huge, heavy balls hanging down between his legs are also disproportionately large in relation to his height, and you can't help but glance at them as they ponderously swing from side to side in pace with his short stride.
 		</p>
 		<p>
-			[murk.speechNoEffects('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly, Murk flashes you an evil grin, before suddenly letting out a loud, foul belch. Moving his hungry gaze up from you to look at the [npc.race] which dragged you into this place, Murk snarls, [murk.speechNoEffects(I 'eard there were a troublemaker runnin' around in 'ere. Took ya long enough ta get [pc.herHim] subdued, didn't it?! So, ya 'ere ta 'and [pc.herHim] over ta me, are ya?)]
+			[murk.speechNoEffects('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly, Murk flashes you an evil grin, before suddenly letting out a loud, foul belch. Moving his hungry gaze up from you to look at the [npc.race] which dragged you into this place, Murk snarls, [murk.speechNoEffects(I 'eard there were a troublemaker runnin' around in 'ere. Took ya long enough ta get [pc.herHim] subdued, didn't it?! So, you's gonna 'and [pc.herHim] over ta me, are ya?)]
 		</p>
 		<p>
 			[npc.speech(If ya write off me debt, then sure,)] [npc.name] responds, [npc.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
@@ -1795,9 +1795,9 @@
 		<p style='text-align:center;'><i>
 			Milker Rentin iz frum 
 			#IF(game.isHourBetween(14, 22))
-				 [style.italicsMinorGood(2 til 10 pee-em)].
+				 [style.italicsMinorGood(2 til 10 pee-em)]
 			#ELSE
-				 [style.italicsMinorBad(2 til 10 pee-em)].
+				 [style.italicsMinorBad(2 til 10 pee-em)]
 			#ENDIF
 			<br/>Five undred flaymes foor a fuck.
 			<br/>No reefunds.
@@ -1865,9 +1865,9 @@
 		<p style='text-align:center;'><i>
 			Milker Rentin iz frum 
 			#IF(game.isHourBetween(14, 22))
-				 [style.italicsMinorGood(2 til 10 pee-em)].
+				 [style.italicsMinorGood(2 til 10 pee-em)]
 			#ELSE
-				 [style.italicsMinorBad(2 til 10 pee-em)].
+				 [style.italicsMinorBad(2 til 10 pee-em)]
 			#ENDIF
 			<br/>Five undred flaymes foor a fuck.
 			<br/>No reefunds.
@@ -2624,7 +2624,7 @@
 		Determined to avoid violence, but also unwilling to kneel to Vengar, your only option left is to pay up the [#SPECIAL_PARSE_0] flames being demanded of you. Reminding yourself that you have no other choice, you produce the money and tell the rat-boy that you'll only hand it over to him if he's willing to seriously consider your request to put an end to his criminal activities.
 	</p>
 	<p>
-		[vengar.speechNoEffects(Ya showin' yer submission by payin' me that tribute, so yeah, I's gonna listen an' think about yer request,)] Vengar snarls, [vengar.speechNoEffects(Now get up 'ere an' 'and over that cash!)]
+		[vengar.speechNoEffects(Ya showin' yer submission by payin' me that tribute, so yeah, I's gonna listen an' think about yer request,)] Vengar snarls, [vengar.speechNoEffects(Now get up 'ere an' gimme dat cash!)]
 	</p>
 	<p>
 		Doing as he says, you walk up the few steps onto the raised dais, before moving forwards and giving the flames to Vengar. With a wide grin on his face, the rat-boy motions for you to step aside, before standing up and addressing the hall, [vengar.speechNoEffects(Treat this 'un as me guest if ya see [pc.herHim] walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]

@@ -114,7 +114,7 @@ public class Face implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, AbstractFaceType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			mouth.setType(type.getMouthType());
 			tongue.setType(type.getMouthType().getTongueType());
@@ -148,7 +148,7 @@ public class Face implements BodyPartInterface {
 		sb.append("</p>");
 		
 		return UtilText.parse(owner, sb.toString())
-				+ "<br/><br/>"
+				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
 	}
@@ -193,7 +193,7 @@ public class Face implements BodyPartInterface {
 	}
 
 	public String setFacialHair(GameCharacter owner, BodyHair facialHair) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.facialHair = facialHair;
 			return "";
 		}
@@ -250,7 +250,7 @@ public class Face implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Face.class) && getType().getRace().isFeralPartsAvailable());

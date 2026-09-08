@@ -613,8 +613,9 @@ public class PenisSpinneret {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.SPINNERET)),
 			SexParticipantType.NORMAL) {
-		
-		private List<GameCharacter> getCharactersForParsing() {
+
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return PenisSpinneret.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 
@@ -1385,7 +1386,8 @@ public class PenisSpinneret {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.SPINNERET, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
 
-		private List<GameCharacter> getCharactersForParsing() {
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return PenisSpinneret.getCharactersForParsing(Main.sex.getCharacterPerformingAction());
 		}
 

@@ -86,7 +86,7 @@ public class Tentacle implements BodyPartInterface {
 	 * @return A description as though the tentacle type is growing from the character's lower back.
 	 */
 	public String setType(GameCharacter owner, AbstractTentacleType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			if(this.getLengthAsPercentageOfHeight()==this.getType().getDefaultLengthAsPercentageOfHeight()) {
 				this.setLengthAsPercentageOfHeight(owner, type.getDefaultLengthAsPercentageOfHeight());
 			}
@@ -151,7 +151,7 @@ public class Tentacle implements BodyPartInterface {
 
 	public String setTentacleCount(GameCharacter owner, int tentacleCount) {
 		tentacleCount = Math.max(1, Math.min(tentacleCount, MAXIMUM_COUNT));
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.tentacleCount = tentacleCount;
 			return "";
 		}
@@ -211,7 +211,7 @@ public class Tentacle implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
 	 */
 	public String setTentacleGirth(GameCharacter owner, int girth) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
@@ -256,7 +256,7 @@ public class Tentacle implements BodyPartInterface {
 	 * Sets the tentacles' length as a percentage of the owner's height. Value is bound to >=1.0f && <=5.0f
 	 */
 	public String setLengthAsPercentageOfHeight(GameCharacter owner, float lengthAsPercentageOfHeight) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
 			return "";
 		}
@@ -337,7 +337,7 @@ public class Tentacle implements BodyPartInterface {
 	
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tentacle.class) && getType().getRace().isFeralPartsAvailable());

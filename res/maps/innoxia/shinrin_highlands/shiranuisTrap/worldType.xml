@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[Shiranui's Trap]]></name>
+	<colour>BASE_PINK_LIGHT</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent deskName="tree stump">true</furniturePresent>
+	<wallsPresent wallName="tree">true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_YOUKO_FOREST</globalMapLocation>
+	<standardPlace>innoxia_shinrin_highlands_shiranuisTrap_path</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_shinrin_highlands_shiranuisTrap_hideout</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#808080">innoxia_shinrin_highlands_shiranuisTrap_path</place>
+		
+		<place colour="#0000ff">innoxia_shinrin_highlands_shiranuisTrap_hideout</place>
+		
+		<place colour="#ff0000">innoxia_shinrin_highlands_shiranuisTrap_flame</place>
+		
+		<place colour="#ffff00">innoxia_shinrin_highlands_shiranuisTrap_exit</place>
+	</places>
+</worldType>

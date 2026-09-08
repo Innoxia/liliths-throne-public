@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- All of these are linked to the 'dialogue/innoxia/quests/main/elisDefenceMeeting.xml' dialogue nodes. -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		Now that you've secured the assistance of Hammer and Ghost, you inform Minotallys that the SWORD Enforcers are getting to work on drawing up plans for how to defend Elis.
+	</p>
+	<p>
+		[arion.speech(So, they were willing to help after all?)] Arion muses, [arion.speech(I was under the impression that they were distrustful of Minotallys and I, so well done. How did you convince them to help us?)]
+	</p>
+	<p>
+		Knowing that you can trust the two of them to keep this a secret, and so protect the SWORD Enforcers from potential reprisals from Angelixx or her elder lilin mother, you tell Minotallys and Arion how you helped Hammer and Ghost to take down the demon's gang. Minotallys nods in approval as you finish your story and says, [minotallys.speech(It sounds like we owe these Enforcers our thanks.)]
+	</p>
+	<p>
+		[arion.speech(As they're now willing to help, we should meet with them immediately to discuss plans for how to defend Elis from Lunette,)] Arion states, [arion.speech([pc.Name], could you fetch Meraxis? I'll go and get the Enforcers, and if Minotallys could summon Ursa, then we'll have all of the key people here.)]
+	</p>
+	<p>
+		Agreeing to fetch Meraxis, you look over at Minotallys as she nods and stands up from behind her desk.
+	</p>
+	<p>
+		[minotallys.speech(Good thinking, Arion. The Amazons will need to be kept in the loop,)] the lilin says, [minotallys.speech(I'm sure that we'll have to rely on their strength in order to defeat Lunette and her daughters.)]
+	</p>
+	<p>
+		[arion.speech(Let's meet back here as soon as possible then,)] Arion says as he heads to the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS"><![CDATA[
+	<p>
+		Exiting the town hall with Minotallys and Arion, the three of you say a brief goodbye before splitting up to go and fetch your assigned parties. Heading back to The Red Dragon, you see that Meraxis isn't in her usual corner. Thinking that she must have gone up to her room, you head upstairs and knock on her door. There's no answer, and further knocking producing similar results.
+	</p>
+	<p>
+		Wondering where she's gone off to, you head on back downstairs. [pc.Walking] over to the bar, you get Flash's attention and ask him if he's seen the chunni demon.
+	</p>
+	<p>
+		[flash.speech(She was here just ten minutes ago,)] the badger-boy reveals in his deep, gruff voice. Nodding his striped head over towards the door, he continues, [flash.speech(Her and those demons she hangs out with all left together. I think I heard them saying something about going to Wall's End.)]
+	</p>
+	<p>
+		At that moment, someone further down the bar calls over to Flash asking to be served, and so you thank him for the information and leave him to deal with the customer. It seems like Wall's End is where you'll have to go to find Meraxis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END"><![CDATA[
+	<p>
+		Exiting The Red Dragon, you turn in the direction of Wall's End and set off down the street. It doesn't take you long to reach the shopping precinct, and after passing by the well-stocked plant boxes which line the sides of the entranceway, you enter the precinct's main square.
+	</p>
+	<p>
+		Casting your gaze around, you don't see any sign of Meraxis, but there is an unusually-large crowd gathered around the square's central fountain. From where you're standing, it sounds like there's a fight going on in the middle of this crowd. A feminine voices shouts out, then another one makes some kind of battle cry, and then finally you hear a shout which sounds very much like Meraxis's voice.
+	</p>
+	<p>
+		#IF(pc.isAbleToFly())
+			Quickly taking off into the air, you fly up and over the crowd, and as you look down you're able to confirm that the voice you just heard does indeed belong to Meraxis. The chuuni [meraxis.race] is standing in front of her succubi followers, and from the way they're lined up and the exaggerated forms of the heroic poses which they're striking, Meraxis looks to be instructing them in her style of performative combat. Swooping down to land in front of the crowd, you [pc.step] forwards and prepare to call out to Meraxis.
+		#ELSEIF(pc.getRace()==RACE_DEMON)
+			[pc.Stepping] forwards, you loudly demand that the crowd makes way for you, and as the members of this gathering turn to see that you're demon, they hurriedly move aside to give you a clear path. Passing through these dutifully-subservient citizens of Elis, you're able to reach the fountain and confirm that the voice you just heard does indeed belong to Meraxis. The chuuni [meraxis.race] is standing in front of her succubi followers, and from the way they're lined up and the exaggerated forms of the heroic poses which they're striking, Meraxis looks to be instructing them in her style of performative combat.
+		#ELSE
+			[pc.Stepping] forwards, you push your way through the crowd, and although there's some jostling about, you're able to quickly reach the fountain and confirm that the voice you just heard does indeed belong to Meraxis. The chuuni [meraxis.race] is standing in front of her succubi followers, and from the way they're lined up and the exaggerated forms of the heroic poses which they're striking, Meraxis looks to be instructing them in her style of performative combat.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END_CONTINUE"><![CDATA[
+	<p>
+		As Minotallys and everyone else will be waiting for the two of you back in the town hall, you're going to have to interrupt Meraxis's lesson. Before you get the chance to do so, however, one of the succubi suddenly drops out of her pose and lets out a mortified groan.
+	</p>
+	<p>
+		[style.speechFeminineStrong(I can't take any more of this!)] she shouts while covering her face with her hands, [style.speechFeminineStrong(I'm going to die of embarrassment!)]
+	</p>
+	<p>
+		[style.speechFeminine(There's got to be another way to get close to an elder lilin,)] another one of the succubi, who's profusely blushing, adds, [style.speechFeminine(I'm through with this.)]
+	</p>
+	<p>
+		The other succubi all agree, and after dropping out of their poses, they gather up and walk off together.
+	</p>
+	<p>
+		[meraxis.speech(Weakness!)] Meraxis boldly declares as her followers abandon her, [meraxis.speech(You're not cut out be my minions if you can't even learn how to perform the most basic of the ultimate poses!)]
+	</p>
+	<p>
+		[style.speechFeminineStrong(You are so fucking cringe,)] the first succubus derisively snorts. The succubi all laugh as she says this, and as the crowd makes way for their exit, you hear her loudly complaining to her friends, [style.speechFeminineStrong(I can't believe that we put up with all that shit for so long.)]
+	</p>
+	<p>
+		It's at that moment that Meraxis catches sight of you. She appears to be completely unbothered by the loss of her minions and their insulting words, and in her usual, energetic manner, she levels a finger at you and loudly proclaims to the crowd, [meraxis.speech(My ultimate nemesis has arrived! Those losers couldn't show the crowd a real ultimate pose, but you surely can! Show me what you've got, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END_NO_TIME"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Although it pains you to have to deny Meraxis the pleasure of witnessing one of your earth-shattering ultimate poses, you quickly inform her that there's no time to be doing this.
+		#ELSE
+			You really don't want to embarrass yourself in front of all these people, and so you quickly tell Meraxis that there's no time to be doing this.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(Oh, and what could be so important that you couldn't spare a few minutes to show me what you're made of?)] the chuuni [meraxis.race] demands, before crossing her arms and frowning at you.
+	</p>
+	<p>
+		[pc.Stepping] over to her, you inform Meraxis that there's about to be a very important meeting in the town hall, and that the two of you need to get over there as quickly as possible.
+	</p>
+	<p>
+		[meraxis.speech(Of course, the fate of this town, and that of the very world itself, rests in our hands, does it not?)] she replies with a smirk on her face, before swishing her cloak out behind her and declaring, [meraxis.speech(Let us depart henceforth!)]
+	</p>
+	<p>
+		The crowd beings to disperse as they see that the show's over, and Meraxis cheerfully bounces along at your side as the two of you head over towards the precinct's exit. As you depart, you notice that Meraxis's ex-minions are hanging out over in one corner of the shopping precinct. Letting out a laugh, the chuuni [meraxis.race] points at these succubi and asks, [meraxis.speech(Pathetic, aren't they? I was attempting to show them the key to true power, but they simply couldn't comprehend it. Out of the hundreds of followers that I've had, only a handful have ever truly understood me.)]
+	</p>
+	<p>
+		Although she doesn't seem to need to hear it, you still tell Meraxis that she's better off without them. Nodding in agreement, the chuuni [meraxis.race] stays by your side as the two of you turn your backs on the succubi and set off in the direction of the town hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END_POSE"><![CDATA[
+	<p>
+		Feeling a little sorry for Meraxis after witnessing herfollowers abandon her in such a public fashion, you decide to humour her request. Trying not to think about how many people are watching, you do your best to mimic one of the poses which you've seen Meraxis perform in the past. 
+	</p>
+	<p>
+		Although there a couple of chuckles from the crowd, it doesn't seem like you've done too bad a job. By Meraxis's standards, however, you seem to be sorely lacking, for she laughs and loudly asks, [meraxis.speech(What's that meant to be? I'll show you a real ultimate pose!)]
+	</p>
+	<p>
+		Raising her scythe, Meraxis sweeps it around in a huge arc, before striking it down onto the ground and loudly cracking a paving stone in the process. Either oblivious to, or unbothered by, this act of vandalism, the chuuni [meraxis.race] confidently shouts, [meraxis.speech(I am the beginning and the end; the alpha and the omega; I herald the coming apocalypse and before me all of creation shall be swept aside!)]
+	</p>
+	<p>
+		Before you can react to this, she raises her scythe and once again sweeps it around, before holding it up behind her and taking on a stance which makes it look like she's about to attack. With an evil-looking smirk on her face, she tilts her head forwards and laughs, [meraxis.speech(The very fundamental forces of the universe itself are mine to control! Shall I give you a taste of the cosmic powers which I wield?)]
+	</p>
+	<p>
+		The crowd mutters and some visibly cringe at this performance. Not wanting to give her an excuse to start throwing out spells, which would no doubt cause significantly more damage than simply cracking a paving stone, you tell Meraxis that you're suitably impressed, and that everyone can see what an immensely powerful demon she is. Not giving her any time in which to respond, you [pc.step] over to the chuuni [meraxis.race] and inform her that there's about to be a very important meeting in the town hall, and that the two of you need to get over there as quickly as possible.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END_CHUUNI"><![CDATA[
+	<p>
+		With a smug chuckle, you declare to both Meraxis and the crowd that, just this once, you've decided to show off your true power outside of combat. Placing one of your [pc.hands] over one side of your face, you reveal that you are master of both darkness and light, before swishing your arms outwards in a wide, sweeping motion.
+	</p>
+	<p>
+		[meraxis.speech(Impressive, but the very fundamental forces of the universe itself are mine to control! What are darkness and light compared to the cosmic powers which I wield?!)] Meraxis boasts, and after sweeping her scythe around in an unbelievably-cool manner, she strikes it down onto the ground, cracking a paving stone in the process.
+	</p>
+	<p>
+		Not yet finished, you respond with a similar statement. Although you wanted to keep it a secret, you reveal to everyone around you that you are the catalyst of the apocalypse, and while a twisted part of you seeks to destroy this world, you are sworn to defend those who you hold dear. Finishing your boast by spinning around and ducking into a panther-like crouch, you keep your arms extended behind you, making you look like a wild animal ready to strike at a moment's notice.
+	</p>
+	<p>
+		[meraxis.speech(I am the beginning and the end; the alpha and the omega; your apocalypse is nothing but a speck of dust for me to sweep aside!)] Meraxis proclaims, before raising her scythe and once again sweeping it around, before holding it up behind her and taking on a stance which makes it look like she's about to attack.
+	</p>
+	<p>
+		Needless to say, the crowd is stunned by your awesome display. They can't muster the words to describe the incredible showdown that they're witnessing, and so, hopelessly stupefied by their inability to process your cataclysmic might, they sheepishly disperse and return to their mundane lives.
+	</p>
+	<p>
+		Smirking at one another, you and Meraxis break off your poses and step forwards to meet. Remembering why you're here, inform her that there's about to be a very important meeting in the town hall, and that the two of you need to get over there as quickly as possible.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END_SHARED_ENDING"><![CDATA[
+	<p>
+		[meraxis.speech(Of course, the fate of this town, and that of the very world itself, rests in our hands, does it not?)] she replies with a smirk on her face, before swishing her cloak out behind her and declaring, [meraxis.speech(Let us depart henceforth!)]
+	</p>
+	<p>
+		The crowd beings to disperse as they see that the show's over, and Meraxis cheerfully bounces along at your side as the two of you head over towards the precinct's exit. As you depart, you notice that Meraxis's ex-minions are hanging out over in one corner of the shopping precinct. Letting out a laugh, the chuuni [meraxis.race] points at these succubi and asks, [meraxis.speech(Pathetic, aren't they? I was attempting to show them the key to true power, but they simply couldn't comprehend it. Out of the hundreds of followers that I've had, only a handful have ever truly understood me.)]
+	</p>
+	<p>
+		Although she doesn't seem to need to hear it, you still tell Meraxis that she's better off without them. Nodding in agreement, the chuuni [meraxis.race] stays by your side as the two of you turn your backs on the succubi and set off in the direction of the town hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MERAXIS_WALLS_END_RETURN"><![CDATA[
+	<p>
+		As the two of you head over to the town hall, Meraxis demands to know more about the details of this meeting. One question leads to another, and by the time you reach your destination, you've told her all about your mission with Hammer and Ghost.
+	</p>
+	<p>
+		[meraxis.speech(You should have brought me along!)] the chuuni [meraxis.race] complains as you enter the town hall, and as you pass by the Enforcer guard and head up the stairs, she pouting at you a little and grumbles, [meraxis.speech(I'd have caught Angelixx before she could escape...)]
+	</p>
+	<p>
+		As it's taken significantly longer to fetch Meraxis than you expected, you don't waste any more time and immediately knock on the door to Minotallys's office. As the two of you enter, you're not surprised to see that everyone else is already here.
+	</p>
+	<p>
+		[ursa.speech(Good to see you again,)] Ursa nods at you in greeting, before looking over to Meraxis and doing the same.
+	</p>
+	<p>
+		[hammer.speech(You took your time,)] Hammer growls in his usual, deep voice.
+	</p>
+	<p>
+		[minotallys.speech(You all know why we're here,)] Minotallys says from behind her desk, [minotallys.speech(After destroying Themiscyra, Lunette's daughters now intend to march on Elis, and this time the elder lilin herself is likely to show herself. We need a plan to defend the town and defeat her.)]
+	</p>
+	<p>
+		[ghost.speech(The situation doesn't look good,)] Ghost sighs, before looking at you and saying, [ghost.speech(If we'd realised the situation was so dire, we wouldn't have asked for your help and instead would have immediately started planning.)]
+	</p>
+	<p>
+		[arion.speech(Tell us where we stand, then we can go from there,)] Arion says.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_START"><![CDATA[
+	<p>
+		[hammer.speech(Well, let's start with the good,)] Hammer says in his gruff voice, [hammer.speech(We don't have to worry about Lunette's daughters simply teleporting into the town and attacking us from within. None of them have set foot in here, and as I understand it you need to know the place you're teleporting to for it to work.)]
+	</p>
+	<p>
+		[meraxis.speech(That's right; I can't teleport to place I haven't been before, but surely Lunette herself has visited Elis before?)] Meraxis asks.
+	</p>
+	<p>
+		[hammer.speech(We did consider that. The Enforcer station has some telportation inhibitors in storage, and if we place them correctly they should be able to just about cover the entire town,)] Hamemr reveals, [hammer.speech(So we don't have to worry about teleportation.)]
+	</p>
+	<p>
+		[arion.speech(So they'll have to attack us directly if they want to get into the town?)] Arion asks, [arion.speech(What if they decide to simply fly over the walls?)]
+	</p>
+	<p>
+		[ghost.speech(They're experienced fighters; they won't fly if there's a serious threat of ranged attacks. It's hard to defend yourself from missiles coming from below while flying, and that's especially true when you've got the lower body of a horse. They'll attempt to use shields and attack the gates instead,)] Ghost replies, before giving Minotallys a cautious smile and asking, [ghost.speech(Any chance of Lilith commanding her daughter to stop? That'd save us all a lot of bother.)]
+	</p>
+	<p>
+		[minotallys.speech(She's abandoned us,)] Minotallys angrily snaps, before shaking her head and apologising, [minotallys.speech(Sorry, I'm not angry at you, I'm frustrated with myself for having trusted Lilith so blindly in the past... You're aware that we have Lunexis prisoner? I spent some time questioning her under the influence of the Lilith's Command spell, and so I know for a fact that Lilith gave Lunette explicit permission to use any methods she deems necessary to 'enslave or otherwise subjugate all traitors within the Foloi Fields'. Anyone who doesn't blindly obey even the most outrageous of demands from any of Lunette's daughters is considered to be a traitor, and is punished accordingly. My authority outranks theirs, which is why they've left Elis alone for so long, but now that Lunette herself is planning on getting involved, we'll all be declared traitors the moment we refuse to submit to her.)]
+	</p>
+	<p>
+		[ghost.speech([pc.Name] told us that Lunexis had been defeated in Themiscyra, but I didn't know that she was your prisoner. At least that'll give us a way to trigger Lunette's attack when we're ready. All we need to do is publicly show off that a recognised daughter of hers is our prisoner, and she'll be outside the walls within a couple of days,)] Ghost muses, before nodding to Ursa and revealing, [ghost.speech(Thanks to Ursa's scouts, we know that Lunette isn't liekly to attack Elis any time soon, and so thankfully it seems that we have some time in which to fix the issues we've got with defending Elis...)]
+	</p>
+	<p>
+		[arion.speech(Can we be sure that we have time?)] Arion asks, [arion.speech(By destroying Themiscyra, Lunette has already demonstrated that she has the strength to assault Elis, so why would she wait?)]
+	</p>
+	<p>
+		[ursa.speech(She's having too much <i>fun</i>,)] Ursa grumbles through clenched teeth. Her fists clench, and for a moment the huge, muscular bear-girl looks absolutely terrifying as an expression of pure hatred flashes over her face. Ghost and Hammer instinctively react to this by dropping their hands down to the weapons on their belts, but thankfully the moment quickly passes and Ursa regains her composure. Shaking her head, she sighs, [ursa.speech(Not all of us managed to escape from our home. The Amazons who stayed behind to hold off Lunette's daughters, and those who were taken off-guard by their sudden assault, were captured. Lunette arrived in my town shortly after it fell to find out what became of Lunexis, but she quickly forgot about tracking her daughter down and is now enjoying the spoils of victory. It should take many months for Lunette and her daughters to drink their way through our stocks of wine, deface what remains of our homes, and... break all of their prisoners...)]
+	</p>
+	<p>
+		[hammer.speech(In that case, we'll make our move as soon as we're able,)] Hammer growls, his rumbling tone suggesting that he shares Ursa's hatred of Lunette. Looking up at the towering bear-girl, he continues, [hammer.speech(Other than us Enforcers, you Amazons are the only ones who have combat training or experience. Can we count on all of your people to fight?)]
+	</p>
+	<p>
+		[ursa.speech(We'll not only fight, but we can help to train volunteers into a militia,)] Ursa replies, [ursa.speech(There won't be time to turn them into truly competent fighters, but we'll do our best. I'm sure that we'll have enough volunteers to train once the population knows that their options are either to fight or be enslaved by Lunette's daughters.)]
+	</p>
+	<p>
+		[ghost.speech(You're right, manpower should be no issue, and the walls will give us an excellent defensive advantage,)] Ghost interjects, before counting off the issues you're facing on her furry fingers, [ghost.speech(The two real problems we have are; one, we don't have enough weapons to equip a militia; two, I seriously doubt that we'll have enough arcane users to shield us from all of the spells that Lunette's daughters will be throwing our way.)]
+	</p>
+	<p>
+		[arion.speech(All of the town's weapons are in your armoury, so we can't help on that front,)] Arion states, before sighing, [arion.speech(You're right about the lack of arcane users as well. I'm sure there will be some demons who'll join us, but it's not hard to imagine that the vast majority of those who live in Elis will feel more loyal to Lilith and her daughters than to the town...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_WEAPONS"><![CDATA[
+	<p>
+		Wanting to find out if there are any solutions to the lack of weapons, you turn to Hammer and Ghost and ask them if there's any way you can get more from Dominion's Enforcers.
+	</p>
+	<p>
+		[ghost.speech(For the hundreds of weapons we'd need to properly outfit a militia? There's no chance of that,)] Ghost regretfully sighs, [ghost.speech(For standing up to a lilin, we were effectively banished from Dominion, and anyone there who's caught doing favours for us would receive a similar treatment. Even if any of the Dominion Enforcers were willing to help us, a transfer of weapons of the size we're talking about would require approval from the Commissioner herself. Even if she didn't hate our guts, there's no way she'd ever sign off on something like that.)]
+	</p>
+	<p>
+		[hammer.speech(We did have a huge cache of seized HLF weapons, which really would have come in handy about now, but <i>someone</i> ordered them destroyed a couple of years ago,)] Hammer growls, before looking over at Minotallys.
+	</p>
+	<p>
+		[minotallys.speech(That wasn't my idea, I was simply carrying out orders from Lilith,)] Minotallys protests, [minotallys.speech(You should have pretended to destroy them and kept them in secret.)]
+	</p>
+	<p>
+		[hammer.speech(So it's our fault? You lilin are all the same,)] Hammer grunts and crosses his arms.
+	</p>
+	<p>
+		[arion.speech(We're all on the same side here,)] Arion cuts in, before giving Minotallys a pointed look to stop her from making a response. Turning to Ursa, he asks, [arion.speech(Do your Amazons have any weapons we could use?)]
+	</p>
+	<p>
+		[ursa.speech(We only have what we could carry out from Themiscyra,)] Ursa says with a shake of her head, [ursa.speech(Along with what we could get from the Enforcers, we could equip no more than twenty people. We'd need to have enough weapons for at least five hundred to properly man the walls.)]
+	</p>
+	<p>
+		It looks like you're going to struggle to get enough weapons to equip the town's milita...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_SPELLS"><![CDATA[
+	<p>
+		As Minotallys is a lilin, and as such is capable of wielding immense arcane power, you ask her if she's powerful enough to shield the town from the spells which Lunette's daughters will undoubtedly be sending your way.
+	</p>
+	<p>
+		[minotallys.speech(I could put up shields which would protect one section of the wall for a while,)] she says, [minotallys.speech(but against an army of Lunette's daughters throwing fireballs, ice shards, and whatever else at me? I wouldn't last for very long.)]
+	</p>
+	<p>
+		After taking a moment to think about it, she concludes, [minotallys.speech(We'd need at least a hundred skilled spell casters, or several hundred amateurs, in order to counter the spells of Lunette's army. If all the demons in Elis stood with us, we might just about do it, but I guarantee that the vast majority of them will choose to flee instead of fight an elder lilin.)]
+	</p>
+	<p>
+		With not enough spell casters to shield the town, the situation seems quite grim...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_MERAXIS_SOLUTION"><![CDATA[
+	<p>
+		Meraxis, who up until now has been quietly listening with a growing grin on her face, suddenly laughs and loudly declares, [meraxis.speech(How fortunate for you that I am on your side! I can solve both of these problems!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_TAKAHASHI"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			With all eyes now on Meraxis, you turn towards her and ask her what her plan is.
+		#ELSE
+			With all eyes now on Meraxis, you silently pray that she's not about embarrass you in front of everyone and ask her what her plan is.
+		#ENDIF
+	</p>
+	<p>
+		[meraxis.speech(If we need a hundred or so arcane users, we can just get the help of the youko! They're literally right next to Elis up in the Shinrin Highlands, so we don't even have to go very far to ask them for help,)] Meraxis states, [meraxis.speech(I have a three-tailed youko friend, who's called Takahashi by the way, so she can help us to get the support of the other youko. Even mommy said that getting the help of the youko would be a good idea.)]
+	</p>
+	<p>
+		Suddenly realising that she called Lyssieth 'mommy' in front of everyone, Meraxis begins to blush. Thankfully for her, Minotallys takes everyone's attention away from this by saying, [minotallys.speech(I seriously doubt that the youko will help us. Putting that aside for a moment, how do you suggest that we get enough weapons to equip a milita?)]
+	</p>
+	<p>
+		[meraxis.speech(A few years ago, I stole a huge cache of guns that <i>Lyssieth</i> made, so we can use those,)] Meraxis says, putting emphasis on her mother's name in an attempt to compensate for her previous blunder. While the others didn't seem too impressed when meraxis mentioned the youko, Hammer and Ghsot both raise their eyebrows as Meraxis mentions these guns. Seeing their reactions, the chuuni [meraxis.race] can't help but smirk as she explains, [meraxis.speech(Lyssieth planned on having her unrecognised daughters wear some funny red uniforms and march around with those guns. I thought that was a waste, so I over the course of a few nights, I teleported them out of her palace box-by-box. I thought it would be fun to give them to my army of imps in Submission!)]
+	</p>
+	<p>
+		[hammer.speech(I've never heard of an army of gun-wielding imps,)] Hammer grunts.
+	</p>
+	<p>
+		[meraxis.speech(Yeah, the guns are kind of too big for imps to use, so I moved them to my hideout in the Shinrin Highlands and tried to think of anotehr way to use them,)] Meraxis replies, before explaining, [meraxis.speech(Lyssieth found out that it was me who took them, though, and she was pretty pissed off. I went to get them back for her, but they'd been stolen. Lyssieth made me work as her secretary for an entire year for that...)]
+	</p>
+	<p>
+		[ghost.speech(So what you mean to say is that you once had weapons which could have helped us, but now you no longer do?)] Ghost asks.
+	</p>
+	<p>
+		[meraxis.speech(I know where they are though!)] Meraxis objects, [meraxis.speech(Well, I think I know. Shortly before [pc.name] here destroyed my fortress, Takahashi said that she'd found out that a nine-tailed youko was the one who stole the weapons. I know where that nine-tailed youko lives, so we-)]
+	</p>
+	<p>
+		[ursa.speech(So you want to go and take on a <i>nine-tailed</i> youko, in her own territory, with the intention of taking something from her that she clearly considers to be valuable?)] Ursa says in disbelief. Shaking her head, she turns away form Meraxis and asks, [ursa.speech(Does anyone have any real suggestions as to where we can get weapons?)]
+	</p>
+	<p>
+		[meraxis.speech(Hey! I can do it! Especially if [pc.name] is with me!)] Meraxis defiantly shouts, [meraxis.speech(I know everyone doesn't trust the youko, but like I said before, even mommy said it was a good idea to get their help!)]
+	</p>
+	<p>
+		Having once again called Lyssieth 'mommy', Meraxis pauses and blushes, giving you a moment in which to interject.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_YOUKO"><![CDATA[
+	<p>
+		Everyone seems dismissive of Meraxis's suggestions, so you ask what the problem with the youko is.
+	</p>
+	<p>
+		[hammer.speech(They're only interested in their own affairs, and even the kindest youko will do nothing to help the world outside of their Shinrin Highlands,)] Hammer grunts, before looking at Meraxis and saying in a accusatory tone, [hammer.speech(I've looked through the file on you; that youko friend of yours is a follower of the trickster youko lilin, isn't she? I'd sooner trust an imp than a servant of Kayo.)]
+	</p>
+	<p>
+		[meraxis.speech(So what does it matter if she serves Kayo? She's my friend, and she'll help us!)] Meraxis says, stomping her foot on the ground in the process.
+	</p>
+	<p>
+		[minotallys.speech(The youko lilin; Kayo and Kazuha...)] Minotallys sighs, [minotallys.speech(I've had dealings with them before, and I don't wish to get involved with them ever again. Even if you could somehow convince a hundred youko to leave their homes and come to our aid, you'd have to have the blessing of both of the youko lilin, or else they'd act to ruin everything. I imagine that Kazhua, being the benevolent one, could be convinced to help us once she understands the threat which Lunette poses. It's Kayo who'll be the problem. You'll be lucky to ever be seen again if you somehow manage to track her down, and as to convincing her to help us? No chance.)]
+	</p>
+	<p>
+		[meraxis.speech(Ok, so what are your ideas?)] Meraxis demands, [meraxis.speech(Who else knows where we can find hundreds of weapons? Who can convince a hundred demons to come and fight against Lunette on our behalf?)]
+	</p>
+	<p>
+		[ghost.speech(She's got a point,)] Ghost says, [ghost.speech(There might be almost no chance of retrieving those guns, nor of getting the help we need from the youko, but almost no chance is better than definitely no chance.)]
+	</p>
+	<p>
+		[hammer.speech(I don't like it, and those youko are dangerous,)] Hammer stubbornly growls, [hammer.speech(Forget Kayo, forget Kazuha, and forget that nine-tail who holds the weapons; even a two-tailed youko can be a serious threat to anyone who stumbles into their territory. You run into one of those followers of Kayo, and the next thing you know you're trapped in a web of illusion spells. There's a long list of names back in the Enforcer station of people who ventured into the Shinrin Highlands and were never seen again.)]
+	</p>
+	<p>
+		[ghost.speech(We all know that [pc.Name] can handle [pc.herself],)] Ghost sharply responds to her comrade, [ghost.speech(and Meraxis is a recognised daughter of an elder lilin. Together, they'll be able to deal with the youko, and with Meraxis's friend, they really might be able to convince the youko to help us.)]
+	</p>
+	<p>
+		As Hammer lets out a sigh of resignation, Arion declares, [arion.speech(Unless anybody else has a solution to our weapon and spellcaster problems, we're going to have to place our trust in Meraxis.)]
+	</p>
+	<p>
+		[ursa.speech(I wish I could offer you some assistance, but my Amazons and I will be busy training the militia and shoring up the defences here in Elis,)] Ursa says as she looks at you and Meraxis, [ursa.speech(We'll have to leave this to the two of you.)]
+	</p>
+	<p>
+		[ghost.speech(We're too old to be trekking through youko territory,)] Ghost says, [ghost.speech(and I think we'll also be needed here. I'm sorry that Hammer and I can't come with you.)]
+	</p>
+	<p>
+		[minotallys.speech(That's all settled then,)] Minotallys states, before looking at you and asking, [minotallys.speech(That is, so long as you're willing to do this? The youko are dangerous, and I understand if you don't want to go along with Meraxis's plan. Perhaps we can find another way?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_FINAL"><![CDATA[
+	<p>
+		There really doesn't seem to be any alternative. If you want a shot at defeating Lunette here at Elis, the town will need weapons and arcane users, and other than what Meraxis suggests, it seems like there's no solution. Turning to look at Meraxis, you say you'll go along with her plan.
+	</p>
+	<p>
+		[meraxis.speech(Of course you will!)] she triumphantly smirks. Placing her hands on her [meraxis.hips+], she strikes a confident pose and laughs, [meraxis.speech(My plans always work! Together, my nemesis, we shall recover the weapons and obtain the aid of the youko!)]
+	</p>
+	<p>
+		[hammer.speech(Your nemesis? Are you two enemies or something?)] Hammer asks, before waving his hand and grunting, [hammer.speech(Actually, nevermind, I don't want to know the details. Just be careful out there.)]
+	</p>
+	<p>
+		[minotallys.speech(Thank you everyone for coming to the aid of Elis, Arion and I wouldn't know what to do without all of you,)] Minotallys says, before looking over at Meraxis and stating, [minotallys.speech(During the defence of the town, there's going to be the matter of Lunette herself to deal with, and we might have to rely on some help from your mother to deal with her. We'll get the details of that hammered out once you've got the weapons and spell casters we need. I really wish I could have done more to help, or even to prevent all of this from happening in the first place; I never expected to be betrayed by Lilith like this...)]
+	</p>
+	<p>
+		As she says this, you notice that Hammer and Ghost exchange glances which seem to say that they're not surprised by Lilith's betrayal. Turning to look at you, Ghost says, [ghost.speech(Ursa, Hammer, and I will start putting a militia together. If you could get those weapons here as soon as possible, it would really help with our training. There's only so much we'll be able to do with broomsticks...)]
+	</p>
+	<p>
+		[meraxis.speech(Ok, we'll find the weapons first, then get Kazuha and Kayo to help us!)] Meraxis confidently says, [meraxis.speech(This meeting is over!)]
+	</p>
+	<p>
+		[minotallys.speech(Yes it is, but don't get ahead of yourself,)] Minotallys tuts, [minotallys.speech(It's my job to say that... This meeting is over!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_END"><![CDATA[
+	<p>
+		Along with everyone else, you leave Minotallys's office.
+	</p>
+	<p>
+		As you [pc.walk] down the stairs, Hammer says, [hammer.speech(It'll take us some time to put the milita together, so until we've got that organised and the training really begins, you'll still be able to find us in the usual room in the Enforcer station.)]
+	</p>
+	<p>
+		[ursa.speech(I'll be in my usual tent as well,)] Ursa says, [ursa.speech(Once the militia is formed and the training starts, that might change, but for now I'll be in our camp.)]
+	</p>
+	<p>
+		[meraxis.speech(And I'll be in The Red Dragon,)] Meraxis cheerfully joins in, [ursa.speech(Come and find me as soon as you're ready to set off to the Shinrin Highlands. The first thing we need to do is find Takahashi. She should have made contact with me by now, but seeing as she hasn't, we need to go and check our backup rendezvous spot, which is my old hideout in the Shinrin Highlands.)]
+	</p>
+	<p>
+		Exiting the town hall, you tell Meraxis that you'll come and see her soon. Saying goodbye to everyone, you watch them go their separate ways and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

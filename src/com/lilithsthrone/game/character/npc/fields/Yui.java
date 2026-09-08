@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.fields;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -306,18 +307,27 @@ public class Yui extends NPC {
 				clothingTypesToSell.add(clothing);
 			}
 		}
-		
-		// Limit number of clothing types to 80% inventory size:
-		while(clothingTypesToSell.size() >= this.getMaximumInventorySpace() * 0.8) {
-			clothingTypesToSell.remove(Util.random.nextInt(clothingTypesToSell.size()));
-		}
-		
-		for(AbstractClothingType type : clothingTypesToSell) {
-			this.addClothing(Main.game.getItemGen().generateClothing(type, false), false);
-		}
-		
+
 		for(int i=0; i<3; i++) {
 			this.addWeapon(Main.game.getItemGen().generateWeapon("innoxia_bdsm_riding_crop"), false);
+		}
+		
+//		// Limit number of clothing types to 80% inventory size:
+//		while(clothingTypesToSell.size() >= this.getMaximumInventorySpace() * 0.8) {
+//			clothingTypesToSell.remove(Util.random.nextInt(clothingTypesToSell.size()));
+//		}
+		
+		Collections.shuffle(clothingTypesToSell);
+		
+		for(AbstractClothingType type : clothingTypesToSell) {
+			for(int i=0; i<1+Util.random.nextInt(2); i++) {
+				AbstractClothing c = Main.game.getItemGen().generateClothing(type, false);
+				c.removeEffectsByModifier(TFModifier.CLOTHING_ENSLAVEMENT);
+				this.addClothing(c, false);
+			}
+			if(this.getInventorySpaceTaken()>0.9f) {
+				break;
+			}
 		}
 		
 		this.addItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), 10, false, false);

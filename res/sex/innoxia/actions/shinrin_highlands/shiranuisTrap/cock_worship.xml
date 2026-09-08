@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+			<fetish>FETISH_PENIS_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>ORIFICE_MOUTH</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects/>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Cock worship]]></title>
+	<tooltip><![CDATA[
+		Worship Shiranui's cock as it slides back and forth between your and Meraxis's lips.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				As Shiranui's cock is pushed between your and Meraxis's lips, you eagerly kiss, lick, and worship her hot, throbbing shaft.
+			]]></text>
+		</description>
+		
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Meraxis lets out eager little moans as she happily suckles, kisses, and licks the side of Shiranui's [shiranui.cock+].
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

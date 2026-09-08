@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[Meraxis's bedroom]]></name>
+	<tooltipDescription><![CDATA[Posters of demons striking heroic poses cover the walls of Meraxis's bedroom, while weapons, clothing, and miscellaneous objects of all kinds are strewn about over the place.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Meraxis's bedroom]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>bedroom</svgName>
+	<colour>BASE_PURPLE</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_bedroom_meraxis</dialogue>
+	<populationPresent/>
+	<furniturePresent deskName="bed">true</furniturePresent>
+	<wallsPresent wallName="wardrobe">true</wallsPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

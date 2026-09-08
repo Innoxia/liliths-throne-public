@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+
+	<title/>
+	<wallName/>
+	<consensual><![CDATA[false]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[false]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[false]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[true]]></exposingReactions>
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[STANDING]]></position>
+	</positionsAvailable>
+	<publicSex>
+		<isPublic><![CDATA[false]]></isPublic>
+		<startingDescription/>
+		<randomDescriptions/>
+	</publicSex>
+	
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
+			<startingImmobilisation>
+				<applierId><![CDATA[shiranui]]></applierId>
+				<type><![CDATA[ROPE]]></type>
+			</startingImmobilisation>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[ONGOING_ONLY]]></control>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_idle</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_kissing</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_cock_worship</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_blowjob</sexAction>
+			</uniqueSexActions>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>meraxis</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[STANDING_PERFORMING_ORAL_TWO]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
+			<startingImmobilisation>
+				<applierId><![CDATA[shiranui]]></applierId>
+				<type><![CDATA[ROPE]]></type>
+			</startingImmobilisation>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[ONGOING_ONLY]]></control>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_idle</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_kissing</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_cock_worship</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_blowjob</sexAction>
+			</uniqueSexActions>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>shiranui</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[DOM_NORMAL]]></sexPace>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[true]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<uniqueSexActions>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_shiranui_double_facial</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_shiranui_double_kissing</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_shiranui_focus_meraxis</sexAction>
+				<sexAction>innoxia_shinrin_highlands_shiranuisTrap_shiranui_focus_player</sexAction>
+			</uniqueSexActions>
+            <preferences>
+                <character id="pc">
+                    <foreplay copyForMain="true">
+                        <performing><![CDATA[PENETRATION_PENIS]]></performing>
+                        <targeted><![CDATA[ORIFICE_MOUTH]]></targeted>
+                    </foreplay>
+                </character>
+                <character id="meraxis">
+                    <foreplay copyForMain="true">
+                        <performing><![CDATA[PENETRATION_PENIS]]></performing>
+                        <targeted><![CDATA[ORIFICE_MOUTH]]></targeted>
+                    </foreplay>
+                </character>
+            </preferences>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+	</characterInformationContainer>
+		
+</sexManager>

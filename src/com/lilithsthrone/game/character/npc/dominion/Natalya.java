@@ -381,7 +381,7 @@ public class Natalya extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(!target.equals(equipper) && equipper.isPlayer() && !target.isPlayer() && Main.game.isInSex()) {
+		if(!target.equals(equipper) && equipper.isPlayer() && !target.isPlayer() && Main.game.isInSex() && !target.isAsleep()) {
 			AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 			if(clothing!=null && clothing.isCondom()) {
 				target.unequipClothingIntoVoid(clothing, true, equipper);

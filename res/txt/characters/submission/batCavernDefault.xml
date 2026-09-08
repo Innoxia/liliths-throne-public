@@ -118,7 +118,7 @@
 	
 	<htmlContent tag="ENEMY_DEFEATED_WANTS_SEX"><![CDATA[
 	<p>
-		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperately hungry look in [npc.her] eyes. Before you can say anything, [npc.she] suddenly reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor.
+		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperately hungry look in [npc.her] eyes. Before you can say anything, [npc.she] suddenly #IF(npc.isTaur())starts bucking [npc.her] hips in a humping motion,#ELSEreaches down to [npc.her] crotch and starts stroking [npc.herself],#ENDIF making pitiful little whining noises as [npc.she] squirms on the floor.
 	</p>
 	<p>
 		[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself].

@@ -2723,6 +2723,10 @@ public class ItemEffectType {
 							public AbstractRace getAssociatedRace() {
 								return race;
 							}
+//							@Override
+//							public int getLimits(TFModifier primaryModifier, TFModifier secondaryModifier) {
+//								return getClothingTFLimits(primaryModifier, secondaryModifier);
+//							}
 							@Override
 							public List<TFModifier> getPrimaryModifiers(AbstractCoreItem targetItem) {
 								return TFModifier.getTFRacialBodyPartsList();

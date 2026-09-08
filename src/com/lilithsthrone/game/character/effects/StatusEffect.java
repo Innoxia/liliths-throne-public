@@ -343,7 +343,7 @@ public class StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<>(Attribute.SPELL_COST_MODIFIER, 10f)),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 5f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
@@ -377,7 +377,7 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			true,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<>(Attribute.DAMAGE_SPELLS, 15f),
 					new Value<>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
@@ -4638,8 +4638,12 @@ public class StatusEffect {
 			
 			if(lactationIncrease) {
 				sb.append("<p><i>");
-					sb.append("Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
-								+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!");
+					if(target.isTaur()) {
+						sb.append("Your breasts have gotten noticeably heavier, and as you experimentally grope your chest, you feel droplets of [pc.milk] beading up on your engorged teats.");
+					} else {
+						sb.append("Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats.");
+					}
+					sb.append(" You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!");
 				sb.append("</i></p>");
 			}
 			if(lactationUddersIncrease) {

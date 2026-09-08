@@ -19,6 +19,8 @@ SEX ACTIONS AND MANAGERS: res/mods/(yourname)/sex/
 	(probably best to keep them separate in actions and managers folders within that directory)
 MAPS: res/mods/(yourname)/maps/
 	(follow the standard of putting a new map in a named folder and then placeTypes folder, map.png for the map file, and worldType.xml for the map data)
+RANDOM ENCHANTMENTS (for randomly-enchanted clothing): res/mods/(yourName)/randomEnchantments/clothing/
+RANDOM ENCHANTMENTS (for random effects in Cultist's Mystery Potion): res/mods/(yourName)/randomEnchantments/potion/
 
 Just to clarify, (yourName) should be whatever nickname the mod creator is using, or any unique name which encompasses everything inside your created mod folder (e.g. 'beeModding').
 

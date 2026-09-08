@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.effects.EffectBenefit;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -42,11 +43,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	protected AbstractItemType itemType;
 	protected List<ItemEffect> itemEffects;
 
+	private String overrideSpecialEffects;
+	
 	public AbstractItem(AbstractItemType itemType) {
 		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColourShades().get(0), itemType.getRarity(), null, itemType.getItemTags());
 
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();
+		
+		this.overrideSpecialEffects = "";
 	}
 	
 	@Override
@@ -54,7 +59,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		if(super.equals(o)) {
 			return (o instanceof AbstractItem)
 					&& ((AbstractItem)o).getItemType().equals(itemType)
-					&& ((AbstractItem)o).getEffects().equals(itemEffects);
+					&& ((AbstractItem)o).getEffects().equals(itemEffects)
+					&& ((AbstractItem)o).overrideSpecialEffects.equals(overrideSpecialEffects);
 		} else {
 			return false;
 		}
@@ -65,6 +71,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		int result = super.hashCode();
 		result = 31 * result + itemType.hashCode();
 		result = 31 * result + itemEffects.hashCode();
+		result = 31 * result + overrideSpecialEffects.hashCode();
 		return result;
 	}
 	
@@ -76,6 +83,12 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		XMLUtil.addAttribute(doc, element, "name", this.getName());
 		if(this.getColour(0)!=null) {
 			XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		}
+		
+		if(!this.overrideSpecialEffects.isEmpty()) {
+			Element innerElement = doc.createElement("overrideSpecialEffects");
+			element.appendChild(innerElement);
+			innerElement.appendChild(doc.createCDATASection(overrideSpecialEffects));
 		}
 		
 		if(!this.getEffects().isEmpty()) {
@@ -102,6 +115,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			if(!parentElement.getAttribute("name").isEmpty()) {
 				item.setName(parentElement.getAttribute("name"));
 			}
+
+			Element specialEffectsElement = (Element) parentElement.getElementsByTagName("overrideSpecialEffects").item(0);
+			if(specialEffectsElement!=null) {
+				item.overrideSpecialEffects = specialEffectsElement.getTextContent();
+			}
 			
 			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 			Element ieElement = (Element) parentElement.getElementsByTagName("itemEffects").item(0);
@@ -127,6 +145,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			
 			return item;
+			
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractItem was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			ex.printStackTrace();
@@ -158,16 +177,29 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	public void setItemEffects(List<ItemEffect> itemEffects) {
 		this.itemEffects = itemEffects;
 	}
-
+	
+	/**
+	 * Overwrites the item's specialEffect (which is ordinarily derived from the item's itemType), which is the String that's parsed during the item's applyEffects method.
+	 * <br/><b>NOTE:</b> Although hard-coded item types do not use the specialEffect, this method will still overwrite those effects.
+	 */
+	public void setOverrideSpecialEffects(String newSpecialEffects) {
+		overrideSpecialEffects = newSpecialEffects;
+	}
+	
 	public String applyEffect(GameCharacter user, GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
 		String targetNameBeforeEffects = UtilText.parse(target, "[npc.Name]");
 		
-		for(ItemEffect ie : getEffects()) {
-			sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
+		if(overrideSpecialEffects!=null && !overrideSpecialEffects.isEmpty()) {
+			sb.append(UtilText.parse(target, user, overrideSpecialEffects));
+			
+		} else {
+			for(ItemEffect ie : getEffects()) {
+				sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
+			}
+			sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		}
-		sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		
 		if(this.getItemType().getAppliedStatusEffects()!=null) {
 			for(Entry<AbstractStatusEffect, Value<String, Integer>> entry : this.getItemType().getAppliedStatusEffects().entrySet()) {
@@ -265,17 +297,40 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				});
 				
 			} else {
-				Main.game.setContent(new Response(
-						"",
-						"",
-						Main.game.getDefaultDialogue(false)) {
+//				Main.game.setContent(new Response(
+//						"",
+//						"",
+//						Main.game.getDefaultDialogue(false)) {
+//					@Override
+//					public boolean isStripContent() {
+//						return true;
+//					}
+//					@Override
+//					public void effects() {
+//						Main.game.appendToTextStartStringBuilder(sb.toString());
+//					}
+//				});
+
+				Main.game.setContent(new ResponseEffectsOnly("", "") {
+					@Override
+					public void effects() {
+						Main.mainController.openInventory();
+						Main.game.appendToTextEndStringBuilder(sb.toString());
+					}
+				});
+				// Reload the current dialogue node so that the text applied via the appendToTextEndStringBuilder() method is shown:
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+					@Override
+					public String getTitle() {
+						return Util.capitaliseSentence(AbstractItem.this.getName()+": "+Util.capitaliseSentence(AbstractItem.this.getItemType().getUseName())) +(user.equals(target)?" (Self)":" ("+targetNameBeforeEffects+")");
+					}
 					@Override
 					public boolean isStripContent() {
 						return true;
 					}
 					@Override
-					public void effects() {
-						Main.game.appendToTextStartStringBuilder(sb.toString());
+					public boolean isForceContinue() {
+						return true;
 					}
 				});
 			}

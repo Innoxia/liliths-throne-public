@@ -674,6 +674,10 @@ public class Util {
 	 * @return Who knows?! It's a mystery!
 	 */
 	public static String intToString(long integer) {
+		if(integer==0) {
+			return "zero";
+		}
+		
 		boolean minus = integer<0;
 		integer = Math.abs(integer);
 		
@@ -724,7 +728,7 @@ public class Util {
 						break;
 					// This isn't needed but whatever...
 					case 7:
-						innerSB.append(" sextillion");
+						innerSB.append(" sextillion"); // hehe it says sex
 						break;
 				}
 			}

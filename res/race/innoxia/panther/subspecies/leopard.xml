@@ -14,11 +14,11 @@
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<applySubspeciesChanges><![CDATA[
 		#IF(RND.nextInt(100)<50)
-			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_panther_fur, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_SHORT, COLOUR_COVERING_SANDY, false, COLOUR_COVERING_BLACK, false)]
-			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_panther_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_SANDY, false, COLOUR_COVERING_BLACK, false)]
+			[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_innoxia_panther_fur, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_SHORT, COLOUR_COVERING_SANDY, false, COLOUR_COVERING_BLACK, false)]
+			[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_innoxia_panther_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_SANDY, false, COLOUR_COVERING_BLACK, false)]
 		#ELSE
-			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_panther_fur, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_SHORT, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
-			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_panther_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
+			[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_innoxia_panther_fur, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_SHORT, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
+			[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_innoxia_panther_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
 		#ENDIF
 		[#targetedBody.updateCoverings(true, true, true, true)]
 	]]></applySubspeciesChanges>

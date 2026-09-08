@@ -107,7 +107,9 @@ public enum Occupation {
 	NPC_LILIN_PAWN(Perk.JOB_ELDER_LILIN_PAWN, "elder lilin's helper", "[npc.NameIsFull] carrying out orders on behalf of a lilin.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_SEX_DOLL(Perk.JOB_SEX_DOLL, "sex doll", "[npc.NameIsFull] a very realistic-looking sex doll.", OccupationTag.HAS_PREREQUISITES),
-
+	
+	NPC_YOUKO(Perk.JOB_YOUKO, "youko", "[npc.NameIsFull] a youko of the Shinrin Highlands, and has spent most of [npc.her] life practicing the arcane arts.", OccupationTag.HAS_PREREQUISITES),
+	
 	// NPC generic histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),
