@@ -13,7 +13,6 @@ public class ErrorStream extends PrintStream {
     public static boolean newErrorLog = false;
     private static final ArrayList<String> KNOWN_ISSUES = new ArrayList<>();// this allows us to track what errors we've seen, to skip duplicate reports
     public static int informationLines = 1;
-    public static boolean skipNextNL = false;
 
     public ErrorStream(String fileName) throws FileNotFoundException {
         super(fileName);
@@ -26,19 +25,7 @@ public class ErrorStream extends PrintStream {
         if (KNOWN_ISSUES.contains(str) && !str.startsWith("=")) return; // don't break my neat box
         if (!str.equals(System.lineSeparator()))
             KNOWN_ISSUES.add(str);
-        if (str.contains("WARNING: Unsupported JavaFX configuration") ||// HAHA We don't care! Java 9+ warning
-                str.trim().startsWith("at com.sun.") ||
-                str.trim().startsWith("at javafx.") || // added these to make the logs more readable,
-                str.trim().startsWith("at java.") ||
-                str.trim().startsWith("at org.openjdk.") ||
-                str.trim().startsWith("at jdk.dynalink")) {
-            skipNextNL = true;
-            return; //we don't care where in java the issue visited, only where in code path it happened.
-        }
-        if (skipNextNL) {
-            skipNextNL = false;
-            return;
-        }
+        if (str.contains("WARNING: Unsupported JavaFX configuration")) return; // HAHA We don't care!
         super.write(buf, off, len);// The important line.
     }
 
