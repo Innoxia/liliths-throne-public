@@ -366,6 +366,7 @@ public class Lilaya extends NPC {
 	}
 	
 	// Prevent issues with Geisha Lilaya immediately backing out of submissive sex:
+	// I think it might also be due to demonic player characters being related to Lilaya and so as she doesn't have the incest fetish she hates it (same for Meraxis)
 	@Override
 	public boolean isAttractedTo(GameCharacter character) {
 		return true;

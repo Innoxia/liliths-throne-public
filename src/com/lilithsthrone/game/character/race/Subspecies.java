@@ -1906,8 +1906,8 @@ public class Subspecies {
 			null,
 			"Nine-tails",
 			"Nine-tails'",
-			"FOX_MORPH_BASIC",
-			"FOX_MORPH_ADVANCED",
+			"YOUKO_BASIC",
+			"YOUKO_ADVANCED",
 			Race.FOX_MORPH,
 			Util.newHashMapOfValues(
 					new Value<>(PerkCategory.PHYSICAL, 1),
@@ -1949,6 +1949,7 @@ public class Subspecies {
 			StringBuilder sb = new StringBuilder();
 			AbstractSubspecies.applyFoxColoring(body);
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
+				sb.append(body.getTail().setTailCount(target, 1, true)); // Youko should always spawn with 1 tail
 				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
 			return sb.toString();
@@ -1956,10 +1957,10 @@ public class Subspecies {
 		
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getMaxTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()==1) {
+				return UtilText.parse(character, "[npc.NameIsFull] a youko, and although [npc.she] only [npc.has] one arcane tail, [npc.sheIsFull] still a competent spell caster.");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] a youko, and by serving one of the youko lilin [npc.she] [npc.has] obtained [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			}
 		}
 
@@ -1991,6 +1992,11 @@ public class Subspecies {
 			return getBipedBackground(youkoIconMap.get(character.getMaxTailCount()), character, this.getColour(character));
 		}
 
+		@Override
+		public String getBookSVGString() {
+			return youkoIconMapNoBackground.get(9);
+		}
+		
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
 			if(character==null) {
@@ -2099,6 +2105,7 @@ public class Subspecies {
 			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
 			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
+				sb.append(body.getTail().setTailCount(target, 1, true)); // Youko should always spawn with 1 tail
 				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
 			body.updateCoverings(false, false, true, true);
@@ -2250,6 +2257,7 @@ public class Subspecies {
 				sb.append(body.getEar().setType(target, EarType.FOX_MORPH_BIG));
 			}
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
+				sb.append(body.getTail().setTailCount(target, 1, true)); // Youko should always spawn with 1 tail
 				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
 			return sb.toString();

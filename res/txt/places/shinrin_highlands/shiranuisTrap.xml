@@ -236,7 +236,7 @@
 		#ELSE
 			 Stripping you completely naked, she lets out a mischievous laugh and teases,
 		#ENDIF
-		 [shiranui.speech(All of your possessions are now mine. Oh, don't worry! Let me be truly honest for a moment; I wouldn't want you and Meraxis chasing after me, so I'll leave all of your belongings at Meraxis's hideout for you to recover later. For the rest of your time within my fun little world of illusions, however, you'll have to get by with nothing but this cute little outfit which I've prepared for you...)]
+		 [shiranui.speech(Thank you for giving all of your possessions to me! Perhaps if you continue to amuse me you can earn them back. For the rest of your time within my fun little world of illusions, however, you'll have to get by with nothing but this cute little outfit which I've prepared for you...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -257,7 +257,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Suddenly, you feel something thick, hot, and throbbing pressing against your [pc.skin]. Instantly recognising it to be Shinarui's cock, you let out a muffled yelp through the leather strip that's covering your mouth. THe trickster youko laughs at your reaction and teases, [shiranui.speech(Don't worry, [pc.name]. I won't fuck you unless you're begging for it. Which you will be soon enough...)]
+		Suddenly, you feel something thick, hot, and throbbing pressing against your [pc.skin]. Instantly recognising it to be Shinarui's cock, you let out a muffled yelp through the leather strip that's covering your mouth. The trickster youko laughs at your reaction and teases, [shiranui.speech(Don't worry, [pc.name]. I won't fuck you unless you're begging for it. Which you will be soon enough...)]
 	</p>
 	<p>
 		With that, the youko steps away from you and vanishes back into the mist. As she departs, the leather binding turns back into paper, and as you tear yourself free, the pieces flutter to the ground and are consumed by flashes of purple flame.
@@ -293,39 +293,10 @@
 		As she finishes her sentence, your stark-naked reflection suddenly appears in all five of the mirrors. Standing beside you in each one is a similarly-naked, seven-tailed youko. As you look upon the beautiful form of Shiranui, the first thing you notice is the fact that her hair, as well as the fur on her fox tails and ears, is light pink in colour. Her flawless, porcelain skin and [shiranui.cupSize]-cup breasts prove to be irresistible to your reflections, who independently move with lives of their own as they turn to face the youko and begin to caress her shapely body in five different ways. As first kisses are exchanged within the mirrors, you turn around to make sure that the real Shiranui isn't sneaking up on you, but there's no sign of her nor of any imminent danger.
 	</p>
 	<p>
-		Turning back to the mirrors, you see that in each one your reflections and the images of Shiranui are now passionately making out with one another. As they continue to exchange saliva with your reflections, the youkos' excitement is made clear as huge, scarlet fox-cocks rise up from their groins. Revealed now to be [shiranui.a_gender] who's packing a [shiranui.a_cockGirth], [shiranui.cockLengthValue] dick, the real Shiranui laughs from somewhere within the mist, [shiranui.speech(We make a good couple, wouldn't you say? There's no harm in watching a little more; you can smash the mirrors at any moment, but then you won't get to see what happens next...)]
+		Turning back to the mirrors, you see that in each one your reflections and the images of Shiranui are now passionately making out with one another. As they continue to exchange saliva with your reflections, the youkos' excitement is made clear as huge, scarlet fox-cocks rise up from their groins. Revealed now to be [shiranui.a_gender] who's packing a [shiranui.a_cockGirth], [shiranui.cockLengthValue] dick, the real Shiranui laughs from somewhere within the mist, [shiranui.speech(We make a good couple, wouldn't you say? There's no harm in watching a little more; you can smash the mirrors at any moment, but then you won't get to see what happens next... You're going to love my cock...)]
 	</p>
 	<p>
-		With each of the mirrors showing a slightly different scene, the occupants within move on to the next stage. In the first, you drop to your knees and begin kissing the tapered head of Shiranui's throbbing cock. In the next, the youko steps around behind you and reaches down to start stroking your 
-		#IF(pc.hasPenis())
-			 [pc.cock+]
-		#ELSEIF(pc.hasVagina())
-			 [pc.pussy+]
-		#ELSE
-			 genderless mound
-		#ENDIF
-		 as she grinds the underside of her shaft over your [pc.ass+]. In the third, you lie down on your back and allow Shiranui to drop her wet pussy down onto your face. In the fourth, you're kneeling down and
-		#IF(pc.hasBreasts())
-			 preparing to give her a titjob,
-		#ELSE
-			 eagerly jerking her off,
-		#ENDIF
-		 while the last mirror shows a scene similar to that of the first, except instead of kissing the tip of her cock you're lovingly licking the underside of her massive shaft. It doesn't escape your notice that you're the one taking the submissive role in each scene,
-		#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
-			 and thanks to the power of the enchanted choker which is fastened around your neck, you feel immensely turned on as you witness yourself acting in this manner.
-		#ELSEIF(pc.hasFetish(FETISH_SUBMISSIVE))
-			 and thanks to the fact that you're a sub, you feel immensely turned on as you witness yourself acting in this manner.
-		#ELSEIF(pc.hasFetish(FETISH_DOMINANT))
-			 and even though the real you would instead be taking the dominant role, you still feel a rush of arousal as you witness these lewd scenes.
-		#ELSE
-			 and you feel a rush of arousal as you witness these lewd scenes.
-		#ENDIF
-	</p>
-	<p>
-		[shiranui.speech(You look so happy to be my submissive little slut,)] Shiranui teases, [shiranui.speech(It'll be so easy to make you cum...)]
-	</p>
-	<p>
-		It would be easy to simply smash these fragile-looking mirrors and therefore extinguish the last of Shiranui's fires, but then you wouldn't get to see what happens next.
+		It would be easy to simply smash these fragile-looking mirrors and therefore extinguish the last of Shiranui's fires, but if you wanted to see what happens next then you could wait for a moment and watch.
 	</p>
 	]]>
 	</htmlContent>
@@ -369,7 +340,33 @@
 		Your curiosity gets the better of you, and instead of smashing the mirrors you decide to continue watching to see what happens next.
 	</p>
 	<p>
-		[shiranui.speech(Good [pc.girl],)] the voice of Shiranui giggles, [shiranui.speech(Let's carry on watching it together...)]
+		With each of the mirrors showing a slightly different scene, the occupants within move on to the next stage. In the first, you drop to your knees and begin kissing the tapered head of Shiranui's throbbing cock. In the next, the youko steps around behind you and reaches down to start stroking your 
+		#IF(pc.hasPenis())
+			 [pc.cock+]
+		#ELSEIF(pc.hasVagina())
+			 [pc.pussy+]
+		#ELSE
+			 genderless mound
+		#ENDIF
+		 as she grinds the underside of her shaft over your [pc.ass+]. In the third, you lie down on your back and allow Shiranui to drop her wet pussy down onto your face. In the fourth, you're kneeling down and
+		#IF(pc.hasBreasts())
+			 preparing to give her a titjob,
+		#ELSE
+			 eagerly jerking her off,
+		#ENDIF
+		 while the last mirror shows a scene similar to that of the first, except instead of kissing the tip of her cock you're lovingly licking the underside of her massive shaft. It doesn't escape your notice that you're the one taking the submissive role in each scene,
+		#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
+			 and thanks to the power of the enchanted choker which is fastened around your neck, you feel immensely turned on as you witness yourself acting in this manner.
+		#ELSEIF(pc.hasFetish(FETISH_SUBMISSIVE))
+			 and thanks to the fact that you're a sub, you feel immensely turned on as you witness yourself acting in this manner.
+		#ELSEIF(pc.hasFetish(FETISH_DOMINANT))
+			 and even though the real you would instead be taking the dominant role, you still feel a rush of arousal as you witness these lewd scenes.
+		#ELSE
+			 and you feel a rush of arousal as you witness these lewd scenes.
+		#ENDIF
+	</p>
+	<p>
+		[shiranui.speech(You look so happy to be my submissive little slut,)] Shiranui teases, [shiranui.speech(Let's carry on watching it together...)]
 	</p>
 	<p>
 		In the first mirror, your reflection takes the youko's cock into [pc.her] mouth, before starting to give Shiranui a very enthusiastic blowjob. In the second mirror, you're melting back into the youko's arms as she
@@ -888,7 +885,7 @@
 		Making your decision, you point at the hat-wearing Meraxis and declare that she's Shiranui.
 	</p>
 	<p>
-		[meraxis.speech(What?! Are you kidding?!)] she cries out, before letting out a yelp as the naked Meraxis grabs hold of her.
+		[meraxis.speech(What?! Are you kidding me?!)] she cries out, before letting out a yelp as the naked Meraxis grabs hold of her.
 	</p>
 	<p>
 		[meraxis.speech(Help me, [pc.name]! Keep her still while I get something to tie her up!)] the naked Meraxis desperately cries out as she struggles against who you believe to be Shiranui. Doing as she says, you grab the hat-wearing Meraxis and hold her still as the naked Meraxis steps out of your vision.
@@ -986,7 +983,7 @@
 		For the next ten minutes, you and Meraxis are lost in a blissful state of perpetual arousal as you explore every last part of one another's mouths with your tongues. The arcane arousal spells which Shiranui cast on you keep your minds focused entirely on kissing one another, and the time passes in what seems to be mere seconds.
 	</p>
 	<p>
-		[shiranui.speech(Enjoying yourselves?)] the youko giggles as she returns and sees that you're still making out with each other. As she passes by, you see that she's now dressed, and is wearing a pink, short-skirted kimono. Smirking down at you, she says, [shiranui.speech(I'd better be leaving now. That binding spell won't last for much longer, after all. I won't be showing my face back here again; as easy as you two idiots were to trick, I don't really want to piss off a recognised daughter of an elder lilin any more than I already have done. I get the feeling that we'll meet again some day, so until then, goodbye!)]
+		[shiranui.speech(Enjoying yourselves?)] the youko giggles as she returns and sees that you're still making out with each other. As she passes by, you see that she's now wearing a pink, short-skirted kimono. Smirking down at you, she says, [shiranui.speech(That binding spell won't last for much longer, so I suppose I'd better be leaving. I won't be showing my face back here again; as easy and as fun as it would be to keep on playing with you two idiots, I've grown tired of this place, and I really don't want to make a lasting enemy out of a recognised daughter of Lyssieth. I get the feeling that we'll meet again some day, so until then, goodbye!)]
 	</p>
 	<p>
 		With that, Shiranui hurriedly skips off into what little of the surrounding mists remain, and a few moments later the leather bindings which are keeping you and Meraxis locked together loosen and turn into paper. The effects of the arcane arousal spells also begin to fade, and as you pull away from one another and tear yourselves free from the paper bindings, the reality of what's just happened hits you.
@@ -1046,16 +1043,16 @@
 		Having had her fun, the youko steps back, before looking down at your cum-covered bodies and letting out a mocking laugh.
 	</p>
 	<p>
-		[shiranui.speech(You really do look like a pair of sluts now!)] Shiranui giggles. Smirking down at the two of you, she says, [shiranui.speech(I'd better be leaving now. That binding spell won't last for much longer, after all. I won't be showing my face back here again; as easy as you two idiots were to trick, I don't really want to piss off a recognised daughter of an elder lilin any more than I already have done. I get the feeling that we'll meet again some day, so until then, goodbye!)]
+		[shiranui.speech(You really do look like a pair of sluts now!)] Shiranui giggles. Smirking down at the two of you, she says, [shiranui.speech(That binding spell won't last for much longer, so I suppose I'd better be leaving. I won't be showing my face back here again; as easy and as fun as it would be to keep on playing with you two idiots, I've grown tired of this place, and I really don't want to make a lasting enemy out of a recognised daughter of Lyssieth. I get the feeling that we'll meet again some day, so until then, goodbye!)]
 	</p>
 	<p>
 		With that, the youko hurriedly skips off into what little of the surrounding mists remain, and a few moments later the leather bindings which are keeping you and Meraxis locked together loosen and turn into paper. The effects of the arcane arousal spells also begin to fade, and as you pull away from one another and tear yourselves free from the paper bindings, the reality of what's just happened hits you.
 	</p>
 	<p>
-		[meraxis.speech(What the fuck?!)] Meraxis groans, before spitting on the floor and wiping her mouth with the back of her hands. Growling at the spot where Shiranui vanished, she curses, [meraxis.speech(That fucking youko, I <i>hate</i> her for making us do that! I-I mean, not that I'd hate kissing you, [pc.name], but y-you know what I mean! Making us give her a blowjob together! Eugh!)]
+		[meraxis.speech(My head... W-Wait, we were just...)] Meraxis stutters, before furiously blushing and spitting on the floor. Repeatedly wiping her mouth with the back of her hands, she exclaims, [meraxis.speech(That damn youko! I <i>hate</i> her for making us do that! I-I mean, not that I'd hate kissing you, [pc.name], but y-you know what I mean! Making us give her a blowjob together! Eugh!)]
 	</p>
 	<p>
-		Profusely blushing, the [meraxis.race] attempts to hide her embarrassment by turning away from you and quickly gathering up her clothes from the clearing. As you wait for your head to stop spinning, she gets dressed, before walking over to you and sighing, [meraxis.speech(That didn't go as planned, but at least we were able to evict her. Her spell should completely break any second now...)]
+		Still profusely blushing, the [meraxis.race] attempts to hide her embarrassment by turning away from you and quickly gathering up her clothes from the clearing. As you wait for your head to stop spinning, she gets dressed, before walking over to you and sighing, [meraxis.speech(That didn't go as planned, but at least we were able to evict her. Shiranui's spell should completely break any second now...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1097,10 +1094,10 @@
 		Snapping her fingers, Shiranui points to a spot a little way away, and in a puff of smoke, a small collection of bottles appear out of thin air. Gesturing towards the nearby building, she reveals, [shiranui.speech(Takahashi is in there. As I'm sure she'll tell you, she's been enjoying her time as my slave, so there's no bad feelings between us, right?)]
 	</p>
 	<p>
-		[meraxis.speech(You'd better not have hurt her!)] Meraxis angrily shouts, [meraxis.speech(If you have, I'll come after you!)]
+		[meraxis.speech(You'd better not have hurt her!)] Meraxis angrily shouts, [meraxis.speech(If you have, I'll use my ultimate obliteration spell on you!)]
 	</p>
 	<p>
-		[shiranui.speech(I really don't want to give a recognised daughter of an elder lilin any cause to be chasing after me,)] the youko replies. After performing a little bow, she says, [shiarnui.speech(I really ought to be going now. I get the feeling that we'll meet again some day, so until then, goodbye!)]
+		[shiranui.speech(You have my word that she's unharmed,)] the youko replies in a rather amused tone. After performing a little bow, she says, [shiranui.speech(I won't be showing my face back here again; as amusing as it would be to keep on playing with the two of you, I've grown tired of this place, and I really don't want to make a lasting enemy out of a recognised daughter of Lyssieth. I get the feeling that we'll meet again some day, so until then, goodbye!)]
 	</p>
 	<p>
 		With another click of her fingers, Shiranui is engulfed in a puff of smoke, and as it fades away, she's completely vanished. Now finding herself alone with you, Meraxis suddenly becomes aware of the fact that all she's wearing is her hat. Letting out a startled yelp, the [meraxis.race] attempts to hide her embarrassment by turning away from you, before hastily gathering up her clothes from the clearing. After quickly getting dressed, she walks over to you and sighs, [meraxis.speech(Well, that could have gone smoother, but at least we were able to evict her. Shiranui's spell should completely break any second now...)]
@@ -1122,7 +1119,7 @@
 		Clearly embarrassed by thinking about what you and the youko are about to do, the [meraxis.race] furiously blushes as she quickly gathers up her clothes from the clearing. Rushing over to the building, she stutters as she calls out behind her, [meraxis.speech(J-Just don't take too long!)]
 	</p>
 	<p>
-		As Meraxis disappears into her hideout, Shiranui saunters over to you. Her seven fox tails happily sway behind her as she approaches, and with a sulty look on her beautiful face, she asks, [shiranui.speech(SO, now that she's gone, do you want to fuck me like this, or do you want me to transform back into Meraxis? Oh, don't worry, did you see her face? She'll be far too embarrassed to come back out here, so she'll never find out...)]
+		As Meraxis disappears into her hideout, Shiranui saunters over to you. Her seven fox tails happily sway behind her as she approaches, and with a sulty look on her beautiful face, she asks, [shiranui.speech(So, now that she's gone, do you want to fuck me like this, or do you want me to transform back into Meraxis? Oh, don't worry, did you see her face? She'll be far too embarrassed to come back out here, so she'll never find out...)]
 	</p>
 	<p>
 		The youko smirks at you as you decide whether to fuck her in her youko form or in the body of Meraxis.
@@ -1140,6 +1137,19 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_SEX_YOUKO_FEMALE"><![CDATA[
+	<p>
+		Wanting her to remain in her youko form, you tell Shiranui that you like her the way she is, but that you want her to get rid of her cock.
+	</p>
+	<p>
+		[shiranui.speech(Aww, that's no fun!)] she whines, before pouting at you and sighing, [shiranui.speech(Fine, if that's what it'll take to get you to fuck me...)]
+	</p>
+	<p>
+		As she harnesses the transformative powers of her youko form, you see Shiranui's cock rapidly shrink, before completely vanishing and leaving her with just her [shiranui.pussy+]. Letting out another giggle, she steps forwards and presses her [shiranui.lips+] against your mouth. Leaning into you, she kisses you for a moment, before pulling back and moaning, [shiranui.speech(Come on, [pc.name]. My cock's gone now, so fuck me already...)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_SEX_MERAXIS"><![CDATA[
 	<p>
 		Thinking that it would be fun to fuck Shiranui while she's taken on the form of Meraxis, you tell her to transform.
@@ -1150,12 +1160,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_SEX_MERAXIS_FUTA"><![CDATA[
+	<p>
+		Thinking that it would be fun to fuck Shiranui while she's taken on the form of Meraxis, you tell her to transform, but that you want her to remain as [shiranui.a_gender].
+	</p>
+	<p>
+		[shiranui.speech(Your wish is my command!)] she giggles, before lifting her arm up over her body. Just like when she transformed before, a shimmering sheen of glitter and sparkling lights falls down all around the youko, and within a couple of seconds she's transformed into Meraxis. Every part of her is indistinguishable from the real thing, except for the fact that she has a big, demonic cock between her legs. Smirking at you as she strokes her thick shaft, Shiranui teases, [shiranui.speech(You've been wanting to fuck Meraxis, haven't you. Or is it that you wanted Meraxis to fuck you? In either case, now's the chance to make your dreams a reality...)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="CORRECT_CHOICE_AFTER_SEX"><![CDATA[
 	<p>
 		Having had your fun, you bring an end to the sex. Letting out an amused giggle, Shiranui asks, [shiranui.speech(Did you have fun?)]
 	</p>
 	<p>
-		Replying in the positive, you take a moment to get your breath back, and as you do so, the youko performs a little bow and says, [shiarnui.speech(My spell will break in just a moment, so I really ought to be going now. I get the feeling that we'll meet again some day, so until then, goodbye!)]
+		Replying in the positive, you take a moment to get your breath back, and as you do so, the youko performs a little bow and says, [shiranui.speech(My spell will break in just a moment, so I really ought to be going now. I get the feeling that we'll meet again some day, so until then, goodbye!)]
 	</p>
 	<p>
 		With a click of her fingers, Shiranui is engulfed in a puff of smoke, and as it fades away, she's completely vanished. Now finding yourself alone, you turn towards the building which serves as Meraxis's hideout.
@@ -1228,6 +1248,37 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_THREESOME_YOUKO_FEMALE"><![CDATA[
+	<p>
+		You don't really want Shiranui to transform back into looking like Meraxis, and so you tell the [meraxis.race] that she has nothing to fear; you already know that she's the best version of Meraxis that could exist. Turning to Shiranui, you tell her that you want her to get rid of her cock.
+	</p>
+	<p>
+		A smug look settles on Meraxis's face, and she gloats, [meraxis.speech(Hear that, Shiranui? You could never compete with me! Now do as [pc.name] says and transform yourself!)]
+	</p>
+	<p>
+		[shiranui.speech(Maybe I couldn't be the better Meraxis, but I'm still your superior when it comes to pleasing my partners,)] Shiranui retorts, before looking over at you and pouting. Letting out a little whine, she sighs, [shiranui.speech(You really don't like my cock? Well, I guess I can get rid of it for now...)]
+	</p>
+	<p>
+		As she harnesses the transformative powers of her youko form, you see Shiranui's cock rapidly shrink, before completely vanishing and leaving her with just her [shiranui.pussy+]. Letting out a giggle, she skips forwards and throws herself into your [pc.arms], before pressing her [shiranui.lips+] against your mouth and deeply kissing you. After a moment of this, she pulls back and moans, [shiranui.speech(Come on, [pc.name]. My cock's gone now, so fuck me already...)]
+	</p>
+	<p>
+		[meraxis.speech(H-Hey! I can do that too!)] Meraxis stutters. Rushing forwards, she pulls Shiranui off you, before taking her place and, somewhat clumsily compared to the experienced youko, starts kissing you.
+	</p>
+	<p>
+		As Meraxis tries to make you forget about her new rival, Shiranui drops down on all fours and arches her back. Lifting her ass, she lifts her seven tails and presents her [shiranui.pussy+] and [shiranui.asshole+] to you while moaning, [shiranui.speech(Enough with the games, come and fuck me!)]
+	</p>
+	<p>
+		Breaking off your kiss, Meraxis turns to see what Shiranui is doing and lets out an annoyed groan. Rushing over to her, she drops down onto all fours beside the youko and attempts to mimic her pose. Although she looks a little stiff, and her back is kept straight instead of arching down like Shiranui's, Meraxis shows no less enthusiasm as she proclaims, [meraxis.speech(I won't lose to you! I look better than her, don't I, [pc.name]?!)]
+	</p>
+	<p>
+		[shiranui.speech(Face it; you can never compete with me like this,)] Shiranui giggles, but her mocking laughter is cut short as Meraxis suddenly shoves her shoulder into her. Scowling at the [meraxis.race], Shiranui sneers, [shiranui.speech(You bitch...)]
+	</p>
+	<p>
+		As they exchange snarls, Meraxis and Shiranui start bumping their asses into one another. You aren't quite sure how things got to this point, but as Meraxis and Shiranui compete to make themselves look more enticing, you're not complaining...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS"><![CDATA[
 	<p>
 		Meraxis seems determined to want to challenge Shiranui, and as you like the idea of getting to fuck two of Meraxis at once, you turn to the youko and tell her to transform.
@@ -1243,6 +1294,65 @@
 	</p>
 	<p>
 		As the real Meraxis tries to make you forget about her new rival, Shiranui drops down on all fours and arches her back. Lifting her ass, she presents her [meraxis.pussy+] and [meraxis.asshole+] to you and moans, [shiranui.speech(Enough with the games, come and fuck me!)]
+	</p>
+	<p>
+		Breaking off your kiss, the real Meraxis turns to see what Shiranui is doing and lets out an annoyed groan. Rushing over to her, she drops down onto all fours beside the youko and attempts to mimic her pose. Although she looks a little stiff, and her back is kept straight instead of arching down like Shiranui's, the real Meraxis shows no less enthusiasm as she proclaims, [meraxis.speech(I won't lose to you! I look better than her, don't I, [pc.name]?!)]
+	</p>
+	<p>
+		[shiranui.speech(Face it; I'm simply a better version of you,)] Shiranui giggles, but her mocking laughter is cut short as Meraxis shoves her shoulder into her. Scowling at the real [meraxis.race], Shiranui sneers, [shiranui.speech(You bitch...)]
+	</p>
+	<p>
+		As they exchange snarls, Meraxis and Shiranui start bumping their asses into one another. You aren't quite sure how things got to this point, but as the two versions of Meraxis compete to make themselves look more enticing, you're not complaining...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS_FUTA"><![CDATA[
+	<p>
+		Meraxis seems determined to want to challenge Shiranui, and as you like the idea of getting to fuck two of Meraxis at once, you turn to the youko and tell her to transform into [shiranui.a_gender] version of Meraxis.
+	</p>
+	<p>
+		[shiranui.speech(Your wish is my command!)] she giggles, before lifting her arm up over her body. Just like when she transformed before, a shimmering sheen of glitter and sparkling lights falls down all around the youko, and within a couple of seconds she's transformed into the spitting image of Meraxis. Every part of her is indistinguishable from the real thing, except for the fact that she has a big, demonic cock between her legs. Smirking at you as she strokes her thick shaft, Shiranui teases, [shiranui.speech(I bet the real Meraxis has never done this for you!)]
+	</p>
+	<p>
+		With that, she skips forwards and throws herself into your [pc.arms]. Her lips are pressed against your mouth, and she lets out horny little moans as she starts grinding against you and passionately kissing you.
+	</p>
+	<p>
+		[meraxis.speech(H-Hey! I can do that too!)] Meraxis stutters. Rushing forwards, she pulls Shiranui off you, before taking her place and, somewhat clumsily compared to the experienced youko, starts kissing you.
+	</p>
+	<p>
+		As the real Meraxis tries to make you forget about her new rival, Shiranui drops down on all fours and arches her back. Lifting her ass, she presents her meraxis.pussy+], erect cock, and [meraxis.asshole+] to you and moans, [shiranui.speech(Enough with the games, come and fuck me!)]
+	</p>
+	<p>
+		Breaking off your kiss, the real Meraxis turns to see what Shiranui is doing and lets out an annoyed groan. Rushing over to her, she drops down onto all fours beside the youko and attempts to mimic her pose. Although she looks a little stiff, and her back is kept straight instead of arching down like Shiranui's, the real Meraxis shows no less enthusiasm as she proclaims, [meraxis.speech(I won't lose to you! I look better than her, don't I, [pc.name]?!)]
+	</p>
+	<p>
+		[shiranui.speech(Face it; I'm simply a better version of you,)] Shiranui giggles, but her mocking laughter is cut short as Meraxis shoves her shoulder into her. Scowling at the real [meraxis.race], Shiranui sneers, [shiranui.speech(You bitch...)]
+	</p>
+	<p>
+		As they exchange snarls, Meraxis and Shiranui start bumping their asses into one another. You aren't quite sure how things got to this point, but as the two versions of Meraxis compete to make themselves look more enticing, you're not complaining...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS_DOUBLE_FUTA"><![CDATA[
+	<p>
+		Meraxis seems determined to want to challenge Shiranui, and as you like the idea of getting to fuck two of Meraxis at once, you turn to the youko and tell her to transform into [shiranui.a_gender] version of Meraxis.
+	</p>
+	<p>
+		[shiranui.speech(Your wish is my command!)] she giggles, before lifting her arm up over her body. Just like when she transformed before, a shimmering sheen of glitter and sparkling lights falls down all around the youko, and within a couple of seconds she's transformed into the spitting image of Meraxis. Every part of her is indistinguishable from the real thing, except for the fact that she has a big, demonic cock between her legs. Smirking at you as she strokes her thick shaft, Shiranui teases, [shiranui.speech(So this is how you want Meraxis to be!)]
+	</p>
+	<p>
+		[meraxis.speech(H-Hey! I can grow a cock too, if that's what you like!)] Meraxis stutters. Nodding at the [meraxis.race], you tell her that you'd like her to grow a cock as well. Furiosuly blushing, she does just that, and above her pussy a big, demonic cock rapidly appears. Tentatively stroking her new dick, Meraxis stutters again, [meraxis.speech(I-I'm not used to this, but I can use it better than Shiranui!)]
+	</p>
+	<p>
+		[shiranui.speech(Do try to keep up, then!)] the youko giggles, before skipping forwards and throwing herself into your [pc.arms]. Her lips are pressed against your mouth, and she lets out horny little moans as she starts grinding against you and passionately kissing you.
+	</p>
+	<p>
+		[meraxis.speech(Get off! I can do that too!)] Meraxis exclaims. Rushing forwards, she pulls Shiranui off you, before taking her place and, somewhat clumsily compared to the experienced youko, starts kissing you.
+	</p>
+	<p>
+		As the real Meraxis tries to make you forget about her new rival, Shiranui drops down on all fours and arches her back. Lifting her ass, she presents her [meraxis.pussy+], erect cock, and [meraxis.asshole+] to you and moans, [shiranui.speech(Enough with the games, come and fuck me!)]
 	</p>
 	<p>
 		Breaking off your kiss, the real Meraxis turns to see what Shiranui is doing and lets out an annoyed groan. Rushing over to her, she drops down onto all fours beside the youko and attempts to mimic her pose. Although she looks a little stiff, and her back is kept straight instead of arching down like Shiranui's, the real Meraxis shows no less enthusiasm as she proclaims, [meraxis.speech(I won't lose to you! I look better than her, don't I, [pc.name]?!)]
@@ -1320,7 +1430,7 @@
 		#ELSE
 			 and performs a little bow, before saying, 
 		#ENDIF
-		 [shiarnui.speech(I really ought to be going now. I get the feeling that we'll meet again some day, so until then, goodbye!)]
+		 [shiranui.speech(I really ought to be going now. I get the feeling that we'll meet again some day, so until then, goodbye!)]
 	</p>
 	<p>
 		With a click of her fingers, Shiranui is engulfed in a puff of smoke, and as it fades away, she's completely vanished. Now finding herself alone with you, the reality of what just transpired seems to hit Meraxis all at once. Letting out an embarrassed yelp, the [meraxis.race] attempts to hide her blushing cheeks by turning away from you, before hastily gathering up her clothes from the clearing. After quickly getting dressed, she walks over to you and sighs, [meraxis.speech(Well, I admit that it was pretty fun, but I really didn't expect to be doing <i>that</i> when we set out to reclaim my hideout. Anyway, Shiranui's spell should completely break any second now...)]
@@ -1341,11 +1451,16 @@
 	<p>
 		[meraxis.speech(Shiranui's spell prevented me from getting any further, and I didn't want to come back outside as I didn't want to... well... interrupt the two of you...)] she blushes as she explains the situation. Standing up, she
 		#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
-			 points to the floor beside her, and you see a pile of all the belongings which Shiranui stole from you earlier. Continuing to blush as she looks at the fetish gear which you're wearing, Meraxis channels her arcane essences into your outfit, and as you strip out of it and put on your old clothes, she tuts, [meraxis.speech(I can't believe that you allowed her to trick you into wearing that ridiculous getup. Anyway, just leave it all on the floor and you can sort it out later. Let's rescue Takahasi.)]
+			 points to the floor beside her, and you see a pile of all the belongings which Shiranui stole from you earlier. Continuing to blush as she looks at the fetish gear which you're wearing, Meraxis channels her arcane essences into your outfit, and as you strip out of it and put on your old clothes, she tuts, [meraxis.speech(I can't believe that you allowed her to trick you into wearing that ridiculous getup. Anyway, just leave it all on the floor and you can sort it out later. Let's rescue Takahashi.)]
 		#ELSE
-			 places her hands on her hips and states, [meraxis.speech(Let's rescue Takahasi!)]
+			 places her hands on her hips and states, [meraxis.speech(Let's rescue Takahashi!)]
 		#ENDIF
 	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui) && game.getSavedInventories().get(pc.getId()).getMoney()>0)
+		<p>
+			Unfortunately, although it seems as though the youko has returned all of your items, [style.colourBad(all of your flames are missing)]! You ask Meraxis if she's picked up your money for safe-keeping, but the chuuni [meraxis.race] shakes her head and sighs, [meraxis.speech(She's stolen all of your money? Well, what did you expect? You're extremely lucky to have got any of your stuff back at all; I guess Shiranui didn't want to make enemies of us. Perhaps if we meet her again in the future you can get your money back from her then. For now, we need to rescue Takahashi.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1358,11 +1473,16 @@
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
-			Beside this door, you see a pile of all the belongings which Shiranui stole from you earlier. Blushing as she looks at the fetish gear which you're wearing, Meraxis channels her arcane essences into your outfit, and as you strip out of it and put on your old clothes, she tuts, [meraxis.speech(I can't believe that you allowed her to trick you into wearing that ridiculous getup. Anyway, just leave it all on the floor and you can sort it out later. Let's rescue Takahasi.)]
+			Beside this door, you see a pile of all the belongings which Shiranui stole from you earlier. Blushing as she looks at the fetish gear which you're wearing, Meraxis channels her arcane essences into your outfit, and as you strip out of it and put on your old clothes, she tuts, [meraxis.speech(I can't believe that you allowed her to trick you into wearing that ridiculous getup. Anyway, just leave it all on the floor and you can sort it out later. Let's rescue Takahashi.)]
 		#ELSE
-			Entering this hallway, Meraxis motions for you to follow her and confidently states, [meraxis.speech(Let's rescue Takahasi!)]
+			Entering this hallway, Meraxis motions for you to follow her and confidently states, [meraxis.speech(Let's rescue Takahashi!)]
 		#ENDIF
 	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui) && game.getSavedInventories().get(pc.getId()).getMoney()>0)
+		<p>
+			Unfortunately, although it seems as though the youko has returned all of your items, [style.colourBad(all of your flames are missing)]! You ask Meraxis if she's picked up your money for safe-keeping, but the chuuni [meraxis.race] shakes her head and sighs, [meraxis.speech(She's stolen all of your money? Well, what did you expect? You're extremely lucky to have got any of your stuff back at all; I guess Shiranui didn't want to make enemies of us. Perhaps if we meet her again in the future you can get your money back from her then. For now, we need to rescue Takahashi.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1427,7 +1547,13 @@
 		With that, Takahashi stands up and crosses the room to return to her potion lab. Calling out over her shoulder as she goes, she says, [takahashi.speech(Let me know when you're ready to go. I'm going to carry on making potions. Oh, and [pc.name]? You may have rescued me, but don't think that you can call me Hitomi. I'm still Takahashi to you.)]
 	</p>
 	<p>
-		Turning to smile at you, Meraxis leans back on the sofa and sighs, [meraxis.speech(All's well that ends well. I think I'm going to stay here from now on; The Red Dragon was fun for a while, but there's no place like home. I'm going to cast an illusion spell to keep this place hidden from prying eyes; it'll be invisible to all who don't already know of its location. So you'll be able to find this place again just fine, [pc.name], but any wandering youko won't know that it's here. Needless to say, make yourself comfortable and treat this place like home.)]
+		Turning to smile at you, Meraxis leans back on the sofa and sighs, [meraxis.speech(All's well that ends well. I think I'm going to stay here from now on; The Red Dragon was fun for a while, but there's no place like home. I'm going to cast an illusion spell to keep this place hidden from prying eyes; it'll be invisible to all who don't already know of its location. So you'll be able to find this place again just fine, [pc.name], but any wandering youko won't know that it's here.)]
+	</p>
+	<p>
+		Thanking Meraxis, you remember that she previously mentioned that teleportation doesn't work in the Shinrin Highlands, but that she'd be able to make it work here in her hideout, and so you ask her about this.
+	</p>
+	<p>
+		[meraxis.speech(That's correct! As I have deciphered the mechanisms behind the youko's teleportation-blocking spells, I'm able to destroy them! Hold on...)] Meraxis says, before standing up and casts a series of strange-looking spells. Although you can't detect any changes, the chuuni [meraxis.race] smiles and sits back down on the sofa with a sigh, [meraxis.speech(Done... My hideout is now concealed <i>and</i> we can teleport to and from here. Needless to say, make yourself comfortable and treat this place like home.)]
 	</p>
 	<p>
 		Thanking Meraxis, you stand up and wonder what to do now...

@@ -185,6 +185,10 @@ public interface SexManagerInterface {
 			}
 		}
 	}
+
+	public default String getInitSexString() {
+		return "";
+	}
 	
 	public default String applyEndSexEffects() {
 		return "";

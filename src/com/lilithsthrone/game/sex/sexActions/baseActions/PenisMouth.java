@@ -63,10 +63,16 @@ public class PenisMouth {
 	}
 	
 	public static GameCharacter getPrimaryBlowjobPerformer(GameCharacter characterReceivingBlowjob) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingBlowjob).get(SexAreaPenetration.PENIS).isEmpty()) {
+			return null;
+		}
 		return Main.sex.getOngoingActionsMap(characterReceivingBlowjob).get(SexAreaPenetration.PENIS).keySet().iterator().next();
 	}
 	
 	private static GameCharacter getSecondaryBlowjobPerformer(GameCharacter characterReceivingBlowjob) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingBlowjob).get(SexAreaPenetration.PENIS).size()<2) {
+			return null;
+		}
 		return new ArrayList<>(Main.sex.getOngoingActionsMap(characterReceivingBlowjob).get(SexAreaPenetration.PENIS).keySet()).get(1);
 	}
 	

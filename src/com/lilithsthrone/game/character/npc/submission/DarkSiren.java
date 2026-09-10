@@ -418,6 +418,15 @@ public class DarkSiren extends NPC {
 	}
 
 	@Override
+	public boolean isAttractedTo(GameCharacter character) {
+		// Player might be a demon, and as such is technically related to Meraxis, and as she doesn't have the incest fetish she will hate sex with the player
+		if(character.isPlayer()) {
+			return true;
+		}
+		return super.isAttractedTo(character);
+	}
+	
+	@Override
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,

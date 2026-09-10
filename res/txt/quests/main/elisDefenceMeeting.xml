@@ -204,7 +204,7 @@
 		[meraxis.speech(That's right; I can't teleport to place I haven't been before, but surely Lunette herself has visited Elis before?)] Meraxis asks.
 	</p>
 	<p>
-		[hammer.speech(We did consider that. The Enforcer station has some telportation inhibitors in storage, and if we place them correctly they should be able to just about cover the entire town,)] Hamemr reveals, [hammer.speech(So we don't have to worry about teleportation.)]
+		[hammer.speech(We did consider that. The Enforcer station has some telportation inhibitors in storage, and if we place them correctly they should be able to just about cover the entire town,)] Hammer reveals, [hammer.speech(So we don't have to worry about teleportation.)]
 	</p>
 	<p>
 		[arion.speech(So they'll have to attack us directly if they want to get into the town?)] Arion asks, [arion.speech(What if they decide to simply fly over the walls?)]
@@ -216,7 +216,7 @@
 		[minotallys.speech(She's abandoned us,)] Minotallys angrily snaps, before shaking her head and apologising, [minotallys.speech(Sorry, I'm not angry at you, I'm frustrated with myself for having trusted Lilith so blindly in the past... You're aware that we have Lunexis prisoner? I spent some time questioning her under the influence of the Lilith's Command spell, and so I know for a fact that Lilith gave Lunette explicit permission to use any methods she deems necessary to 'enslave or otherwise subjugate all traitors within the Foloi Fields'. Anyone who doesn't blindly obey even the most outrageous of demands from any of Lunette's daughters is considered to be a traitor, and is punished accordingly. My authority outranks theirs, which is why they've left Elis alone for so long, but now that Lunette herself is planning on getting involved, we'll all be declared traitors the moment we refuse to submit to her.)]
 	</p>
 	<p>
-		[ghost.speech([pc.Name] told us that Lunexis had been defeated in Themiscyra, but I didn't know that she was your prisoner. At least that'll give us a way to trigger Lunette's attack when we're ready. All we need to do is publicly show off that a recognised daughter of hers is our prisoner, and she'll be outside the walls within a couple of days,)] Ghost muses, before nodding to Ursa and revealing, [ghost.speech(Thanks to Ursa's scouts, we know that Lunette isn't liekly to attack Elis any time soon, and so thankfully it seems that we have some time in which to fix the issues we've got with defending Elis...)]
+		[ghost.speech([pc.Name] told us that Lunexis had been defeated in Themiscyra, but I didn't know that she was your prisoner. At least that'll give us a way to trigger Lunette's attack when we're ready. All we need to do is publicly show off that a recognised daughter of hers is our prisoner, and she'll be outside the walls within a couple of days,)] Ghost muses, before nodding to Ursa and revealing, [ghost.speech(Thanks to Ursa's scouts, we know that Lunette isn't likely to attack Elis any time soon, and so thankfully it seems that we have some time in which to fix the issues we've got with defending Elis...)]
 	</p>
 	<p>
 		[arion.speech(Can we be sure that we have time?)] Arion asks, [arion.speech(By destroying Themiscyra, Lunette has already demonstrated that she has the strength to assault Elis, so why would she wait?)]
@@ -305,13 +305,13 @@
 		Suddenly realising that she called Lyssieth 'mommy' in front of everyone, Meraxis begins to blush. Thankfully for her, Minotallys takes everyone's attention away from this by saying, [minotallys.speech(I seriously doubt that the youko will help us. Putting that aside for a moment, how do you suggest that we get enough weapons to equip a milita?)]
 	</p>
 	<p>
-		[meraxis.speech(A few years ago, I stole a huge cache of guns that <i>Lyssieth</i> made, so we can use those,)] Meraxis says, putting emphasis on her mother's name in an attempt to compensate for her previous blunder. While the others didn't seem too impressed when meraxis mentioned the youko, Hammer and Ghsot both raise their eyebrows as Meraxis mentions these guns. Seeing their reactions, the chuuni [meraxis.race] can't help but smirk as she explains, [meraxis.speech(Lyssieth planned on having her unrecognised daughters wear some funny red uniforms and march around with those guns. I thought that was a waste, so I over the course of a few nights, I teleported them out of her palace box-by-box. I thought it would be fun to give them to my army of imps in Submission!)]
+		[meraxis.speech(A few years ago, I stole a huge cache of guns that <i>Lyssieth</i> made, so we can use those,)] Meraxis says, putting emphasis on her mother's name in an attempt to compensate for her previous blunder. While the others didn't seem too impressed when meraxis mentioned the youko, Hammer and Ghsot both raise their eyebrows as Meraxis mentions these guns. Seeing their reactions, the chuuni [meraxis.race] can't help but smirk as she explains, [meraxis.speech(Lyssieth planned on having her unrecognised daughters wear some funny red uniforms and march around with those guns. I thought that was a waste, so over the course of a few nights, I teleported them out of her palace box-by-box. I thought it would be fun to give them to my army of imps in Submission!)]
 	</p>
 	<p>
 		[hammer.speech(I've never heard of an army of gun-wielding imps,)] Hammer grunts.
 	</p>
 	<p>
-		[meraxis.speech(Yeah, the guns are kind of too big for imps to use, so I moved them to my hideout in the Shinrin Highlands and tried to think of anotehr way to use them,)] Meraxis replies, before explaining, [meraxis.speech(Lyssieth found out that it was me who took them, though, and she was pretty pissed off. I went to get them back for her, but they'd been stolen. Lyssieth made me work as her secretary for an entire year for that...)]
+		[meraxis.speech(Yeah, the guns are kind of too big for imps to use, so I moved them to my hideout in the Shinrin Highlands and tried to think of another way to use them,)] Meraxis replies, before explaining, [meraxis.speech(Lyssieth found out that it was me who took them, though, and she was pretty pissed off. I went to get them back for her, but they'd been stolen. Lyssieth made me work as her secretary for an entire year for that...)]
 	</p>
 	<p>
 		[ghost.speech(So what you mean to say is that you once had weapons which could have helped us, but now you no longer do?)] Ghost asks.
@@ -407,7 +407,7 @@
 		[ursa.speech(I'll be in my usual tent as well,)] Ursa says, [ursa.speech(Once the militia is formed and the training starts, that might change, but for now I'll be in our camp.)]
 	</p>
 	<p>
-		[meraxis.speech(And I'll be in The Red Dragon,)] Meraxis cheerfully joins in, [ursa.speech(Come and find me as soon as you're ready to set off to the Shinrin Highlands. The first thing we need to do is find Takahashi. She should have made contact with me by now, but seeing as she hasn't, we need to go and check our backup rendezvous spot, which is my old hideout in the Shinrin Highlands.)]
+		[meraxis.speech(And I'll be in The Red Dragon,)] Meraxis cheerfully joins in, [meraxis.speech(Come and find me as soon as you're ready to set off to the Shinrin Highlands. The first thing we need to do is find Takahashi. She should have made contact with me by now, but seeing as she hasn't, we need to go and check our backup rendezvous spot, which is my old hideout in the Shinrin Highlands.)]
 	</p>
 	<p>
 		Exiting the town hall, you tell Meraxis that you'll come and see her soon. Saying goodbye to everyone, you watch them go their separate ways and wonder what to do next...

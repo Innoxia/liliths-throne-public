@@ -48,7 +48,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Exit]]></responseTitle>
 				<responseTooltip><![CDATA[Head back out into the Shinrin Highlands.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_global_shinrin_highlands]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_world_map]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_innoxia_shinrin_highlands_hideout)]
@@ -473,6 +473,7 @@
 			
 			<!-- Duel -->
 			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Duel]]></responseTitle>
@@ -499,6 +500,7 @@
 			
 			<!-- Sex -->
 			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[10]]></index>
 				<responseTitle><![CDATA[Sex]]></responseTitle>
@@ -662,7 +664,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[Leave Meraxis's room and continue on your way...]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_f1_corridor"/>
+				<nextDialogue defaultPlaceType="innoxia_shinrin_highlands_hideout_corridor"/>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'SEATING_MERAXIS_AFTER_SEX_LEAVE'))]
 					[#pc.setNearestLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_corridor)]
@@ -678,6 +680,27 @@
 		<content folderPath="txt/places/shinrin_highlands/hideout">TABLE</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_hideout_youko_lore_book_obtained)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Book]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at the dusty old book.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_table_book]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.addItem(game.getItemGen().generateItem(SUBSPECIES_FOX_ASCENDANT.getBook()), 1, false, true))]
+					[#flags.setFlag(FLAG_innoxia_hideout_youko_lore_book_obtained, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="table_book">
+		<content folderPath="txt/places/shinrin_highlands/hideout">TABLE_BOOK</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
 		<responses/>
 	</scene>

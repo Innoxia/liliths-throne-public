@@ -44,6 +44,9 @@ public class PenisSpinneret {
 	}
 	
 	public static GameCharacter getPrimaryDPPerformer(GameCharacter characterReceivingDP) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.SPINNERET).isEmpty()) {
+			return null;
+		}
 		return Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.SPINNERET).keySet().iterator().next();
 	}
 	

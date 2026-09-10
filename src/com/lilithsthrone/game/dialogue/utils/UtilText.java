@@ -10789,6 +10789,7 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+//				System.out.println(getBodyPartFromType(bodyPart, character).getName(character)+", "+getBodyPartFromType(bodyPart, character).getBodyCoveringType(character)+", "+getBodyPartFromType(bodyPart, character).getType().getTransformName());
 				Covering coveringHandledFreckles = character.getCovering(getBodyPartFromType(bodyPart, character).getBodyCoveringType(character));
 
 				if(tags.contains("face")) {

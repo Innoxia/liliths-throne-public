@@ -135,6 +135,7 @@ public abstract class AbstractSubspecies {
 	private List<SubspeciesFlag> flags;
 
 	protected static Map<Integer, String> youkoIconMap;
+	protected static Map<Integer, String> youkoIconMapNoBackground;
 	protected static Map<Integer, String> youkoDesaturatedIconMap;
 	protected static Map<Integer, String> youkoHalfDemonIconMap;
 	
@@ -198,6 +199,7 @@ public abstract class AbstractSubspecies {
 	
 	static {
 		youkoIconMap = new HashMap<>();
+		youkoIconMapNoBackground = new HashMap<>();
 		youkoHalfDemonIconMap = new HashMap<>();
 		for(int i=1; i<=9; i++) {
 			try {
@@ -210,8 +212,9 @@ public abstract class AbstractSubspecies {
 
 				is.close();
 				
-				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
-				youkoIconMap.put(i, baseSVGString);
+				String baseSVGString = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
+				youkoIconMapNoBackground.put(i, baseSVGString);
+				youkoIconMap.put(i, SVGStringBackground + baseSVGString);
 
 				baseSVGString = SvgUtil.colourReplacement("youkohalfDemon"+i,
 							PresetColour.RACE_HALF_DEMON,
@@ -963,7 +966,7 @@ public abstract class AbstractSubspecies {
 //	}
 	
 	/**
-	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/>
+	 * Only used for subspecies that have special offspring generation - i.e. demons and youko.<br/>
 	 * <b>Please note:</b> If the mother is feral, this will be overridden in CharacterUtils.generateBody()!<br/><br/>
 	 * 
 	 * <b>Demon breeding</b><br/>
@@ -997,6 +1000,10 @@ public abstract class AbstractSubspecies {
 	 * + imps = imps<br/>
 	 * Imps and alpha-imps<br/>
 	 * + anything = imps<br/>
+	 * <br/>
+	 * <b>Youko breeding</b><br/>
+	 * Youko mother gives birth to youko<br/>
+	 * Youko father is normal
 	 * @return The pre-generated body to use as an offspring's core body.
 	 */
 	public static Body getPreGeneratedBody(GameCharacter linkedCharacter,
@@ -1099,6 +1106,10 @@ public abstract class AbstractSubspecies {
 					// Just return this method, but with mother & father swapped, as all demonic offspring types are unaffected by who is the mother or father:
 				preGeneratedBody = getPreGeneratedBody(linkedCharacter, startingGender, null, fatherBody, motherBody);
 			}
+		}
+		
+		if(preGeneratedBody==null && (motherSubspecies==Subspecies.FOX_ASCENDANT || motherSubspecies==Subspecies.FOX_ASCENDANT_ARCTIC || motherSubspecies==Subspecies.FOX_ASCENDANT_FENNEC)) {
+			preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.FOX_MORPH, motherSubspecies, RaceStage.getRaceStageFromUserPreferences(startingGender, motherSubspecies));
 		}
 		
 		// Apply genetics:

@@ -41,6 +41,15 @@
 			<text><![CDATA[
 				Meraxis moans into your mouth and her tongue frantically slides over yours as she desperately kisses you.
 			]]></text>
+			<text><![CDATA[
+				Eagerly pressing her [meraxis.lips+] against yours, Meraxis plants a series of passionate kisses on your mouth.
+			]]></text>
+			<text><![CDATA[
+				Meraxis eagerly leans into you, breathing in your [pc.scent+] as she plants a series of hungry kisses on your [pc.lips+].
+			]]></text>
+			<text><![CDATA[
+				Meraxis eagerly presses her [meraxis.lips+] against your mouth and lets out a series muffled, horny moans as she passionately kisses you.
+			]]></text>
 		</description>
 		
 		<description>
@@ -48,7 +57,16 @@
 				[#npc.isPlayer()]
 			]]></descriptionConditional>
 			<text><![CDATA[
-				While Shiranui watches, you and Meraxis passionately kiss one another.
+				You can't help but moan into Meraxis's mouth as you press your [pc.lips+] against hers and desperately make out with her.
+			]]></text>
+			<text><![CDATA[
+				Eagerly pressing your [pc.lips+] against Meraxis's, you plant a series of passionate kisses on her mouth.
+			]]></text>
+			<text><![CDATA[
+				You eagerly lean into Meraxis, breathing in her [meraxis.scent+] as you plant a series of hungry kisses on her [meraxis.lips+].
+			]]></text>
+			<text><![CDATA[
+				You eagerly press your [pc.lips+] against Meraxis's mouth and let out a series muffled, horny [pc.moans] as you passionately kiss her.
 			]]></text>
 		</description>
 	</descriptions>

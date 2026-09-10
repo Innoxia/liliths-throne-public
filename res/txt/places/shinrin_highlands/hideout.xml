@@ -331,7 +331,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(takahashi.getLocationPlace()==PLACE_TYPE_innoxia_shinrin_highlands_hideout_potion_lab)
+		#IF(takahashi.getLocationPlace().getPlaceType()==PLACE_TYPE_innoxia_shinrin_highlands_hideout_potion_lab)
 			From the other side of the room, Takahashi lets out a soft laugh as she hears you say this. Meraxis's cheeks turn a bright shade of red as she hears her friend's laughter,
 		#ELSE
 			Meraxis's cheeks turn a bright shade of red as she hears you say this,
@@ -396,8 +396,26 @@
 	<p>
 		The corner which you find yourself standing in houses a wooden table and chairs, along with several tall cabinets which have been pushed back against the walls. The table is heavily stained, letting you know that it must have seen many years of continuous use.
 	</p>
+	#IF(!flags.hasFlag(FLAG_innoxia_hideout_youko_lore_book_obtained))
+		<p>
+			On top of one of the cabinets, covered in a fine layer of dust, is a book which grabs your eye. The title on the spine reads '[#SUBSPECIES_FOX_ASCENDANT.getBook().getName(false)]', and it looks like it might contain additional information about the youko.
+			#IF(meraxis.getLocationPlace().getPlaceType()==PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)
+				 You call over to Meraxis to ask her about the book, and she replies that she won't need to read it again so you can take it.
+			#ELSE
+				 As it doesn't look like it's been touched in quite some time, Meraxis and Takahashi clearly have no need for it, and so you're sure that they wouldn't mind if you borrowed it for a while.
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="TABLE_BOOK"><![CDATA[
+	<p>
+		Picking up the book, you blow off the dust which was obscuring the front cover to see a stylised image of nine fox tails. Sure enough, it seems to contain more details about the youko and their culture, and while most of it seems to be rubbish, you think that you could discover a thing or two by giving it a quick read.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="DOOR"><![CDATA[
 	<p>

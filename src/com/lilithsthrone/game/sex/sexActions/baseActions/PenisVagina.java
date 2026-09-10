@@ -45,6 +45,9 @@ public class PenisVagina {
 	}
 	
 	public static GameCharacter getPrimaryDPPerformer(GameCharacter characterReceivingDP) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.VAGINA).isEmpty()) {
+			return null;
+		}
 		return Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.VAGINA).keySet().iterator().next();
 	}
 	

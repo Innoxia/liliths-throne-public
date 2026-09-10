@@ -45,6 +45,9 @@ public class PenisAnus {
 	}
 	
 	public static GameCharacter getPrimaryDPPerformer(GameCharacter characterReceivingDP) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.ANUS).isEmpty()) {
+			return null;
+		}
 		return Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.ANUS).keySet().iterator().next();
 	}
 	

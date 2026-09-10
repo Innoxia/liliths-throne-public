@@ -35,9 +35,34 @@
 		Service Shiranui's cock with your mouth.
 	]]></tooltip>
 	<descriptions>
+		<!-- No oral fetish: -->
 		<description>
+			<descriptionConditional><![CDATA[
+				[#!npc.hasFetish(FETISH_ORAL_GIVING)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				As Shiranui's [shiranui.cock+] is pushed into [npc.namePos] mouth, [npc.she] [npc.verb(wrap)] [npc.her] [npc.lips+] around the youko's throbbing shaft and [npc.verb(give)] her a blowjob.
+			]]></text>
+			<text><![CDATA[
+				Although the ribbons are preventing [npc.name] from moving, [npc.she] still [npc.verb(try)] to bob [npc.her] head back and forth as [npc.she] [npc.verb(give)] Shiranui a sloppy blowjob.
+			]]></text>
+			<text><![CDATA[
+				[npc.Name] [npc.verb(let)] out a series of gargling [npc.moans] as Shiranui pushes her [shiranui.cock+] down [npc.her] throat, and [npc.verb(wrap)] [npc.her] [npc.lips+] around the youko's shaft as [npc.she] [npc.verb(give)] her a blowjob.
+			]]></text>
+		</description>
+		<!-- (oral fetish) -->
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc.hasFetish(FETISH_ORAL_GIVING)]
+			]]></descriptionConditional>
 			<text><![CDATA[
 				As Shiranui's [shiranui.cock+] is pushed into [npc.namePos] mouth, [npc.she] eagerly [npc.verb(wrap)] [npc.her] [npc.lips+] around the youko's throbbing shaft and [npc.verb(give)] her an enthusiastic blowjob.
+			]]></text>
+			<text><![CDATA[
+				Although the ribbons are preventing [npc.name] from moving, [npc.she] still [npc.verb(try)] to bob [npc.her] head back and forth as [npc.she] [npc.verb(give)] Shiranui a very enthusiastic, sloppy blowjob.
+			]]></text>
+			<text><![CDATA[
+				[npc.Name] [npc.verb(let)] out a series of horny, gargling [npc.moans] as Shiranui pushes her [shiranui.cock+] down [npc.her] throat, and [npc.verb(wrap)] [npc.her] [npc.lips+] around the youko's shaft as [npc.she] enthusiastically [npc.verb(give)] her a blowjob.
 			]]></text>
 		</description>
 	</descriptions>

@@ -141,7 +141,8 @@ public class Tail implements BodyPartInterface {
 			
 		} else {
 			this.type = type;
-//			System.out.println(owner.getTailCovering().getName(owner));
+//			System.out.println("1 "+type.getTransformName() + " | "+CharacterUtils.isGeneratingOwnerlessBody());
+//			System.out.println("2 "+owner.getTailCovering().getName(owner));
 			sb.append(" "+type.getTransformationDescription(owner));
 		}
 		

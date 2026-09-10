@@ -28,6 +28,7 @@
 		[##flags.setFlag(FLAG_innoxia_shiranui_sex_kissing, false)]
 		[##flags.setFlag(FLAG_innoxia_shiranui_sex_cock_worship, false)]
 		[##sex.setPrimaryOngoingCharacter(pc, shiranui, PENETRATION_PENIS)]
+		[##sex.setStretchingEffectsDisabled(false)]
 	]]></applyEndEffects>
 	<areasCummedIn/>
 	<areasCummedOn/>
@@ -36,9 +37,22 @@
 		Sink your [shiranui.cock+] down [pc.namePos] throat.
 	]]></tooltip>
 	<descriptions>
+		<!-- starting this turn -->
 		<description>
+			<descriptionConditional><![CDATA[
+				[#!sex.getPrimaryOngoingActionPerformer(shiranui, PENETRATION_PENIS).isPlayer() || flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) || flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+			]]></descriptionConditional>
 			<text><![CDATA[
 				Shiranui commands the leather bindings to turn your head to face her, leaving Meraxis kissing your cheek. Lining her [shiranui.cock+] up to your [pc.lips], the youko pushes forwards, moaning in delight as she sinks her [shiranui.cock+] down your throat.
+			]]></text>
+		</description>
+		<!-- ongoing -->
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getPrimaryOngoingActionPerformer(shiranui, PENETRATION_PENIS).isPlayer() && !flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) && !flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Shiranui continues to moan in delight as she sinks her [shiranui.cock+] down your throat.
 			]]></text>
 		</description>
 	</descriptions>

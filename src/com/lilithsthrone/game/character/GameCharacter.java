@@ -4812,7 +4812,10 @@ public abstract class GameCharacter implements XMLSaving {
 			if(personalityTraits.add(trait)) {
 				sb.append(additionDescription);
 			}
+		} else {
+			personalityTraits.add(trait);
 		}
+		
 		return sb.toString();
 	}
 
@@ -4822,6 +4825,8 @@ public abstract class GameCharacter implements XMLSaving {
 			if(personalityTraits.remove(trait)) {
 				return removalDescription;
 			}
+		} else {
+			personalityTraits.remove(trait);
 		}
 		return "";
 	}

@@ -176,6 +176,7 @@ public class Sex {
 	private boolean publicSex;
 	private boolean playerUniqueActions = false; // Set to true when the player's turn consists of unique actions.
 	private boolean overridePlayerArousalRestriction; // Set to true to prevent player's arousal locking at 99 during a turn of sex. Is reset to false after every turn.
+	private boolean stretchingEffectsDisabled; // Can be set for scenes which need to control whether or not stretching is taking place
 	
 	public boolean playerLevelDrain; // When set to true and player has 'orgasmic level drain' perk, orgasming partners lose a level.
 	
@@ -356,6 +357,7 @@ public class Sex {
 		overridePlayerArousalRestriction = false;
 		playerLevelDrain = true;
 		turn = 1;
+		stretchingEffectsDisabled = false;
 		
 		SexFlags.reset();
 		
@@ -1013,6 +1015,10 @@ public class Sex {
 		populatePlayerSexLists();
 		
 //		sceneRecording = new SexSceneRecording(Main.game.getId(), getAllParticipants());
+		
+		if(sexManager.getInitSexString()!=null && !sexManager.getInitSexString().isEmpty()) {
+			UtilText.parse(sexManager.getInitSexString());
+		}
 		
 		sexInitFinished = true;
 		
@@ -4360,9 +4366,14 @@ public class Sex {
 		}
 		
 		// Stretching effects (will only stretch from penises, tails, tentacles, and clits):
-		if(penetrationType == SexAreaPenetration.PENIS
+		if(isStretchingEffectsDisabled()) {
+			areasCurrentlyStretching.get(characterPenetrated).clear();
+			
+		} else if((penetrationType == SexAreaPenetration.PENIS
 				 || penetrationType == SexAreaPenetration.TAIL
-				 || penetrationType == SexAreaPenetration.TENTACLE) {
+				 || penetrationType == SexAreaPenetration.TENTACLE
+				 || penetrationType == SexAreaPenetration.CLIT)) {
+			
 			boolean lubed = false;
 			List<GameCharacter> lubricationCharacters = Main.sex.getAllParticipants();
 			lubricationCharacters.add(null);
@@ -4374,12 +4385,19 @@ public class Sex {
 			}
 			
 			float minimumStretchPercentage = 0.05f;
+
+			// if multiple ongoing and this character is not primary, clear stretching and skip
+			boolean isPrimaryPenetrationTarget = false;
 			
 			knotted = false;
 			float totalPenetratingDiameter = 0;
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(characterPenetrated, orifice).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
+						if(getPrimaryOngoingActionPerformer(entry.getKey(), sArea)==characterPenetrated) {
+							isPrimaryPenetrationTarget = true;
+//							System.out.println("primary: "+entry.getKey().getName()+", "+characterPenetrated.getName());
+						}
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
 							case FOOT:
@@ -4432,229 +4450,231 @@ public class Sex {
 			}
 			
 			areasCurrentlyStretching.get(characterPenetrated).clear();
-			if(orifice == SexAreaOrifice.ANUS){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getAssElasticity(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.ANUS, false)));
-
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementAssStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getAssStretchedCapacity())*characterPenetrated.getAssElasticity().getStretchModifier()));
-					if(characterPenetrated.getAssStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setAssStretchedCapacity(totalPenetratingDiameter);
-					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.ANUS);
-
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getAssElasticity(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.ANUS)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.ANUS);
-					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.ANUS);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getAssOrificeModifiers(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.ANUS));
-					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.ANUS);
-				}
-
-			} else if(orifice == SexAreaOrifice.VAGINA){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getVaginaElasticity(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.VAGINA, false)));
-					
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementVaginaStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getVaginaStretchedCapacity())*characterPenetrated.getVaginaElasticity().getStretchModifier()));
-					
-//					System.out.println(characterPenetrated.getName()+": "+characterPenetrated.getVaginaStretchedCapacity()+" | "+penisStretchSize);
-					if(characterPenetrated.getVaginaStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setVaginaStretchedCapacity(totalPenetratingDiameter);
-					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
-					
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getVaginaElasticity(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.VAGINA)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.VAGINA);
-					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaOrificeModifiers(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.VAGINA));
-					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
-				}
-
-			} else if(orifice == SexAreaOrifice.NIPPLE){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getNippleElasticity(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE, false)));
-
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementNippleStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getNippleStretchedCapacity())*characterPenetrated.getNippleElasticity().getStretchModifier()));
-					if(characterPenetrated.getNippleStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setNippleStretchedCapacity(totalPenetratingDiameter);
-					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
-
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getNippleElasticity(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.NIPPLE)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.NIPPLE);
-					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleOrificeModifiers(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.NIPPLE));
-					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
-				}
-
-			} else if(orifice == SexAreaOrifice.NIPPLE_CROTCH){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getNippleCrotchElasticity(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE_CROTCH, false)));
-
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementNippleCrotchStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getNippleCrotchStretchedCapacity())*characterPenetrated.getNippleCrotchElasticity().getStretchModifier()));
-					if(characterPenetrated.getNippleCrotchStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setNippleCrotchStretchedCapacity(totalPenetratingDiameter);
-					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
-
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getNippleCrotchElasticity(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.NIPPLE_CROTCH)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.NIPPLE_CROTCH);
-					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleCrotchOrificeModifiers(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.NIPPLE_CROTCH));
-					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
-				}
-
-			} else if(orifice == SexAreaOrifice.URETHRA_PENIS){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getUrethraElasticity(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_PENIS, false)));
-
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementPenisStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getPenisStretchedCapacity())*characterPenetrated.getUrethraElasticity().getStretchModifier()));
-					if(characterPenetrated.getPenisStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setPenisStretchedCapacity(totalPenetratingDiameter);
-					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
-
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getUrethraElasticity(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.URETHRA_PENIS)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.URETHRA_PENIS);
-					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getUrethraOrificeModifiers(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.URETHRA_PENIS));
-					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
-				}
-
-			} else if(orifice == SexAreaOrifice.URETHRA_VAGINA){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getVaginaUrethraElasticity(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_VAGINA, false)));
-
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementVaginaUrethraStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getVaginaUrethraStretchedCapacity())*characterPenetrated.getVaginaUrethraElasticity().getStretchModifier()));
-					if(characterPenetrated.getVaginaUrethraStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setVaginaUrethraStretchedCapacity(totalPenetratingDiameter);
-					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
-
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getVaginaUrethraElasticity(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.URETHRA_VAGINA)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.URETHRA_VAGINA);
-					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaUrethraOrificeModifiers(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.URETHRA_VAGINA));
-					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
-				}
-
-			} else if(orifice == SexAreaOrifice.MOUTH){
-				if(Capacity.isPenetrationDiameterTooBig(
-						characterPenetrated.getFaceElasticity(), characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter, lubed)){
-					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.MOUTH, false)));
-
-					for(AbstractClothing clothing : new ArrayList<>(characterPenetrated.getClothingCurrentlyEquipped())) {
-						if(clothing.getItemTags().contains(ItemTag.CHOKER_SNAP)) {
-							if(clothing.isSealed()) {
-								clothing.setSealed(false);
-							}
-							penetrationSB.append(UtilText.parse(characterPenetrated, characterPenetrating,
-									"<p style='text-align:center;'>"
-											+ "[style.italicsSex([npc2.NamePos] "+penetrationType.getName(characterPenetrating)+" bulges [npc.namePos] throat so much that [npc.her] [style.boldBad("+clothing.getName()+" snaps)]!)]"
-											+ "<br/>"+characterPenetrated.addedItemToInventoryText(clothing, 1)
-									+ "</p>"));
-							characterPenetrated.unequipClothingIntoInventory(clothing, true, characterPenetrated);
+			if(isPrimaryPenetrationTarget) {
+				if(orifice == SexAreaOrifice.ANUS){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getAssElasticity(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.ANUS, false)));
+	
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementAssStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getAssStretchedCapacity())*characterPenetrated.getAssElasticity().getStretchModifier()));
+						if(characterPenetrated.getAssStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setAssStretchedCapacity(totalPenetratingDiameter);
 						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.ANUS);
+	
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getAssElasticity(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.ANUS)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.ANUS);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.ANUS);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getAssOrificeModifiers(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.ANUS));
+						areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.ANUS);
 					}
-					
-					// Stretch out the orifice by a factor of elasticity's modifier.
-					characterPenetrated.incrementFaceStretchedCapacity(
-							Math.max(
-									totalPenetratingDiameter*minimumStretchPercentage,
-									(totalPenetratingDiameter-characterPenetrated.getFaceStretchedCapacity())*characterPenetrated.getFaceElasticity().getStretchModifier()));
-					if(characterPenetrated.getFaceStretchedCapacity()>totalPenetratingDiameter) {
-						characterPenetrated.setFaceStretchedCapacity(totalPenetratingDiameter);
+	
+				} else if(orifice == SexAreaOrifice.VAGINA){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getVaginaElasticity(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.VAGINA, false)));
+						
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementVaginaStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getVaginaStretchedCapacity())*characterPenetrated.getVaginaElasticity().getStretchModifier()));
+						
+	//					System.out.println(characterPenetrated.getName()+": "+characterPenetrated.getVaginaStretchedCapacity()+" | "+penisStretchSize);
+						if(characterPenetrated.getVaginaStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setVaginaStretchedCapacity(totalPenetratingDiameter);
+						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
+						
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getVaginaElasticity(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.VAGINA)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.VAGINA);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaOrificeModifiers(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.VAGINA));
+						areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
 					}
-					
-					areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.MOUTH);
-
-					// If just stretched out enough to be comfortable, append that description:
-					if(!Capacity.isPenetrationDiameterTooBig(
-							characterPenetrated.getFaceElasticity(), characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter, lubed)) {
-						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.MOUTH)));
-						areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.MOUTH);
+	
+				} else if(orifice == SexAreaOrifice.NIPPLE){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getNippleElasticity(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE, false)));
+	
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementNippleStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getNippleStretchedCapacity())*characterPenetrated.getNippleElasticity().getStretchModifier()));
+						if(characterPenetrated.getNippleStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setNippleStretchedCapacity(totalPenetratingDiameter);
+						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
+	
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getNippleElasticity(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.NIPPLE)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.NIPPLE);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleOrificeModifiers(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.NIPPLE));
+						areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
 					}
-
-					areasStretched.get(characterPenetrated).add(SexAreaOrifice.MOUTH);
-
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getFaceOrificeModifiers(), (int)characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter)){
-					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.MOUTH));
+	
+				} else if(orifice == SexAreaOrifice.NIPPLE_CROTCH){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getNippleCrotchElasticity(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE_CROTCH, false)));
+	
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementNippleCrotchStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getNippleCrotchStretchedCapacity())*characterPenetrated.getNippleCrotchElasticity().getStretchModifier()));
+						if(characterPenetrated.getNippleCrotchStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setNippleCrotchStretchedCapacity(totalPenetratingDiameter);
+						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
+	
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getNippleCrotchElasticity(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.NIPPLE_CROTCH)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.NIPPLE_CROTCH);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleCrotchOrificeModifiers(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.NIPPLE_CROTCH));
+						areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
+					}
+	
+				} else if(orifice == SexAreaOrifice.URETHRA_PENIS){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getUrethraElasticity(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_PENIS, false)));
+	
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementPenisStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getPenisStretchedCapacity())*characterPenetrated.getUrethraElasticity().getStretchModifier()));
+						if(characterPenetrated.getPenisStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setPenisStretchedCapacity(totalPenetratingDiameter);
+						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
+	
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getUrethraElasticity(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.URETHRA_PENIS)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.URETHRA_PENIS);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getUrethraOrificeModifiers(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.URETHRA_PENIS));
+						areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
+					}
+	
+				} else if(orifice == SexAreaOrifice.URETHRA_VAGINA){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getVaginaUrethraElasticity(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_VAGINA, false)));
+	
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementVaginaUrethraStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getVaginaUrethraStretchedCapacity())*characterPenetrated.getVaginaUrethraElasticity().getStretchModifier()));
+						if(characterPenetrated.getVaginaUrethraStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setVaginaUrethraStretchedCapacity(totalPenetratingDiameter);
+						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
+	
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getVaginaUrethraElasticity(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.URETHRA_VAGINA)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.URETHRA_VAGINA);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaUrethraOrificeModifiers(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.URETHRA_VAGINA));
+						areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
+					}
+	
+				} else if(orifice == SexAreaOrifice.MOUTH){
+					if(Capacity.isPenetrationDiameterTooBig(
+							characterPenetrated.getFaceElasticity(), characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter, lubed)){
+						penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.MOUTH, false)));
+	
+						for(AbstractClothing clothing : new ArrayList<>(characterPenetrated.getClothingCurrentlyEquipped())) {
+							if(clothing.getItemTags().contains(ItemTag.CHOKER_SNAP)) {
+								if(clothing.isSealed()) {
+									clothing.setSealed(false);
+								}
+								penetrationSB.append(UtilText.parse(characterPenetrated, characterPenetrating,
+										"<p style='text-align:center;'>"
+												+ "[style.italicsSex([npc2.NamePos] "+penetrationType.getName(characterPenetrating)+" bulges [npc.namePos] throat so much that [npc.her] [style.boldBad("+clothing.getName()+" snaps)]!)]"
+												+ "<br/>"+characterPenetrated.addedItemToInventoryText(clothing, 1)
+										+ "</p>"));
+								characterPenetrated.unequipClothingIntoInventory(clothing, true, characterPenetrated);
+							}
+						}
+						
+						// Stretch out the orifice by a factor of elasticity's modifier.
+						characterPenetrated.incrementFaceStretchedCapacity(
+								Math.max(
+										totalPenetratingDiameter*minimumStretchPercentage,
+										(totalPenetratingDiameter-characterPenetrated.getFaceStretchedCapacity())*characterPenetrated.getFaceElasticity().getStretchModifier()));
+						if(characterPenetrated.getFaceStretchedCapacity()>totalPenetratingDiameter) {
+							characterPenetrated.setFaceStretchedCapacity(totalPenetratingDiameter);
+						}
+						
+						areasCurrentlyStretching.get(characterPenetrated).add(SexAreaOrifice.MOUTH);
+	
+						// If just stretched out enough to be comfortable, append that description:
+						if(!Capacity.isPenetrationDiameterTooBig(
+								characterPenetrated.getFaceElasticity(), characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter, lubed)) {
+							penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingFinishedDescription(SexAreaOrifice.MOUTH)));
+							areasCurrentlyStretching.get(characterPenetrated).remove(SexAreaOrifice.MOUTH);
+						}
+	
+						areasStretched.get(characterPenetrated).add(SexAreaOrifice.MOUTH);
+	
+					} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getFaceOrificeModifiers(), (int)characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter)){
+						penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.MOUTH));
+					}
 				}
 			}
 		}
@@ -5350,6 +5370,28 @@ public class Sex {
 			if(!e.getKey().equals(character)) {
 				ongoingActionsMap.get(targetedCharacter).get(targetsSexArea).put(e.getKey(), e.getValue());
 			}
+		}
+	}
+	
+	/**
+	 * @param character The GameCharacter who is involved with the ongoing action you're interested in.
+	 * @param area The area which the character has ongoing actions with.
+	 * @return The first GameCharacter who's involved in an ongoing action with the supplied character, using the area supplied.
+	 * <br/>e.g. If you want to find out who the primary performer who's giving this character a blowjob is, then pass in SexAreaPenetration.PENIS (as the returned character will be the first GameCharacter who's interacting with this character's penis)
+	 */
+	public GameCharacter getPrimaryOngoingActionPerformer(GameCharacter character, SexAreaInterface area) {
+		try {
+			return Main.sex.getOngoingActionsMap(character).get(area).keySet().iterator().next();
+		} catch(Exception ex) {
+			return null;
+		}
+	}
+	
+	public GameCharacter getSecondaryOngoingActionPerformer(GameCharacter character, SexAreaInterface area) {
+		try {
+			return new ArrayList<>(Main.sex.getOngoingActionsMap(character).get(area).keySet()).get(1);
+		} catch(Exception ex) {
+			return null;
 		}
 	}
 	
@@ -6996,5 +7038,13 @@ public class Sex {
 				submissiveSpectators);
 		
 		Main.sex.setPositionRequest(null);
+	}
+
+	public boolean isStretchingEffectsDisabled() {
+		return stretchingEffectsDisabled;
+	}
+
+	public void setStretchingEffectsDisabled(boolean stretchingEffectsDisabled) {
+		this.stretchingEffectsDisabled = stretchingEffectsDisabled;
 	}
 }

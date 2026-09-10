@@ -8,7 +8,7 @@
 	<colour>BASE_BLUE_STEEL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_shinrin_highlands_hideout_potion_lab</dialogue>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_table</dialogue>
 	<populationPresent/>
 	<furniturePresent deskName="table">true</furniturePresent>
 	<wallsPresent wallName="wall">true</wallsPresent>

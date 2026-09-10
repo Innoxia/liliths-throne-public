@@ -386,16 +386,20 @@ public class CharacterUtils {
 				body.applyLegConfigurationTransformation(mother.getLegType(), mother.getLegConfiguration(), true);
 			}
 		}
+		// generateBody() could have been called above, which sets generatingOwnerlessBody to false, which can cause parsing errors to be thrown in applySpeciesChanges()
+		// so it needs to be re-set to true here
+		generatingOwnerlessBody = true;
 		
 		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		applyGenetics(linkedCharacter, body, motherBody, fatherBody, raceFromMother);
-		
+
 		// The applyRaceChanges and applySpeciesChanges methods sometimes change covering colours and then call updateCoverings(), which will result in this character's covering colours being unrelated to genetics
 		// To fix, coverings are saved and then restored after the two methods have been called
 		Map<AbstractBodyCoveringType, Covering> preChangesCoverings = body.getCoverings();
 		raceTakesAfter.getRace().applyRaceChanges(body);
+//		System.out.println("AIIIEEEE "+generatingOwnerlessBody);
 		raceTakesAfter.applySpeciesChanges(linkedCharacter, body);
 		body.setCoverings(preChangesCoverings);
 		

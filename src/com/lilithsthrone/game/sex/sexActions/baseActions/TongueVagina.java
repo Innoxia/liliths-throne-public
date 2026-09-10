@@ -59,6 +59,9 @@ public class TongueVagina {
 	}
 	
 	public static GameCharacter getPrimaryCunnilingusPerformer(GameCharacter characterReceivingCunnilingus) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingCunnilingus).get(SexAreaOrifice.VAGINA).isEmpty()) {
+			return null;
+		}
 		return Main.sex.getOngoingActionsMap(characterReceivingCunnilingus).get(SexAreaOrifice.VAGINA).keySet().iterator().next();
 	}
 	

@@ -510,11 +510,13 @@
 		<flag dailyReset="false">transformed_by_shiranui</flag>
 		<flag dailyReset="false">stripped_by_shiranui</flag>
 		<flag dailyReset="false">shiranui_painting_sex</flag>
+		<flag dailyReset="false">shiranui_chose_gifts</flag>
 		<!-- Shiranui sex -->
 		<flag dailyReset="false">shiranui_sex_kissing</flag>
 		<flag dailyReset="false">shiranui_sex_cock_worship</flag>
 			
 	<!-- Meraxis's Hideout: -->
+		<flag dailyReset="false">hideout_youko_lore_book_obtained</flag>
 		<flag dailyReset="false">hideout_takahashi_talked_meraxis</flag>
 		<flag dailyReset="false">hideout_takahashi_talked_potions</flag>
 		<flag dailyReset="false">hideout_takahashi_talked_youko</flag>

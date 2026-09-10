@@ -855,7 +855,8 @@
 	<scene id="hideout_correct_choice_gift">
 		<preParsingEffects><![CDATA[
 			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
-			[#shiranui.addGifts(pc)]
+			[#shiranui.addGifts(pc, true)]
+			[#flags.setFlag(FLAG_innoxia_shiranui_chose_gifts, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">CORRECT_CHOICE_GIFTS</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -876,6 +877,9 @@
 	</scene>
 	
 	<scene id="hideout_correct_choice_sex">
+		<preParsingEffects><![CDATA[
+			[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_exit)]
+		]]></preParsingEffects>
 		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
@@ -933,11 +937,68 @@
 					<ongoingActionsAtStart/>
 				</sexVariables>
 			</response>
+			<!-- TF before sex -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Youko (female)]]></responseTitle>
+				<responseTooltip><![CDATA[Have sex with Shiranui in her youko form, but to transform herself to remove her cock.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setPenisType(PENIS_TYPE_NONE)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[shiranui]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX_YOUKO_FEMALE</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Meraxis (futa)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis before having sex with her, but to remain a futa.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+					[#shiranui.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[shiranui]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX_MERAXIS_FUTA</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
 		</responses>
 	</scene>
 	
 	<scene id="hideout_correct_choice_after_sex">
 		<preParsingEffects><![CDATA[
+			[#shiranui.setBodyToMeraxis(false, true)]
 			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
 		]]></preParsingEffects>
         <title><![CDATA[Finished]]></title>
@@ -968,7 +1029,7 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Youko form]]></responseTitle>
+				<responseTitle><![CDATA[Youko]]></responseTitle>
 				<responseTooltip><![CDATA[Tell Shiranui to remain in her youko form for this.]]></responseTooltip>
 				<nextDialogue/>
 				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -1047,6 +1108,137 @@
 					<ongoingActionsAtStart/>
 				</sexVariablesWithManager>
 			</response>
+			<!-- Removing cock: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Youko (female)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to remain in her youko form for this, but to transform herself to remove her cock.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setPenisType(PENIS_TYPE_NONE)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_YOUKO_FEMALE</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Meraxis (futa)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis for this, but to remain a futa as she does so.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+					[#shiranui.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS_FUTA</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#!meraxis.hasPenis()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Meraxis (double futa)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis for this, but to remain a futa as she does so. Tell Meraxis to also give herself a cock for this.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+					[#shiranui.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+					[#meraxis.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS_DOUBLE_FUTA</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
 		</responses>
 	</scene>
 	
@@ -1055,6 +1247,7 @@
 			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'CORRECT_CHOICE_AFTER_THREESOME'))]
 			[#shiranui.setBodyToMeraxis(false, true)]
+			[#meraxis.setPenisType(PENIS_TYPE_NONE)]
 		]]></preParsingEffects>
         <title><![CDATA[Finished]]></title>
 		<content/>
@@ -1090,6 +1283,11 @@
 			[#pc.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_exit)]
 			#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
 				[#pc.setInventory(game.getSavedInventories().get(pc.getId()))]
+				#IF(flags.hasFlag(FLAG_innoxia_shiranui_chose_gifts))
+					[#shiranui.addGifts(pc, false)]
+				#ENDIF
+				[#shiranui.setMoney(pc.getMoney())]
+				[#pc.setMoney(0)]
 			#ENDIF
 			
 			[#meraxis.equipClothing()]

@@ -310,7 +310,7 @@ public enum SlaveJob {
 			if(hour<6 || hour>=22) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -361,7 +361,7 @@ public enum SlaveJob {
 			if(hour<6 || hour>=22) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -515,7 +515,7 @@ public enum SlaveJob {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 
 		@Override
@@ -962,7 +962,7 @@ public enum SlaveJob {
 			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -1010,7 +1010,7 @@ public enum SlaveJob {
 			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -1124,7 +1124,7 @@ public enum SlaveJob {
 			if(getDiningHallCell()==null) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {

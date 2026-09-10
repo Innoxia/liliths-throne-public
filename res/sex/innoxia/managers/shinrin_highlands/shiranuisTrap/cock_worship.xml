@@ -18,6 +18,9 @@
 		<startingDescription/>
 		<randomDescriptions/>
 	</publicSex>
+	<initSex><![CDATA[
+		[#sex.setStretchingEffectsDisabled(true)]
+	]]></initSex>
 	
 	<characterInformationContainer>
 		<characterInformation>

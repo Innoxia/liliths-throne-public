@@ -518,6 +518,8 @@ public class MainController implements Initializable {
 //						}
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+//							System.out.println(UtilText.parse(Util.newArrayListOfValues(null, null), "hello [npc.name]"));
+							
 //							Main.game.getNpc(Shiranui.class).setLocation(Main.game.getPlayerCell());
 //							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							
