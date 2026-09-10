@@ -70,7 +70,7 @@ public class RatWarrensCaptive extends NPC {
 	
 	public RatWarrensCaptive(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				5,
 				gender, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(false, 10), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM, false);

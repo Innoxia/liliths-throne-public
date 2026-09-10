@@ -64,7 +64,7 @@ public class RatGangMember extends NPC {
 	
 	public RatGangMember(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				5,
 				null, null, null,
 				new CharacterInventory(false, 10), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, false);

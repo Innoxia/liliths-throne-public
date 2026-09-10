@@ -53,7 +53,7 @@ public class EvelyxSexualPartner extends NPC {
 
 	public EvelyxSexualPartner(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				25, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				25, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				10,
 				null, null, null,
 				new CharacterInventory(false, 10),
