@@ -41,6 +41,8 @@ import com.lilithsthrone.game.character.npc.misc.BasicDoll;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
+import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -104,9 +106,17 @@ public class DebugDialogue {
 	private static GameCharacter targetedCharacter;
 	
 	public static final DialogueNode DEBUG_MENU = new DialogueNode("A powerful tool", "Open debug menu.", false) {
+//		@Override
+//		public void applyPreParsingEffects() {
+//			targetedCharacter = null; // Reset this value when opening the debug menu to make sure that the targetedCharacter is not from a previous save file
+//		}
 		@Override
 		public void applyPreParsingEffects() {
-			targetedCharacter = null; // Reset this value when opening the debug menu to make sure that the targetedCharacter is not from a previous save file
+			// Just in case this dialogue node is accessed before initialising targetedCharacter, or if targetedCharacter is no longer present:
+			if(targetedCharacter==null
+					|| (!targetedCharacter.isPlayer() && !Main.game.getCharactersPresent().contains(targetedCharacter))) {
+				targetedCharacter = Main.game.getPlayer();
+			}
 		}
 		
 		@Override
@@ -1039,11 +1049,40 @@ public class DebugDialogue {
 				}
 				
 			} else if(responseTab==4) {
+				if(index==1) {
+					return new ResponseEffectsOnly(UtilText.parse(targetedCharacter, "[npc.Name]"),
+							UtilText.parse(targetedCharacter,
+									"[npc.NameIsFull] the current target, and personality changes will be applied to [npc.herHim]."
+									+ "<br/><i>Click to cycle through characters present in this tile.</i>")) {
+						@Override
+						public Colour getHighlightColour() {
+							return targetedCharacter.getGender().getColour();
+						}
+						@Override
+						public void effects() {
+							boolean preparedForNext = targetedCharacter.isPlayer();
+							for(GameCharacter character : Main.game.getCharactersPresent()) {
+								if(preparedForNext) {
+									targetedCharacter = character;
+									preparedForNext = false;
+									break;
+								}
+								if(character.equals(targetedCharacter)) {
+									preparedForNext = true;
+								}
+							}
+							if(preparedForNext) {
+								targetedCharacter = Main.game.getPlayer();
+							}
+						}
+					};
+				}
+				
 				List<PersonalityTrait> pt = Arrays.asList(PersonalityTrait.values());
-				for(int i=1; i<=pt.size();i++) {
+				for(int i=2; i<=pt.size()+1;i++) {
 					if(i==index) {
-						PersonalityTrait perTr = pt.get(index-1);
-						boolean hasTrait = Main.game.getPlayer().hasPersonalityTrait(perTr);
+						PersonalityTrait perTr = pt.get(index-2);
+						boolean hasTrait = targetedCharacter.hasPersonalityTrait(perTr);
 						return new Response(
 								hasTrait
 									?"<b style='color:"+perTr.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(perTr.getName())+"</b>"
@@ -1051,19 +1090,64 @@ public class DebugDialogue {
 									(hasTrait
 										?"[style.boldGood(Owned!)] "
 										:"[style.colourMinorBad(Not owned!)] ")
-									+perTr.getDescription(Main.game.getPlayer(), true, true),
+									+perTr.getDescription(targetedCharacter, true, true),
 								DEBUG_MENU) {
 							@Override
 							public void effects() {
 								if(hasTrait) {
-									Main.game.getPlayer().removePersonalityTrait(perTr);
+									targetedCharacter.removePersonalityTrait(perTr);
 								} else {
-									Main.game.getPlayer().addPersonalityTrait(perTr);
+									targetedCharacter.addPersonalityTrait(perTr);
 								}
 							}
 						};
 					}
 				}
+				
+				if(index==pt.size()+2) {
+					return new Response("[style.colourMinorBad(Regenerate)]",
+								UtilText.parse(targetedCharacter, "Regenerate [npc.namePos] personality traits based on [npc.her] race and history."),
+								DEBUG_MENU) {
+						@Override
+						public void effects() {
+							targetedCharacter.clearPersonalityTraits();
+							
+							// Starting personalities based on race, copied from GameCharacter.additionalBodySetup():
+							for(Entry<PersonalityTrait, Float> entry : targetedCharacter.getRace().getRacialBody().getPersonalityTraitChances().entrySet()) {
+								double rnd = Math.random();
+								if(rnd<=entry.getValue()) {
+									targetedCharacter.addPersonalityTrait(entry.getKey());
+								}
+							}
+			
+							for(Entry<PersonalityTrait, Float> entry : targetedCharacter.getTrueSubspecies().getPersonalityTraitChances().entrySet()) {
+								double rnd = Math.random();
+								if(rnd<=entry.getValue()) {
+									targetedCharacter.addPersonalityTrait(entry.getKey());
+								}
+							}
+							
+							if(targetedCharacter.hasPersonalityTrait(PersonalityTrait.MUTE)) { // If mute, remove all other speech traits
+								targetedCharacter.removePersonalityTraits(PersonalityCategory.SPEECH);
+								targetedCharacter.addPersonalityTrait(PersonalityTrait.MUTE);
+							}
+							
+							// Roughly copying effects from CharacterUtils' setHistoryAndPersonality():
+							if(targetedCharacter.getHistory()==Occupation.NPC_PROSTITUTE) {
+								targetedCharacter.removePersonalityTrait(PersonalityTrait.PRUDE);
+								targetedCharacter.removePersonalityTrait(PersonalityTrait.INNOCENT);
+							}
+							if(targetedCharacter.getHistory().isLowlife()) {
+								if(Math.random()<0.25f) {
+									targetedCharacter.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+								}
+							}
+						}
+					};
+				}
+				
+
+				
 			}
 			
 			return null;

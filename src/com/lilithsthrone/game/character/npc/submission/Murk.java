@@ -166,25 +166,20 @@ public class Murk extends NPC {
 		this.equipAllSpecialMoves();
 		this.equipAllSpellMoves();
 	}
-	
+
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
-			this.clearPersonalityTraits();
-			this.clearFetishes();
-			this.clearFetishDesires();
-			
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.COWARDLY,
 					PersonalityTrait.LEWD,
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.SLOVENLY);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_GANG_MEMBER);
-	
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
@@ -196,6 +191,24 @@ public class Murk extends NPC {
 			this.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_GANG_MEMBER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

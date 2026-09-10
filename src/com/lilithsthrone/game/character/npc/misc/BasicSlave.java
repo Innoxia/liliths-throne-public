@@ -104,7 +104,28 @@ public class BasicSlave extends NPC {
 	}
 
 	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+		}
+		
+		if(setFetishes) {
+		}
+		
+		if(setOrientation) {
+		}
+
+		if(setHistory) {
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
 	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		if(this.body!=null) {
 			this.setAssVirgin(true);
 			this.setFaceVirgin(true);

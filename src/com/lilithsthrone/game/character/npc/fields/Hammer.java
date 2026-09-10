@@ -127,24 +127,41 @@ public class Hammer extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CYNICAL);
-			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_ENFORCER_SWORD_SERGEANT);
-			
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_CUM_STUD);
 			
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ENFORCER_SWORD_SERGEANT);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -81,6 +82,29 @@ public class Ashley extends NPC {
 					PersonalityTrait.PRUDE);
 		}
 	}
+
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.PRUDE);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishes();
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_BUSINESS_OWNER);
+		}
+		
+		if(setSpells) {
+		}
+	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
@@ -88,17 +112,9 @@ public class Ashley extends NPC {
 		this.setRaceConcealed(true);
 		
 		// Persona:
-
 		if(setPersona) {
-			this.setPersonalityTraits(
-					PersonalityTrait.PRUDE);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			setStartingPersona();
 		}
-//		this.setHistory(Occupation.NPC_PROSTITUTE);
-
-//		this.addFetish(Fetish.FETISH_MASOCHIST);
-		
 		
 		// Body:
 

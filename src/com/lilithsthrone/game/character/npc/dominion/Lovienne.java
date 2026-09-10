@@ -77,26 +77,40 @@ public class Lovienne extends NPC {
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 1)));
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
 
-		if(setPersona) {
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.LEWD);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_ELDER_LILIN);
-			
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
 			this.clearFetishes();
-			
 			//TODO
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ELDER_LILIN);
+		}
+		
+		if(setSpells) {
+			//TODO
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 //		this.setBody(Gender.F_V_B_FEMALE, Subspecies.CENTAUR, RaceStage.GREATER, false);

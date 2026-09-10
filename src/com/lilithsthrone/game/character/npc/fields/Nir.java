@@ -118,20 +118,18 @@ public class Nir extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
-
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_GANG_BODY_GUARD);
-	
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
@@ -148,6 +146,23 @@ public class Nir extends NPC {
 			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.ZERO_HATE);
 		}
 		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_GANG_BODY_GUARD);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		
 		// Body:
 		this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, Gender.M_P_MALE, Subspecies.HORSE_MORPH, true, RaceStage.GREATER), false);

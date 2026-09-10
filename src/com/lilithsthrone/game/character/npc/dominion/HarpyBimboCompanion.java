@@ -105,22 +105,37 @@ public class HarpyBimboCompanion extends NPC {
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
+
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.LEWD);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_BIMBO);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
+		}
+		
+		if(setSpells) {
+		}
+	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-
 		if(setPersona) {
-			this.setPersonalityTraits(
-					PersonalityTrait.LEWD);
-			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
-	
-			this.addFetish(Fetish.FETISH_BIMBO);
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			setStartingPersona();
 		}
 		
 		// Body:

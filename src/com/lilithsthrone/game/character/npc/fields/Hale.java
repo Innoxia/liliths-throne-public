@@ -119,23 +119,40 @@ public class Hale extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_STORE_OWNER);
-
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_LEG_LOVER);
 
 			this.setFetishDesire(Fetish.FETISH_ARMPIT_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_STORE_OWNER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

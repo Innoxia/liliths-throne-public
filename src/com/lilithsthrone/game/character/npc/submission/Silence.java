@@ -125,20 +125,38 @@ public class Silence extends NPC {
 		this.equipMove("twin-strike");
 		this.equipAllSpellMoves();
 	}
-	
+
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
-			this.clearPersonalityTraits();
-			this.clearFetishes();
-			this.clearFetishDesires();
-			
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.MUTE,
 					PersonalityTrait.LEWD);
-			
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ONE_DISLIKE);
+			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ONE_DISLIKE);
+			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_GANG_BODY_GUARD);
+		}
+		
+		if(setSpells) {
 			this.addSpell(Spell.POISON_VAPOURS);
 			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
 			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
@@ -156,19 +174,13 @@ public class Silence extends NPC {
 			this.addSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_1);
 			this.addSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_2);
 			this.addSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_GANG_BODY_GUARD);
+		}
+	}
 	
-			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ONE_DISLIKE);
-			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ONE_DISLIKE);
-			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

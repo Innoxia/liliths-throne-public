@@ -240,24 +240,17 @@ public class DarkSiren extends NPC {
 		this.addSpell(Spell.TELEKENETIC_SHOWER);
 		this.addSpellUpgrade(SpellUpgrade.TELEKENETIC_SHOWER_1);
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
 
-		if(setPersona) {
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.INNOCENT);
-			
-			addSpells();
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
-			
+		}
+		
+		if(setFetishes) {
 			this.clearFetishes();
 			
 			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
@@ -265,6 +258,24 @@ public class DarkSiren extends NPC {
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.ONE_DISLIKE);
 		}
 		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
+		}
+		
+		if(setSpells) {
+			addSpells();
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);

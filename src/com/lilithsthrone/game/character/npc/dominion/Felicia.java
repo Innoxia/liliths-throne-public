@@ -35,7 +35,9 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -58,7 +60,7 @@ public class Felicia extends NPC {
     
     public Felicia(boolean isImported) {
         super (isImported, new NameTriplet("Felicia"), "Delilah-Hope Renmorre",
-                "Felicia is Arthur’s neighbor and sometimes Caregiver." + 
+                "Felicia is Arthur's neighbor and sometimes Caregiver." + 
                         " While she tries to act calm and collected, she lights up at the sight of anything she remotely enjoys." + 
                         " Is known for the smoothest, fluffiest fur in town.",
                 30,
@@ -73,16 +75,37 @@ public class Felicia extends NPC {
             this.setPlayerKnowsName(false);
         }
     }
-    
-    @Override
-    public void setStartingBody(boolean setPersona) {
-        if (setPersona) {
+
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
             this.setPersonalityTraits(
                     PersonalityTrait.CONFIDENT,
                     PersonalityTrait.KIND,
                     PersonalityTrait.PRUDE);
-            //TODO: fetishes
-        }
+		}
+		
+		if(setFetishes) {
+			//TODO
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_BEAUTICIAN); //TODO
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+    @Override
+    public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
         
         // Core:
         this.setHeight(157);

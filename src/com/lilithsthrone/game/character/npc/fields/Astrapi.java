@@ -128,23 +128,19 @@ public class Astrapi extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
-	
+
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.INNOCENT);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_TAUR_TRANSPORT);
-			
-			this.clearFetishes();
+		}
+		
+		if(setFetishes) {
 			this.clearFetishDesires();
-			
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
@@ -157,6 +153,23 @@ public class Astrapi extends NPC {
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 		}
 		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_TAUR_TRANSPORT);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		
 		// Body:
 		

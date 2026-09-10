@@ -107,19 +107,16 @@ public class Fiammetta extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
-	
+
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.CONFIDENT);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_JOURNALIST);
-			
+		}
+		
+		if(setFetishes) {
 			this.clearFetishes();
 			// For the 'Lusty maiden' fetish:
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
@@ -133,6 +130,24 @@ public class Fiammetta extends NPC {
 			
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_JOURNALIST);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

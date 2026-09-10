@@ -173,23 +173,18 @@ public class Lyssieth extends NPC {
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 1)));
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
 
-		if(setPersona) {
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_ELDER_LILIN);
-			
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
 			this.clearFetishes();
-			
 			this.addFetish(Fetish.FETISH_INCEST);
 			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
 
@@ -207,6 +202,24 @@ public class Lyssieth extends NPC {
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ELDER_LILIN);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		this.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER, false);

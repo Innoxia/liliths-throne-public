@@ -118,25 +118,40 @@ public class HarpyNympho extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_HARPY_MATRIARCH);
-	
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_CUM_ADDICT);
 			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_HARPY_MATRIARCH);
+		}
+		
+		if(setSpells) {
+		}
+	}
+
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -102,20 +103,39 @@ public class Eisek extends NPC {
 					    new Util.Value<>(PerkCategory.ARCANE, 0)));
     }
 
-    @Override
-    public void setStartingBody(boolean setPersona) {
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND); //TODO?
+		}
 		
-		// Persona:
-		if(setPersona) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-	
-			this.setHistory(Occupation.NPC_FARMER);
-	
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
 	
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_DENIAL, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_FARMER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+    @Override
+    public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 	
 		// Body:

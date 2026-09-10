@@ -132,23 +132,18 @@ public class Aurokaris extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.INNOCENT,
 					PersonalityTrait.KIND,
 					PersonalityTrait.CONFIDENT);
-			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_AMAZONIAN);
-			
+		}
+		
+		if(setFetishes) {
 			this.clearFetishDesires();
 			this.clearFetishes();
-
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
 			this.addFetish(Fetish.FETISH_ARMPIT_GIVING);
@@ -158,6 +153,24 @@ public class Aurokaris extends NPC {
 			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ONE_DISLIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_AMAZONIAN);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

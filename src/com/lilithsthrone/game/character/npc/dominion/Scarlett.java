@@ -137,29 +137,42 @@ public class Scarlett extends NPC {
 							new Value<>(PerkCategory.ARCANE, 0)));
 		}
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
 
-		if(setPersona) {
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD,
 					PersonalityTrait.SELFISH);
-			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
-			
-			this.clearFetishes();
+		}
+		
+		if(setFetishes) {
 			this.clearFetishDesires();
-			
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

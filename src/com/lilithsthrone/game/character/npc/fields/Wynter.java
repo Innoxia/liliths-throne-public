@@ -107,34 +107,48 @@ public class Wynter extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
-
-			this.addSpell(Spell.ICE_SHARD);
-			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
-			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
-			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_3);
-			
-			this.addSpell(Spell.RAIN_CLOUD);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_BOUNCER);
-	
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_SIZE_QUEEN);
 
 			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_BONDAGE_VICTIM, FetishDesire.THREE_LIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_BOUNCER);
+		}
+		
+		if(setSpells) {
+			this.addSpell(Spell.ICE_SHARD);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_2);
+			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_3);
+			
+			this.addSpell(Spell.RAIN_CLOUD);
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		

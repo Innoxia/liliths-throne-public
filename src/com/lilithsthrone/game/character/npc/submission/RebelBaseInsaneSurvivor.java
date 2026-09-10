@@ -130,18 +130,34 @@ public class RebelBaseInsaneSurvivor extends NPC {
                     new Value<>(PerkCategory.ARCANE, 0)));
     }
 
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+            this.setPersonalityTraits(
+            		PersonalityTrait.COWARDLY);
+		}
+		
+		if(setFetishes) {
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
 
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_REBEL_FIGHTER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
     @Override
     public void setStartingBody(boolean setPersona) {
-        if(setPersona) {
-            this.clearPersonalityTraits();
-            this.clearFetishes();
-            this.clearFetishDesires();
-            
-            this.setPersonalityTraits(PersonalityTrait.COWARDLY);
-            this.setHistory(Occupation.NPC_REBEL_FIGHTER);
-            this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-        }
+		if(setPersona) {
+			setStartingPersona();
+		}
+		
         this.setBodyToGenderIdentity(true);
         this.setMuscle(Muscle.TWO_TONED.getMedianValue());
         this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());

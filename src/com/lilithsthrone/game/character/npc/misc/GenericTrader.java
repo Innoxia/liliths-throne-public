@@ -51,9 +51,31 @@ public class GenericTrader extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
+	
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+		}
+		
+		if(setFetishes) {
+		}
+		
+		if(setOrientation) {
+		}
 
+		if(setHistory) {
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
+		
 		this.setRaceConcealed(true);
 	}
 

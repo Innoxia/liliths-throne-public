@@ -140,6 +140,69 @@ public class LunetteRanged extends NPC {
 		this.equipAllSpecialMoves();
 		this.equipAllSpellMoves();
 	}
+
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.BRAVE,
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD);
+		}
+		
+		if(setFetishes) {
+
+			boolean oral = Math.random()<0.25f;
+			boolean anal = Math.random()<0.25f;
+			
+			this.setAssVirgin(!anal);
+			this.setPenisVirgin(false);
+			this.setVaginaVirgin(false);
+			this.setFaceVirgin(!oral);
+
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			
+			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+			
+			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
+			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
+			
+			if(Math.random()<0.8f) {
+				this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			}
+			if(anal) {
+				this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			}
+			if(oral) {
+				this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			}
+
+			if(this.getGender().getGenderName().isHasPenis()) {
+				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
+				this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
+			}
+			if(this.getGender().getGenderName().isHasVagina()) {
+				this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+			}
+			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_LUNETTE_HERD);
+		}
+		
+		if(setSpells) {
+		}
+	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
@@ -176,59 +239,9 @@ public class LunetteRanged extends NPC {
 			this.growVagina(); // To set correct modifiers
 		}
 		
+		// Set persona after assigning body as fetish allocation is based on final gender
 		if(setPersona) {
-			this.setPersonalityTraits(
-					PersonalityTrait.BRAVE,
-					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.SELFISH,
-					PersonalityTrait.LEWD);
-
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_LUNETTE_HERD);
-			
-			// Fetishes:
-			this.clearFetishes();
-			this.clearFetishDesires();
-
-			boolean oral = Math.random()<0.25f;
-			boolean anal = Math.random()<0.25f;
-			
-			this.setAssVirgin(!anal);
-			this.setPenisVirgin(false);
-			this.setVaginaVirgin(false);
-			this.setFaceVirgin(!oral);
-
-			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_NON_CON_DOM);
-			this.addFetish(Fetish.FETISH_SADIST);
-			this.addFetish(Fetish.FETISH_MASOCHIST);
-			
-			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
-			
-			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
-			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
-			
-			if(Math.random()<0.8f) {
-				this.addFetish(Fetish.FETISH_EXHIBITIONIST);
-			}
-			if(anal) {
-				this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-			}
-			if(oral) {
-				this.addFetish(Fetish.FETISH_ORAL_GIVING);
-			}
-			
-			if(gender.getGenderName().isHasPenis()) {
-				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
-				this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
-			}
-			if(gender.getGenderName().isHasVagina()) {
-				this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
-			}
-			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
-
+			setStartingPersona();
 		}
 	}
 	

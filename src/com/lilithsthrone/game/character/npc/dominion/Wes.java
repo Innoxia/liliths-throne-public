@@ -111,20 +111,36 @@ public class Wes extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
+
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.CYNICAL);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ENFORCER_SWORD_CHIEF_INSPECTOR);
+		}
+		
+		if(setSpells) {
+		}
+	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-
 		if(setPersona) {
-			this.setPersonalityTraits(PersonalityTrait.CYNICAL);
-			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_ENFORCER_SWORD_CHIEF_INSPECTOR);
-			
-			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
+			setStartingPersona();
 		}
 		
 		// Body:

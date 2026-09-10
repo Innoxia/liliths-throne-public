@@ -128,21 +128,36 @@ public class Zaranix extends NPC {
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 10)));
 	}
+
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
+		}
+		
+		if(setSpells) {
+		}
+	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-
 		if(setPersona) {
-			this.setPersonalityTraits(
-					PersonalityTrait.SELFISH);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
-	
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			setStartingPersona();
 		}
 		
 		

@@ -132,16 +132,15 @@ public class Heather extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD);
-			
-			this.setSexualOrientation(SexualOrientation.ANDROPHILIC);
-			
-			this.setHistory(Occupation.NPC_STORE_OWNER);
-
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_PENIS_RECEIVING);
 			this.addFetish(Fetish.FETISH_CUM_ADDICT);
@@ -154,7 +153,27 @@ public class Heather extends NPC {
 			this.setFetishDesire(Fetish.FETISH_DENIAL_SELF, FetishDesire.THREE_LIKE);
 			
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+		}
 
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_STORE_OWNER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
+		// Persona:
+		if(setPersona) {
 			this.setSexCount(null, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 87);
 			this.setCumCount(null, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 43);
 			this.setSexCount(null, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 244);

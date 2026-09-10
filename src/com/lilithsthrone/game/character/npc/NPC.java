@@ -297,6 +297,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public abstract void setStartingBody(boolean setPersona);
 	
+	public abstract void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells);
+
+	public void setStartingPersona() {
+		setStartingPersona(true, true, true, true, true);
+	}
+	
 	public final void equipClothing() {
 		equipClothing(new ArrayList<>());
 	}

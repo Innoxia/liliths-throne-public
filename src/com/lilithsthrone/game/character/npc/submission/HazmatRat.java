@@ -160,20 +160,38 @@ public class HazmatRat extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		this.setRaceConcealed(true);
-		
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.COWARDLY,
 					PersonalityTrait.SHY);
-			
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+		}
+		
+		if(setOrientation) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
+		}
+
+		if(setHistory) {
 			this.setHistory(Occupation.NPC_STORE_OWNER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		
+		this.setRaceConcealed(true);
+
+		if(setPersona) {
+			setStartingPersona();
 		}
 	}
 	

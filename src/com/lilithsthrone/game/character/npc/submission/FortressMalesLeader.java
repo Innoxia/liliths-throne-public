@@ -128,30 +128,42 @@ public class FortressMalesLeader extends NPC {
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 2)));
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-		
-		if(setPersona) {
-			this.setCombatBehaviour(CombatBehaviour.ATTACK);
 
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		this.setCombatBehaviour(CombatBehaviour.ATTACK);
+		
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_MUGGER);
-			
-			this.clearFetishes();
+		}
+		
+		if(setFetishes) {
 			this.clearFetishDesires();
-			
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_PENIS_GIVING);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_CUM_STUD);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_MUGGER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:

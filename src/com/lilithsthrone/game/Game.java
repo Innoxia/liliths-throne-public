@@ -211,6 +211,8 @@ import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
 import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.pregnancy.Litter;
@@ -2162,7 +2164,49 @@ public class Game implements XMLSaving {
 						}
 					}
 				}
-				
+
+				// Fix bug where personalities were all deleted:
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.11.8")) {
+					if(!Main.game.getNpc(Lilaya.class).isShy()) { // Lilaya's personality was deleted, so reset all:
+						for(NPC npc : Main.game.getAllNPCs()) {
+							if(npc.isUnique()) {
+								npc.setStartingPersona(true, false, false, false, false);
+								
+							} else { // Regenerate personalities
+								// Starting personalities based on race, copied from GameCharacter.additionalBodySetup():
+								for(Entry<PersonalityTrait, Float> entry : npc.getRace().getRacialBody().getPersonalityTraitChances().entrySet()) {
+									double rnd = Math.random();
+									if(rnd<=entry.getValue()) {
+										npc.addPersonalityTrait(entry.getKey());
+									}
+								}
+
+								for(Entry<PersonalityTrait, Float> entry : npc.getTrueSubspecies().getPersonalityTraitChances().entrySet()) {
+									double rnd = Math.random();
+									if(rnd<=entry.getValue()) {
+										npc.addPersonalityTrait(entry.getKey());
+									}
+								}
+								
+								if(npc.hasPersonalityTrait(PersonalityTrait.MUTE)) { // If mute, remove all other speech traits
+									npc.removePersonalityTraits(PersonalityCategory.SPEECH);
+									npc.addPersonalityTrait(PersonalityTrait.MUTE);
+								}
+								
+								// Roughly copying effects from CharacterUtils' setHistoryAndPersonality():
+								if(npc.getHistory()==Occupation.NPC_PROSTITUTE) {
+									npc.removePersonalityTrait(PersonalityTrait.PRUDE);
+									npc.removePersonalityTrait(PersonalityTrait.INNOCENT);
+								}
+								if(npc.getHistory().isLowlife()) {
+									if(Math.random()<0.25f) {
+										npc.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+									}
+								}
+							}
+						}
+					}
+				}
 				
 				if(debug) {
 					System.out.println("New NPCs finished");

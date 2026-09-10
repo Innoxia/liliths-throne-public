@@ -25,6 +25,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		If you correctly guess who Shiranui is, then the follow-up sex options (both solo and threesome) give you the option to transform her into a female or to transform into a futa Meraxis, as well as a double futa Meraxis option for the threesome.
 		Added descriptions for the actions in Shiranui's cock worship sex scene and fixed issues with incorrect stretching mechanics.
 	
+	Personality loss bug:
+		NOTE: This bug only applies to saves which were saved in v0.4.11.6, so if you load an older save into this version then NPC personalities will be untouched.
+		Fixed major bug where personalities of all characters were wiped when loading a saved game. All unique NPCs have had their personalities restored when loading into this version.
+		All random NPCs will have their personalities regenerated as though they were newly spawned.
+		To restore NPC personalities from an older save, either copy the 'personality' elements over from an older save or use the debug menu to set their personalities, which can be done via:
+		1. Standing on the same tile as the NPC
+		2. Open debug menu by typing 'buggy'
+		3. Navigating to the 'Personalities' tab
+		4. Change the target to the NPC by using the first action button, then select the personality traits that they should have
+		5. There is also an optional 'regenerate' action at the end of the list of traits, which you can use to regenerate the NPC's traits based on their race
+		
 	Bugs:
 		Fixed major bug where sex could sometimes crash when performing or receiving any of the following ongoing actions: anus-penis, vagina-penis, spinneret-penis, vagina-tongue, penis-mouth.
 		Fixed major bug where slaves could not be assigned to the following jobs: lab assistant, test subject, prostitute, spa servant, spa clerk, waitress.
@@ -41,7 +52,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Characters can no longer start autocunnilingus if they have a penis which is currently in use.
 		Meraxis's 'Duel' and 'Sex' actions are no longer avilable in her hideout while she's sleeping.
 		If you choose Shiranui's gifts instead of sex, the gifts will no longer disappear from your inventory when entering Meraxis's hideout (this was occurring if you had been stripped by Shiranui).
-		
+		Fixed bug in Angel's Kiss where if you whored yourself out, and the time passed the hour during this action, the NPC who arrived to pay you for sex was deleted from the game's NPC list, which made them appear not to be in the tile and which caused issues with pregnancy and stat tracking.
+	
 	
 	[] bug reports
 		[x] Meraxis instantly stops threesome
@@ -71,30 +83,23 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			    at java.util.HashMap.hash(Unknown Source)
 			    at java.util.HashMap.get(Unknown Source)"
 		[-] Attempting to adjust furry preferences settings will randomly crash the game
-		[] Loading a save seems to wipe personality information for everyone
-			[] have to re-initialise all unique NPC personalities AIIIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+		[x] Loading a save seems to wipe personality information for everyone
+			[x] have to re-initialise all unique NPC personalities AIIIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+		[x] if the player whores themselves out in Angel's Kiss, then any offspring fathered with a visitor gets messed up in the pregnancy screen
+			[x] the NPCs are getting deleted in the prostituteUpdate() method
+	
+	[x] meraxis doesn't like using her cock so change dialogue for double futa
 	
 	
-	Personality loss bug:
-		NOTE: This bug only applies to saves which were saved in v0.4.11.6, so if you load an older save into this version then NPC personalities will be untouched.
-		Fixed major bug where personalities of all characters were wiped when loading a saved game. All unique NPCs have had their personalities restored when loading into this version.
-		All random NPCs will have their personalities regenerated as though they were newly spawned.
-		To restore NPC personalities from an older save, either copy the 'personality' elements over from an older save or use the debug menu to set their personalities, which can be done via:
-		1. Standing on the same tile as the NPC
-		2. Open debug menu by typing 'buggy'
-		3. Navigating to the 'Personalities' tab
-		4. Change the target to the NPC by using the first action button, then select the personality traits that they should have
-		5. There is also an optional 'regenerate' action at the end of the list of traits, which you can use to regenerate the NPC's traits based on their race
 	
 	
+	[] quick sex with an orgasm denier (aka Takahashi) allows you to orgasm
+	
+	[] rose has MAID background instead of NPC_MAID?
 	
 	[] meraxis needs pregnancy reactions...
 	
 	[] Minotallys needs to change Lilith dialogue after Lunexis is captured, as at that point she knows Lilith isn't caring about the town
-	
-	[] quick sex with an orgasm denier (aka Takahashi) allows you to orgasm
-	
-	[] meraxis doesn't like using her cock so change dialogue for double futa
 	
 	[x] Fixing issues with youko pregnancies (Shiranui impregnation will be enabled after this is done)
 	[x] Adding youko racial encyclopedia descriptions

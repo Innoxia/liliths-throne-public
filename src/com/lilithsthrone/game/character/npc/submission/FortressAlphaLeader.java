@@ -146,26 +146,20 @@ public class FortressAlphaLeader extends NPC {
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-		
-		if(setPersona) {
-			this.setCombatBehaviour(CombatBehaviour.ATTACK);
 
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		this.setCombatBehaviour(CombatBehaviour.ATTACK);
+		
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_MUGGER);
-			
-			this.clearFetishes();
+		}
+		
+		if(setFetishes) {
 			this.clearFetishDesires();
-			
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_PENIS_GIVING);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
@@ -176,6 +170,23 @@ public class FortressAlphaLeader extends NPC {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.THREE_LIKE);
 		}
 		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_MUGGER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		
 		// Body:
 		this.setAgeAppearanceAbsolute(20);
