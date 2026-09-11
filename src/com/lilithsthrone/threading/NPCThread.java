@@ -27,15 +27,13 @@ public class NPCThread extends Thread {
     @Override
     public void run() {
         /* Safety Check */
-        if (npcsInitialized())
-            return;
         switch (this.getName()) {
             case "initMiscNPCs":
                 if (!NPC_MISC_INITIALIZED.get()) {
                     NPCRegistry.initMiscNPCs();
                     NPC_MISC_INITIALIZED.set(true);
                     try { 
-                        join(); // disposes of the thread
+                        join(); // merges the thread's memory with main thread
                     } catch (Exception ignored) {} // This should never trip
                 }
                 break;
