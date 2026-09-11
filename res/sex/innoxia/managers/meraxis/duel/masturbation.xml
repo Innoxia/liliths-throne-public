@@ -144,6 +144,17 @@
 		</randomDescriptions>
 	</publicSex>
 	
+	<!-- This section is parsed at the end of the Sex class's initialiseSex method, and so can be used to set variables or other things at the start of the sex scene.
+		e.g.
+			<initSex><![CDATA[
+				[#sex.setStretchingEffectsDisabled(true)]
+			]]></initSex>
+		OPTIONAL: If omitted, no extra init effects are applied.
+		PARSER: Initial -->
+	<initSex/>
+	
+	
+	
 	<!-- This is a list of characters who need to have their behaviour altered from default values within this sex scene. -->
 	<characterInformationContainer>
 		<characterInformation>

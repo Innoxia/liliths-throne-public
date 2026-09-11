@@ -88,6 +88,8 @@ public class SexManagerExternal extends SexManagerDefault {
 	private List<String> positionsAllowedIds;
 	private boolean positionsExclusive;
 
+	private String initSexString;
+	
 	private Map<String, CharacterBehaviour> characterBehavioursWithParserIds;
 	private Map<String, CharacterBehaviour> characterBehaviours;
 	
@@ -865,6 +867,12 @@ public class SexManagerExternal extends SexManagerDefault {
 				} else {
 					exposingReactionsString = "true";
 				}
+
+				if(elementPresentAndNotEmpty(sexManagerElement, "initSex")) {
+					initSexString = sexManagerElement.getMandatoryFirstOf("initSex").getTextContent();
+				} else {
+					initSexString = "";
+				}
 				
 				positionsAllowedIds = new ArrayList<>();
 				positionsExclusive = false;
@@ -1385,6 +1393,11 @@ public class SexManagerExternal extends SexManagerDefault {
 			return super.getSexTitle();
 		}
 		return UtilText.parse(title);
+	}
+
+	@Override
+	public String getInitSexString() {
+		return initSexString;
 	}
 	
 	public boolean isConsensual() {

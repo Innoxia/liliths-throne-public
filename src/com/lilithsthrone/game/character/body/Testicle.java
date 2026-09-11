@@ -132,7 +132,7 @@ public class Testicle implements BodyPartInterface {
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		int sizeChange = this.testicleSize - oldSize;
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -162,7 +162,7 @@ public class Testicle implements BodyPartInterface {
 	public String setTesticleCount(GameCharacter owner, int testicleCount) {
 		testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner) || owner.getBody()==null) {
 			this.testicleCount = testicleCount;
 			return "";
 		}
@@ -198,7 +198,7 @@ public class Testicle implements BodyPartInterface {
 	}
 
 	public String setInternal(GameCharacter owner, boolean internal) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.internal = internal;
 			return "";
 		}
@@ -244,7 +244,7 @@ public class Testicle implements BodyPartInterface {
 		this.cumStorage = Math.max(0, Math.min(cumStorage, CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
 		int cumChange = this.cumStorage - oldCumProduction;
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -290,7 +290,7 @@ public class Testicle implements BodyPartInterface {
 		this.cumStored = Math.max(0, (Math.min(cumStored, getRawCumStorageValue())));
 		float cumChange = oldStoredCum - this.cumStored;
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -349,7 +349,7 @@ public class Testicle implements BodyPartInterface {
 		this.cumRegeneration = Math.max(0, Math.min(cumRegeneration, FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay()));
 		int regenerationChange = this.cumRegeneration - oldRegeneration;
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -392,7 +392,7 @@ public class Testicle implements BodyPartInterface {
 		this.cumExpulsion = Math.max(0, Math.min(cumExpulsion, FluidExpulsion.FOUR_HUGE.getMaximumValue()));
 		int expulsionChange = this.cumExpulsion - oldExpulsion;
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -423,7 +423,7 @@ public class Testicle implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Testicle.class) && getType().getRace().isFeralPartsAvailable());

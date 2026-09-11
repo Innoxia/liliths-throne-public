@@ -47,35 +47,43 @@ public class Library {
 		Set<AbstractSubspecies> aisleSubspecies = new HashSet<>();
 
 		for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-			List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
-			if(mostCommonRegion.isEmpty()) {
-				mostCommonRegion.add(WorldRegion.DOMINION);
-			}
 			boolean add = false;
-			boolean demonic = subspecies.getRace()==Race.DEMON || subspecies.getRace()==Race.ANGEL || subspecies.getRace()==Race.ELEMENTAL;
-			switch(aisle) {
-				case DEMON:
-					add = demonic;
-					break;
-				case DESERT:
-					add = !demonic && (mostCommonRegion.contains(WorldRegion.SAVANNAH) || mostCommonRegion.contains(WorldRegion.DESERT) || mostCommonRegion.contains(WorldRegion.DESERT_CITY) || mostCommonRegion.contains(WorldRegion.VOLCANO));
-					break;
-				case DOMINION:
-					add = !demonic && (mostCommonRegion.contains(WorldRegion.DOMINION) || mostCommonRegion.contains(WorldRegion.SUBMISSION));
-					break;
-				case FIELDS:
-					add = !demonic && (mostCommonRegion.contains(WorldRegion.WOODLAND) || mostCommonRegion.contains(WorldRegion.FIELDS) || mostCommonRegion.contains(WorldRegion.FIELD_CITY) || mostCommonRegion.contains(WorldRegion.RIVER));
-					break;
-				case JUNGLE:
-					add = !demonic && (mostCommonRegion.contains(WorldRegion.JUNGLE) || mostCommonRegion.contains(WorldRegion.JUNGLE_CITY));
-					break;
-				case MOUNTAIN:
-					add = !demonic && (mostCommonRegion.contains(WorldRegion.MOUNTAINS) || mostCommonRegion.contains(WorldRegion.YOUKO_FOREST) || mostCommonRegion.contains(WorldRegion.SNOW));
-					break;
-				case SEA:
-					add = !demonic && (mostCommonRegion.contains(WorldRegion.SEA) || mostCommonRegion.contains(WorldRegion.SEA_CITY));
-					break;
+			if(subspecies==Subspecies.FOX_ASCENDANT
+					|| subspecies==Subspecies.FOX_ASCENDANT_ARCTIC
+					|| subspecies==Subspecies.FOX_ASCENDANT_FENNEC) {
+				add = aisle==LibraryAisle.FIELDS;
+				
+			} else {
+				List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
+				if(mostCommonRegion.isEmpty()) {
+					mostCommonRegion.add(WorldRegion.DOMINION);
+				}
+				boolean demonic = subspecies.getRace()==Race.DEMON || subspecies.getRace()==Race.ANGEL || subspecies.getRace()==Race.ELEMENTAL;
+				switch(aisle) {
+					case DEMON:
+						add = demonic;
+						break;
+					case DESERT:
+						add = !demonic && (mostCommonRegion.contains(WorldRegion.SAVANNAH) || mostCommonRegion.contains(WorldRegion.DESERT) || mostCommonRegion.contains(WorldRegion.DESERT_CITY) || mostCommonRegion.contains(WorldRegion.VOLCANO));
+						break;
+					case DOMINION:
+						add = !demonic && (mostCommonRegion.contains(WorldRegion.DOMINION) || mostCommonRegion.contains(WorldRegion.SUBMISSION));
+						break;
+					case FIELDS:
+						add = !demonic && (mostCommonRegion.contains(WorldRegion.WOODLAND) || mostCommonRegion.contains(WorldRegion.FIELDS) || mostCommonRegion.contains(WorldRegion.FIELD_CITY) || mostCommonRegion.contains(WorldRegion.RIVER));
+						break;
+					case JUNGLE:
+						add = !demonic && (mostCommonRegion.contains(WorldRegion.JUNGLE) || mostCommonRegion.contains(WorldRegion.JUNGLE_CITY));
+						break;
+					case MOUNTAIN:
+						add = !demonic && (mostCommonRegion.contains(WorldRegion.MOUNTAINS) || mostCommonRegion.contains(WorldRegion.YOUKO_FOREST) || mostCommonRegion.contains(WorldRegion.SNOW));
+						break;
+					case SEA:
+						add = !demonic && (mostCommonRegion.contains(WorldRegion.SEA) || mostCommonRegion.contains(WorldRegion.SEA_CITY));
+						break;
+				}
 			}
+			
 			if(add) {
 				aisleSubspecies.add(subspecies);
 			}

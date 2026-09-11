@@ -347,17 +347,22 @@
 		You let out a sigh she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, remember, you don't need to stay conscious during this. Now, just remember that after I've delivered your children, they're going to grow pretty quickly! They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		#IF(player.isCoverableAreaExposed(CA_VAGINA))
+		#IF(pc.isCoverableAreaExposed(CA_VAGINA))
 			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
 		#ELSE
-			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
+			Your vagina is already exposed, so Lilaya starts by gently pushing you down onto the bed.
 		#ENDIF
-		 After following a few more of her instructions, you find yourself
-		#IF(pc.hasLegs())
-		 	 lying back with your legs held up and spread apart by a pair of sturdy metal supports. Giving you a reassuring smile, Lilaya asks, [lilaya.speech(Ok, all set?)]
+		#IF(pc.isTaur())
+			 Walking around behind your [pc.legRace]'s lower body, your demonic [lilaya.relation(pc)] positions herself so that she's right next to your [pc.pussy+].
 		#ELSE
-		 	 lying back with your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)]. Giving you a reassuring smile, she asks, [lilaya.speech(Ok, all set?)]
+			 After following a few more of her instructions, you find yourself
+			 #IF(pc.hasLegs())
+				 lying back with your legs spread wide and your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)].
+			 #ELSE
+				 lying back with your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)].
+			 #ENDIF
 		#ENDIF
+		 Giving you a reassuring smile, Lilaya asks, [lilaya.speech(Ok, all set?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -598,7 +603,18 @@
 			 As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big, swollen belly.
 		</p>
 		<p>
-			As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+			As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling
+			#IF(pc.hasLegs())
+				between your legs.
+			#ELSE
+				in your groin.
+			#ENDIF
+			#IF(pc.isTaur())
+				 After shuffling around a little, you feel
+			#ELSE
+				 Quickly moving your fingers down to your groin, you discover
+			#ENDIF
+			 that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
 		</p>
 		<p>
 			Glancing across to your bedside cabinet, the final thing you discover is a note from Lilaya. Picking it up, you glance over the contents:

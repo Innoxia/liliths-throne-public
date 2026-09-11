@@ -1,0 +1,62 @@
+<h2>v0.4.11.8</h2>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added an 'initSex' element to sex manager files, which is parsed at the start of the associated sex scene (a commented example is in res/sex/innoxia/managers/meraxis/duel/masturbation.xml).</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Altered Youko pregnancy to fit with their lore: youko mothers will now always give birth to youko (if the father is not a demon), and youko fathers will follow standard rules for their children's race.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>In ongoing penetration sex actions with more than two characters (such as two characters performing a blowjob on a third character), only the primary targeted character will experience orifice stretching effects.</li>
+	<li>Sufficiently large clits now stretch orifices like penises/tails/tentacles do.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>You can now impregnate Shiranui during her sex scenes.</li>
+	<li>Added the youko lore book, and a copy of the youko lore book can now be found in the dining area of Meraxis's hideout.</li>
+	<li>Slightly adjusted some of the dialogue in Shiranui's mirror scene to put the explicit descriptions behind the 'keep watching' action, and made some minor tweaks to her dialogue elsewhere (such as her attitude when stealing your items and her comments at the end of the quest).</li>
+	<li>Slightly rewrote some of Meraxis's new dialogue to make it more chuuni.</li>
+	<li>If you get stripped by Shiranui, when you recover all of your items at the end of the quest, all of your flames will have been stolen by Shiranui (you will have the opportunity to get them back later on).</li>
+	<li>If you correctly guess who Shiranui is, then the follow-up sex options (both solo and threesome) give you the option to transform her into a female or to transform into a futa Meraxis, as well as a double futa Meraxis option for the threesome.</li>
+	<li>Added descriptions for the actions in Shiranui's cock worship sex scene and fixed issues with incorrect stretching mechanics.</li>
+</ul>
+
+<h3>Personality loss bug:</h3>
+<ul>
+	<li>NOTE: This bug only applies to saves which were saved in v0.4.11.6, so if you load an older save into this version then NPC personalities will be untouched.</li>
+	<li>Fixed major bug where personalities of all characters were wiped when loading a saved game. All unique NPCs have had their personalities restored when loading into this version.</li>
+	<li>All random NPCs will have their personalities regenerated as though they were newly spawned.</li>
+	<li>To restore NPC personalities from an older save, either copy the 'personality' elements over from an older save or use the debug menu to set their personalities, which can be done via:</li>
+	<li>1. Standing on the same tile as the NPC</li>
+	<li>2. Open debug menu by typing 'buggy'</li>
+	<li>3. Navigating to the 'Personalities' tab</li>
+	<li>4. Change the target to the NPC by using the first action button, then select the personality traits that they should have</li>
+	<li>5. There is also an optional 'regenerate' action at the end of the list of traits, which you can use to regenerate the NPC's traits based on their race</li>
+	<li>Sorry for the inconvenience.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Fixed major bug where sex could sometimes crash when performing or receiving any of the following ongoing actions: anus-penis, vagina-penis, spinneret-penis, vagina-tongue, penis-mouth.</li>
+	<li>Fixed major bug where slaves could not be assigned to the following jobs: lab assistant, test subject, prostitute, spa servant, spa clerk, waitress.</li>
+	<li>Typo fixes.</li>
+	<li>Fixed some parsing errors in the new Shiranui content.</li>
+	<li>Fixed bug where (harmless?) background parsing errors could sometimes be thrown when generating offspring.</li>
+	<li>Shiranui now correctly transforms back into her youko form after sex (when loading into this version, if she got stuck as a demon then she will revert to a youko).</li>
+	<li>Fixed bug where when you exited Meraxis's hideout, the dialogue shown was for a generic Shinrin Highlands tile instead of the hideout tile.</li>
+	<li>When choosing to have sex with Shiranui after correctly identifying her, Meraxis now correctly leaves the tile as is described in the dialogue (instead of awkwardly standing there as the two of you have sex).</li>
+	<li>Fixed bug where the dialogue in Meraxis's hideout after having sex with her was that of the corridor in The Red Dragon instead of the corridor in the hideout.</li>
+	<li>The table tile in Meraxis's hideout now correctly shows its own dialogue instead of that of the potion lab.</li>
+	<li>Youko offspring will now correctly spawn with one tail.</li>
+	<li>Fixed bug where Meraxis would always hate having sex with the player character if the player had been transformed into a demon by Lyssieth.</li>
+	<li>Characters can no longer start autocunnilingus if they have a penis which is currently in use.</li>
+	<li>Meraxis's 'Duel' and 'Sex' actions are no longer available in her hideout while she's sleeping.</li>
+	<li>If you choose Shiranui's gifts instead of sex, the gifts will no longer disappear from your inventory when entering Meraxis's hideout (this was occurring if you had been stripped by Shiranui).</li>
+	<li>Fixed bug in Angel's Kiss where if you whored yourself out, and the time passed the hour during this action, the NPC who arrived to pay you for sex was deleted from the game's NPC list, which made them appear not to be in the tile and which caused some minor issues with pregnancy and other stats.</li>
+</ul>

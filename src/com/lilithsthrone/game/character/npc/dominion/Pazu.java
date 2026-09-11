@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -17,6 +16,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -56,8 +57,6 @@ public class Pazu extends NPC {
 				new CharacterInventory(false, 1), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(!isImported) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_PINK));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_LILAC), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_LILAC), true);
@@ -74,13 +73,6 @@ public class Pazu extends NPC {
 			
 			this.setFemininity(80);
 			
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 4);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 45);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 5);
-	
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_ORAL_GIVING);
-	
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_shorts", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 	}
@@ -91,7 +83,36 @@ public class Pazu extends NPC {
 	}
 
 	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_HARPY_MATRIARCH);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
 	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		// TODO
 	}
 

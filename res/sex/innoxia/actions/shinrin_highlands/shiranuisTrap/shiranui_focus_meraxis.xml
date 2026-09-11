@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[true]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[##flags.setFlag(FLAG_innoxia_shiranui_sex_kissing, false)]
+		[##flags.setFlag(FLAG_innoxia_shiranui_sex_cock_worship, false)]
+		[##sex.setPrimaryOngoingCharacter(meraxis, shiranui, PENETRATION_PENIS)]
+		[##sex.setStretchingEffectsDisabled(false)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Focus on Meraxis]]></title>
+	<tooltip><![CDATA[
+		Sink your [shiranui.cock+] down Meraxis's throat.
+	]]></tooltip>
+	<descriptions>
+		<!-- starting this turn -->
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getPrimaryOngoingActionPerformer(shiranui, PENETRATION_PENIS).isPlayer() || flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) || flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Shiranui commands the leather bindings to turn Meraxis's head to face her, leaving you kissing the [meraxis.race]'s cheek. Lining her [shiranui.cock+] up to Meraxis's lips, the youko pushes forwards, moaning in delight as she sinks her [shiranui.cock+] down her throat.
+			]]></text>
+		</description>
+		<!-- ongoing -->
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!sex.getPrimaryOngoingActionPerformer(shiranui, PENETRATION_PENIS).isPlayer() && !flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) && !flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Shiranui continues to moan in delight as she sinks her [shiranui.cock+] down Meraxis's throat.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -71,7 +71,7 @@ public enum SlaveJob {
 					SlaveJobFlag.GUEST_CAN_WORK),
 			null, null) {
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			return true;
 		}
 		private Cell getSlaveLoungeCell(GameCharacter slave) {
@@ -306,11 +306,11 @@ public enum SlaveJob {
 					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			if(hour<6 || hour>=22) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -357,11 +357,11 @@ public enum SlaveJob {
 			return character.isDoll();
 		}
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			if(hour<6 || hour>=22) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -403,7 +403,7 @@ public enum SlaveJob {
 			return !character.isDoll();
 		}
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			return character.isDoll() && !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"));
 		}
 		@Override
@@ -511,11 +511,11 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 
 		@Override
@@ -595,13 +595,13 @@ public enum SlaveJob {
 			Cell c = this.getWorkDestinationCell(slave);
 			return aff + (c==null?0:c.getPlace().getHourlyAffectionChange());
 		}
-		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
-			return character.getSlaveJob(hour)==this
-					|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
-						&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
-						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit());
-		}
+//		@Override
+//		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
+//			return character.getSlaveJob(hour)==this
+//					|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
+//						&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
+//						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit());
+//		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(!isAvailable(hour, character)) {
@@ -831,14 +831,6 @@ public enum SlaveJob {
 			return 4;
 		}
 		
-//		@Override
-//		public boolean isAvailable(int hour, GameCharacter character) {
-//			return character.getSlaveJob(hour)==this
-//					|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
-//						&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
-//						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit());
-//		}
-	
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(!isAvailable(hour, character)) {
 				return "There isn't enough office space to assign this job!";
@@ -966,11 +958,11 @@ public enum SlaveJob {
 			return super.getSlaveLimit();
 		}
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -1014,11 +1006,11 @@ public enum SlaveJob {
 			return super.getSlaveLimit();
 		}
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -1128,11 +1120,11 @@ public enum SlaveJob {
 			}
 		}
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
+		public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
 			if(getDiningHallCell()==null) {
 				return false;
 			}
-			return super.isAvailable(hour, character);
+			return super.isAvailable(hour, character, skipIfAlreadyAssigned);
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -1401,13 +1393,22 @@ public enum SlaveJob {
 	}
 	
 	/**
+	 * @param hour The hour of the day, from 0 to 23, inclusive.
+	 * @param character The character who will be working at this job.
+	 * @param skipIfAlreadyAssigned This should normally be true, as if the character is already working at that job then it stands to reason that the job is available to them.
+	 * 	Set this variable to false if you want to check if the job should still be available to the character after making a change which might affect job availability (such as removing PlaceUpgrades).
 	 * @return true if the job is available at the supplied hour.
 	 */
-	public boolean isAvailable(int hour, GameCharacter character) {
-		return character.getSlaveJob(hour)==this
+	public boolean isAvailable(int hour, GameCharacter character, boolean skipIfAlreadyAssigned) {
+		return (skipIfAlreadyAssigned && character.getSlaveJob(hour)==this)
 				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
 						&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
 						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)<this.getSlaveLimit());
+	}
+	
+	
+	public boolean isAvailable(int hour, GameCharacter character) {
+		return isAvailable(hour, character, true);
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.inventory.enchanting;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,6 +12,7 @@ import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -24,6 +26,8 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class RandomEnchantment {
+
+	private boolean mod;
 	
 	private boolean positiveEnchantment;
 	private boolean applyDefaultSeal;
@@ -47,6 +51,7 @@ public class RandomEnchantment {
 			List<TFPotency> sealPotency,
 			String conditionalPreParsing,
 			List<Value<String, List<ItemEffect>>> effects) {
+		this.mod = false;
 		this.positiveEnchantment = positiveEnchantment;
 		this.applyDefaultSeal = applyDefaultSeal;
 		this.spawnWeighting = spawnWeighting;
@@ -181,12 +186,25 @@ public class RandomEnchantment {
 		return result;
 	}
 
+	public boolean isMod() {
+		return mod;
+	}
+	
     public boolean isPositiveEnchantment() {
 		return positiveEnchantment;
 	}
 
 	public boolean isAvailable(AbstractClothingType clothingType) {
 		return getWeighting(clothingType)>0;
+	}
+	
+	/**
+	 * @return The unparsed String which is parsed to determine the spawn weighting of this enchantment.
+	 * <br/><b>WARNING:</b> If you want to display this to the player in dialogue, then the game will automatically parse it!
+	 *  Make sure to add an override to the DialogueNode's isContentParsed() method to prevent this.
+	 */
+	public String getSpawnWeighting() {
+		return spawnWeighting;
 	}
 	
 	public int getWeighting(AbstractClothingType clothingType) {
@@ -202,11 +220,24 @@ public class RandomEnchantment {
 		if(namePrefix!=null && !namePrefix.isEmpty()) {
 			sb.append(namePrefix+" ");
 		}
-		sb.append(clothingType.getName());
+		if(clothingType==null) {
+			sb.append("[style.colourDisabled(X)]");
+		} else {
+			sb.append(clothingType.getName());
+		}
 		if(namePostfix!=null && !namePostfix.isEmpty()) {
 			sb.append(" "+namePostfix);
 		}
 		return sb.toString();
+	}
+	
+	/**
+	 * @return The unparsed String which is parsed before this enchantment is initialised.
+	 * <br/><b>WARNING:</b> If you want to display this to the player in dialogue, then the game will automatically parse it!
+	 *  Make sure to add an override to the DialogueNode's isContentParsed() method to prevent this.
+	 */
+	public String getConditionalPreParsingString() {
+		return conditionalPreParsing;
 	}
 	
 	public void executeConditionalPreParsing(AbstractClothing clothing) {
@@ -221,8 +252,12 @@ public class RandomEnchantment {
 
 		UtilText.setClothingTypeForParsing(type);
 		executeConditionalPreParsing(clothing);
-		
+
 		clothing.setHiddenName(UtilText.parse(getName(type)));
+		// If spawned via the debug menu, and debug mode is on, then apply the hidden name as its actual name to help with debugging:
+		if(Main.game.isDebugMode() && Main.game.getCurrentDialogueNode()==DebugDialogue.SPAWN_MENU) {
+			clothing.setName(clothing.getHiddenName());
+		}
 		
 		boolean increaseTFStrength = false;
 		
@@ -245,14 +280,40 @@ public class RandomEnchantment {
 	
 	// Static loading block for random effects and associated methods:
 
-	private static List<RandomEnchantment> allPositiveClothingEnchantments = new ArrayList<>();
-	private static List<RandomEnchantment> allNegativeClothingEnchantments = new ArrayList<>();
+	private static Map<String, RandomEnchantment> positiveClothingEnchantmentsMap = new HashMap<>();
+	private static Map<String, RandomEnchantment> negativeClothingEnchantmentsMap = new HashMap<>();
+	
+	private static List<RandomEnchantment> allClothingEnchantments = new ArrayList<>();
     
+	public static RandomEnchantment getRandomEnchantmentFromId(String id) {
+		Map<String, RandomEnchantment> allEnchantments = new HashMap<>(positiveClothingEnchantmentsMap);
+		allEnchantments.putAll(negativeClothingEnchantmentsMap);
+		
+		id = Util.getClosestStringMatch(id, allEnchantments.keySet());
+
+		return allEnchantments.get(id);
+	}
+	
+	public static String getIdFromRandomEnchantment(RandomEnchantment enchantment) {
+		Map<String, RandomEnchantment> allEnchantments = new HashMap<>(positiveClothingEnchantmentsMap);
+		allEnchantments.putAll(negativeClothingEnchantmentsMap);
+		
+		for(Entry<String, RandomEnchantment> entry : allEnchantments.entrySet()) {
+			if(entry.getValue().equals(enchantment)) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
+
+    public static List<RandomEnchantment> getAllClothingEnchantments() {
+		return allClothingEnchantments;
+	}
     public static List<RandomEnchantment> getAllPositiveClothingEnchantments() {
-		return new ArrayList<>(allPositiveClothingEnchantments);
+		return new ArrayList<>(positiveClothingEnchantmentsMap.values());
 	}
     public static List<RandomEnchantment> getAllNegativeClothingEnchantments() {
-		return new ArrayList<>(allNegativeClothingEnchantments);
+		return new ArrayList<>(negativeClothingEnchantmentsMap.values());
 	}
     
 	static {
@@ -260,41 +321,49 @@ public class RandomEnchantment {
     }
 	
 	public static void initAllRandomEnchantments() {
-		allPositiveClothingEnchantments = new ArrayList<>();
-		allNegativeClothingEnchantments = new ArrayList<>();
+		positiveClothingEnchantmentsMap = new HashMap<>();
+		negativeClothingEnchantmentsMap = new HashMap<>();
 		
-		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/randomEnchantments");
+		allClothingEnchantments = new ArrayList<>();
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/randomEnchantments/innoxia/clothing");
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
+					String id = innerEntry.getKey();
 					RandomEnchantment enchantment = new RandomEnchantment(innerEntry.getValue()) {};
+					enchantment.mod = false;
 					if(enchantment.isPositiveEnchantment()) {
-						allPositiveClothingEnchantments.add(enchantment);
+						positiveClothingEnchantmentsMap.put(id, enchantment);
 					} else {
-						allNegativeClothingEnchantments.add(enchantment);
+						negativeClothingEnchantmentsMap.put(id, enchantment);
 					}
+					allClothingEnchantments.add(enchantment);
 //					System.out.println("res randomEnchantment: "+innerEntry.getKey());
 				} catch(Exception ex) {
-					System.err.println("Loading RandomEnchantment failed at 'getAllRandomEnchantments' (RES). File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Loading RandomEnchantment failed at 'initAllRandomEnchantments' (RES). File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
 					ex.printStackTrace(System.err);
 				}
 			}
 		}
 
-		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/randomEnchantments");
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/randomEnchantments/clothing");
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
+					String id = innerEntry.getKey();
 					RandomEnchantment enchantment = new RandomEnchantment(innerEntry.getValue()) {};
+					enchantment.mod = true;
 					if(enchantment.isPositiveEnchantment()) {
-						allPositiveClothingEnchantments.add(enchantment);
+						positiveClothingEnchantmentsMap.put(id, enchantment);
 					} else {
-						allNegativeClothingEnchantments.add(enchantment);
+						negativeClothingEnchantmentsMap.put(id, enchantment);
 					}
+					allClothingEnchantments.add(enchantment);
 //					System.out.println("modded randomEnchantment: "+innerEntry.getKey());
 				} catch(Exception ex) {
-					System.err.println("Loading RandomEnchantment failed at 'getAllRandomEnchantments' (MODS). File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Loading RandomEnchantment failed at 'initAllRandomEnchantments' (MODS). File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
 					ex.printStackTrace(System.err);
 				}

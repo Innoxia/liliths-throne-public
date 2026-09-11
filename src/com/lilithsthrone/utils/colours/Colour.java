@@ -223,6 +223,10 @@ public class Colour {
 	public String getName() {
 		return name;
 	}
+
+	public String getNameColoured() {
+		return "<span style='color:"+this.toWebHexString()+";'>"+name+"</span>";
+	}
 	
 	public String getId() {
 		if(PresetColour.getAllPresetColours().contains(this)) {

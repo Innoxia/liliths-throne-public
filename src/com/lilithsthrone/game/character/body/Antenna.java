@@ -68,7 +68,7 @@ public class Antenna implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractAntennaType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			if(owner!=null) {
 				owner.postTransformationCalculation();
@@ -119,7 +119,7 @@ public class Antenna implements BodyPartInterface {
 
 	public String setAntennaRows(GameCharacter owner, int rows) {
 		rows = Math.max(1, Math.min(rows, MAXIMUM_ROWS));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.rows = rows;
 			return "";
 		}
@@ -161,7 +161,7 @@ public class Antenna implements BodyPartInterface {
 
 	public String setAntennaePerRow(GameCharacter owner, int antennaePerRow) {
 		antennaePerRow = Math.max(1, Math.min(antennaePerRow, MAXIMUM_ANTENNAE_PER_ROW));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.antennaePerRow = antennaePerRow;
 			return "";
 		}
@@ -214,7 +214,7 @@ public class Antenna implements BodyPartInterface {
 		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
 		
-		if (owner==null) {
+		if (!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -246,7 +246,7 @@ public class Antenna implements BodyPartInterface {
 	
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Antenna.class) && getType().getRace().isFeralPartsAvailable());

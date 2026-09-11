@@ -78,7 +78,7 @@
 				<responseTitle><![CDATA[Back out]]></responseTitle>
 				<responseTooltip><![CDATA[Tell Meraxis that you've changed your mind and don't want to fight her after all.]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion) || flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
 						default
 					#ELSE
 						innoxia_places_fields_elis_tavern_f0_meraxis_approach
@@ -96,6 +96,7 @@
 					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 				]]></effects>
 			</response>
 		</responses>
@@ -108,6 +109,10 @@
 				[#pc.moveLocation(0, -2)]
 				[#meraxis.setLocation(pc, false)]
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'DUEL_START_ELIS'))]
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+				[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_innoxia_shinrin_highlands_hideout)]
+				[#meraxis.setLocation(pc, false)]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'DUEL_START_HIDEOUT'))]
 			#ELSE
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'DUEL_START_DOMINION'))]
 			#ENDIF
@@ -115,7 +120,7 @@
 		]]></preParsingEffects>
 		<content/>
 		<secondsPassed minutes="true"><![CDATA[
-			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion))
+			#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_dominion) || flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
 				2
 			#ELSE
 				10
@@ -250,9 +255,14 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_END'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+					#ELSE
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
 				]]></effects>
 			</response>
@@ -281,9 +291,14 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'LOST_END_SPIT'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+					#ELSE
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
 				]]></effects>
 			</response>
@@ -322,9 +337,14 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'WON_NO_TF'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+					#ELSE
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
 				]]></effects>
 			</response>
@@ -397,9 +417,14 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MONEY_END'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+					#ELSE
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
 				]]></effects>
 			</response>
@@ -754,9 +779,14 @@
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'TRANSFORMATION_END'))]
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/characters/meraxis/duel', 'MERAXIS_END'))]
 					#ENDIF
-					[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+					#ELSE
+						[#meraxis.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_f1, PLACE_TYPE_innoxia_fields_elis_tavern_f1_room_meraxis, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
 				]]></effects>
 			</response>
@@ -2187,6 +2217,7 @@
 					[#meraxis.equipClothing()]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, false)]
 					[#flags.setFlag(FLAG_innoxia_meraxis_duel_daily_complete, true)]
 				]]></effects>
 			</response>

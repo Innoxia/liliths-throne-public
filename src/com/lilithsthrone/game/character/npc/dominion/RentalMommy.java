@@ -122,23 +122,15 @@ public class RentalMommy extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-
-		AbstractSubspecies subspecies = Subspecies.COW_MORPH;
-		
-		RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
-		setBody(Gender.F_V_B_FEMALE, subspecies, stage, false);
-		
-		// Persona:
-
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-	
-			this.setHistory(Occupation.NPC_PROSTITUTE);
-	
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
 			
@@ -151,6 +143,30 @@ public class RentalMommy extends NPC {
 			this.setFetishDesire(Fetish.FETISH_PURE_VIRGIN, FetishDesire.ONE_DISLIKE);
 		}
 		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_PROSTITUTE);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+
+		AbstractSubspecies subspecies = Subspecies.COW_MORPH;
+		
+		RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
+		setBody(Gender.F_V_B_FEMALE, subspecies, stage, false);
+		
+		// Persona:
+		if(setPersona) {
+			setStartingPersona();
+		}
 		
 		// Body:
 

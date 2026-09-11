@@ -733,7 +733,7 @@ public abstract class AbstractRacialBody {
 	 * @param includeTypeNONE Set as true if you want the returned AntennaType to possibly include AntennaType.NONE. (Will include NONE anyway if the list is empty.)
 	 * @return A random AntennaType from this race's possible antennaTypes.
 	 */
-	public AbstractAntennaType getRandomrAntennaType(boolean includeTypeNONE) {
+	public AbstractAntennaType getRandomAntennaType(boolean includeTypeNONE) {
 		List<AbstractAntennaType> antennaList = new ArrayList<>(antennaTypes);
 		
 		if(includeTypeNONE || antennaTypes.size()==1) {

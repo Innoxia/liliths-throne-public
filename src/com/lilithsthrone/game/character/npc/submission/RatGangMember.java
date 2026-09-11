@@ -146,11 +146,29 @@ public class RatGangMember extends NPC {
 	}
 
 	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+		}
+		
+		if(setFetishes) {
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player defeats easier to handle
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_GANG_MEMBER);
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
+	@Override
 	public void setStartingBody(boolean setPersona) {
 		if(setPersona) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player defeats easier to handle
-			
-			this.setHistory(Occupation.NPC_GANG_MEMBER);
+			setStartingPersona();
 		}
 		if(this.hasPenis()) {
 			this.setPenisVirgin(false);

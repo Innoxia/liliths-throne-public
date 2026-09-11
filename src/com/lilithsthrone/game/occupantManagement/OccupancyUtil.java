@@ -91,6 +91,9 @@ public class OccupancyUtil implements XMLSaving {
 	// Slave income:
 	private Map<NPC, Integer> dailyIncome;
 	
+	/** When a PlaceUpgrade is removed, this boolean is set to true, as there's a possibility that slave jobs are no longer valid and so need recalculating. */
+	private boolean slaveJobsRecalculationRequired;
+
 	public OccupancyUtil() {
 		charactersAtJob = new HashMap<>();
 		for(SlaveJob job : SlaveJob.values()) {
@@ -191,6 +194,14 @@ public class OccupancyUtil implements XMLSaving {
 			System.err.println("Warning: SlaveryUtil failed to import!");
 			return null;
 		}
+	}
+	
+	public boolean isSlaveJobsRecalculationRequired() {
+		return slaveJobsRecalculationRequired;
+	}
+
+	public void setSlaveJobsRecalculationRequired(boolean slaveJobsRecalculationRequired) {
+		this.slaveJobsRecalculationRequired = slaveJobsRecalculationRequired;
 	}
 	
 	public void handleSlaveRemoval(GameCharacter character) {

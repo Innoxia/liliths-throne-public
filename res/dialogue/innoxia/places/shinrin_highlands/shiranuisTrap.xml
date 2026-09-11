@@ -1,0 +1,1366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Path & linked "exits": -->
+
+	<scene id="path">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME_PROGRESS'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">PATH</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="exit">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">EXIT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Keep going]]></responseTitle>
+				<responseTooltip><![CDATA[Keep going down the path to see if you can escape from Shiranui's trap.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_path]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(game.getWorlds().get(pc.getWorldLocation()).getFurthestCell(pc.getLocation(), PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_exit).getLocation())]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_path)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'EXIT_RETURNED'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Flame traps: -->
+	<scene id="flame">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the flame and try to find a way to extinguish it.]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.getSavedLong('shiranuis_trap_fires_extinguished')==0)
+						innoxia_places_shinrin_highlands_shiranuisTrap_flame1
+					#ELSEIF(flags.getSavedLong('shiranuis_trap_fires_extinguished')==1)
+						innoxia_places_shinrin_highlands_shiranuisTrap_flame2
+					#ELSE
+						innoxia_places_shinrin_highlands_shiranuisTrap_flame3
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- TF drink trap -->
+	<scene id="flame1">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME1_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Smash bottle]]></responseTitle>
+				<responseTooltip><![CDATA[There's no way that you'll drink a potion which this trickster youko has created!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame1_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME1_SMASH'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Drink potion]]></responseTitle>
+				<responseTooltip><![CDATA[You decide to do as Shiranui says and drink the potion...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame1_drink]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setObject('shiranuiPreTFSubspecies', pc.getSubspecies())]
+					[#flags.setObject('shiranuiPreTFGender', pc.getGender())]
+					[#flags.setBool('shiranuiTFWasFeminine', pc.isFeminine())]
+					
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME1_DRINK'))]
+					[#game.appendToTextStartStringBuilder(shiranui.applyTransformationPotion(pc))]
+					[#flags.setFlag(FLAG_innoxia_transformed_by_shiranui, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame1_drink">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Transformed!]]></responseTitle>
+				<responseTooltip><![CDATA[As you should have known, the potion turned out to be a transformative one!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame1_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME1_TRANSFORMED'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame1_end">
+		<preParsingEffects><![CDATA[
+			[#flags.incrementSavedLong('shiranuis_trap_fires_extinguished', 1)]
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_flame_extinguished)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Although one flame has now been extinguished, there are still more which need to be dealt with.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- ribbon trap -->
+	<scene id="flame2">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME2_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Rip string]]></responseTitle>
+				<responseTooltip><![CDATA[Rip the string to free the ribbon.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame2_bound]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME2_RIP_STRING'))]
+					[#game.addSavedInventory(pc)]
+					[#pc.resetInventory(true, true)]
+					[#flags.setFlag(FLAG_innoxia_stripped_by_shiranui, true)]
+					[#shiranui.setRaceConcealed(true)]
+					[#shiranui.setLocation(pc)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Rip both]]></responseTitle>
+				<responseTooltip><![CDATA[Rip up both the string and the ribbon.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame2_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME2_RIP_BOTH'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame2_bound">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Dressed]]></responseTitle>
+				<responseTooltip><![CDATA[Stripped of your belongings, Shiranui now dresses you in a new outfit...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame2_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME2_DRESSED'))]
+					[#shiranui.dressTargetInFetishGear(pc, COLOUR_CLOTHING_PINK_DARK)]
+					[#shiranui.returnToHome()]
+					[#shiranui.setRaceConcealed(false)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame2_end">
+		<preParsingEffects><![CDATA[
+			[#flags.incrementSavedLong('shiranuis_trap_fires_extinguished', 1)]
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_flame_extinguished)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that a second flame has been extinguished, there should only be one left to deal with.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- mirror trap -->
+	<scene id="flame3">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setRaceConcealed(false)]
+			[#game.appendToTextEndStringBuilder(pc.incrementLust(5, false))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME3_START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Watch more]]></responseTitle>
+				<responseTooltip><![CDATA[Surely there'd be no harm in watching a little more.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame3_watch1]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Smash mirrors]]></responseTitle>
+				<responseTooltip><![CDATA[Enough of this!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame3_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_SMASH1'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_SMASH_COMMON_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame3_watch1">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementLust(50, false))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME3_WATCH1</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Mimic]]></responseTitle>
+				<responseTooltip><![CDATA[Do as Shiranui says and mimic the lewd scenes before you in order to influence what's happening.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame3_watch2]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Smash mirrors]]></responseTitle>
+				<responseTooltip><![CDATA[Enough of this!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame3_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_SMASH2'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_SMASH_COMMON_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame3_watch2">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_WATCH2'))]
+			#IF(!flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
+				[#pc.unequipAllClothingIntoHoldingInventory(pc, false, true)]
+			#ENDIF
+			[#game.appendToTextEndStringBuilder(pc.incrementLust(50, false))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					As you feel the ghostly imprint of Shiranui's cock sliding over your
+					#IF(pc.hasVagina())
+						 [pc.pussy+], 
+					#ELSEIF(game.isAnalContentEnabled())
+						 [pc.asshole+], 
+					#ELSE
+						 [pc.lips+], 
+					#ENDIF
+					 you decide to do as she commands and submit to her...
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_mirror_sex]]></id>
+					<startingPosition><![CDATA[
+						#IF(pc.hasVagina() || game.isAnalContentEnabled())
+							LYING_DOWN
+						#ELSE
+							STANDING
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								#IF(pc.hasVagina() || game.isAnalContentEnabled())
+									LYING_DOWN_MISSIONARY
+								#ELSE
+									STANDING_STANDING_DOMINANT
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(pc.hasVagina() || game.isAnalContentEnabled())
+									LYING_DOWN_LYING_DOWN
+								#ELSE
+									STANDING_PERFORMING_ORAL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_mirror_sex_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME3_MIRROR_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[shiranui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[shiranui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[shiranui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Smash mirrors]]></responseTitle>
+				<responseTooltip><![CDATA[Snap out of it!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_flame3_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_SMASH3'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_SMASH_COMMON_END'))]
+					#IF(!flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
+						[#pc.equipAllClothingFromHoldingInventory()]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="mirror_sex_end">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
+				[#pc.equipAllClothingFromHoldingInventory()]
+			#ENDIF
+			[#flags.incrementSavedLong('shiranuis_trap_fires_extinguished', 1)]
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_flame_extinguished)]
+			
+			[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_shiranuisTrap, PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_hideout)]
+			[#shiranui.setLocation(meraxis)]
+			[#shiranui.setBodyToMeraxis(true, true)]
+			[#shiranui.unequipAllClothingIntoVoid(true, true)]
+			[#meraxis.unequipAllClothingIntoVoid(true, true, IS_HEAD)]
+			[#shiranui.fillCumToMaxStorage()]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME3_AFTER_SEX'))]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that all of the flames have been extinguished, you'll be able to find Meraxis.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="flame3_end">
+		<preParsingEffects><![CDATA[
+			[#flags.incrementSavedLong('shiranuis_trap_fires_extinguished', 1)]
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_flame_extinguished)]
+			
+			[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_shiranuisTrap, PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_hideout)]
+			[#shiranui.setLocation(meraxis)]
+			[#shiranui.setBodyToMeraxis(true, true)]
+			[#shiranui.unequipAllClothingIntoVoid(true, true)]
+			[#meraxis.unequipAllClothingIntoVoid(true, true, IS_HEAD)]
+			[#shiranui.fillCumToMaxStorage()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that all of the flames have been extinguished, you'll be able to find Meraxis.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- extinguished flame -->
+	<scene id="flame_extinguished">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'FLAME_PROGRESS'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">FLAME_EXTINGUISHED</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	
+	<!-- Hideout: -->
+	
+	<scene id="hideout">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[
+			[#flags.getSavedLong('shiranuis_trap_fires_extinguished')>=3]
+		]]></travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[
+					[#flags.getSavedLong('shiranuis_trap_fires_extinguished')<3]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Meraxis]]></responseTitle>
+				<responseTooltip><![CDATA[Call out to Meraxis.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_meraxis]]></nextDialogue>
+			</response>
+			
+			<response>
+                <availabilityConditional><![CDATA[
+					[#flags.getSavedLong('shiranuis_trap_fires_extinguished')>=3]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Double Meraxis?!]]></responseTitle>
+				<responseTooltip><![CDATA[There are two of Meraxis! Approach them and try to find out what's going on.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_final]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_FINAL_START'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_meraxis">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_MERAXIS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="hideout_final">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Quest]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_quest'))
+						You've already asked Meraxis to tell you about the end-goal of your quest...
+					#ELSE
+						Ask Meraxis to tell you about the end-goal of your quest.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_quest'))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_shiranuisTrap_hideout_final
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_FINAL_QUEST'))]
+					[#flags.setBool('shiranui_meraxis_question_quest', true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submission]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_submission'))
+						You've already asked Meraxis about what she was doing in Submission when you first met her...
+					#ELSE
+						Ask Meraxis what she was doing in Submission when you first met her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_submission'))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_shiranuisTrap_hideout_final
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_FINAL_SUBMISSION'))]
+					[#flags.setBool('shiranui_meraxis_question_submission', true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Show off]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_pose'))
+						You've already asked Meraxis to show you her most impressive pose...
+					#ELSE
+						Ask Meraxis to show you her most impressive pose.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_pose'))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_shiranuisTrap_hideout_final
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_FINAL_POSE'))]
+					[#flags.setBool('shiranui_meraxis_question_pose', true)]
+				]]></effects>
+			</response>
+			
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Naked]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_quest') && flags.getBool('shiranui_meraxis_question_submission') && flags.getBool('shiranui_meraxis_question_pose'))
+						Take the side of the fully naked Meraxis and help her to subdue the hat-wearing one.
+					#ELSE
+						You should question Meraxis more before making a decision...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_quest') && flags.getBool('shiranui_meraxis_question_submission') && flags.getBool('shiranui_meraxis_question_pose'))
+						innoxia_places_shinrin_highlands_shiranuisTrap_hideout_incorrect_choice
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Hat-wearing]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_quest') && flags.getBool('shiranui_meraxis_question_submission') && flags.getBool('shiranui_meraxis_question_pose'))
+						Take the side of the hat-wearing Meraxis and help her to subdue the fully naked one.
+					#ELSE
+						You should question Meraxis more before making a decision...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.getBool('shiranui_meraxis_question_quest') && flags.getBool('shiranui_meraxis_question_submission') && flags.getBool('shiranui_meraxis_question_pose'))
+						innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Incorrect choice, Shiranui sex scene or humiliation (if non-con off): -->
+	
+	<scene id="hideout_incorrect_choice">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_INCORRECT_CHOICE'))]
+			[#pc.removeSealsFromBlockingClothing(CA_MOUTH)]
+			[#pc.displaceClothingForAccess(CA_MOUTH, null, false, false)]
+			[#meraxis.displaceClothingForAccess(CA_MOUTH, null, false, false)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Kiss]]></responseTitle>
+				<responseTooltip><![CDATA[Bound up by the ribbon, there's nothing you and Meraxis can do except wait for Shiranui to return and set you free.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_incorrect_choice_kissing]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_incorrect_choice_kissing">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setBodyToMeraxis(false, true)]
+			[#meraxis.unequipAllClothingIntoVoid(true, true)]
+			[#flags.setFlag(FLAG_innoxia_shiranui_sex_cock_worship, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_INCORRECT_CHOICE_KISSING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Non-con off, just have painting done of you -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#!game.isNonConEnabled()]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Keep kissing]]></responseTitle>
+				<responseTooltip><![CDATA[Bound up by the ribbon, there's nothing you and Meraxis can do except wait for Shiranui to return and set you free.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_incorrect_choice_endure]]></nextDialogue>
+			</response>
+			<!-- Non-con on, oral sex scene with painting being done in background: -->
+			<response>
+                <availabilityConditional><![CDATA[
+					[#game.isNonConEnabled()]
+                ]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Cock worship]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You and Meraxis are forced to worship the youko's cock...
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_cock_worship]]></id>
+					<startingPosition><![CDATA[
+						STANDING
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								STANDING_STANDING_DOMINANT
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								STANDING_PERFORMING_ORAL
+							]]></slot>
+						</character>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								STANDING_PERFORMING_ORAL_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_cock_worship_end]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_INCORRECT_CHOICE_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[shiranui]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START_ADDITIONAL]]></id>
+							<performer><![CDATA[shiranui]]></performer>
+							<target><![CDATA[meraxis]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_incorrect_choice_endure">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_INCORRECT_CHOICE_ENDURE</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Non-con off, just have painting done of you -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Free]]></responseTitle>
+				<responseTooltip><![CDATA[With Shiranui having departed, and the binding ribbon destroyed, you're free to reclaim Meraxis's old hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_ENTRY_NORMAL'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="cock_worship_end">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">AFTER_SEX_COCK_WORSHIP</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Free]]></responseTitle>
+				<responseTooltip><![CDATA[With Shiranui having departed, and the binding ribbon destroyed, you're free to reclaim Meraxis's old hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_ENTRY_NORMAL'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Correct choice, offer of sex scene: -->
+	
+	<scene id="hideout_correct_choice">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setBodyToMeraxis(false, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Gifts]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui that the gifts she's offered are enough.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_gift]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[Accept Shiranui's offer of sex instead of the gifts.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_sex]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Threesome]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && (!game.isAnalContentEnabled() || flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked)))
+						Accept Shiranui's offer of sex instead of the gifts.
+						<br/>[style.italicsMinorGood(As you've previously convinced Meraxis to have sex with you, you think that you'll be able to get her to join in for a threesome.)]
+					#ELSE
+						Accept Shiranui's offer of sex instead of the gifts.
+						<br/>
+						<i>Meraxis needs to be comfortable with having
+						#IF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
+							 [style.colourGood(oral)],
+						#ELSE
+							 [style.colourBad(oral)],
+						#ENDIF
+						#IF(flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+							#IF(game.isAnalContentEnabled())
+								 [style.colourGood(vaginal)],
+							#ELSE
+								 and [style.colourGood(vaginal)]
+							#ENDIF
+						#ELSE
+							#IF(game.isAnalContentEnabled())
+								 [style.colourBad(vaginal)],
+							#ELSE
+								 and [style.colourBad(vaginal)]
+							#ENDIF
+						#ENDIF
+						#IF(flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked))
+							 and [style.colourGood(anal)]
+						#ELSE
+							 and [style.colourBad(anal)]
+						#ENDIF
+						 sex with you before she'd agree to get involved in a threesome...</i>
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && (!game.isAnalContentEnabled() || flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked)))
+						innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_threesome
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_correct_choice_gift">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+			[#shiranui.addGifts(pc, true)]
+			[#flags.setFlag(FLAG_innoxia_shiranui_chose_gifts, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">CORRECT_CHOICE_GIFTS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hideout]]></responseTitle>
+				<responseTooltip><![CDATA[With Shiranui having departed, you and Meraxis are now free to enter her old hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_ENTRY_NORMAL'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_correct_choice_sex">
+		<preParsingEffects><![CDATA[
+			[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_exit)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Youko form]]></responseTitle>
+				<responseTooltip><![CDATA[Have sex with Shiranui in her youko form.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[shiranui]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX_YOUKO</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Meraxis]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis before having sex with her.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[shiranui]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX_MERAXIS</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- TF before sex -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Youko (female)]]></responseTitle>
+				<responseTooltip><![CDATA[Have sex with Shiranui in her youko form, but to transform herself to remove her cock.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setPenisType(PENIS_TYPE_NONE)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[shiranui]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX_YOUKO_FEMALE</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Meraxis (futa)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis before having sex with her, but to remain a futa.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+					[#shiranui.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[shiranui]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_SEX_MERAXIS_FUTA</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_correct_choice_after_sex">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setBodyToMeraxis(false, true)]
+			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">CORRECT_CHOICE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hideout]]></responseTitle>
+				<responseTooltip><![CDATA[With Shiranui having departed, you're now free to enter Meraxis's hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_ENTRY_SOLO'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_correct_choice_threesome">
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Youko]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to remain in her youko form for this.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_YOUKO</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Meraxis]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis for this.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Removing cock: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Youko (female)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to remain in her youko form for this, but to transform herself to remove her cock.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setPenisType(PENIS_TYPE_NONE)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_YOUKO_FEMALE</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Meraxis (futa)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis for this, but to remain a futa as she does so.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+					[#shiranui.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS_FUTA</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#!meraxis.hasPenis()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Meraxis (double futa)]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Shiranui to transform back into Meraxis for this, but to remain a futa as she does so. Tell Meraxis to also give herself a cock for this.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#shiranui.setBodyToMeraxis(true, false)]
+					[#shiranui.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+					[#meraxis.setPenisType(PENIS_TYPE_DEMON_COMMON)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_shiranuisTrap_threesome]]></id>
+					<startingPosition><![CDATA[
+						ALL_FOURS
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								ALL_FOURS_BEHIND
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS
+							]]></slot>
+						</character>
+						<character>
+							<id>shiranui</id>
+							<slot><![CDATA[
+								ALL_FOURS_ALL_FOURS_TWO
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_hideout_correct_choice_after_threesome]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_CORRECT_CHOICE_THREESOME_MERAXIS_DOUBLE_FUTA</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout_correct_choice_after_threesome">
+		<preParsingEffects><![CDATA[
+			[#shiranui.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'CORRECT_CHOICE_AFTER_THREESOME'))]
+			[#shiranui.setBodyToMeraxis(false, true)]
+			[#meraxis.setPenisType(PENIS_TYPE_NONE)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hideout]]></responseTitle>
+				<responseTooltip><![CDATA[With Shiranui having departed, you and Meraxis are now free to enter her old hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/shiranuisTrap', 'HIDEOUT_ENTRY_NORMAL'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- End, reclaim hideout: -->
+	
+	<scene id="ending_reclaim_hideout">
+		<!--  move all items on ground to cell within hideout so player doesn't potentially lose anything from having mouth clothing unequipped -->
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
+				[#pc.unequipAllClothingOntoFloor(true, true)]
+			#ENDIF
+			[#game.getWorlds().get(WORLD_TYPE_innoxia_shinrin_highlands_hideout).getCell(PLACE_TYPE_innoxia_shinrin_highlands_hideout_exit).setInventory(pc.getCell().getInventory().duplicateInventory())]
+			[#pc.getCell().resetInventory()]
+			
+			[#pc.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_exit)]
+			#IF(flags.hasFlag(FLAG_innoxia_stripped_by_shiranui))
+				[#pc.setInventory(game.getSavedInventories().get(pc.getId()))]
+				#IF(flags.hasFlag(FLAG_innoxia_shiranui_chose_gifts))
+					[#shiranui.addGifts(pc, false)]
+				#ENDIF
+				[#shiranui.setMoney(pc.getMoney())]
+				[#pc.setMoney(0)]
+			#ENDIF
+			
+			[#meraxis.equipClothing()]
+			[#meraxis.applyScythe(true)]
+			[#meraxis.setLocation(pc)]
+			[#meraxis.setHomeLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_bedroom_meraxis)]
+			
+			[#shiranui.dressTargetInFetishGearChoker(takahashi, COLOUR_CLOTHING_BLACK)]
+			[#takahashi.setAreaKnownByCharacter(CA_VAGINA, pc, true)]
+			[#takahashi.setAreaKnownByCharacter(CA_ANUS, pc, true)]
+			[#takahashi.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_potion_lab)]
+			[#takahashi.setHomeLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_bedroom_takahashi)]
+			
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_ENTRY_ENDING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explain]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Takahashi that Shiranui has gone.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="ending_reclaim_hideout_end">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+			
+			[#takahashi.unequipAllClothingIntoVoid(true, true)]
+			[#takahashi.equipClothing()]
+			[#takahashi.setLocation(pc)]
+			
+			[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)]
+			
+			[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_K_WEAPONS_CACHE))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_ENTRY_EXPLAIN</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Success]]></responseTitle>
+				<responseTooltip><![CDATA[Meraxis's hideout has been reclaimed and you managed to locate and rescue Takahashi.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_shiranuisTrap_ending_reclaim_hideout_end_final]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="ending_reclaim_hideout_end_final">
+		<preParsingEffects><![CDATA[
+			[#takahashi.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_potion_lab)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/shiranuisTrap">HIDEOUT_ENTRY_EXPLAIN_FINISH</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You're finally free to take a look around Meraxis's hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

@@ -59,6 +59,9 @@ public class TongueVagina {
 	}
 	
 	public static GameCharacter getPrimaryCunnilingusPerformer(GameCharacter characterReceivingCunnilingus) {
+		if(Main.sex.getOngoingActionsMap(characterReceivingCunnilingus).get(SexAreaOrifice.VAGINA).isEmpty()) {
+			return null;
+		}
 		return Main.sex.getOngoingActionsMap(characterReceivingCunnilingus).get(SexAreaOrifice.VAGINA).keySet().iterator().next();
 	}
 	
@@ -855,7 +858,8 @@ public class TongueVagina {
 			return TongueVagina.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 
-		private List<GameCharacter> getCharactersForParsing() {
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return TongueVagina.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
@@ -1541,7 +1545,8 @@ public class TongueVagina {
 			return TongueVagina.getOngoingCharacters(Main.sex.getCharacterPerformingAction());
 		}
 
-		private List<GameCharacter> getCharactersForParsing() {
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return TongueVagina.getCharactersForParsing(Main.sex.getCharacterPerformingAction());
 		}
 		

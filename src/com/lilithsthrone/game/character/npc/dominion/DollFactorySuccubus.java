@@ -101,20 +101,33 @@ public class DollFactorySuccubus extends NPC {
 		this.equipAllSpellMoves();
 		this.equipAllSpecialMoves();
 	}
-	
+
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.clearPersonalityTraits();
-			this.clearFetishes();
-			this.clearFetishDesires();
 			
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD,
 					PersonalityTrait.SELFISH);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishes();
+			this.clearFetishDesires();
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
 
-			
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_SLAVE);
+		}
+		
+		if(setSpells) {
 			this.addSpell(Spell.ARCANE_AROUSAL);
 			this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1);
 			this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2);
@@ -129,13 +142,13 @@ public class DollFactorySuccubus extends NPC {
 			this.addSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_1);
 			this.addSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_2);
 			this.addSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_3);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_SLAVE);
+		}
+	}
 	
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_MASOCHIST);
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 
 		Main.game.getCharacterUtils().randomiseBody(this, true);

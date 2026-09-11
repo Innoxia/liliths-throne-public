@@ -366,7 +366,10 @@ public class Properties {
 			if(!badEndTitle.isEmpty()) {
 				createXMLElementWithValue(doc, settings, "badEndTitle", badEndTitle);
 			}
+			
+
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
+			createXMLElementWithValue(doc, settings, "offspringGenderLevel", String.valueOf(offspringGenderLevel));
 			createXMLElementWithValue(doc, settings, "humanSpawnRate", String.valueOf(humanSpawnRate));
 			createXMLElementWithValue(doc, settings, "taurSpawnRate", String.valueOf(taurSpawnRate));
 			createXMLElementWithValue(doc, settings, "halfDemonSpawnRate", String.valueOf(halfDemonSpawnRate));
@@ -898,6 +901,10 @@ public class Properties {
 					} else {
 						taurFurryLevel = 2;
 					}
+				}
+				
+				if(element.getElementsByTagName("offspringGenderLevel").item(0)!=null) {
+					offspringGenderLevel = Integer.valueOf(((Element)element.getElementsByTagName("offspringGenderLevel").item(0)).getAttribute("value"));
 				}
 				
 				if(element.getElementsByTagName("humanEncountersLevel").item(0)!=null) { // Old version support:

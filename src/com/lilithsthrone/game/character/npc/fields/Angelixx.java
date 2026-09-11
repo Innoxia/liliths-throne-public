@@ -144,17 +144,48 @@ public class Angelixx extends NPC {
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
-	
+
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Persona:
-		
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD,
 					PersonalityTrait.INNOCENT,
 					PersonalityTrait.COWARDLY);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
 
+			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_KINK_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_FOOT_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_DENIAL, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.THREE_LIKE);
+
+			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ONE_DISLIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_LILIN_PAWN);
+		}
+		
+		if(setSpells) {
 			this.addSpell(Spell.CLOAK_OF_FLAMES);
 			this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_1);
 			this.addSpellUpgrade(SpellUpgrade.CLOAK_OF_FLAMES_2);
@@ -184,34 +215,14 @@ public class Angelixx extends NPC {
 			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
 			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
 			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3);
-
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_LILIN_PAWN);
-
-			this.clearFetishes();
-			this.clearFetishDesires();
-			
-			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
-
-			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_KINK_GIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_FOOT_GIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_DENIAL, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.THREE_LIKE);
-
-			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ONE_DISLIKE);
 		}
-		
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
 		
 		// Body:
 		this.setAgeAppearanceAbsolute(18);

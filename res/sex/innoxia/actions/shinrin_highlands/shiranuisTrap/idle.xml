@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) && !flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship) && sex.getOngoingActionsMap(shiranui).get(PENETRATION_PENIS).keySet().iterator().next()!=npc]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>TWO_LOW</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+			<fetish>FETISH_PENIS_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>ORIFICE_MOUTH</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects/>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Wait]]></title>
+	<tooltip><![CDATA[
+		As Shiranui is busy fucking Meraxis's throat, there's little for you to do except wait.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				As Shiranui fucks Meraxis's face, all you can do is kiss the [meraxis.race]'s cheek and feel her mouth bulging out as she takes the youko's [shiranui.cock+] down her throat.
+			]]></text>
+			<text><![CDATA[
+				With Shiranui focusing on Meraxis, you're left with nothing to do but kiss the [meraxis.race]'s cheek, which repeatedly bulges out as the youko's cock is thrust in and out of her mouth.
+			]]></text>
+			<text><![CDATA[
+				The ribbons which bind you keep your face pressed up against Meraxis's cheek as Shiranui fucks the [meraxis.race]'s face, leaving you with little to do but kiss Meraxis's cheek.
+			]]></text>
+		</description>
+		
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				With her face pushed up against your cheek, Meraxis passionately kisses you even as Shiranui pushes her [shiranui.cock+] down your throat.
+			]]></text>
+			<text><![CDATA[
+				As she waits for Shiranui to finish focusing on you, Meraxis lets out a series of horny little moans and hungrily kisses your cheek.
+			]]></text>
+			<text><![CDATA[
+				The ribbons which bind Meraxis keep her face pressed up against your cheek as Shiranui fucks your face, leaving her with little to do but passionately kiss your cheek.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

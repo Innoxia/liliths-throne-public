@@ -39,7 +39,7 @@
 		Not liking the idea of being transformed if you were to lose the duel, you tell Meraxis that you've had a change of mind and don't want to fight her after all.
 	</p>
 	<p>
-		[meraxis.speech(Eugh... Fine...)] Meraxis sighs, before pouting at you and asking, [meraxis.speech(If you don't want to fight, then why have you interrupted the tale I was recounting to my minions?)]
+		[meraxis.speech(Eugh... Fine...)] Meraxis sighs, before pouting at you and asking, [meraxis.speech(If you don't want to fight, then why have you interrupted me?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -119,6 +119,17 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="DUEL_START_HIDEOUT"><![CDATA[
+	<p>
+		Pointing out that it wouldn't be a good idea to have a duel in her hideout, you suggest to Meraxis that the two of you could settle this outside. Agreeing to your proposal, the chuuni [meraxis.race] joins you as you [pc.walk] over to the entranceway, and after sliding open the front door, the two of you walk out into the nearby field and declare to one another that you're ready to get started.
+	</p>
+	<p>
+		[meraxis.speech(Prepare to be defeated!)] Meraxis declares. Before you can reply, she then performs some kind of matter-manipulation spell and seemingly pulls her huge scythe from out of mid-air. Pointing the arcane-bladed weapon at you, she lets out a maniacal laugh and exclaims, [meraxis.speech(Mwhahaha! I shall show you the cosmic powers of the dark siren!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- Losing the duel: -->
 	
@@ -229,12 +240,21 @@
 	</htmlContent>
 	
 	<htmlContent tag="MERAXIS_END"><![CDATA[
-	<p>
-		Sensing that Meraxis is about to show off her knowledge of how to teleport, you quickly say goodbye to her. With her grand exit interrupted by your farewell, Meraxis pouts a little and awkwardly replies, [meraxis.speech(Oh, yes, well, goodbye to you too, [pc.name]. I-I mean, farewell, my nemesis! We shall meet once more at The Red Dragon!)]
-	</p>
-	<p>
-		With that, Meraxis casts her teleportation spell, and in a flash of purple light she disappears from sight, leaving you with little else to do except continue on your way...
-	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+		<p>
+			Sensing that Meraxis is about to show off her knowledge of how to teleport, you quickly point out that it would take less than a minute to simply walk back to her hideout, which is right there behind her. With her grand exit interrupted by your observation, Meraxis pouts a little and awkwardly replies, [meraxis.speech(T-That's not the point! I have to do it this way, [pc.name]... I-I mean, silence, my nemesis! We shall meet again one day!)]
+		</p>
+		<p>
+			With that, Meraxis casts her teleportation spell, and in a flash of purple light she disappears from sight. As the building which serves as her hideout is right there in front of you, you could simply [pc.walk] back over to it and no doubt find Meraxis inside. Then again, if you have other things to do, you could head off into the Shinrin Highlands...
+		</p>
+	#ELSE
+		<p>
+			Sensing that Meraxis is about to show off her knowledge of how to teleport, you quickly say goodbye to her. With her grand exit interrupted by your farewell, Meraxis pouts a little and awkwardly replies, [meraxis.speech(Oh, yes, well, goodbye to you too, [pc.name]. I-I mean, farewell, my nemesis! We shall meet once more at The Red Dragon!)]
+		</p>
+		<p>
+			With that, Meraxis casts her teleportation spell, and in a flash of purple light she disappears from sight, leaving you with little else to do except continue on your way...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1294,7 +1314,11 @@
 		Still furiously blushing, Meraxis places her hands on her hips and declares, [meraxis.speech(Although you may have won that duel, I know that I'm really the most powerful! The next time we fight, I shall surely destroy you! Mwhahaha!)] 
 	</p>
 	<p>
-		Spinning around on the spot, Meraxis strikes a dramatic pose and exclaims, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+		#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_place_hideout))
+			After finishing her lengthy laugh, she spins around on the spot, before striking a dramatic pose and exclaiming, [meraxis.speech(I'm going back inside! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+		#ELSE
+			After finishing her lengthy laugh, she spins around on the spot, before striking a dramatic pose and exclaiming, [meraxis.speech(I shall return to the tavern now! There's no hard feelings between us because of this duel, right? Right. Now, witness my power!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

@@ -42,17 +42,40 @@ public class GenericTrader extends NPC {
 				25, Month.JUNE, 15,
 				1, Gender.N_P_V_HERMAPHRODITE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(false, 0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
-		
-		this.setFemininity(50);
+		if(!isImported) {
+			this.setFemininity(50);
+		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
+	
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
+		}
+		
+		if(setFetishes) {
+		}
+		
+		if(setOrientation) {
+		}
 
+		if(setHistory) {
+		}
+		
+		if(setSpells) {
+		}
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
+		}
+		
 		this.setRaceConcealed(true);
 	}
 

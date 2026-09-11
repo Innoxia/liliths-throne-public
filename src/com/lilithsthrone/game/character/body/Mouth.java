@@ -123,7 +123,7 @@ public class Mouth implements BodyPartInterface {
 	public String setLipSize(GameCharacter owner, int lipSize) {
 		int effectiveLipSize = Math.max(0, Math.min(lipSize, LipSize.getLargest()));
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.lipSize = effectiveLipSize;
 			return "";
 		}
@@ -208,7 +208,7 @@ public class Mouth implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Mouth.class) && getType().getRace().isFeralPartsAvailable());

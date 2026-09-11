@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="world_map">
+		<content folderPath="txt/places/shinrin_highlands/hideout">WORLD_MAP</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hideout]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Walk] over to the building which serves as Meraxis's hideout and head inside.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_exit]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_exit)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'WORLD_MAP_ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="floor">
+		<content folderPath="txt/places/shinrin_highlands/hideout">FLOOR</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="corridor">
+		<content folderPath="txt/places/shinrin_highlands/hideout">CORRIDOR</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="exit">
+		<content folderPath="txt/places/shinrin_highlands/hideout">EXIT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Exit]]></responseTitle>
+				<responseTooltip><![CDATA[Head back out into the Shinrin Highlands.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_world_map]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_innoxia_shinrin_highlands_hideout)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Potion lab (Takahashi): -->
+	
+	<scene id="potion_lab">
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Takahashi]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Talk to Takahashi.
+					<br/>[style.italicsMinorBad(Full Takahashi interactions will be added in the next update!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue><!-- innoxia_places_shinrin_highlands_hideout_potion_lab_talk -->
+				<effects><![CDATA[
+				]]></effects>
+				<!--
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'POTION_LAB_TALK_START'))]
+					#IF(flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_potions))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'POTION_LAB_TALK_TF_POSSIBILITIES'))]
+					#ENDIF
+					-->
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_potions)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Youko potion]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_hideout_collected_potion_today))
+						You've already collected a youko potion today. If you want another one, you'll have to come back tomorrow.
+					#ELSE
+						Takahashi has left a youko potion on the counter-top for you to pick up.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_hideout_collected_potion_today))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_collect_potion
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- TODO choker game -->
+		</responses>
+	</scene>
+	
+	<scene id="potion_lab_collect_potion">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_hideout_collected_potion_today, true)]
+			[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_potions_youko_potion), false, true))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_COLLECT_POTION</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab"/>
+	</scene>
+	
+	<scene id="potion_lab_talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Takahashi that you've got to go now.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'POTION_LAB_TALK_LEAVE'))]
+				]]></effects>
+			</response>
+			
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Meraxis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_meraxis)
+						You're already asking Takahashi about her relationship with Meraxis...
+					#ELSE
+						Ask Takahashi about her relationship with Meraxis.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_meraxis)
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_talk_meraxis
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Shiranui]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_shiranui)
+						You're already asking Takahashi about Shiranui...
+					#ELSE
+						Ask Takahashi about Shiranui.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_shiranui)
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_talk_shiranui
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Potions]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_potions)
+						You're already talking to Takahashi about the potions she's making...
+					#ELSE
+						Ask Takahashi about the potions she's making.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_potions)
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_talk_potions
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- TF potion: -->
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi) && flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_potions)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
+				<responseTitle><![CDATA[Drink potion]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isFeminine() || (pc.getRace()!=RACE_FOX_MORPH || !pc.isAbleToHaveRaceTransformed()))
+						#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+							You can't access your mouth, so you aren't able to drink Takahashi's potion....
+						#ELSE
+							Agree to drink Takahashi's potion.
+							<br/>Takahashi's potion will [style.italicsTfGeneric(transform you into a fox-girl)], and is likely to apply some additional, non-racial, transformative effects!
+						#ENDIF
+					#ELSE
+						You're already to Takahashi's liking, so she doesn't want to transform you.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && (!pc.isFeminine() || (pc.getRace()!=RACE_FOX_MORPH || !pc.isAbleToHaveRaceTransformed())))
+						innoxia_places_shinrin_highlands_hideout_potion_lab_drink_potion
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			
+			<!-- Sex: -->
+			<response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_potions) && (flags.hasFlag(FLAG_innoxia_takahashi_daily_sex) || !takahashi.isAttractedTo(pc) || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Eat her out]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_takahashi_daily_sex))
+						You've already had sex with Takahashi today, and she's unwilling to have sex with you again until tomorrow...
+					#ELSEIF(!takahashi.isAttractedTo(pc))
+						Takahashi is not attracted to you, and so would be unwilling to let you eat her out...
+					#ELSE
+						As you're unable to gain access to your mouth, you cannot perform oral on Takahashi...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_takahashi_daily_sex) && flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_potions) && takahashi.isAttractedTo(pc) && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Eat her out]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Takahashi that you're willing to serve her by eating her out.]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_shinrin_highlands_hideout_takahashi_oral]]></id>
+					<startingPosition><![CDATA[SITTING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>takahashi</id>
+							<slot><![CDATA[SITTING_SITTING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[SITTING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_potion_lab_after_sex_performing_oral]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_PERFORM_ORAL_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[takahashi]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!--
+				TODO choker sex
+			-->
+			
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Youko]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_youko)
+						You're already talking to Takahashi about the youko...
+					#ELSE
+						Ask Takahashi about the youko.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_youko)
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_talk_youko
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi) && flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_youko)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Kazuha]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_kazuha)
+						You're already talking to Takahashi about Kazuha, the benevolent lilin youko...
+					#ELSE
+						Ask Takahashi about Kazuha, the benevolent lilin youko.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_kazuha)
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_talk_kazuha
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(takahashi) && flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_youko)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Kayo]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_meraxis))
+						You need to talk to Takahashi about her relationship with Meraxis before being able to ask about Kayo.
+					#ELSEIF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_kayo)
+						You're already talking to Takahashi about Kayo, the trickster lilin youko...
+					#ELSE
+						Ask Takahashi about Kayo, the trickster lilin youko.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_shinrin_highlands_hideout_potion_lab_talk_kayo || !flags.hasFlag(FLAG_innoxia_hideout_takahashi_talked_meraxis))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_potion_lab_talk_kayo
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="potion_lab_talk_meraxis">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_hideout_takahashi_talked_meraxis, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TALK_MERAXIS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_talk_shiranui">
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TALK_SHIRANUI</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_talk_potions">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_hideout_takahashi_talked_potions, true)]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'POTION_LAB_TALK_TF_POSSIBILITIES'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TALK_POTIONS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_talk_youko">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_hideout_takahashi_talked_youko, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TALK_YOUKO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_talk_kazuha">
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TALK_KAZUHA</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_talk_kayo">
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TALK_KAYO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_drink_potion">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'POTION_LAB_DRINK_POTION'))]
+			[#game.appendToTextStartStringBuilder(shiranui.applyTransformationPotion(pc))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Transformed!]]></responseTitle>
+				<responseTooltip><![CDATA[Takahashi has transformed you into [pc.a_race]!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_potion_lab_drink_potion_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="potion_lab_drink_potion_end">
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_TRANSFORMED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab_talk"/>
+	</scene>
+	
+	<scene id="potion_lab_after_sex_performing_oral">
+		<title><![CDATA[Finished]]></title>
+		<content folderPath="txt/places/shinrin_highlands/hideout">POTION_LAB_AFTER_SEX_PERFORMING_ORAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_potion_lab"/>
+	</scene>
+	
+	
+	<!-- Seating (Meraxis): -->
+	
+	<scene id="seating">
+		<content folderPath="txt/places/shinrin_highlands/hideout">SEATING</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Takahashi]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Meraxis about her relationship with Takahashi.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_seating_talk_takahashi]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Hideout]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Meraxis why she made a hideout here in the Shinrin Highlands.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_seating_talk_hideout]]></nextDialogue>
+			</response>
+			
+			<!-- Duel -->
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Duel]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
+						As you and Meraxis have already duelled one another today, you'll have to wait until tomorrow to do it again...
+					#ELSE
+						Accept Meraxis's offer of a duel.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_duel_daily_complete))
+						null
+					#ELSE
+						innoxia_characters_meraxis_duel_start
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_hideout, true)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_meraxis_duel_place_dominion, false)]
+				]]></effects>
+			</response>
+			
+			<!-- Sex -->
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_meraxis_daily_sex))
+						You've already had sex with Meraxis in her room today, and as such will have to wait until tomorrow before you can do it again...
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && (!game.isAnalContentEnabled() || flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked)))
+						Tell Meraxis that you want to have a 'duel' with her in her bedroom...
+					#ELSE
+						<i>Meraxis needs to be comfortable with having
+						#IF(flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked))
+							 [style.colourGood(oral)],
+						#ELSE
+							 [style.colourBad(oral)],
+						#ENDIF
+						#IF(flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked))
+							#IF(game.isAnalContentEnabled())
+								 [style.colourGood(vaginal)],
+							#ELSE
+								 and [style.colourGood(vaginal)]
+							#ENDIF
+						#ELSE
+							#IF(game.isAnalContentEnabled())
+								 [style.colourBad(vaginal)],
+							#ELSE
+								 and [style.colourBad(vaginal)]
+							#ENDIF
+						#ENDIF
+						#IF(flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked))
+							 and [style.colourGood(anal)]
+						#ELSE
+							 and [style.colourBad(anal)]
+						#ENDIF
+						 sex with you before she'd agree to have sex with you in her bedroom...</i>
+					#ENDIF
+				]]></responseTooltip>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_meraxis_daily_sex) && flags.hasFlag(FLAG_innoxia_meraxis_oral_unlocked) && flags.hasFlag(FLAG_innoxia_meraxis_vaginal_unlocked) && (!game.isAnalContentEnabled() || flags.hasFlag(FLAG_innoxia_meraxis_anal_unlocked)))
+						innoxia_places_shinrin_highlands_hideout_seating_meraxis_sex
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_bedroom_meraxis)]
+					[#meraxis.setLocation(pc)]
+					[#game.appendToTextEndStringBuilder(meraxis.incrementLust(10, false))]
+					[#flags.setFlag(FLAG_innoxia_meraxis_daily_sex, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_talk_takahashi">
+		<content folderPath="txt/places/shinrin_highlands/hideout">SEATING_TALK_TAKAHASHI</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_seating">
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Takahashi]]></responseTitle>
+				<responseTooltip><![CDATA[You're already talking to Meraxis about her relationship with Takahashi...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_talk_hideout">
+		<content folderPath="txt/places/shinrin_highlands/hideout">SEATING_TALK_HIDEOUT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_seating">
+			<response>
+                <availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(meraxis)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Hideout]]></responseTitle>
+				<responseTooltip><![CDATA[You're already talking to Meraxis about her hideout...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_meraxis_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<content folderPath="txt/places/shinrin_highlands/hideout">SEATING_MERAXIS_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take charge]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Meraxis that you're going to be the one who's in charge...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_standard]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_seating_meraxis_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/hideout">SEATING_MERAXIS_SEX_AS_DOM</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[Submit to Meraxis and allow her to take charge...]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_meraxis_standard]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>meraxis</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_seating_meraxis_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/shinrin_highlands/hideout">SEATING_MERAXIS_SEX_AS_SUB</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="seating_meraxis_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You and Meraxis have finished having sex...]]></tooltip>
+		<content folderPath="txt/places/shinrin_highlands/hideout">SEATING_MERAXIS_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Leave Meraxis's room and continue on your way...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_shinrin_highlands_hideout_corridor"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'SEATING_MERAXIS_AFTER_SEX_LEAVE'))]
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_corridor)]
+					[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_hideout, PLACE_TYPE_innoxia_shinrin_highlands_hideout_bath)]
+					[#meraxis.applyWash(true, false, SE_CLEANED_SHOWER, 240+20)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<scene id="table">
+		<content folderPath="txt/places/shinrin_highlands/hideout">TABLE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_hideout_youko_lore_book_obtained)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Book]]></responseTitle>
+				<responseTooltip><![CDATA[Take a look at the dusty old book.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_shinrin_highlands_hideout_table_book]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.addItem(game.getItemGen().generateItem(SUBSPECIES_FOX_ASCENDANT.getBook()), 1, false, true))]
+					[#flags.setFlag(FLAG_innoxia_hideout_youko_lore_book_obtained, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="table_book">
+		<content folderPath="txt/places/shinrin_highlands/hideout">TABLE_BOOK</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="door">
+		<content folderPath="txt/places/shinrin_highlands/hideout">DOOR</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	
+	<!-- Bedrooms: -->
+	
+	<scene id="bedroom_meraxis">
+		<content folderPath="txt/places/shinrin_highlands/hideout">BEDROOM_MERAXIS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="bedroom_takahashi">
+		<content folderPath="txt/places/shinrin_highlands/hideout">BEDROOM_TAKAHASHI</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="bedroom_player">
+		<content folderPath="txt/places/shinrin_highlands/hideout">BEDROOM_PLAYER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Rest (1 hour)]]></responseTitle>
+				<responseTooltip><![CDATA[Rest for an hour. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_bedroom_player]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'ROOM_PLAYER_REST'))]
+					[#pc.applySleep(60)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Rest (4 hours)]]></responseTitle>
+				<responseTooltip><![CDATA[Rest for four hours. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_bedroom_player]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[240]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'ROOM_PLAYER_REST'))]
+					[#pc.applySleep(240)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Rest (8 hours)]]></responseTitle>
+				<responseTooltip><![CDATA[Rest for eight hours. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_bedroom_player]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[480]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'ROOM_PLAYER_REST'))]
+					[#pc.applySleep(480)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Rest (12 hours)]]></responseTitle>
+				<responseTooltip><![CDATA[Rest for twelve hours. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_bedroom_player]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[720]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'ROOM_PLAYER_REST'))]
+					[#pc.applySleep(720)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[
+					Rest until
+					#IF(game.isDayTime())
+						 Sunset
+					#ELSE
+						 Sunrise
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Rest for
+					#IF(game.getMinutesUntilNextMorningOrEvening() >= 60)
+						 [#~~(game.getMinutesUntilNextMorningOrEvening()/60)] hours
+					#ENDIF
+					#IF(game.getMinutesUntilNextMorningOrEvening() % 60 != 0)
+						 [#~~(game.getMinutesUntilNextMorningOrEvening()%60)] minutes
+					#ENDIF
+					 until five minutes past
+					#IF(game.isDayTime())
+						 sunset.
+					#ELSE
+						 sunrise.
+					#ENDIF
+					 As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_bedroom_player]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#~~(game.getMinutesUntilNextMorningOrEvening() + 5)]
+				]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'ROOM_PLAYER_REST'))]
+					[#pc.applySleep(~~(game.getMinutesUntilNextMorningOrEvening() + 5))]
+				]]></effects>
+			</response>
+
+			<!-- Alarm Clock: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Set alarm]]></responseTitle>
+				<responseTooltip><![CDATA[Set the alarm on your phone, so that you can wake at a specific time.]]></responseTooltip>
+				<nextDialogue stripContent="false"><![CDATA[ROOM_SET_ALARM]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[[#game.saveDialogueNode()]]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						Rest until alarm (unset)
+					#ELSE
+						Rest until alarm ([#
+							var alarm = flags.getSavedLong('player_phone_alarm');
+							var alarmObj = game.getCustomTime(alarm/60, alarm%60, 0);
+							game.getDisplayTime(alarmObj)
+						])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						[style.colourBad(Your alarm is unset!)]
+					#ELSE
+						Rest for
+						#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+							 24 hours,
+						#ELSE
+							#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')) >= 60)
+								 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) / 60)] hours,
+							#ENDIF
+							#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) % 60 != 0)
+								 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) % 60)] minutes,
+							#ENDIF
+						#ENDIF
+						 until your alarm goes off. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.getSavedLong('player_phone_alarm') < 0)
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_bedroom_player
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+						1440
+					#ELSE
+						[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')))]
+					#ENDIF
+				]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'ROOM_PLAYER_REST'))]
+					#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+						[#pc.applySleep(24*60)]
+					#ELSE
+						[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Hygiene: -->
+	
+	<scene id="toilets">
+		<content folderPath="txt/places/shinrin_highlands/hideout">TOILET</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Toilet]]></responseTitle>
+				<responseTooltip><![CDATA[Use the toilet.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_toilets_use]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'TOILET_USE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wash]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Use the sink to wash your hands and face.
+					<br/>[style.italicsGood(This will clean your head, eyes, mouth, neck, hair, fingers, hands, and wrists, as well as any clothing worn in these slots.)]
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_shinrin_highlands_hideout_toilets_use]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyLimitedWash(IS_HEAD, IS_EYES, IS_MOUTH, IS_NECK, IS_HAIR, IS_FINGER, IS_HAND, IS_WRIST)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'TOILET_WASH'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toilets_use">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_shinrin_highlands_hideout_toilets"/>
+	</scene>
+	
+	<scene id="bath">
+		<content folderPath="txt/places/shinrin_highlands/hideout">BATHROOM</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Quick shower]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(meraxis))
+						You'll have to wait until Meraxis is finished in the bathroom before being able to use it.
+					#ELSE
+						Use the bathroom's shower to quickly wash yourself.
+						<br/>[style.italicsGood(Cleans <b>a maximum of [style.fluid(500)]</b> of fluids from all orifices.)]
+						<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(game.getCharactersPresent().contains(meraxis))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_bath
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'BATHROOM_SHOWER_QUICK'))]
+					[#game.appendToTextStartStringBuilder(pc.applyWash(false, false, SE_CLEANED_SHOWER, 120+10))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Thorough shower]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(meraxis))
+						You'll have to wait until Meraxis is finished in the bathroom before being able to use it.
+					#ELSE
+						Use the bathroom's shower to thoroughly clean yourself.
+						<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]
+						<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(game.getCharactersPresent().contains(meraxis))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_bath
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'BATHROOM_SHOWER'))]
+					[#game.appendToTextStartStringBuilder(pc.applyWash(true, false, SE_CLEANED_SHOWER, 240+20))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Bath time]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(meraxis))
+						You'll have to wait until Meraxis is finished in the bathroom before being able to use it.
+					#ELSE
+						Use the bathroom's shower to thoroughly clean yourself and then spend some time soaking in the bath.
+						<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]
+						<br/>[style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(game.getCharactersPresent().contains(meraxis))
+						null
+					#ELSE
+						innoxia_places_shinrin_highlands_hideout_bath
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[45]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/shinrin_highlands/hideout', 'BATHROOM_BATH'))]
+					[#game.appendToTextStartStringBuilder(pc.applyWash(true, true, SE_CLEANED_BATH, 240+45))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

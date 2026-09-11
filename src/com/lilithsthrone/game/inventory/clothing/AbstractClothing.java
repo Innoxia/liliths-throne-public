@@ -123,6 +123,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		displacedList = new ArrayList<>();
 
 		if(allowRandomEnchantment
+				&& !getClothingType().isDefaultSlotCondom() // Don't allow random enchantments on condoms as they have a special effect which should remain in place
 				&& getClothingType().getRarity()!=Rarity.LEGENDARY
 				&& getClothingType().getRarity()!=Rarity.QUEST) { // && effects.isEmpty() && getClothingType().getRarity() == Rarity.COMMON
 			int chance = Util.random.nextInt(100) + 1;
@@ -2554,7 +2555,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		effects.add(new ItemEffect(itemEffectType, primaryModifier, secondaryModifier, potency, limit));
 		sortEffects();
 	}
-
+	
+	/**
+	 * Removes <b>all</b> ItemEffects from this item of clothing which have the provided modifiers as either a primary or secondary modifier.
+	 * <br/><b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
+	 */
+	public void removeEffectsByModifier(TFModifier... modifiers) {
+		for(TFModifier mod : modifiers) {			
+			effects.removeIf(ie -> ie.getPrimaryModifier()==mod || ie.getSecondaryModifier()==mod);
+		}
+		sortEffects();
+	}
+	
 	/**
 	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
 	 */

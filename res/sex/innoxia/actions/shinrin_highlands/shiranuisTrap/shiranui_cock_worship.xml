@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[true]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[##flags.setFlag(FLAG_innoxia_shiranui_sex_kissing, false)]
+		[##flags.setFlag(FLAG_innoxia_shiranui_sex_cock_worship, true)]
+		[##sex.setStretchingEffectsDisabled(true)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Cock worshipped]]></title>
+	<tooltip><![CDATA[
+		Make [pc.name] and Meraxis worship your [shiranui.cock+].
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Shiranui continues to slide her [shiranui.cock+] forwards and back between your and Meraxis's lips, moaning in delight as the two of you worship her throbbing shaft.
+			]]></text>
+			<text><![CDATA[
+				Shiranui lets out [shiranui.a_moan+] as you and Meraxis continue to kiss and orally worship the sides of her [shiranui.cock+].
+			]]></text>
+			<text><![CDATA[
+				With [shiranui.a_moan+], Shiranui slides her [shiranui.cock+] forwards and back between your and Meraxis's lips.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				[shiranui.speech(Enough kissing, sluts!)] Shiranui giggles, before pushing her [shiranui.cock+] forwards between your and Meraxis's lips.
+			]]></text>
+			<text><![CDATA[
+				Deciding that you've spent long enough kissing one another, Shiranui pushes her [shiranui.cock+] in between your and Meraxis's lips, forcing the two of you to kiss and orally worship the sides of her shaft.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship) && sex.getPrimaryOngoingActionPerformer(shiranui, PENETRATION_PENIS).isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				[shiranui.speech(I think that Meraxis wants to play too,)] Shiranui giggles, before pulling her [shiranui.cock+] out of your mouth with a wet pop. The bindings turn your head to one side so that you and Meraxis are kissing one another again, and then Shiranui pushes her [shiranui.cock+] between the two of you, forcing you to both kiss and orally worship the sides of her shaft.
+			]]></text>
+			<text><![CDATA[
+				[shiranui.speech(Meraxis can join in on the fun,)] Shiranui giggles, before pulling her [shiranui.cock+] out of your mouth with a wet pop. The bindings turn your head to one side so that you and Meraxis are kissing one another again, and then Shiranui pushes her [shiranui.cock+] between the two of you, forcing you to both kiss and orally worship the sides of her shaft.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship) && !sex.getPrimaryOngoingActionPerformer(shiranui, PENETRATION_PENIS).isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				[shiranui.speech(I think that [pc.name] wants to play too,)] Shiranui giggles, before pulling her [shiranui.cock+] out of Meraxis's mouth with a wet pop. The bindings turn Meraxis's head to one side so that the two of you are kissing one another again, and then Shiranui pushes her [shiranui.cock+] between your joined lips, forcing you to both kiss and orally worship the sides of her shaft.
+			]]></text>
+			<text><![CDATA[
+				[shiranui.speech([pc.Name] can join in on the fun,)] Shiranui giggles, before pulling her [shiranui.cock+] out of Meraxis's mouth with a wet pop. The bindings turn Meraxis's head to one side so that the two of you are kissing one another again, and then Shiranui pushes her [shiranui.cock+] between your joined lips, forcing you to both kiss and orally worship the sides of her shaft.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

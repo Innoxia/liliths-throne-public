@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELDS</worldRegion>
+	<name><![CDATA[Meraxis's Hideout]]></name>
+	<tooltipDescription><![CDATA[Taking the form of a single-story, Japanese-style building, Meraxis's base of operations in the Shinrin Highlands is kept hidden thanks to an illusion spell that's maintained by her friend, Takahashi.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[near Meraxis's hideout]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	<colour>BASE_PURPLE_LIGHT</colour>
+	<backgroundColour>MAP_BACKGROUND_SHINRIN_HIGHLANDS</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_world_map</dialogue>
+	<populationPresent/>
+	<furniturePresent>false</furniturePresent>
+	<globalMapTile>true</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

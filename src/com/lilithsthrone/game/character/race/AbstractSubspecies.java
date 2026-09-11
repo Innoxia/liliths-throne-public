@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -135,6 +136,7 @@ public abstract class AbstractSubspecies {
 	private List<SubspeciesFlag> flags;
 
 	protected static Map<Integer, String> youkoIconMap;
+	protected static Map<Integer, String> youkoIconMapNoBackground;
 	protected static Map<Integer, String> youkoDesaturatedIconMap;
 	protected static Map<Integer, String> youkoHalfDemonIconMap;
 	
@@ -198,6 +200,7 @@ public abstract class AbstractSubspecies {
 	
 	static {
 		youkoIconMap = new HashMap<>();
+		youkoIconMapNoBackground = new HashMap<>();
 		youkoHalfDemonIconMap = new HashMap<>();
 		for(int i=1; i<=9; i++) {
 			try {
@@ -210,8 +213,9 @@ public abstract class AbstractSubspecies {
 
 				is.close();
 				
-				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
-				youkoIconMap.put(i, baseSVGString);
+				String baseSVGString = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
+				youkoIconMapNoBackground.put(i, baseSVGString);
+				youkoIconMap.put(i, SVGStringBackground + baseSVGString);
 
 				baseSVGString = SvgUtil.colourReplacement("youkohalfDemon"+i,
 							PresetColour.RACE_HALF_DEMON,
@@ -779,24 +783,47 @@ public abstract class AbstractSubspecies {
 	/**
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
-	public void applySpeciesChanges(Body body) {
+	public String applySpeciesChanges(GameCharacter target, Body body) {
 		// Removed check for Main.game.isStarted() in v0.4.2.5 as it was causing NPCs to spawn in as incorrect subspecies
 		// Tested from new game and everything worked fine, but also added try/catch block to make sure that any unexpected errors don't cause the game to lock up
 		if(this.isFromExternalFile()) {
 			try {
 				UtilText.setBodyForParsing("targetedBody", body);
-				UtilText.parse(applySubspeciesChanges);
+				String returnString = "";
+				
+				try {
+					returnString = UtilText.parseNoExceptionHandling(target, applySubspeciesChanges);
+				} catch(Exception ex) {
+					System.err.println("WARNING: Error in applySpeciesChanges() for subspecies '"+this.getName(body)+"'");
+					if(target==null) {
+						System.err.println("CATCH: Attempting to apply applySpeciesChanges() with a temporary NPC to account for null npc variable.");
+						System.err.println("Please add a null check for npc in your 'applySpeciesChanges' element to fix this error!");
+						GameCharacter tempCharacter = new GenericSexualPartner();
+						tempCharacter.setBody(body, false);
+						target = tempCharacter;
+						returnString = UtilText.parse(target, applySubspeciesChanges);
+						target.setBody(new Body(body), false);
+						System.err.println("END: temporary NPC used for applySpeciesChanges.");
+					}
+					ex.printStackTrace();
+				}
+				
+				// Try to catch and remove unwanted text being returned from methods:
+				returnString = returnString.replaceAll("(?<=\\s|^)(null|true|false)+(?=\\s|$)", "");
+				return returnString;
+				
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
+		return "";
 	}
 
 	/**
 	 * Changes that should be applied to any offspring of this species.
 	 */
-	public void applyOffspringSpeciesChanges(Body body) {
-		applySpeciesChanges(body);
+	public void applyOffspringSpeciesChanges(GameCharacter target, Body body) {
+		applySpeciesChanges(target, body);
 	}
 
 	public static AbstractSubspecies getMainSubspeciesOfRace(AbstractRace race) {
@@ -940,7 +967,7 @@ public abstract class AbstractSubspecies {
 //	}
 	
 	/**
-	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/>
+	 * Only used for subspecies that have special offspring generation - i.e. demons and youko.<br/>
 	 * <b>Please note:</b> If the mother is feral, this will be overridden in CharacterUtils.generateBody()!<br/><br/>
 	 * 
 	 * <b>Demon breeding</b><br/>
@@ -974,6 +1001,10 @@ public abstract class AbstractSubspecies {
 	 * + imps = imps<br/>
 	 * Imps and alpha-imps<br/>
 	 * + anything = imps<br/>
+	 * <br/>
+	 * <b>Youko breeding</b><br/>
+	 * Youko mother gives birth to youko<br/>
+	 * Youko father is normal
 	 * @return The pre-generated body to use as an offspring's core body.
 	 */
 	public static Body getPreGeneratedBody(GameCharacter linkedCharacter,
@@ -1076,6 +1107,10 @@ public abstract class AbstractSubspecies {
 					// Just return this method, but with mother & father swapped, as all demonic offspring types are unaffected by who is the mother or father:
 				preGeneratedBody = getPreGeneratedBody(linkedCharacter, startingGender, null, fatherBody, motherBody);
 			}
+		}
+		
+		if(preGeneratedBody==null && (motherSubspecies==Subspecies.FOX_ASCENDANT || motherSubspecies==Subspecies.FOX_ASCENDANT_ARCTIC || motherSubspecies==Subspecies.FOX_ASCENDANT_FENNEC)) {
+			preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.FOX_MORPH, motherSubspecies, RaceStage.getRaceStageFromUserPreferences(startingGender, motherSubspecies));
 		}
 		
 		// Apply genetics:
@@ -1454,6 +1489,10 @@ public abstract class AbstractSubspecies {
 		return race;
 	}
 
+	public float getChanceForMaleOffspring() {
+		return getRace().getChanceForMaleOffspring();
+	}
+	
 	public Affinity getAffinity() {
 		return affinity;
 	}

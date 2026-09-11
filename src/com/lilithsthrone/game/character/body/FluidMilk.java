@@ -193,7 +193,7 @@ public class FluidMilk implements FluidInterface {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.flavour = flavour;
 			return "";
 		}
@@ -562,7 +562,7 @@ public class FluidMilk implements FluidInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(FluidMilk.class) && getType().getRace().isFeralPartsAvailable());

@@ -1,0 +1,74 @@
+<h2>v0.4.11.6</h2>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added parser hooks for the Height, LabiaSize, ClitorisSize, LipSize, TongueLength, AssSize, HipSize, NippleSize, AreolaeSize, BodyHair, TesticleSize, and Wetness enums (using 'HEIGHT_', 'LABIA_SIZE_', 'CLITORIS_SIZE_', 'LIP_SIZE_', 'TONGUE_LENGTH_', 'ASS_SIZE_', 'HIP_SIZE', 'NIPPLE_SIZE_', 'AREOLAE_SIZE_', 'BODY_HAIR_', 'TESTICLE_SIZE_', and 'WETNESS_' prefixes, respectively).</li>
+	<li>Stopped characters from being initialised twice when loading a game, which should hopefully speed up load times.</li>
+	<li>Added a new ItemTag, 'USED_BY_BONDAGE_APPLIERS', which when added to a clothing type, makes it so that the clothing can spawn in bondage appliers' inventories (currently used for the latex catsuit and the latex hood).</li>
+	<li>For modded races, added better error handling for if a null npc is detected while parsing the 'applySpeciesChanges' element.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added the next stage of the main quest.</li>
+	<li>Added Meraxis's hideout in the Shinrin Highlands (unlocked after completing the next stage of the main quest).</li>
+</ul>
+
+<h3>Youko's Mystery Potion:</h3>
+<ul>
+	<li>Added 'Youko's Mystery Potion' item, which can spawn in any tile where items can be randomly found.</li>
+	<li>This item has a variety of effects, one of which will be randomly selected at the moment of consuming the item (so reloading your game and drinking the same potion a second time will have a newly-generated effect).</li>
+	<li>These random effects are defined in 'res/randomEnchantments/potion', and can be added as mods by using the 'randomEnchantments/potion' directory, with a fully-commented example found in 'mods/innoxia/randomEnchantments/potion/cow.xml'.</li>
+</ul>
+
+<h3>UI:</h3>
+<ul>
+	<li>The character's quick overview tooltip (when hovering over your race icon or an NPC's race icon in the 'Characters present' panel) now also shows the character's age appearance.</li>
+</ul>
+
+<h3>Bodies:</h3>
+<ul>
+	<li>Added 'blue-grey' as an iris colour.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added a new 'Encounters' screen to the debug menu (button 13 in the 'Main' tab), which displays a list of all encounters that can occur in your current tile, and from that menu each encounter can be triggered via pressing a button.</li>
+	<li>Adjusted the spawn rates of bondage-related clothing items in bondage appliers' inventories, so that they no longer spawn with latex clothing (except for latex catsuits and latex hoods) and they can now spawn with metal collars.</li>
+	<li>Bondage fetishists will now sometimes spawn with chastity clothing and will equip this clothing onto their partners during sex.</li>
+	<li>NPCs will no longer equip clothing onto their partners during sex if doing so would block an area that either they or any other character is interested in using (e.g. an NPC who's carrying a ballgag and wants to receive a blowjob during foreplay will now only equip the ballgag onto their partner after foreplay has finished).</li>
+	<li>Denial fetishists will now spawn carrying chastity gear 50% of the time, which they will apply to their partners during sex.</li>
+	<li>Yui now stocks 1-3 instances of each clothing type instead of only 1, and the metal collars she sells no longer have the enslavement enchantment.</li>
+	<li>Adjusted the bonuses gained from the 'Arcane potential' and 'Arcane proficiency' effects (the tier 1 and 2 bonuses gained from your arcane being 10-30 and 30-50) from both giving +10/+10 spell damage/spell efficiency to +10/+5 and +15/+10.</li>
+	<li>Themiscyra is now described as being occupied by Lunette's daughters instead of abandoned.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo and parsing fixes.</li>
+	<li>Fixed multiple instances of inconsistent descriptions while having a tauric lower body.</li>
+	<li>Fixed bug where sleeping NPCs would react to you putting a condom on them.</li>
+	<li>The 'latex catsuit' and the 'latex hood' clothing items can now be equipped during sex.</li>
+	<li>Fixed incorrect description of pierced spider ears.</li>
+	<li>Fixed incorrect description in prone bone sex scenes, where the orgasming character was described as looking down into their partner's eyes.</li>
+	<li>When removing/adding personality traits, the description now correctly reflects whether or not the character already had/lacked the trait.</li>
+	<li>Fixed bug where Ralph's discount would reset to 25% when starting any scene scene, and would reset to 0% when reloading a game.</li>
+	<li>The 'All-out strike' combat move will now correctly strike with both arms (multiplied by the number of arm rows you have) when unarmed, instead of striking just once per arm row.</li>
+	<li>Items with the 'breakOutOfInventory' element set to true, such as the Biojuice Canister, will no longer break out of an encounter and return to the tile's default dialogue when being used on an NPC.</li>
+	<li>The 'Offspring using gender preferences' setting will no longer reset to the default option every time you restart the game.</li>
+	<li>Fixed bug where the 'race reset' function in the debug menu wouldn't work properly after being used and then loading a saved game and trying to use it again.</li>
+	<li>Fixed unintended behaviour where characters with an ovipositor could implant eggs inside an elemental.</li>
+	<li>Condoms will no longer spawn with random enchantments on them, which was causing an issue where the condom wouldn't work correctly when equipped (you can still manually enchant condoms though).</li>
+	<li>Fixed sibling and half-sibling detection in instances where character A's mother is the same person as character B's father and vice versa.</li>
+	<li>Fixed background error being thrown when using the Offspring Map via a tile's response button instead of using it via your inventory.</li>
+	<li>Fixed bug in the transformation menu where the '(Single)' option for udder count was unresponsive.</li>
+	<li>The availability of hypnotic suggestion sex actions is now based on whether or not the targeted character has the 'Psychoactive Trip' status effect, instead of checking for psychoactive fluids ingested (so ingesting mushrooms will now correctly unlock the psychoactive sex actions).</li>
+	<li>Fixed bug where if you started a new game after selecting a skin/covering colour in Kate's shop, that skin/covering colour would be available to be applied during character creation, even if it was meant to be restricted.</li>
+	<li>If removing a place upgrade makes certain slave jobs unavailable, then slaves assigned to that job will now switch to IDLE during those hours in which they can no longer work that job.</li>
+	<li>Tattoo counters with the 'written out' style now correctly display 'zero' when the associated count is 0.</li>
+	<li>If you somehow manage to raise an npc attacker's affection without talking to them after defeating them in a fight (which should be impossible), then their name will be automatically revealed to you the next time you encounter them instead of forever remaining unknown.</li>
+	<li>Fixed bug where if the fountain tile in Lilaya's mansion had the unlocked access to Lilaya's dungeon, then it wasn't possible to interact with a doll who was working as a statue on that tile.</li>
+	<li>If you creampie Lilaya (in her half-demon form) with the sterile perk active and your virility at or below 0, she will now correctly stop sex (as she couldn't know that you're completely sterlie and so should act as though you might have got her pregnant).</li>
+	<li>Fixed bug in the pregnancy stats screen in the phone menu where if the eggs that you implant inside yourself were conceived as a result of self-impregnation, then the total number of offspring would be incorrectly doubled, and a related bug where implanted offspring were not being counted towards the sons/daughters mothered count at the top.</li>
+	<li>Demons which are turned into slimes are no longer limited to demonic transformations, but can transform in all the ways that a normal slime can (and when/if transformed back into flesh, they will revert to a demonic form).</li>
+</ul>

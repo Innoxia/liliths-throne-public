@@ -141,6 +141,9 @@ public class Takahashi extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.11.6")) {
+			this.setStartingBody(true);
+		}
 	}
 
 	@Override
@@ -159,27 +162,40 @@ public class Takahashi extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-		
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.COWARDLY,
 					PersonalityTrait.SELFISH);
-			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			
-			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
-			
-			this.clearFetishes();
+		}
+		
+		if(setFetishes) {
 			this.clearFetishDesires();
-			
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DENIAL);
 			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
+		}
+		
+		if(setSpells) {
+			//TODO
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		// Body:
@@ -224,6 +240,7 @@ public class Takahashi extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
+		this.setBreastRows(1);
 		this.setBreastSize(CupSize.C.getMeasurement());
 		this.setBreastShape(BreastShape.PERKY);
 		this.setNippleSize(NippleSize.TWO_BIG);
@@ -279,6 +296,13 @@ public class Takahashi extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_J_FINDING_TAKAHASHI)) {
+			return UtilText.parse(this,
+					"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
+							+ " After disappearing from the citadel in Submission, she was captured by Shiranui and held in Meraxis's hideout until you and Meraxis rescued her."
+							+ " Now she spends her time making potions in the hideout.");
+		}
+		
 		if(ImpCitadelDialogue.isDefeated() || ImpCitadelDialogue.isImpsDefeated()) {
 			return UtilText.parse(this,
 					"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."
@@ -323,6 +347,19 @@ public class Takahashi extends NPC {
 	
 	@Override
 	public void changeFurryLevel(){
+	}
+
+	@Override
+	public void hourlyUpdate(int hour) {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_J_FINDING_TAKAHASHI)) {
+				if(Main.game.isHourBetween(1, 9)) {
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_shinrin_highlands_hideout"), PlaceType.getPlaceTypeFromId("innoxia_shinrin_highlands_hideout_bedroom_takahashi"), true);
+				} else {
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_shinrin_highlands_hideout"), PlaceType.getPlaceTypeFromId("innoxia_shinrin_highlands_hideout_potion_lab"));
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -434,5 +471,21 @@ public class Takahashi extends NPC {
 	public void applyLabGear() {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false), true, this);
+	}
+	
+	public String applyTransformationPotion(GameCharacter target) {
+		StringBuilder sb =  new StringBuilder();
+		
+		TransformativePotion potion = generateTransformativePotion(target);
+
+//		if(target.isAbleToHaveRaceTransformed()) {
+//			target.setSkinCovering(new Covering(BodyCoveringType.FOX_FUR, PresetColour.COVERING_PINK), false);
+//		}
+		
+		for(PossibleItemEffect pe : potion.getEffects()) {
+			sb.append(pe.getEffect().applyEffect(this, Main.game.getPlayer(), 1));
+		}
+		
+		return sb.toString();
 	}
 }

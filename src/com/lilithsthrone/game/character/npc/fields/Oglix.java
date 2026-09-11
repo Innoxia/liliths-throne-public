@@ -134,17 +134,35 @@ public class Oglix extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-
-		if(setPersona) {
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD,
 					PersonalityTrait.SLOVENLY);
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
+			this.addFetish(Fetish.FETISH_VOYEURIST);
 
+			this.setFetishDesire(Fetish.FETISH_LACTATION_OTHERS, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_TAVERN_OWNER);
+		}
+		
+		if(setSpells) {
 			this.addSpell(Spell.POISON_VAPOURS);
 			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_1);
 			this.addSpellUpgrade(SpellUpgrade.POISON_VAPOURS_2);
@@ -162,17 +180,13 @@ public class Oglix extends NPC {
 			this.addSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_1);
 			this.addSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_2);
 			this.addSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_TAVERN_OWNER);
+		}
+	}
 	
-			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
-			this.addFetish(Fetish.FETISH_VOYEURIST);
-
-			this.setFetishDesire(Fetish.FETISH_LACTATION_OTHERS, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		

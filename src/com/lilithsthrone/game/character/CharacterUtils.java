@@ -153,6 +153,15 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class CharacterUtils {
 	
+	private static boolean generatingOwnerlessBody = false;
+	
+	/**
+	 * @return true if an ownerless body is currently being generated - if so, descriptions during the process should be suppressed.
+	 */
+	public static boolean isGeneratingOwnerlessBody() {
+		return generatingOwnerlessBody;
+	}
+
 	public void saveCharacterAsXML(PlayerCharacter character){
 		try {
 //			long timeStart = System.nanoTime();
@@ -225,7 +234,7 @@ public class CharacterUtils {
 	}
 	
 	public PlayerCharacter startLoadingCharacterFromXML(){
-		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		return new PlayerCharacter(true, new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
 	public PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
@@ -277,6 +286,8 @@ public class CharacterUtils {
 	}
 	
 	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father, Body fatherBody) {
+		generatingOwnerlessBody = true;
+		
 		Body body = null;
 		boolean takesAfterMother = true;
 		boolean raceFromMother = true;
@@ -376,18 +387,24 @@ public class CharacterUtils {
 				body.applyLegConfigurationTransformation(mother.getLegType(), mother.getLegConfiguration(), true);
 			}
 		}
+		// generateBody() could have been called above, which sets generatingOwnerlessBody to false, which can cause parsing errors to be thrown in applySpeciesChanges()
+		// so it needs to be re-set to true here
+		generatingOwnerlessBody = true;
 		
 		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		applyGenetics(linkedCharacter, body, motherBody, fatherBody, raceFromMother);
-		
+
 		// The applyRaceChanges and applySpeciesChanges methods sometimes change covering colours and then call updateCoverings(), which will result in this character's covering colours being unrelated to genetics
 		// To fix, coverings are saved and then restored after the two methods have been called
 		Map<AbstractBodyCoveringType, Covering> preChangesCoverings = body.getCoverings();
 		raceTakesAfter.getRace().applyRaceChanges(body);
-		raceTakesAfter.applySpeciesChanges(body);
+//		System.out.println("AIIIEEEE "+generatingOwnerlessBody);
+		raceTakesAfter.applySpeciesChanges(linkedCharacter, body);
 		body.setCoverings(preChangesCoverings);
+		
+		generatingOwnerlessBody = false;
 		
 		return body;
 	}
@@ -1029,6 +1046,8 @@ public class CharacterUtils {
 	}
 	
 	public Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, AbstractSubspecies halfSubspecies, boolean applyHalfDemonAttributeChanges, RaceStage overrideStage) {
+		generatingOwnerlessBody = true;
+		
 //		Gender startingGender;
 		if(startingGender==null) {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
@@ -1209,8 +1228,10 @@ public class CharacterUtils {
 		setBodyHair(body);
 		
 		halfSubspecies.getRace().applyRaceChanges(body);
-		halfSubspecies.applySpeciesChanges(body);
+		halfSubspecies.applySpeciesChanges(linkedCharacter, body);
 
+		generatingOwnerlessBody = false;
+		
 		return body;
 	}
 	
@@ -1229,6 +1250,8 @@ public class CharacterUtils {
 		boolean isSlime = species == Subspecies.SLIME;
 		boolean isHalfDemon = species == Subspecies.HALF_DEMON;
 		boolean isDoll = species == Subspecies.DOLL;
+
+		generatingOwnerlessBody = true;
 		
 		// Handling half-demons:
 		if(isHalfDemon && (linkedCharacter==null || !linkedCharacter.isUnique())) {
@@ -1276,7 +1299,8 @@ public class CharacterUtils {
 				potentialSubspecies.add(Subspecies.HUMAN);
 			}
 			species = Util.randomItemFrom(potentialSubspecies);
-			
+
+			generatingOwnerlessBody = false;
 			return generateHalfDemonBody(linkedCharacter, startingGender, species, true);
 		}
 		
@@ -1416,7 +1440,7 @@ public class CharacterUtils {
 							startingBodyType.getCumProduction(),
 							startingBodyType.getTesticleQuantity()))
 					.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
-					.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())))
+					.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())))
 					.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
 					.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
 					.wing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
@@ -1449,21 +1473,22 @@ public class CharacterUtils {
 		if(species!=null) {
 			if(stage!=RaceStage.HUMAN) {
 				species.getRace().applyRaceChanges(body);
-				species.applySpeciesChanges(body);
+				species.applySpeciesChanges(linkedCharacter, body);
 			}
 			if(isSlime) {
 				Race.SLIME.applyRaceChanges(body);
-				Subspecies.SLIME.applySpeciesChanges(body);
+				Subspecies.SLIME.applySpeciesChanges(linkedCharacter, body);
 			}
 			if(isDoll) {
 				Race.DOLL.applyRaceChanges(body);
-				Subspecies.DOLL.applySpeciesChanges(body);
+				Subspecies.DOLL.applySpeciesChanges(linkedCharacter, body);
 			}
 		}
 		
 		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
 		body.calculateRace(linkedCharacter);
-		
+
+		generatingOwnerlessBody = false;
 		return body;
 	}
 	
@@ -1472,6 +1497,12 @@ public class CharacterUtils {
 	 * <br/>This method maintains the character's pierced areas.
 	 */
 	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, AbstractSubspecies species, RaceStage stage, boolean removeDemonOverride) {
+
+		// Don't need to set generatingOwnerlessBody in this method as the body should always be taht of the owner
+		if(linkedCharacter.getBody()!=body) {
+			System.err.println("reassignBody() body is not that of the linkedCharacter!");
+		}
+		
 		if(removeDemonOverride) {
 			body.setSubspeciesOverride(null);
 		}
@@ -1623,7 +1654,7 @@ public class CharacterUtils {
 		
 		body.setHorn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())));
 		
-		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())));
+		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())));
 		
 		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE));
 
@@ -1638,7 +1669,7 @@ public class CharacterUtils {
 		
 		if(species!=null && stage!=RaceStage.HUMAN) {
 			species.getRace().applyRaceChanges(body);
-			species.applySpeciesChanges(body);
+			species.applySpeciesChanges(linkedCharacter, body);
 		}
 		body.calculateRace(linkedCharacter);
 		// To add or remove youko perks
@@ -2340,7 +2371,7 @@ public class CharacterUtils {
 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 
 		character.getRace().applyRaceChanges(character.getBody());
-		character.getSubspecies().applySpeciesChanges(character.getBody());
+		character.getSubspecies().applySpeciesChanges(character, character.getBody());
 		character.getBody().calculateRace(character);
 	}
 	
@@ -2614,61 +2645,100 @@ public class CharacterUtils {
 		if(character.hasFetish(Fetish.FETISH_BONDAGE_APPLIER)) {
 			maxClothingCount+=1;
 			List<InventorySlot> prohibitedSlots = Util.newArrayListOfValues(InventorySlot.VAGINA, InventorySlot.PENIS, InventorySlot.ANUS, InventorySlot.NIPPLE, InventorySlot.GROIN);
-			List<AbstractClothingType> bondageClothing = ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("innoxia_bdsm"));
-			bondageClothing.addAll(ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("sage_ltxset")));
-			bondageClothing.remove(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"));
+			List<AbstractClothingType> bondageClothing = new ArrayList<>(ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("innoxia_bdsm")));
+			for(AbstractClothingType ct : ClothingType.getAllClothing()) {
+				if(ct.getDefaultItemTags().contains(ItemTag.USED_BY_BONDAGE_APPLIERS)) {
+					bondageClothing.add(ct);
+				}
+			}
+//			bondageClothing.addAll(ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("sage_ltxset")));
+//			bondageClothing.remove(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"));
 			for(AbstractClothingType ct : bondageClothing) {
 				InventorySlot defaultSlot = ct.getEquipSlots().get(0);
-				// Do not add clothing types which are sex toys, as conditionals for those are added in the next logic block, and do not add enslavement clothing as the NPC will not want to equip it.
-				if(!ct.getEffects().stream().anyMatch(ie -> ie.getSecondaryModifier()==TFModifier.CLOTHING_ENSLAVEMENT) && !prohibitedSlots.contains(defaultSlot)) {
+				// Do not add clothing types which are sex toys, as conditionals for those are added in the next logic block. Clothing which enslaves by default is handled later on by removing enslavement enchantments.
+				if(!prohibitedSlots.contains(defaultSlot)) {
 					availableClothing.add(ct);
 				}
 			}
 		}
 		// Sex toys:
-		if(character.getCorruptionLevel().getMinimumValue()>=CorruptionLevel.THREE_DIRTY.getMinimumValue()) { // Only 'dirty' corruption characters carry sex toys around
+		List<AbstractClothingType> availableSexToys = new ArrayList<>();
+		if(character.getCorruptionLevel().getMinimumValue()>=CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()
+				|| character.hasFetish(Fetish.FETISH_BONDAGE_APPLIER)
+				|| (character.hasFetish(Fetish.FETISH_DENIAL) && Math.random()<0.5f)) { // Only 'lustful' corruption characters, bondage-appliers, or 50% of denial fetishists carry sex toys around
 			maxClothingCount+=1;
 			for(AbstractClothingType ct : ClothingType.getAllClothing()) {
 				InventorySlot defaultSlot = ct.getEquipSlots().get(0);
-				if(ct.getDefaultItemTags().contains(ItemTag.ENABLE_SEX_EQUIP) && !ct.getEffects().stream().anyMatch(ie -> ie.getSecondaryModifier()==TFModifier.CLOTHING_ENSLAVEMENT)) {
+				if(ct.getDefaultItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)) {
 					// Conditionals for equipping sex toys are if this character is not averse to using the associated area
 						// (choosing to equip them is handled in NPC.getSexClothingToEquip(), so it's ok to give them clothing which they might not want to equip)
 					if(defaultSlot==InventorySlot.VAGINA) {
 						if(!character.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isNegative()) {
-							availableClothing.add(ct);
+							availableSexToys.add(ct);
 						}
 					} else if(defaultSlot==InventorySlot.PENIS && !ct.getDefaultItemTags().contains(ItemTag.CONDOM) && !ct.getDefaultItemTags().contains(ItemTag.DILDO_OTHER)) { //Don't equip dildos on others
-						if(!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()
-								&& (Collections.disjoint(ct.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.CHASTITY, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER))
-										|| character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive())) {
-							availableClothing.add(ct);
+						boolean isChastity = !Collections.disjoint(ct.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.CHASTITY, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER));
+						if(isChastity
+								?character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive()
+								:!character.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()) {
+							availableSexToys.add(ct);
 						}
 					} else if(defaultSlot==InventorySlot.ANUS) {
-						if(Main.game.isAnalContentEnabled() && !character.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative()) {
-							availableClothing.add(ct);
+						if(Main.game.isAnalContentEnabled() && character.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+							availableSexToys.add(ct);
 						}
 					} else if(defaultSlot==InventorySlot.NIPPLE) {
 						if(!character.getFetishDesire(Fetish.FETISH_BREASTS_OTHERS).isNegative()) {
-							availableClothing.add(ct);
+							availableSexToys.add(ct);
 						}
 					} else if(defaultSlot==InventorySlot.GROIN) {
 						if(ct.getDefaultItemTags().contains(ItemTag.CHASTITY) && character.getFetishDesire(Fetish.FETISH_DENIAL).isPositive()) {
-							availableClothing.add(ct); // Only add chastity devices into groin slot
+							availableSexToys.add(ct); // Only add chastity devices into groin slot
 						}
 					}
 				}
 			}
 		}
+		// If the character is not a bondage applier nor super corrupt, only make them carry chastity
+		if(character.hasFetish(Fetish.FETISH_DENIAL) && character.getCorruptionLevel().getMinimumValue()<CorruptionLevel.FOUR_LUSTFUL.getMinimumValue() && !character.hasFetish(Fetish.FETISH_BONDAGE_APPLIER)) {
+			availableSexToys.removeIf(ct -> Collections.disjoint(ct.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.CHASTITY, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER)));
+		}
 		
-		availableClothing.removeIf(ct->ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN) || ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM) || ct.getRarity()==Rarity.QUEST);
-		
+
 		// Adding clothing to inventory:
+		availableClothing.removeIf(ct->ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN) || ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM) || ct.getRarity()==Rarity.QUEST);
 		maxClothingCount+=Util.random.nextInt(3);
 		Collections.shuffle(availableClothing);
 		for(AbstractClothingType ct : availableClothing) {
-			character.addClothing(Main.game.getItemGen().generateClothing(ct, false), 1, false, false);
+			AbstractClothing clothingToBeAdded = Main.game.getItemGen().generateClothing(ct, false);
+			clothingToBeAdded.removeEffectsByModifier(TFModifier.CLOTHING_ENSLAVEMENT); // Make sure that no clothing spawns with the enslavement enchantment, as otherwise the NPC will not want to equip it
+			character.addClothing(clothingToBeAdded, 1, false, false);
 			maxClothingCount--;
 			if(maxClothingCount<=0) {
+				break;
+			}
+		}
+
+		// Adding sex toys to inventory:
+		availableSexToys.removeIf(ct->ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN) || ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM) || ct.getRarity()==Rarity.QUEST);
+		int sexToyCount = 1 + (character.getCorruptionLevel().getMinimumValue()>=CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()?1:0);
+		Collections.shuffle(availableSexToys);
+		// Make sure that a chastity toy is guaranteed to be spawned for bondage appliers 50% of the time, or denial fetishists 90% of the time:
+		if((character.hasFetish(Fetish.FETISH_BONDAGE_APPLIER) && Math.random()<0.5f) || (character.hasFetish(Fetish.FETISH_DENIAL) && Math.random()<0.9f)) {
+			availableSexToys.sort((c1, c2) ->
+				Collections.disjoint(c1.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.CHASTITY, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER))
+					?Collections.disjoint(c2.getDefaultItemTags(), Util.newArrayListOfValues(ItemTag.CHASTITY, ItemTag.PREVENTS_ERECTION_PHYSICAL, ItemTag.PREVENTS_ERECTION_OTHER))
+						?0
+						:1
+					:-1
+				);
+		}
+		for(AbstractClothingType ct : availableSexToys) {
+			AbstractClothing clothingToBeAdded = Main.game.getItemGen().generateClothing(ct, false);
+			clothingToBeAdded.removeEffectsByModifier(TFModifier.CLOTHING_ENSLAVEMENT); // Make sure that no clothing spawns with the enslavement enchantment, as otherwise the NPC will not want to equip it
+			character.addClothing(clothingToBeAdded, 1, false, false);
+			sexToyCount--;
+			if(sexToyCount<=0) {
 				break;
 			}
 		}

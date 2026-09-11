@@ -189,7 +189,7 @@ public class FluidCum implements FluidInterface {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.flavour = flavour;
 			return "";
 		}
@@ -215,7 +215,7 @@ public class FluidCum implements FluidInterface {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
-		if(owner==null && !fluidModifiers.contains(fluidModifier)) {
+		if(!isCharacterInitialised(owner) && !fluidModifiers.contains(fluidModifier)) {
 			fluidModifiers.add(fluidModifier);
 			return "";
 		}
@@ -295,7 +295,7 @@ public class FluidCum implements FluidInterface {
 	}
 	
 	public String removeFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			fluidModifiers.remove(fluidModifier);
 			return "";
 		}
@@ -392,7 +392,7 @@ public class FluidCum implements FluidInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(FluidCum.class) && getType().getRace().isFeralPartsAvailable());

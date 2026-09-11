@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+			<fetish>FETISH_PENIS_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>ORIFICE_MOUTH</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects/>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Cock worship]]></title>
+	<tooltip><![CDATA[
+		Worship Shiranui's cock as it slides back and forth between your and Meraxis's lips.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				You can't help but let out eager [pc.moans] as you happily suckle, kiss, and lick the side of Shiranui's [shiranui.cock+].
+			]]></text>
+			<text><![CDATA[
+				As Shiranui's cock is pushed between your and Meraxis's lips, you eagerly kiss, lick, and worship her hot, throbbing shaft.
+			]]></text>
+			<text><![CDATA[
+				You press your [pc.lips+] against the side of Shiranui's hot cock, and as she slides her [shiranui.cock+] between your and Meraxis's lips, you eagerly kiss and lick it.
+			]]></text>
+			<text><![CDATA[
+				Shiranui's [shiranui.cock+] pushes forwards between you and Meraxis, and as it grinds over your mouth, you part your [pc.lips+] and dutifully kiss and worship its throbbing length.
+			]]></text>
+		</description>
+		
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Meraxis lets out eager little moans as she happily suckles, kisses, and licks the side of Shiranui's [shiranui.cock+].
+			]]></text>
+			<text><![CDATA[
+				As Shiranui's cock is pushed between your and Meraxis's lips, the chunni [meraxis.race] eagerly kisses, licks, and worships her hot, throbbing shaft.
+			]]></text>
+			<text><![CDATA[
+				Meraxis presses her [meraxis.lips+] against the side of Shiranui's hot cock, and as the youko slides her [shiranui.cock+] past Meraxis's mouth, she eagerly kisses and licks it.
+			]]></text>
+			<text><![CDATA[
+				Shiranui's [shiranui.cock+] pushes forwards between you and Meraxis, and as it grinds over Meraxis's mouth, she parts her [meraxis.lips+] and dutifully kisses and worships its throbbing length.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

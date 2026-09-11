@@ -211,19 +211,24 @@
 			</response>
 			<!-- Quest: -->
 			<response>
-				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_E_THEMISCYRA_ATTACK)]]]></availabilityConditional> <!-- TODO conditional -->
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_E_THEMISCYRA_ATTACK)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[6]]></index>
 				<responseTitle><![CDATA[SWORD help]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_I_ARION_REPORT)
+					#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN)
 						Tell Minotallys and Arion that you've got the help of the SWORD Enforcers.
-						<br/>[style.italicsMinorBad(This will be added soon!)]
 					#ELSE
 						You haven't got the help of the SWORD Enforcers yet...
 					#ENDIF
 				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<nextDialogue><![CDATA[
+					#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN)
+						innoxia_quests_main_elisDefenceMeeting_start
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
 			</response>
 			<!-- Leave: -->
 			<response>

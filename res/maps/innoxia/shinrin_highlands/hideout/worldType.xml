@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[Meraxis's Hideout]]></name>
+	<colour>BASE_PURPLE_LIGHT</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason>
+	<furniturePresent deskName="table">true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>true</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_YOUKO_FOREST</globalMapLocation>
+	<standardPlace>innoxia_shinrin_highlands_hideout_floor</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_shinrin_highlands_hideout_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#808080">innoxia_shinrin_highlands_hideout_floor</place>
+		<place colour="#aaaaaa">innoxia_shinrin_highlands_hideout_corridor</place>
+		
+		<place colour="#ff8000">innoxia_shinrin_highlands_hideout_potion_lab</place>
+		<place colour="#00ff00">innoxia_shinrin_highlands_hideout_toilets</place>
+		<place colour="#0000ff">innoxia_shinrin_highlands_hideout_seating</place>
+		<place colour="#0080ff">innoxia_shinrin_highlands_hideout_table</place>
+		<place colour="#8000ff">innoxia_shinrin_highlands_hideout_door</place>
+		<place colour="#ffff00">innoxia_shinrin_highlands_hideout_bedroom_meraxis</place>
+		<place colour="#80ff80">innoxia_shinrin_highlands_hideout_bedroom_takahashi</place>
+		<place colour="#8080ff">innoxia_shinrin_highlands_hideout_bedroom_player</place>	
+		<place colour="#ff00ff">innoxia_shinrin_highlands_hideout_bath</place>
+		
+		<place colour="#ff0000">innoxia_shinrin_highlands_hideout_exit</place>
+	</places>
+</worldType>

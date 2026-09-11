@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="WORLD_MAP"><![CDATA[
+	<p>
+		Sitting at the bottom of a small valley, Meraxis's hideout is located in this area, and takes the form of a small, single-story building. Constructed in a traditional Japanese architectural style, it has dark roof tiles, a raised foundation, and walls which are a combination of white, lime-plastered walls and black wooden beams. Surrounding the hideout is a large, grassy field, which in turn is bordered by sparse woodland.
+	</p>
+	<p>
+		Meraxis has cast an illusion spell over the hideout, making it invisible to all who don't already know of its location. As you're one of the few who do know about it, the spell doesn't work on you, and so you can come and go from the hideout as you please.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WORLD_MAP_ENTER"><![CDATA[
+	<p>
+		Deciding to pay Meraxis and Takahashi another visit, you [pc.walk] over to the building which serves as their hideout. As its foundations are slightly raised, you have to [pc.walk] up a few steps to reach the wooden veranda which extends around the entire property, and after crossing that, you arrive at the front door. Sliding it to one side, you [pc.step] inside.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FLOOR"><![CDATA[
+	<p>
+		The majority of the indoor space within Meraxis's hideout takes the form of the large, square room which you're currently standing in. Tatami mats cover the floor, and hanging upon the white walls are paintings of a distinctly Japanese-style, which no doubt would be referred to as being 'youko-styled' in this world.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		This corridor serves to link all of the hideout's bedrooms to one another, while at one end is located the bathroom. Like the rest of Meraxis's hideout, the floor is covered with soft tatami mats, and the walls are white and decorated with Japanese-style paintings.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing in a small hallway, which is the transitional space between the outside world and the main room of Meraxis's hideout. There are sliding doors on both ends of this area, and the floor is split in two horizontally, with the half closest to the exit being lowered and used for storing outside shoes.
+	</p>
+	<p>
+		From here, you could head back out into the Shinrin Highlands or enter the main room of Meraxis's hideout.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that it's time to leave Meraxis's hideout you slide open the front door and [pc.step] out onto the wooden veranda. Closing the door behind you, you [pc.walk] down the steps and head out into the Shinrin Highlands...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Potion lab -->
+	
+	<htmlContent tag="POTION_LAB"><![CDATA[
+	<p>
+		Cupboards and a deep counter-top run around the perimeter of  this particular corner of the room. A stove-top, oven, and sink give you the impression that it was originally designed as a kitchen, but since then has been transformed into a potion lab. All sorts of glass vials and miscellaneous chemistry equipment is scattered across the surface of the counter-top, and here and there are bottles full of potions or raw ingredients.
+	</p>
+	<p>
+		Although its primary use is now that of a laboratory, this area is still, somewhat worryingly, used to prepare food. Some of the cupboards are labelled as containing food, with additioanl labels reminding Takahashi to not sotre her potion ingredients in them. On top of one of these cupboards, you see that the black choker which Shiranui had made Takahashi wear is being kept, and you're a little surprised to see that it hasn't been thrown away.
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(takahashi))
+			As usual, the three-tailed youko, Takahashi, is here. Sitting upon a tall stool in front of one of the counter-tops, she's carefully measuring out ingredients and mixing liquids together in order to create more potions. If you wanted to, you could approach her and talk to her.
+		#ELSE
+			Takahashi isn't here right now, and so you assume that she must be sleeping in her bedroom.
+		#ENDIF
+	</p>
+	#IF(game.getCharactersPresent().contains(takahashi))
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(Full Takahashi interactions will be added in the next update!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_COLLECT_POTION"><![CDATA[
+	<p>
+		TODO you collect the potion which Takahashi has left out for you
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_START"><![CDATA[
+	<p>
+		TODO You [pc.step] over to where Takahashi is working and say hello.
+	</p>
+	<p>
+		She asks what you want. Says that she does owe you for saving her, so she'll humour you with some chit-chat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_TF_POSSIBILITIES"><![CDATA[
+	#IF(!pc.isFeminine())
+		<p>
+			#IF(pc.getRace()==RACE_FOX_MORPH)
+				She likes fox-morphs, but only the feminine ones...
+			#ELSEIF(!pc.isAbleToHaveRaceTransformed())
+				She says that it's a shame that you can't be transformed into a fox-girl, but at least she could make you feminine. Offers you a potion to make you more appealing to her.
+			#ELSE
+				She says that she doesn't like how you look; you'd be much better off as a fox-girl. Offers you a potion to make you more appealing.
+			#ENDIF
+		</p>
+		<p>
+			Giggles and says that Shiranui had her make this; it'll give you a pretty lewd body.
+		</p>
+	#ELSE
+		<p>
+			Takahashi flirts and says that now that she's taken a good look at you, you're kind of hot.
+		</p>
+		<p>
+			#IF(pc.getRace()==RACE_FOX_MORPH)
+				She likes fox-girls...
+			#ELSEIF(!pc.isAbleToHaveRaceTransformed())
+				She says that it's a shame that you can't be transformed into a fox-girl, but you're still hot...
+			#ELSE
+				She says that you're hot, but you'd be hotter as a fox-girl...
+			#ENDIF
+		</p>
+		<p>
+			You should serve her by eating her out.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_LEAVE"><![CDATA[
+	<p>
+		TODO You say goodbye to Takahashi.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_MERAXIS"><![CDATA[
+	<p>
+		TODO Relationship with Meraxis.
+	</p>
+	<p>
+		Stole Meraxis's scythe as an offering to mistress. Takahashi had failed Kayo's trial t get a fourth tail, and her Mistress was furious. Saying how Takahahsi had brought shame upon her name, and that she was the only youko servant she'd ever had to have failed.
+	</p>
+	<p>
+		Meraxis's scythe wasn't enough, and her Mistress said that she'd be her slave for a thousand years.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_SHIRANUI"><![CDATA[
+	<p>
+		TODO Ask about Shiranui. She's also a trickster youko, but Takahashi isn't her follower so she was fair game for her tricks.
+	</p>
+	<p>
+		She glances at the choker on the nearby desk. Says that she hates cock, but even now she can't help but think positively about being Shiranui's sex slave. She says she knows it's the choker's doing, and isn't really her, but she's graeful to Shiranui for making her wear it.
+	</p>
+	<p>
+		She says one day, when she's got more tails, she'll return the favour and turn Shiranui into her pussy-licking slave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_POTIONS"><![CDATA[
+	<p>
+		TODO unlocks potion testing
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_YOUKO"><![CDATA[
+	<p>
+		TODO unlocks lilin youko topics
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_KAZUHA"><![CDATA[
+	<p>
+		TODO Kazuha is the benevolent lilin, and stops Kayo from causing too much trouble outside of the Shinrin Highlands.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TALK_KAYO"><![CDATA[
+	<p>
+		TODO need to ask about youo lilin and Meraxis before this is unlocked
+		TODO Kayo is the trickster lilin, and keeps things fun.
+	</p>
+	<p>
+		Takahashi is a servant of Kayo; youko are born or transformed by one of the youko lilin as a 1-tail. Trials are passed to earn more tails. Takahashi failed her fourth trial, so she's seen Kayo four times.
+	</p>
+	<p>
+		You say that she was transformed into a youko, not born?
+	</p>
+	<p>
+		Takahashi was born as a cat-girl but struggled to survive in Dominion. She saw a trickster youko planting potions one day, and tricked her into drinking her own potion. The youko was so impressed that she offered to take Takahashi back with her to the Shinrin Highlands to help her make potions.
+	</p>
+	<p>
+		She earned the respect of several other trickster youko, and was granted an audience with Kayo. She can't talk about the trial, but she came out the other side as a youko with a new name. A nine-tail took her as her servant after that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_DRINK_POTION"><![CDATA[
+	<p>
+		TODO Takahashi gives you potion to drink.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_TRANSFORMED"><![CDATA[
+	<p>
+		TODO Takahashi smirks and says that you're surprisingly hot in that form.
+	</p>
+	<p>
+		Meraxis comes over and comments on the transformation, before returning to the seating area.
+	</p>
+	<p>
+		Takahashi could do with getting some stress relief, so why not put that tongue of yours to work?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_PERFORM_ORAL_START"><![CDATA[
+	<p>
+		TODO You go down on Takahashi. She hikes up her kimono, revealing her [takahashi.pussy+].
+	</p>
+	<p>
+		Tells you that this is about her pleasure, not yours. Orders you to kiss her cunt.
+	</p>
+	<p>
+		Her toes trace up one of your legs. She giggles and spreads her legs a little wider. Says that Meraxis is reading, so don't make too much noise; we wouldn't want to interrupt her, would we?
+	</p>
+	<p>
+		[takahashi.speech(Kiss me again,)] she commands, and shudders in delight as you plant another passionate on her [takahashi.labia+]. Letting out a horny little moan, she finally says, [takahashi.speech(Go on then; show me that you can make me feel good.)]
+	</p>
+	<p>
+		Pressing your [pc.lips+] against her [takahashi.pussy+], you slide your [pc.tongue+] up and over her labia, before pushing it inside and starting to eagerly eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POTION_LAB_AFTER_SEX_PERFORMING_ORAL"><![CDATA[
+	<p>
+		TODO after eating Takahashi out. She smirks down at you and says that you didn't do enough to earn an orgasm. You did do an acceptable job, though.
+	</p>
+	<p>
+		Turns her stool back to face the counter-top and says she's finished with you for now, leaving you to stand up and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Seating: -->
+	
+	<htmlContent tag="SEATING"><![CDATA[
+	<p>
+		In this particular corner of the room, an old fabric sofa, two leather chairs, and a kotatsu with four matching zaisu have been assembled into a cozy seating area. These items of furniture have seen heavy use, for the fabric sofa and leather chairs are visibly worn and faded.
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(meraxis))
+			Lounging about on the sofa, with a book of spells in her hands, is Meraxis. She seem engrossed in her book at the moment, but if you wanted to, you could interrupt her and talk to her for a while.
+		#ELSE
+			Meraxis isn't here at the moment, and so you assume that she must be sleeping in her bedroom.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_TALK_TAKAHASHI"><![CDATA[
+	<p>
+		Wanting to know more about Meraxis's relationship with her youko friend, you ask the chuuni [meraxis.race] how she became friends with Takahashi.
+	</p>
+	<p>
+		Leaning back on the sofa, she smirks and reveals, [meraxis.speech(It was aeons ago that we first met, but thanks to my unparalleled memory I can say for certain that it was in The Red Dragon in Elis where Takahashi and I had our first, fateful encounter. She tried to trick me into giving her my scythe, but I am immune to such deceitful ploys, and so instead of falling for her lies, I gave my scythe to her willingly! If was only after I had generously lent my weapon to Takahashi that I remembered that I needed it, and so I chased after her!)]
+	</p>
+	<p>
+		It sounds very much like Meraxis was tricked into having her scythe stolen. Wondering how this led the two of them to being friends, you ask her what happened next.
+	</p>
+	<p>
+		[meraxis.speech(I pursued her out of the town and into the Shinrin Highlands. At that time, I'd never ventured into these lands before, but my need for my scythe was so great that I cast aside all caution and chased after her. Even though she's a trickster youko, and attempted to use illusion spells to shake me off her trail, I caught up with her,)] Meraxis proudly declares, before her eyes narrow and she recounts, [meraxis.speech(I witnessed Takahashi attempting to use my scythe as an offering to appease a nine-tail youko. It wasn't enough, and the nine-tail declared that Takahashi would serve as her slave for a thousand years. That's when I heroically burst out of the bushes, slid down the side of a hill, and intervened in the most impressive manner imaginable!)]
+	</p>
+	<p>
+		From what you know of nine-tailed youko, the fact that Meraxis challenged one seems daring even for her. As you express this to her, you don't think that yuo've ever seen her look so smug, and she boasts, [meraxis.speech(Nine-tailed youko are no match for me! Well, I'll admit that she was a bit of a bother, but as soon as Takahashi threw my scythe back to me, the battle was decided! Takahashi apologised for stealing- I-I mean, she apologised for trying to give my scythe away after I'd let her borrow it. Having defied her Mistress, for that was who the nine-tail was, she was scared that she'd be pursued and enslaved. Taking pity upon her, I invoked the name of mommy and told the nine-tail to leave Takahashi alone.)]
+	</p>
+	<p>
+		Suddenly realising that she's called Lyssieth 'mommy' again, Meraxis blushes, before stammering, [meraxis.speech(A-Anyway, I said goodbye to Takahashi, but she insisted on coming with me. The two of us have been together ever since.)]
+	</p>
+	<p>
+		Having finished her story, Meraxis sighs and says, [meraxis.speech(People don't trust her just because she's a follower of the trickster youko lilin, Kayo. Yeah, sure, she likes tricking and transforming people now and again, but she's my best friend and is really kind and sweet once you get to know her. Just be careful if she offers you a potion, ok, [pc.name]?)]
+	</p>
+	<p>
+		Thanking Meraxis for telling you her story, you tell her that you'll watch out for Takahashi's potions, before wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_TALK_HIDEOUT"><![CDATA[
+	<p>
+		Curious to find out more about this hideout of hers, you ask Meraxis about the story behind this building.
+	</p>
+	<p>
+		[meraxis.speech(Takahashi and I built it some time after the two of us first met,)] she reveals, [meraxis.speech(At the time, my dark fortress was within Lyssieth's palace, and Takahashi didn't like the way my sisters kept on investigating her for every last unexplained transformation that was happening to them. She wanted us to have a real place of our own, and I liked that idea, so we decided to set up a top-secret lair in the Shinrin Highlands.)]
+	</p>
+	<p>
+		Momentarily changing the topic of conversation, you ask Meraxis if Takahashi was indeed the one behind the 'unexplained transformations' which her sisters were experiencing.
+	</p>
+	<p>
+		[meraxis.speech(Well, yeah, but there was no harm in it!)] Meraxis exclaims, [meraxis.speech(They're all half-demons, so they were mostly immune to the potions anyway, and they could always just transform themselves back! I guess it <i>was</i> a bit of a problem when Takahashi slipped a potion into the wine when mommy was entertaining all those humans... She didn't really like it when they transformed into fox-girls half-way through their dinner party... By that time we'd already decided to leave anyway though. So, anyway, we travelled to the Shinrin Highlands and built this place! Pretty good, huh?)]
+	</p>
+	<p>
+		Although it's not a huge building, it's still incredibly impressive that Meraxis and Takahashi could have built this place by themselves. You ask her how long the construction took.
+	</p>
+	<p>
+		[meraxis.speech(Hmm... I think it was a couple of months. Takahashi directed me on how to build it; she was copying the same style of building that all the other youko build. With the arcane, cutting down trees and shaping them into beams can be done in the blink of an eye, so most of the time was spent designing it and adjusting things when we made mistakes,)] she replies, [meraxis.speech(Then we bought the furniture from some benevolent youko who live near Kazuha's temple, and it was all done!)]
+	</p>
+	<p>
+		You can't help but express how impressed you are to find out that it only took the two of them a couple of months to build this place. An extremely smug smirk settles on Meraxis's face as you praise her, and she exclaims, [meraxis.speech(Yes, the dark siren is pretty amazing, is she not? Mwhahahah!)]
+	</p>
+	<p>
+		Not wanting to feed her ego any more, you decide against saying anything else and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_MERAXIS_SEX"><![CDATA[
+	<p>
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Striking an impressive pose, you point at Meraxis and declare, [pc.speech(My nemesis, I challenge you to the ultimate form of duel; let us discover who can last the longest in the bedroom!)]
+		#ELSE
+			Wanting to speak in terms that Meraxis will understand, you ask her if she'd want to join you for a special type of 'duel' in her bedroom.
+		#ENDIF
+	</p>
+	<p>
+		#IF(takahashi.getLocationPlace().getPlaceType()==PLACE_TYPE_innoxia_shinrin_highlands_hideout_potion_lab)
+			From the other side of the room, Takahashi lets out a soft laugh as she hears you say this. Meraxis's cheeks turn a bright shade of red as she hears her friend's laughter,
+		#ELSE
+			Meraxis's cheeks turn a bright shade of red as she hears you say this,
+		#ENDIF
+		 and in an attempt to take control of the situation, the chuuni [meraxis.race] stands up and loudly declares, [meraxis.speech(I will not back down from your challenge, my ultimate nemesis! You shall soon discover how foolish you were to challenge me in such a fashion!)]
+	</p>
+	<p>
+		Stepping forwards, Meraxis grabs you by the [pc.hand(true)] and hastily pulls you along after her as she heads towards the sliding door on the other side of the room. After quickly passing through this door, the two of you head straight across the corridor beyond to arrive at the door to Meraxis's room. Hastily pulling you inside, the [meraxis.race] slides the door closed after you, before turning to face you and declaring, [meraxis.speech(Now you are in my lair! You stand no chance against me in here!)] 
+	</p>
+	<p>
+		Looking around at the interior of Meraxis's room, you immediately take note of how incredibly messy it is. All manner of arcane instruments and dangerous-looking weapons are haphazardly piled up on top of every piece of furniture, while the floor is strewn with dirty clothing and pieces of paper. Jumping onto her bed, Meraxis playfully kicks a pillow towards you and laughs, [meraxis.speech(Mwhahaha! So then, [pc.name], you dare to challenge a daughter of an elder lilin to... to...)]
+	</p>
+	<p>
+		Despite her confident start, the shy [meraxis.race] blushes and stalls at this critical moment. Averting her eyes, she mutters, [meraxis.speech(S-So you want to... you know... have sex?)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_MERAXIS_SEX_AS_DOM"><![CDATA[
+	<p>
+		Realising that you're going to have to take the dominant role, you join Meraxis on her bed and pull her into a deep, passionate kiss. The cute [meraxis.race] practically falls into your [pc.arms], and after desperately returning your kiss for a few moments, she pulls back and breathlessly pants, [meraxis.speech(Come on then, [pc.name]... Let's do it...)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_MERAXIS_SEX_AS_SUB"><![CDATA[
+	<p>
+		Not wanting to take the dominant role, you join Meraxis on her bed and tell her that you'll do whatever she likes. Regaining her confidence as she hears that you want to submit to her, she lets out another of her theatrical laughs, before suddenly moving forwards and pulling you into a deep, passionate kiss. After you've desperately returned her kiss for a few moments, she pulls back and eagerly pants, [meraxis.speech(Get ready, [pc.name]... I'll show you how it's done...)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_MERAXIS_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(meraxis.isSatisfiedFromLastSex())
+			Letting out a deep sigh, Meraxis collapses back onto her bed and pants, [meraxis.speech(That was... So good...)]
+		#ELSE
+			Letting out a frustrated sigh, Meraxis collapses back onto her bed and pants, [meraxis.speech(You didn't even... Manage to satisfy me...)]
+		#ENDIF
+	</p>
+	<p>
+		Waiting for you to quickly clean yourself up and get your things back in order, the chuuni [meraxis.race] falls back into her usual manner of speaking and exclaims, [meraxis.speech(I must harness the power of the whirlpool and cleanse my body! I shall see you later, my nemesis!)]
+	</p>
+	<p>
+		Realising that Meraxis means that she wants to wash herself, you head out of her bedroom at her side and watch her run off down the corridor and into the bathroom...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEATING_MERAXIS_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Heading back out into the corridor, you leave Meraxis's room behind and wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Table: -->
+	
+	<htmlContent tag="TABLE"><![CDATA[
+	<p>
+		The corner which you find yourself standing in houses a wooden table and chairs, along with several tall cabinets which have been pushed back against the walls. The table is heavily stained, letting you know that it must have seen many years of continuous use.
+	</p>
+	#IF(!flags.hasFlag(FLAG_innoxia_hideout_youko_lore_book_obtained))
+		<p>
+			On top of one of the cabinets, covered in a fine layer of dust, is a book which grabs your eye. The title on the spine reads '[#SUBSPECIES_FOX_ASCENDANT.getBook().getName(false)]', and it looks like it might contain additional information about the youko.
+			#IF(meraxis.getLocationPlace().getPlaceType()==PLACE_TYPE_innoxia_shinrin_highlands_hideout_seating)
+				 You call over to Meraxis to ask her about the book, and she replies that she won't need to read it again so you can take it.
+			#ELSE
+				 As it doesn't look like it's been touched in quite some time, Meraxis and Takahashi clearly have no need for it, and so you're sure that they wouldn't mind if you borrowed it for a while.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TABLE_BOOK"><![CDATA[
+	<p>
+		Picking up the book, you blow off the dust which was obscuring the front cover to see a stylised image of nine fox tails. Sure enough, it seems to contain more details about the youko and their culture, and while most of it seems to be rubbish, you think that you could discover a thing or two by giving it a quick read.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="DOOR"><![CDATA[
+	<p>
+		The sliding door in front of you splits the main living area from the bedrooms. There's no lock on it, nor any other means to prevent your passage, so you can come and go from each area as you please.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_MERAXIS"><![CDATA[
+	<p>
+		You find yourself standing in the corridor outside Meraxis's bedroom.
+		#IF(game.getCharactersPresent().contains(meraxis))
+			 She's currently sleeping inside at the moment, and as such the sliding door is firmly shut. You don't have any urgent reason to wake her, so if you wanted to talk to her then you should wait until tomorrow and find her at the seating area.
+		#ELSE
+			 Meraxis isn't in her room at the moment, and the sliding door to her room has been left wide open. Taking a look inside, you see that her room is furnished with a large, western-style bed, a desk and accompanying chair, and a couple of bookcases which are packed full of magazines, spell books, and dusty old tomes. Covering the walls there are dozens of posters, each one depicting a demon striking a heroic pose of one sort or another. Weapons, clothing, and all manner of miscellaneous objects have been strewn about over the place, giving you the impression that Meraxis is quite messy.
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		<i>Meraxis sleeps from [units.time(1)]-[units.time(10)]</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_TAKAHASHI"><![CDATA[
+	<p>
+		You find yourself standing in the corridor outside Takahashi's bedroom.
+		#IF(game.getCharactersPresent().contains(takahashi))
+			 She's currently sleeping inside at the moment, and as such the sliding door is firmly shut. You don't have any urgent reason to wake her, so if you wanted to talk to her then you should wait until tomorrow and find her at the potion lab.
+		#ELSE
+			 Takahashi isn't in her room at the moment, and the sliding door to her room has been left wide open. Taking a look inside, you see that several large bookshelves have been squeezed into Takahashi's bedroom, and are filled with books, potions, and stacks of papers. A low desk and accompanying chair are positioned on the far side of the room, and as there's no visible sign of a bed, you assume that Takahashi uses a futon when she goes to sleep.
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		<i>Takahashi sleeps from [units.time(23)]-[units.time(7)]</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_PLAYER"><![CDATA[
+	<p>
+		The spare bedroom which Meraxis said you could use is rather sparsely furnished. The only items of furniture in here are a small chest of drawers, a low table, and an accompanying chair. Instead of a western-style bed, there's a futon for you to use whenever you want to sleep.
+	</p>
+	<p>
+		If you wanted to, you could spend some time resting here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_PLAYER_REST"><![CDATA[
+	<p>
+		Feeling a little worn down and tired from all of your recent activities, you slide the bedroom door closed and take out a futon from the room's storage cupboard. Drawing the blinds, you collapse down onto your bed and set your phone's alarm. Closing your eyes, you then let out a deep sigh, and with the feeling of being safe and comfortable here in Meraxis's hideout, you soon drift off to sleep, thinking about all the things that have happened to you recently...
+	</p>
+	<p>
+		<i>Beep-beep... beep-beep... bee-</i>
+	</p>
+	<p>
+		Rolling over, you fumble for your phone, turning off the alarm before sinking back onto the futon with a sigh. As comfortable as you are, you decide that you'd better get out of bed, and so after a minute of lying beneath the covers, you do just that. Opening the blinds, you set about gathering your things, and then with one final stretch, you slide open the door and get ready to set out once more...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Toilet: -->
+	
+	<htmlContent tag="TOILET"><![CDATA[
+	<p>
+		The hideout's toilet facilities are rather basic, consisting only of a traditional Japanese-style squat toilet and a simple wash hand basin. While perfectly functional and clean, the different style does take some getting used to.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILET_USE"><![CDATA[
+	<p>
+		Needing to make use of the toilet, you slide the door closed behind you and [pc.step] over to the squat toilet, before making use of it. After you've finished, you flush the toilet before making your way over to the sink and washing your [pc.hands]. Using the nearby towel, you quickly dry yourself off, before sliding open the door and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILET_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sink and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Using the nearby towel, you quickly dry yourself off, before heading back over to the door and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Bathroom: -->
+	
+	<htmlContent tag="BATHROOM"><![CDATA[
+	<p>
+		In a completely separate part of the building to the toilets, the bathroom in Meraxis's hideout contains a shower and a huge, steep-sided bathtub which is made out of wood. The intended practice is to first clean yourself with the shower, and then to use the bath for soaking.
+	</p>
+	<p>
+		Tucked away in one corner of the room, there's an arcane washing machine, which would allow you to clean your clothes while taking a bath or shower.
+	</p>
+	#IF(game.getCharactersPresent().contains(meraxis))
+		<p style='text-align:center'><i>
+			Meraxis is currently using the bathroom, and as such the door is firmly closed. You'll have to come back later if you wanted to take a shower or a bath...
+		</i></p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BATHROOM_SHOWER_QUICK"><![CDATA[
+	<p>
+		Wanting to clean yourself, but not spend too much time doing so, you decide upon taking a quick shower. Sliding the bathroom door closed, you quickly disrobe and put your clothing into the arcane washing machine.
+	</p>
+	<p>
+		[pc.Stepping] over to the shower, you turn on the tap and let out a relaxed sigh as you feel the warm water flowing down over your naked body. Not wanting to spend too much time in here, you focus on quickly cleaning yourself.
+	</p>
+	<p>
+		After a short while spent cleaning your body under the flowing water, you feel as though you've spent enough time in the shower, and so turn off the tap and dry yourself with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and slide open the door, before wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BATHROOM_SHOWER"><![CDATA[
+	<p>
+		Wanting to clean yourself, decide upon taking a shower. Sliding the bathroom door closed, you quickly disrobe and put your clothing into the arcane washing machine.
+	</p>
+	<p>
+		[pc.Stepping] over to the shower, you turn on the tap and let out a relaxed sigh as you feel the warm water flowing down over your naked body. Deciding that it wouldn't be so bad to take some time out in order to relax, you don't rush as you set about thoroughly cleaning yourself.
+	</p>
+	<p>
+		After a while spent cleaning your body under the flowing water, you feel as though you've spent enough time in the shower, and so turn off the tap and dry yourself with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and slide open the door, before wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BATHROOM_BATH"><![CDATA[
+	<p>
+		Wanting to clean yourself and take some time out in which to relax, you decide upon taking a bath. Sliding the bathroom door closed, you quickly disrobe and put your clothing into the arcane washing machine. Turning on the taps to get the large, steep-sided bathtub filled, you head over to the shower and use it to thoroughly clean yourself.
+	</p>
+	<p>
+		By the time you've finished in the shower, the bath is full, and so you [pc.step] into the wooden bathtub and slip down into the hot water with a contented sigh. Deciding that it wouldn't be so bad to take some time out in order to relax, you enjoy the feeling of being immersed in the warm water and allow your [pc.eyes] to close...
+	</p>
+	<p>
+		Quite some time passes in this manner, until eventually you feel as though you've spent enough time in the bath. Pulling the plug, you [pc.step] out of the tub and dry yourself off with a fluffy towel, before showering down the bath in order to keep it clean for Meraxis and Takahashi. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and slide open the door, before wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

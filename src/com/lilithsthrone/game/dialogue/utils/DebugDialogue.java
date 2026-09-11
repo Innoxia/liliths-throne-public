@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -39,6 +41,8 @@ import com.lilithsthrone.game.character.npc.misc.BasicDoll;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
+import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -52,6 +56,9 @@ import com.lilithsthrone.game.combat.moves.CombatMoveCategory;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
+import com.lilithsthrone.game.dialogue.encounters.EncounterType;
+import com.lilithsthrone.game.dialogue.encounters.ExternalEncounterData;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -62,6 +69,8 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.RandomEnchantment;
+import com.lilithsthrone.game.inventory.enchanting.RandomPotionEnchantment;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
@@ -97,6 +106,18 @@ public class DebugDialogue {
 	private static GameCharacter targetedCharacter;
 	
 	public static final DialogueNode DEBUG_MENU = new DialogueNode("A powerful tool", "Open debug menu.", false) {
+//		@Override
+//		public void applyPreParsingEffects() {
+//			targetedCharacter = null; // Reset this value when opening the debug menu to make sure that the targetedCharacter is not from a previous save file
+//		}
+		@Override
+		public void applyPreParsingEffects() {
+			// Just in case this dialogue node is accessed before initialising targetedCharacter, or if targetedCharacter is no longer present:
+			if(targetedCharacter==null
+					|| (!targetedCharacter.isPlayer() && !Main.game.getCharactersPresent().contains(targetedCharacter))) {
+				targetedCharacter = Main.game.getPlayer();
+			}
+		}
 		
 		@Override
 		public String getContent() {
@@ -256,7 +277,8 @@ public class DebugDialogue {
 					};
 					
 				} else if (index == 13) {
-					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+//					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+					return new Response("Encounters", "View all encounters which can trigger on this tile.", ENCOUNTER_MENU);
 					
 				} else if (index == 14) {
 					return new Response("Sticker unlocks: ",
@@ -335,6 +357,11 @@ public class DebugDialogue {
 						};
 					}
 					
+				} else if(index==25) {
+					return new Response("Enchanted clothing", "View a list of all of the randomly-enchanted clothing which can spawn.", RANDOM_ENCHANTMENT_CLOTHING);
+					
+				} else if(index==26) {
+					return new Response("Enchanted potions", "View a list of all of the randomly-enchanted Youko potions which can spawn.", RANDOM_ENCHANTMENT_POTIONS);
 				}
 				
 				
@@ -1022,11 +1049,40 @@ public class DebugDialogue {
 				}
 				
 			} else if(responseTab==4) {
+				if(index==1) {
+					return new ResponseEffectsOnly(UtilText.parse(targetedCharacter, "[npc.Name]"),
+							UtilText.parse(targetedCharacter,
+									"[npc.NameIsFull] the current target, and personality changes will be applied to [npc.herHim]."
+									+ "<br/><i>Click to cycle through characters present in this tile.</i>")) {
+						@Override
+						public Colour getHighlightColour() {
+							return targetedCharacter.getGender().getColour();
+						}
+						@Override
+						public void effects() {
+							boolean preparedForNext = targetedCharacter.isPlayer();
+							for(GameCharacter character : Main.game.getCharactersPresent()) {
+								if(preparedForNext) {
+									targetedCharacter = character;
+									preparedForNext = false;
+									break;
+								}
+								if(character.equals(targetedCharacter)) {
+									preparedForNext = true;
+								}
+							}
+							if(preparedForNext) {
+								targetedCharacter = Main.game.getPlayer();
+							}
+						}
+					};
+				}
+				
 				List<PersonalityTrait> pt = Arrays.asList(PersonalityTrait.values());
-				for(int i=1; i<=pt.size();i++) {
+				for(int i=2; i<=pt.size()+1;i++) {
 					if(i==index) {
-						PersonalityTrait perTr = pt.get(index-1);
-						boolean hasTrait = Main.game.getPlayer().hasPersonalityTrait(perTr);
+						PersonalityTrait perTr = pt.get(index-2);
+						boolean hasTrait = targetedCharacter.hasPersonalityTrait(perTr);
 						return new Response(
 								hasTrait
 									?"<b style='color:"+perTr.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(perTr.getName())+"</b>"
@@ -1034,19 +1090,64 @@ public class DebugDialogue {
 									(hasTrait
 										?"[style.boldGood(Owned!)] "
 										:"[style.colourMinorBad(Not owned!)] ")
-									+perTr.getDescription(Main.game.getPlayer(), true, true),
+									+perTr.getDescription(targetedCharacter, true, true),
 								DEBUG_MENU) {
 							@Override
 							public void effects() {
 								if(hasTrait) {
-									Main.game.getPlayer().removePersonalityTrait(perTr);
+									targetedCharacter.removePersonalityTrait(perTr);
 								} else {
-									Main.game.getPlayer().addPersonalityTrait(perTr);
+									targetedCharacter.addPersonalityTrait(perTr);
 								}
 							}
 						};
 					}
 				}
+				
+				if(index==pt.size()+2) {
+					return new Response("[style.colourMinorBad(Regenerate)]",
+								UtilText.parse(targetedCharacter, "Regenerate [npc.namePos] personality traits based on [npc.her] race and history."),
+								DEBUG_MENU) {
+						@Override
+						public void effects() {
+							targetedCharacter.clearPersonalityTraits();
+							
+							// Starting personalities based on race, copied from GameCharacter.additionalBodySetup():
+							for(Entry<PersonalityTrait, Float> entry : targetedCharacter.getRace().getRacialBody().getPersonalityTraitChances().entrySet()) {
+								double rnd = Math.random();
+								if(rnd<=entry.getValue()) {
+									targetedCharacter.addPersonalityTrait(entry.getKey());
+								}
+							}
+			
+							for(Entry<PersonalityTrait, Float> entry : targetedCharacter.getTrueSubspecies().getPersonalityTraitChances().entrySet()) {
+								double rnd = Math.random();
+								if(rnd<=entry.getValue()) {
+									targetedCharacter.addPersonalityTrait(entry.getKey());
+								}
+							}
+							
+							if(targetedCharacter.hasPersonalityTrait(PersonalityTrait.MUTE)) { // If mute, remove all other speech traits
+								targetedCharacter.removePersonalityTraits(PersonalityCategory.SPEECH);
+								targetedCharacter.addPersonalityTrait(PersonalityTrait.MUTE);
+							}
+							
+							// Roughly copying effects from CharacterUtils' setHistoryAndPersonality():
+							if(targetedCharacter.getHistory()==Occupation.NPC_PROSTITUTE) {
+								targetedCharacter.removePersonalityTrait(PersonalityTrait.PRUDE);
+								targetedCharacter.removePersonalityTrait(PersonalityTrait.INNOCENT);
+							}
+							if(targetedCharacter.getHistory().isLowlife()) {
+								if(Math.random()<0.25f) {
+									targetedCharacter.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+								}
+							}
+						}
+					};
+				}
+				
+
+				
 			}
 			
 			return null;
@@ -1618,6 +1719,102 @@ public class DebugDialogue {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static Map<AbstractEncounter, Float> encounters;
+	public static final DialogueNode ENCOUNTER_MENU = new DialogueNode("Available Encounters", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			encounters = Main.game.getPlayerCell().getPlaceType().getPossibleEncountersMap(true);
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Encounters: "+encounters.size()+"</h5>");
+			int i=0;
+			for(Entry<AbstractEncounter, Float> entry : encounters.entrySet()) {
+				AbstractEncounter encounter = entry.getKey();
+				float chance = entry.getValue();
+				String id = encounter.getId();
+				
+				sb.append("<div class='container-full-width' style='border:1px solid "+(encounter.isFromExternalFile()?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString()+";"
+						+ " width:95%; padding:4px; margin:4px 2.5% 4px 2.5%; background-color:"+(i%2==0?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
+
+					sb.append("<div class='container-full-width' style='position:relative; padding:0; margin:0; width:100%; background-color:#00000000; -webkit-user-select:auto; text-align:left;'>");
+						if(encounter.isFromExternalFile()) {
+							sb.append(UtilText.parse("[style.colourGreenLight(MOD)] "));
+						} else {
+							sb.append(UtilText.parse("[style.colourRedLight(RES)] "));
+						}
+						sb.append("<b>"+id+": "+chance+"%</b>");
+						sb.append("<br/>");
+
+						sb.append("Encounters:");
+						if(encounter.isFromExternalFile()) {
+							int encounterIndex=0;
+							int rowCount=0;
+							for(ExternalEncounterData data : encounter.getPossibleEncounters()) {
+								float triggerChance = data.getTriggerChance();
+								rowCount++;
+								sb.append("<div class='container-full-width' style='margin:2px 0; padding:4px; width:100%;position:relative;"
+										+ " background:"+(rowCount%2==0?PresetColour.BACKGROUND.getShades()[3]:PresetColour.BACKGROUND_ALT.getShades()[3])+";'>");
+									sb.append(data.getName()+": "+(triggerChance==0?"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>":"<span>")+triggerChance+"%</span>");
+									sb.append("<br/>");
+									sb.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+data.getTriggerConditional()+"</span>");
+									sb.append("<br/>");
+									sb.append("Dialogue triggered: "+data.getDialogueId());
+									sb.append("<div class='normal-button' id='DEBUG_ENCOUNTER_"+id+"_"+encounterIndex+"'"
+											+ " style='position:absolute; text-align:center; width:18%; height:auto; margin:1%; top:-8px; right:2px; padding:2px;"
+											+ " font-size:0.9em; color:"+(triggerChance==0?PresetColour.GENERIC_BAD:PresetColour.GENERIC_MINOR_GOOD).toWebHexString()+";'>");
+										sb.append("Trigger");
+									sb.append("</div>");
+								sb.append("</div>");
+								encounterIndex++;
+							}
+							
+						} else {
+							int rowCount = 0;
+							for(Entry<EncounterType, Float> typeEntry : encounter.getDialogues().entrySet()) {
+								rowCount++;
+								EncounterType et = typeEntry.getKey();
+								float etChance = typeEntry.getValue();
+								sb.append("<div class='container-full-width' style='margin:2px 0; padding:4px; width:100%;position:relative;"
+										+ " background:"+(rowCount%2==0?PresetColour.BACKGROUND.getShades()[3]:PresetColour.BACKGROUND_ALT.getShades()[3])+";'>");
+									sb.append(et.toString()+": "+etChance+"%");
+									sb.append("<div class='normal-button' id='DEBUG_ENCOUNTER_"+id+"_"+et+"'"
+											+ " style='position:absolute; text-align:center; width:18%; height:auto; margin:1%; top:-8px; right:2px; padding:2px; font-size:0.9em; color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>");
+										sb.append("Trigger");
+									sb.append("</div>");
+								sb.append("</div>");
+							}
+						}
+						
+						
+//							sb.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+outfit.getConditional()+"</span>");
+							
+					sb.append("</div>");
+					
+				sb.append("</div>");
+				i++;
+			}
+			sb.append("</div>");
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+		@Override
+		public boolean isContentParsed() {
+			return false;
 		}
 	};
 	
@@ -2736,4 +2933,167 @@ public class DebugDialogue {
 		}
 	};
 
+
+	public static final DialogueNode RANDOM_ENCHANTMENT_CLOTHING = new DialogueNode("Random Clothing Enchantments", "", false) {
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorGood(Positive Enchantments:)]</h4>"));
+			int i=0;
+			for(RandomEnchantment randomEnchantment : RandomEnchantment.getAllPositiveClothingEnchantments()) {
+				sb.append(getFormattedEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorBad(Negative Enchantments:)]</h4>"));
+			i=0;
+			for(RandomEnchantment randomEnchantment : RandomEnchantment.getAllNegativeClothingEnchantments()) {
+				sb.append(getFormattedEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+		@Override
+		public boolean isContentParsed() {
+			return false;
+		}
+	};
+	
+	public static List<String> randomEnchantmentClothingIds = Util.newArrayListOfValues("innoxia_groin_panties", "innoxia_torso_tshirt", "WRIST_MENS_WATCH");
+	
+	private static String getFormattedEnchantmentEntry(boolean oddRow, RandomEnchantment randomEnchantment) {
+		StringBuilder sb = new StringBuilder();
+		
+		String preParsingString = randomEnchantment.getConditionalPreParsingString();
+		UtilText.parse(Main.game.getPlayer(), preParsingString); // Parse the conditional to make sure that any variables for name have been set
+		preParsingString = preParsingString.replaceAll("(?<!^)\\[#", "<br/>\\[#"); // Format it for display
+		
+		sb.append("<div class='container-full-width' style='width:95%; padding:4px; margin:4px 2.5% 4px 2.5%; background-color:"+(oddRow?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; text-align:center; background:#00000000;'>");
+				sb.append("<b>"+Util.capitaliseSentence(UtilText.parse(randomEnchantment.getName(null)))+"</b>");
+			sb.append("</div>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; font-family:monospace; font-size:0.75em;background:#00000000;'>");
+				if(randomEnchantment.isMod()) {
+					sb.append(UtilText.parse("[style.colourGreenLight(MOD)] "));
+				} else {
+					sb.append(UtilText.parse("[style.colourBlueLight(RES)] "));
+				}
+				sb.append(RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment));
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+				sb.append("spawnWeighting:<br/>");
+				sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+randomEnchantment.getSpawnWeighting()+"</span>");
+			sb.append("</div>");
+			
+			if(!preParsingString.isEmpty()) {
+				sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+					sb.append("conditionalPreParsing:<br/>");
+					sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+preParsingString+"</span>");
+				sb.append("</div>");
+			}
+			
+			
+			sb.append("<div class='container-full-width' style='margin:0; padding:0; background:#00000000; text-align:center;'>");
+				sb.append("<div class='normal-button' id='RANDOM_ENCHANTMENT_"+randomEnchantmentClothingIds.get(0)+"_"+RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.FEMININE.toWebHexString()+";'>Spawn Panties</div>");
+				sb.append("<div class='normal-button' id='RANDOM_ENCHANTMENT_"+randomEnchantmentClothingIds.get(1)+"_"+RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.ANDROGYNOUS.toWebHexString()+";'>Spawn T-shirt</div>");
+				sb.append("<div class='normal-button' id='RANDOM_ENCHANTMENT_"+randomEnchantmentClothingIds.get(2)+"_"+RandomEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.MASCULINE.toWebHexString()+";'>Spawn Watch</div>");
+			sb.append("</div>");
+			
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
+	
+	//TODO
+	public static final DialogueNode RANDOM_ENCHANTMENT_POTIONS = new DialogueNode("Random Potion Enchantments", "", false) {
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorGood(Positive Enchantments:)]</h4>"));
+			int i=0;
+			for(RandomPotionEnchantment randomEnchantment : RandomPotionEnchantment.getAllPositivePotionEnchantments()) {
+				sb.append(getFormattedPotionEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			sb.append(UtilText.parse("<h4>[style.colourMinorBad(Negative Enchantments:)]</h4>"));
+			i=0;
+			for(RandomPotionEnchantment randomEnchantment : RandomPotionEnchantment.getAllNegativePotionEnchantments()) {
+				sb.append(getFormattedPotionEnchantmentEntry(i%2==0, randomEnchantment));
+				i++;
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return DEBUG_MENU.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEBUG_MENU.getResponse(responseTab, index);
+		}
+		@Override
+		public boolean isContentParsed() {
+			return false;
+		}
+	};
+	
+	private static String getFormattedPotionEnchantmentEntry(boolean oddRow, RandomPotionEnchantment randomEnchantment) {
+		StringBuilder sb = new StringBuilder();
+		
+		String preParsingString = randomEnchantment.getConditionalPreParsingString();
+		UtilText.parse(Main.game.getPlayer(), preParsingString); // Parse the conditional to make sure that any variables for name have been set
+		preParsingString = preParsingString.replaceAll("(?<!^)\\[#", "<br/>\\[#"); // Format it for display
+		
+		sb.append("<div class='container-full-width' style='width:95%; padding:4px; margin:4px 2.5% 4px 2.5%; background-color:"+(oddRow?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; text-align:center; background:#00000000;'>");
+				sb.append("<b>"+Util.capitaliseSentence(UtilText.parse(randomEnchantment.getName(null)))+"</b>");
+			sb.append("</div>");
+			sb.append("<div class='container-full-width' style='span:0; margin:0; width:50%; -webkit-user-select:auto; font-family:monospace; font-size:0.75em;background:#00000000;'>");
+				if(randomEnchantment.isMod()) {
+					sb.append(UtilText.parse("[style.colourGreenLight(MOD)] "));
+				} else {
+					sb.append(UtilText.parse("[style.colourBlueLight(RES)] "));
+				}
+				sb.append(RandomPotionEnchantment.getIdFromRandomEnchantment(randomEnchantment));
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+				sb.append("spawnWeighting:<br/>");
+				sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+randomEnchantment.getSpawnWeighting()+"</span>");
+			sb.append("</div>");
+			
+			if(!preParsingString.isEmpty()) {
+				sb.append("<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; -webkit-user-select:auto; margin-top:0;'>");
+					sb.append("conditionalPreParsing:<br/>");
+					sb.append("<span style='font-family:monospace; font-size:0.75em;'>"+preParsingString+"</span>");
+				sb.append("</div>");
+			}
+			
+			
+			sb.append("<div class='container-full-width' style='margin:0; padding:0; background:#00000000; text-align:center;'>");
+				sb.append("<div class='normal-button' id='RANDOM_POTION_ENCHANTMENT_"+RandomPotionEnchantment.getIdFromRandomEnchantment(randomEnchantment)+"'"
+						+ " style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>Spawn potion</div>");
+			sb.append("</div>");
+			
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
 }

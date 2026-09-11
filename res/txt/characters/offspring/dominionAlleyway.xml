@@ -1012,7 +1012,7 @@
 	<htmlContent tag="AFTER_COMBAT_VICTORY"><![CDATA[
 	#IF(npc.isAttractedTo(pc) || !game.isNonConEnabled())
 		<p>
-			[npc.Name] collapses to the floor, completely defeated. As [npc.she] looks up at you, you see that your powerful aura is having a strong effect on [npc.herHim], and there's a hungry, lustful look in [npc.her] [npc.eyes+]. [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor.
+			[npc.Name] collapses to the floor, completely defeated. As [npc.she] looks up at you, you see that your powerful aura is having a strong effect on [npc.herHim], and there's a hungry, lustful look in [npc.her] [npc.eyes+]. [npc.She] #IF(npc.isTaur())starts bucking [npc.her] hips in a humping motion,#ELSEreaches down to [npc.her] crotch and starts stroking [npc.herself],#ENDIF making pitiful little whining noises as [npc.she] squirms on the floor.
 		</p>
 		<p>
 			[npc.speech(Please, [npc.pcName]! Fuck me!)], [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]. [npc.speech(I'll be a good [npc.daughter]! Just please, fuck me!)]

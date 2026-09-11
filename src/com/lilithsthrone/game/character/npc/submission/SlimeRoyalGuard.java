@@ -129,24 +129,19 @@ public class SlimeRoyalGuard extends NPC {
 		this.equipAllKnownMoves();
 		this.equipAllSpellMoves();
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		
-		// Persona:
-		if(setPersona) {
-			this.addSpell(Spell.SLAM);
-			this.addSpell(Spell.TELEKENETIC_SHOWER);
 
+	@Override
+	public void setStartingPersona(boolean setPersonality, boolean setFetishes, boolean setOrientation, boolean setHistory, boolean setSpells) {
+		if(setPersonality) {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.KIND,
 					PersonalityTrait.CONFIDENT);
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_SLIME_QUEEN_GUARD);
-	
+		}
+		
+		if(setFetishes) {
+			this.clearFetishDesires();
+			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
 	
@@ -156,6 +151,26 @@ public class SlimeRoyalGuard extends NPC {
 			
 			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
+		}
+		
+		if(setOrientation) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
+
+		if(setHistory) {
+			this.setHistory(Occupation.NPC_SLIME_QUEEN_GUARD);
+		}
+		
+		if(setSpells) {
+			this.addSpell(Spell.SLAM);
+			this.addSpell(Spell.TELEKENETIC_SHOWER);
+		}
+	}
+	
+	@Override
+	public void setStartingBody(boolean setPersona) {
+		if(setPersona) {
+			setStartingPersona();
 		}
 		
 		
