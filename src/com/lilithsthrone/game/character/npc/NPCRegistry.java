@@ -1,153 +1,56 @@
 package com.lilithsthrone.game.character.npc;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.dominion.Amber;
-import com.lilithsthrone.game.character.npc.dominion.Angel;
-import com.lilithsthrone.game.character.npc.dominion.Arthur;
-import com.lilithsthrone.game.character.npc.dominion.Ashley;
-import com.lilithsthrone.game.character.npc.dominion.Brax;
-import com.lilithsthrone.game.character.npc.dominion.Bunny;
-import com.lilithsthrone.game.character.npc.dominion.Callie;
-import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
-import com.lilithsthrone.game.character.npc.dominion.Daddy;
-import com.lilithsthrone.game.character.npc.dominion.Elle;
-import com.lilithsthrone.game.character.npc.dominion.Felicia;
-import com.lilithsthrone.game.character.npc.dominion.Fiammetta;
-import com.lilithsthrone.game.character.npc.dominion.Finch;
-import com.lilithsthrone.game.character.npc.dominion.Hannah;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
-import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
-import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
-import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
-import com.lilithsthrone.game.character.npc.dominion.Helena;
-import com.lilithsthrone.game.character.npc.dominion.Jules;
-import com.lilithsthrone.game.character.npc.dominion.Kalahari;
-import com.lilithsthrone.game.character.npc.dominion.Kate;
-import com.lilithsthrone.game.character.npc.dominion.Kay;
-import com.lilithsthrone.game.character.npc.dominion.Kruger;
-import com.lilithsthrone.game.character.npc.dominion.Lilaya;
-import com.lilithsthrone.game.character.npc.dominion.Loppy;
-import com.lilithsthrone.game.character.npc.dominion.Lovienne;
-import com.lilithsthrone.game.character.npc.dominion.Lumi;
-import com.lilithsthrone.game.character.npc.dominion.Natalya;
-import com.lilithsthrone.game.character.npc.dominion.Nyan;
-import com.lilithsthrone.game.character.npc.dominion.NyanMum;
-import com.lilithsthrone.game.character.npc.dominion.Pazu;
-import com.lilithsthrone.game.character.npc.dominion.Pix;
-import com.lilithsthrone.game.character.npc.dominion.Ralph;
-import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
-import com.lilithsthrone.game.character.npc.dominion.Rose;
-import com.lilithsthrone.game.character.npc.dominion.Saellatrix;
-import com.lilithsthrone.game.character.npc.dominion.Scarlett;
-import com.lilithsthrone.game.character.npc.dominion.Sean;
-import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
-import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
-import com.lilithsthrone.game.character.npc.dominion.TestNPC;
-import com.lilithsthrone.game.character.npc.dominion.Vanessa;
-import com.lilithsthrone.game.character.npc.dominion.Vicky;
-import com.lilithsthrone.game.character.npc.dominion.Wes;
-import com.lilithsthrone.game.character.npc.dominion.Zaranix;
-import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
-import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
-import com.lilithsthrone.game.character.npc.fields.Angelixx;
-import com.lilithsthrone.game.character.npc.fields.Arion;
-import com.lilithsthrone.game.character.npc.fields.Astrapi;
-import com.lilithsthrone.game.character.npc.fields.Aurokaris;
-import com.lilithsthrone.game.character.npc.fields.Belle;
-import com.lilithsthrone.game.character.npc.fields.Ceridwen;
-import com.lilithsthrone.game.character.npc.fields.Dale;
-import com.lilithsthrone.game.character.npc.fields.Daphne;
-import com.lilithsthrone.game.character.npc.fields.Eisek;
-import com.lilithsthrone.game.character.npc.fields.Evelyx;
-import com.lilithsthrone.game.character.npc.fields.Fae;
-import com.lilithsthrone.game.character.npc.fields.Farah;
-import com.lilithsthrone.game.character.npc.fields.Flash;
-import com.lilithsthrone.game.character.npc.fields.Ghost;
-import com.lilithsthrone.game.character.npc.fields.Golix;
-import com.lilithsthrone.game.character.npc.fields.Hale;
-import com.lilithsthrone.game.character.npc.fields.Hammer;
-import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
-import com.lilithsthrone.game.character.npc.fields.Heather;
-import com.lilithsthrone.game.character.npc.fields.Imsu;
-import com.lilithsthrone.game.character.npc.fields.Jess;
-import com.lilithsthrone.game.character.npc.fields.Kazik;
-import com.lilithsthrone.game.character.npc.fields.Kheiron;
-import com.lilithsthrone.game.character.npc.fields.Lunette;
-import com.lilithsthrone.game.character.npc.fields.Lunexis;
-import com.lilithsthrone.game.character.npc.fields.Minotallys;
-import com.lilithsthrone.game.character.npc.fields.Monica;
-import com.lilithsthrone.game.character.npc.fields.Moreno;
-import com.lilithsthrone.game.character.npc.fields.Nir;
-import com.lilithsthrone.game.character.npc.fields.Nizhoni;
-import com.lilithsthrone.game.character.npc.fields.Oglix;
-import com.lilithsthrone.game.character.npc.fields.Penelope;
-import com.lilithsthrone.game.character.npc.fields.Silvia;
-import com.lilithsthrone.game.character.npc.fields.Sleip;
-import com.lilithsthrone.game.character.npc.fields.Sterope;
-import com.lilithsthrone.game.character.npc.fields.Ursa;
-import com.lilithsthrone.game.character.npc.fields.Vronti;
-import com.lilithsthrone.game.character.npc.fields.Wynter;
-import com.lilithsthrone.game.character.npc.fields.Yui;
-import com.lilithsthrone.game.character.npc.fields.Ziva;
-import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.GenericTrader;
-import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.misc.PrologueMale;
-import com.lilithsthrone.game.character.npc.submission.Axel;
-import com.lilithsthrone.game.character.npc.submission.Claire;
-import com.lilithsthrone.game.character.npc.submission.DarkSiren;
-import com.lilithsthrone.game.character.npc.submission.Elizabeth;
-import com.lilithsthrone.game.character.npc.submission.Epona;
-import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
-import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
-import com.lilithsthrone.game.character.npc.submission.HazmatRat;
-import com.lilithsthrone.game.character.npc.submission.Lyssieth;
-import com.lilithsthrone.game.character.npc.submission.Murk;
-import com.lilithsthrone.game.character.npc.submission.Roxy;
-import com.lilithsthrone.game.character.npc.submission.Shadow;
-import com.lilithsthrone.game.character.npc.submission.Silence;
-import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
-import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
-import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
-import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
-import com.lilithsthrone.game.character.npc.submission.Takahashi;
-import com.lilithsthrone.game.character.npc.submission.Vengar;
+import com.lilithsthrone.game.character.npc.dominion.*;
+import com.lilithsthrone.game.character.npc.fields.*;
+import com.lilithsthrone.game.character.npc.misc.*;
+import com.lilithsthrone.game.character.npc.submission.*;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.threading.NPCThread;
 import com.lilithsthrone.threading.PreInitializationThread;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import static com.lilithsthrone.game.Game.loadingVersion;
 
 /**
  * @since 0.4.10.7
- * @version 0.4.10.7
+ * @version 0.4.11.6
  * @author Innoxia, KeldonSlayer (DrZed)
  */
 public class NPCRegistry {
-    // The Time Option allows testing the speed difference, enable threading is an option to compare using the previous time option
-    private static final boolean TIME_TESTING = false, ENABLE_NPC_THREADING = true, TIME_TEST_INDIVIDUAL_NPCS = false;
-
-
+    private static final boolean TIME_TESTING = false;
+    private static final HashMap<Class<? extends NPC>, CompletableFuture<NPC>> futures = new HashMap<>();
+    private static final ArrayList<Class<? extends NPC>> allSimpleNPCClasses = new ArrayList<>(Arrays.asList(
+            GenericMaleNPC.class, GenericFemaleNPC.class, GenericAndrogynousNPC.class, PrologueMale.class, PrologueFemale.class, GenericTrader.class, TestNPC.class,
+            Lumi.class, Pazu.class, Ashley.class, Callie.class, Rose.class, Lilaya.class, Arthur.class, Angel.class, Bunny.class, Loppy.class, Jules.class,
+            Kruger.class, Kalahari.class, Brax.class, CandiReceptionist.class, Wes.class, Elle.class, Sterope.class, Hammer.class, Angelixx.class, Sleip.class,
+            Nir.class, Scarlett.class, Helena.class, HarpyBimbo.class, HarpyBimboCompanion.class, HarpyDominant.class, HarpyDominantCompanion.class,
+            HarpyNympho.class, HarpyNymphoCompanion.class, Vanessa.class, Natalya.class, Finch.class, Sean.class, RentalMommy.class, Daddy.class, Saellatrix.class,
+            Fiammetta.class, HeadlessHorseman.class, Lunette.class, Lovienne.class, Lyssieth.class, Elizabeth.class, Takahashi.class, DarkSiren.class, Roxy.class,
+            Axel.class, Epona.class, Vengar.class, Shadow.class, Silence.class, Murk.class, HazmatRat.class, Felicia.class, Zaranix.class, Amber.class,
+            ZaranixMaidKatherine.class, ZaranixMaidKelly.class, Claire.class, FortressAlphaLeader.class,  FortressFemalesLeader.class, FortressMalesLeader.class,
+            SlimeQueen.class, SlimeGuardIce.class, SlimeGuardFire.class, SlimeRoyalGuard.class, Fae.class, Silvia.class, Kazik.class, Yui.class, Nizhoni.class,
+            Moreno.class, Heather.class, Ziva.class, Eisek.class, Monica.class, Ceridwen.class, Imsu.class, Hale.class, Penelope.class, Belle.class, Daphne.class,
+            Farah.class, Ralph.class, Nyan.class, NyanMum.class, Vicky.class, Pix.class, Hannah.class, Kate.class, SupplierLeader.class, SupplierPartner.class,
+            Kay.class, Flash.class, Jess.class, Astrapi.class, Vronti.class, Kheiron.class, Arion.class, Minotallys.class, Evelyx.class, Dale.class, Lunexis.class,
+            Ursa.class, Aurokaris.class, Oglix.class, Wynter.class, Ghost.class));
     public static void initUniqueNPCs(boolean skipRelationships) {
-        if (ENABLE_NPC_THREADING) {
-            initUniqueNPCsThreaded(skipRelationships);
-            return;
-        }
         long timeStarted = System.nanoTime();
 
+//        allSimpleNPCClasses.add(Shiranui.class);// Left this in as an option to add to the threaded preloading
+
+        buildNPCThreadPool();
         initMiscNPCs();
         initDominionNPCs();
         initEnforcerNPCs();
@@ -161,36 +64,26 @@ public class NPCRegistry {
         initWallsEndNPCs();
         initSubmissionNPCs();
 
-        if (!skipRelationships) initRelations(Main.game.getNPCMap().keySet());
+        // We skip on loading save to prevent overwriting player relationship data
+        if (skipRelationships) {
+            addMissingRelationships();
+        } else {
+            initRelations(Main.game.getNPCMap().keySet());
+        }
 
         if (TIME_TESTING)
             PreInitializationThread.logTime("initUniqueNPCs took", System.nanoTime() - timeStarted);
     }
 
-    /* "Arbitrarily" separated NPC groupings */
-    private static void initUniqueNPCsThreaded(boolean skipRelationships) {
-        long waits = 0, timeStarted = System.nanoTime();
-        new NPCThread("initMiscNPCs").start();
-        new NPCThread("initDominionNPCs").start();
-        new NPCThread("initEnforcerNPCs").start();
-        new NPCThread("initShoppingNPCs").start();
-        new NPCThread("initHarpyNestNPCs").start();
-        new NPCThread("initAssortedNPCs").start();
-        new NPCThread("initSpecialLocationNPCs").start();
-        new NPCThread("initFieldsNPCs").start();
-        new NPCThread("initElisNPCs").start();
-        new NPCThread("initFarmersMarketNPCs").start();
-        new NPCThread("initWallsEndNPCs").start();
-        new NPCThread("initSubmissionNPCs").start();
-
-        if (TIME_TESTING)
-            while (!NPCThread.npcsInitialized()) {
-                waits++;
-            }
-
-        if (!skipRelationships) initRelations(Main.game.getNPCMap().keySet());
-        if (TIME_TESTING)
-            PreInitializationThread.logTime("Threading took [ " + waits + " ] wait cycles! or ", System.nanoTime() - timeStarted);
+    private static void addMissingRelationships() {
+        if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
+            Main.game.getNpc(Roxy.class).setAffection(Main.game.getNpc(Vengar.class), -80);
+            Main.game.getNpc(Vengar.class).setAffection(Main.game.getNpc(Roxy.class), 50);
+        }
+        if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
+            Main.game.getNpc(Silence.class).setAffection(Main.game.getNpc(Shadow.class), 100);
+            Main.game.getNpc(Silence.class).getAffectionMap().remove(Main.game.getNpc(Silence.class).getId());
+        }
     }
 
     public static void initMiscNPCs() {
@@ -214,9 +107,6 @@ public class NPCRegistry {
             PreInitializationThread.logTime("initMiscNPCs took", System.nanoTime() - timeStarted);
     }
 
-    /*
-     *          Dominion
-     */
     public static void initDominionNPCs() {
         long timeStarted = System.nanoTime();
         // Story:
@@ -250,7 +140,6 @@ public class NPCRegistry {
         // Enforcer station:
         addIfMissingSafely(Sterope.class);
         addIfMissingSafely(Hammer.class);
-        addIfMissingSafely(Ghost.class);
         addIfMissingSafely(Angelixx.class);
         addIfMissingSafely(Sleip.class);
         addIfMissingSafely(Nir.class);
@@ -287,14 +176,11 @@ public class NPCRegistry {
         addIfMissingSafely(Finch.class);
         addIfMissingSafely(Sean.class);
 
-
         // Rental mommy;
         addIfMissingSafely(RentalMommy.class);
 
         // 'Daddy':
         addIfMissingSafely(Daddy.class);
-
-
 
         // Lovienne's Luxuries:
         addIfMissingSafely(Saellatrix.class);
@@ -321,7 +207,6 @@ public class NPCRegistry {
         addIfMissingSafely(Elizabeth.class);
         addIfMissingSafely(Takahashi.class);
         addIfMissingSafely(DarkSiren.class);
-
 
         // Gambling den:
         addIfMissingSafely(Roxy.class);
@@ -457,6 +342,9 @@ public class NPCRegistry {
         addIfMissingSafely(Golix.class, Gender.F_P_B_SHEMALE, Main.game.getNpc(Oglix.class));
         addIfMissingSafely(Wynter.class);
 
+//        addIfMissingSafely(Shiranui.class);
+        addIfMissingSafely(Ghost.class);
+
         if (TIME_TESTING)
             PreInitializationThread.logTime("initFieldsNPCs took", System.nanoTime() - timeStarted);
     }
@@ -464,7 +352,7 @@ public class NPCRegistry {
 
     /**
      * Handles setting up Relationships after registering all the npcs
-    * */
+     * */
     public static void initRelations(Set<String> addedNpcs) {
 
         if(addedNpcs.contains(Main.game.getUniqueNPCId(Lilaya.class))) {
@@ -537,7 +425,7 @@ public class NPCRegistry {
             Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Helena.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
             if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
                 Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
-            }
+            }// Should this be in "addMissingRelationships()" which happens on loading save, instead of new game?
         }
         if(addedNpcs.contains(Main.game.getUniqueNPCId(Helena.class))) {
             Main.game.getNpc(Helena.class).setAffection(Main.game.getNpc(Scarlett.class), AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
@@ -600,14 +488,6 @@ public class NPCRegistry {
             Main.game.getNpc(Shadow.class).setAffection(Main.game.getNpc(Silence.class), 80);
             Main.game.getNpc(Silence.class).setAffection(Main.game.getNpc(Vengar.class), 20);
             Main.game.getNpc(Silence.class).setAffection(Main.game.getNpc(Shadow.class), 100);
-        }
-        if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
-            Main.game.getNpc(Roxy.class).setAffection(Main.game.getNpc(Vengar.class), -80);
-            Main.game.getNpc(Vengar.class).setAffection(Main.game.getNpc(Roxy.class), 50);
-        }
-        if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
-            Main.game.getNpc(Silence.class).setAffection(Main.game.getNpc(Shadow.class), 100);
-            Main.game.getNpc(Silence.class).getAffectionMap().remove(Main.game.getNpc(Silence.class).getId());
         }
         if(addedNpcs.contains(Main.game.getUniqueNPCId(Flash.class)) && addedNpcs.contains(Main.game.getUniqueNPCId(Jess.class))) {
             Main.game.getNpc(Jess.class).setAffection(Main.game.getNpc(Flash.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
@@ -707,55 +587,62 @@ public class NPCRegistry {
     /**
      *  if npc isn't in NPCMap it adds it using it's constructor
      * @param npc The class of the NPC to be added
+     * @throws Exception technically it's a NPE, but this will be wrapped
      **/
-    public static void addIfMissing(Class<? extends NPC> npc) throws Exception {
-        if (!Main.game.getNPCMap().containsKey(Main.game.getUniqueNPCId(npc))) {
-            Main.game.addNPC(npc.getConstructor().newInstance(), false);
+    public static void addIfMissing(NPC npc) throws Exception {
+        if (!Main.game.getNPCMap().containsKey(Main.game.getUniqueNPCId(npc.getClass()))) {
+            Main.game.addNPC(npc, false);
         }
     }
 
-    /**
-     *  if npc isn't in NPCMap it adds it using it's constructor
-     * @param npc The class of the NPC to be added
-     * @param gender The Gender of the NPC
-     * @param owner The Instance of the NPC's owner
-     **/
-    public static void addIfMissing(Class<? extends NPC> npc, Gender gender, NPC owner) throws Exception {
-        if (!Main.game.getNPCMap().containsKey(Main.game.getUniqueNPCId(npc))) {
-            Main.game.addNPC(npc.getConstructor(Gender.class, NPC.class, boolean.class).newInstance(gender, owner, false), false);
+    /** This creates a virtual thread for every single NPC Class that's found in the above list */
+    public static void buildNPCThreadPool() {
+        for (Class<? extends NPC> npcClazz : allSimpleNPCClasses) {
+            CompletableFuture<NPC> addNPC = CompletableFuture.supplyAsync(() -> {
+                NPC npc1 = null;
+                try {
+                    npc1 = npcClazz.getConstructor().newInstance();
+                } catch (Exception e) { e.printStackTrace(); } // Shouldn't ever trigger, but who knows, Java y'know
+                return npc1;
+            });
+            futures.put(npcClazz, addNPC);
         }
     }
 
     /**
      * This wraps the function in a try/catch for cleanliness
+     * it's better to keep T/C minimal wrapping to not cuck JIT from cross-compiling to assembly
      * @param npc the npc in question to be added
      * */
     public static void addIfMissingSafely(Class<? extends NPC> npc) {
-        long nanoTime = System.nanoTime();
         try {
-            addIfMissing(npc);
+            addIfMissing(futures.get(npc).get());
         } catch (Exception p) {
             System.err.println(p.getMessage());
-        }
-        if (TIME_TEST_INDIVIDUAL_NPCS) {
-            PreInitializationThread.logTime("NPC " + npc.getSimpleName() + " initialized in", System.nanoTime() - nanoTime);
+            p.printStackTrace();
         }
     }
+
     /**
      * This wraps the function in a try/catch for cleanliness, sub-npc version
+     * This is specifically used for Golix for now, but who knows what others may use it in the future
      * @param npc the npc in question to be added
      * @param gender gender of sub-npc
      * @param owner owner of sub-npc
      * */
     public static void addIfMissingSafely(Class<? extends NPC> npc, Gender gender, NPC owner) {
-        long nanoTime = System.nanoTime();
         try {
-            addIfMissing(npc, gender, owner);
+            CompletableFuture<NPC> addNPC = CompletableFuture.supplyAsync(() -> {
+                NPC npc1 = null;
+                try {
+                    npc1 = npc.getConstructor(Gender.class, GameCharacter.class, boolean.class).newInstance(gender, owner, false);
+                } catch (Exception e) { e.printStackTrace(); } // Shouldn't ever trigger, but who knows, Java y'know
+                return npc1;
+            });
+            addIfMissing(addNPC.get());
         } catch (Exception p) {
             System.err.println(p.getMessage());
-        }
-        if (TIME_TEST_INDIVIDUAL_NPCS) {
-            PreInitializationThread.logTime("NPC " + npc.getSimpleName() + " initialized in", System.nanoTime() - nanoTime);
+            p.printStackTrace();
         }
     }
 }

@@ -35,7 +35,7 @@ public class PreInitializationThread extends Thread {
             INIT_TENTACLE = new AtomicBoolean(false), INIT_TESTICLE = new AtomicBoolean(false),
             INIT_TONGUE = new AtomicBoolean(false), INIT_TORSO = new AtomicBoolean(false),
             INIT_VAGINA = new AtomicBoolean(false), INIT_WING = new AtomicBoolean(false),
-            INIT_WORLD = new AtomicBoolean(false), INIT_PLACE = new AtomicBoolean(false), DIE = new AtomicBoolean(false);
+            INIT_WORLD = new AtomicBoolean(false), INIT_PLACE = new AtomicBoolean(false);
     private static boolean hasPrinted = false;
     private static int initializedItems = 0;
 
@@ -54,12 +54,6 @@ public class PreInitializationThread extends Thread {
 
     @Override
     public void run() {
-        if (DIE.get()) {
-            try {
-                join();
-            } catch (Exception ignored) {}
-            return;
-        }
         if (this == HelperThread1)
             initCore();
         if (this == HelperThread2)
@@ -83,16 +77,19 @@ public class PreInitializationThread extends Thread {
             }
             if (!hasPrinted) {
                 hasPrinted = true;
-                long waited = 0;
+                long waited = 0L;
                 while (Main.instance == null) {
                     waited++;
                 }
                 Platform.runLater(() -> Main.instance.resetContent());
-                System.out.println("Waited " + waited + " cycles for instance to initialize.");
-                DIE.set(true);
+                if (waited > 1L)
+                    System.out.println("Waited " + waited + " cycles for instance to initialize.");
             }
             Main.saveProperties();
         }
+        try {
+            join(); // Merge changes to main thread's memory
+        } catch (Exception ignored) {}
     }
 
     /* By calling anything in a class, all static things are initialized,

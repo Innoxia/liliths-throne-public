@@ -42,7 +42,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.lilithsthrone.game.character.npc.NPCRegistry;
 import com.lilithsthrone.threading.DocBuilders;
-import com.lilithsthrone.threading.NPCThread;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -2276,7 +2275,6 @@ public class Game implements XMLSaving {
 	public void initNewGame(DialogueNode startingDialogueNode) {
 		NPCMap.clear();
 		OffspringSeedMap.clear();
-		NPCThread.deInitialize();
 		NPCRegistry.initUniqueNPCs(false);
 
 		// This is due to the fact that on new world creation, the player is placed at coordinates (0, 0), which reveals the three squares at the bottom left corner of the map:
