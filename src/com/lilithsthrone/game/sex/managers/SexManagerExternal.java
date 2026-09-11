@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -791,7 +792,7 @@ public class SexManagerExternal extends SexManagerDefault {
 		
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
+				Document doc = DocBuilders.parseDoc(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
