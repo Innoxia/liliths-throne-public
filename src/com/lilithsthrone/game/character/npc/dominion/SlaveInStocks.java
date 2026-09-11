@@ -52,7 +52,7 @@ public class SlaveInStocks extends NPC {
 	
 	public SlaveInStocks(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				3,
 				null, null, null,
 				new CharacterInventory(false, 10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, false);

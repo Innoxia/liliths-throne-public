@@ -58,7 +58,7 @@ public class ModdedCharacter extends NPC {
 
 	public ModdedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				3,
 				null, null, null,
 				new CharacterInventory(false, 10),

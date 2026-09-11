@@ -50,7 +50,7 @@ public class BasicSlave extends NPC {
 		super(isImported,
 				new NameTriplet("Slave"), "",
 				"",
-				21, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
+				21, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				3,
 				null, null, null,
 				new CharacterInventory(false, 0),

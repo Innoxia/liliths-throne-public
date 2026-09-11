@@ -58,7 +58,7 @@ public class HarpyNestsAttacker extends NPC {
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				4,
 				null, null, null,
 				new CharacterInventory(false, 10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);

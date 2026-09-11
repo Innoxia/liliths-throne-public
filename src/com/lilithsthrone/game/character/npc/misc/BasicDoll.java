@@ -50,7 +50,7 @@ public class BasicDoll extends NPC {
 		super(isImported,
 				new NameTriplet("Doll"), "",
 				"",
-				18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
+				18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(30),
 				1,
 				null, null, null,
 				new CharacterInventory(false, 0),
