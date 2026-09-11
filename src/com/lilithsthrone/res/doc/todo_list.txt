@@ -6,91 +6,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Engine/Modding:
-		Added an 'initSex' element to sex manager files, which is parsed at the start of the associated sex scene (a commented example is in res/sex/innoxia/managers/meraxis/duel/masturbation.xml).
-	
-	Gameplay:
-		Altered Youko pregnancy to fit with their lore: youko mothers will now always give birth to youko (if the father is not a demon), and youko fathers will follow standard rules for their children's race.
-	
-	Sex:
-		In ongoing penetration sex actions with more than two characters (such as two characters performing a blowjob on a third character), only the primary targeted character will experience orifice stretching effects.
-		Sufficiently large clits now stretch orifices like penises/tails/tentacles do.
-	
-	Other:
-		You can now impregnate Shiranui during her sex scenes.
-		Added the youko lore book, and a copy of the youko lore book can now be found in the dining area of Meraxis's hideout.
-		Slightly adjusted some of the dialogue in Shiranui's mirror scene to put the explicit descriptions behind the 'keep watching' action, and made some minor tweaks to her dialogue elsewhere (such as her attitude when stealing your items and her comments at the end of the quest).
-		Slightly rewrote some of Meraxis's new dialogue to make it more chuuni.
-		If you get stripped by Shiranui, when you recover all of your items at the end of the quest, all of your flames will have been stolen by Shiranui (you will have the opportunity to get them back later on).
-		If you correctly guess who Shiranui is, then the follow-up sex options (both solo and threesome) give you the option to transform her into a female or to transform into a futa Meraxis, as well as a double futa Meraxis option for the threesome.
-		Added descriptions for the actions in Shiranui's cock worship sex scene and fixed issues with incorrect stretching mechanics.
-	
-	Personality loss bug:
-		NOTE: This bug only applies to saves which were saved in v0.4.11.6, so if you load an older save into this version then NPC personalities will be untouched.
-		Fixed major bug where personalities of all characters were wiped when loading a saved game. All unique NPCs have had their personalities restored when loading into this version.
-		All random NPCs will have their personalities regenerated as though they were newly spawned.
-		To restore NPC personalities from an older save, either copy the 'personality' elements over from an older save or use the debug menu to set their personalities back to how they used to be, which can be done via:
-		1. Standing on the same tile as the NPC
-		2. Open debug menu by typing 'buggy'
-		3. Navigating to the 'Personalities' tab
-		4. Change the target to the NPC by using the first action button, then select the personality traits that they should have
-		5. There is also an optional 'regenerate' action at the end of the list of traits, which you can use to regenerate the NPC's traits based on their race
-		Sorry for the inconvenience.
-		
 	Bugs:
-		Fixed major bug where sex could sometimes crash when performing or receiving any of the following ongoing actions: anus-penis, vagina-penis, spinneret-penis, vagina-tongue, penis-mouth.
-		Fixed major bug where slaves could not be assigned to the following jobs: lab assistant, test subject, prostitute, spa servant, spa clerk, waitress.
-		Typo fixes.
-		Fixed some parsing errors in the new Shiranui content.
-		Fixed bug where (harmless?) background parsing errors could sometimes be thrown when generating offspring.
-		Shiranui now correctly transforms back into her youko form after sex (when loading into this version, if she got stuck as a demon then she will revert to a youko).
-		Fixed bug where when you exited Meraxis's hideout, the dialogue shown was for a generic Shinrin Highlands tile instead of the hideout tile.
-		When choosing to have sex with Shiranui after correctly identifying her, Meraxis now correctly leaves the tile as is described in the dialogue (instead of awkwardly standing there as the two of you have sex).
-		Fixed bug where the dialogue in Meraxis's hideout after having sex with her was that of the corridor in The Red Dragon instead of the corridor in the hideout.
-		The table tile in Meraxis's hideout now correctly shows its own dialogue instead of that of the potion lab.
-		Youko offspring will now correctly spawn with one tail.
-		Fixed bug where Meraxis would always hate having sex with the player character if the player had been transformed into a demon by Lyssieth.
-		Characters can no longer start autocunnilingus if they have a penis which is currently in use.
-		Meraxis's 'Duel' and 'Sex' actions are no longer available in her hideout while she's sleeping.
-		If you choose Shiranui's gifts instead of sex, the gifts will no longer disappear from your inventory when entering Meraxis's hideout (this was occurring if you had been stripped by Shiranui).
-		Fixed bug in Angel's Kiss where if you whored yourself out, and the time passed the hour during this action, the NPC who arrived to pay you for sex was deleted from the game's NPC list, which made them appear not to be in the tile and which caused some minor issues with pregnancy and other stats.
-	
-	[x] bug reports
-		[x] Meraxis instantly stops threesome
-		[x] cannot set slaves to spa and cannot enter new slaves' job after pressing spa
-			No mods. 'Lab assistant', 'Test subject', 'Prostitute' and 'Waitress' when clicked on do not load available times and break being able to open the job assignment window until the save is reloaded.
-			 Setting all slaves to 'Idle' did not fix it, nor did destroying my dining hall.
-		[x] During the mirror scene the youko decided to lick her own pussy while still balls deep during missionary, which defies physics
-		[x] Meraxis sex and duel available even when she's sleeping
-		[x] if you get dressed in the shiranui's trap and then choose the gift option, you don't get the gift when you arrive at the hideout of meraxis. 
-			I also try without choosing the dressed  and it work fine, so it's probably related to the fact you have no inventory and you get it back when you arrive at the hideout
-		[x] cowgirl anal sex breaks (pc riding)
-			java.util.NoSuchElementException
-				at java.util.LinkedHashMap$LinkedHashIterator.nextNode(LinkedHashMap.java:721)
-				at java.util.LinkedHashMap$LinkedKeyIterator.next(LinkedHashMap.java:742)
-				at com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus.getPrimaryDPPerformer(PenisAnus.java:48)
-				at com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus$2.getCharactersForParsing(PenisAnus.java:259)
-				at com.lilithsthrone.game.sex.sexActions.SexActionInterface.convertToNullResponse(SexActionInterface.java:1661)
-				at com.lilithsthrone.game.sex.sexActions.SexActionInterface.toResponse(SexActionInterface.java:1139)
-				at com.lilithsthrone.game.sex.sexActions.SexActionInterface.isAddedToAvailableSexActions(SexActionInterface.java:745)
-				at com.lilithsthrone.game.sex.Sex.populatePlayerSexLists(Sex.java:2325)
-				at com.lilithsthrone.game.sex.Sex.endSexTurn(Sex.java:2205)
-		[-] Trying to remove a room upgrade from a slave room causes a softlock. I first noticed this with "Double Sized Bed", but others seem to do this as well. No mods. 
-			Error log:
-			"java.lang.StackOverflowError
-			    at java.util.AbstractMap.hashCode(Unknown Source)
-			    at com.lilithsthrone.world.AbstractWorldType.hashCode(AbstractWorldType.java:214)
-			    at java.util.HashMap.hash(Unknown Source)
-			    at java.util.HashMap.get(Unknown Source)"
-		[-] Attempting to adjust furry preferences settings will randomly crash the game
-		[x] Loading a save seems to wipe personality information for everyone
-			[x] have to re-initialise all unique NPC personalities AIIIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-		[x] if the player whores themselves out in Angel's Kiss, then any offspring fathered with a visitor gets messed up in the pregnancy screen
-			[x] the NPCs are getting deleted in the prostituteUpdate() method
-	[x] meraxis doesn't like using her cock so change dialogue for double futa
-	
-	
-	
+		Fixed a background null pointer error from being thrown if you had slaves working in the brothel.
+		
+		
+		
+		
+		
 	[] quick sex with an orgasm denier (aka Takahashi) allows you to orgasm
 	
 	[] rose has MAID background instead of NPC_MAID?

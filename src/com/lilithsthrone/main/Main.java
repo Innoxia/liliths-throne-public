@@ -85,7 +85,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String NAME_OF_GAME = "Lilith's Throne"; // Sick of eclipse auto-correcting "Main.game.get..." to "Main.GAME_NAME.get..." so changed to NAME_OF_GAME in v0.4.11.4
-	public static final String VERSION_NUMBER = "0.4.11.8"; // Remember to do the stuff below!
+	public static final String VERSION_NUMBER = "0.4.11.9"; // Remember to do the stuff below!
 	/*
 	 * BEFORE BUILDING:
 	 * update pom.xml!

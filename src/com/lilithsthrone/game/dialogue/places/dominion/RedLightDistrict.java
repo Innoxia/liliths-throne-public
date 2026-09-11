@@ -1276,7 +1276,7 @@ public class RedLightDistrict {
 	
 	public static void prostituteUpdate() {
 		for (NPC visitor : getVisitors()) {
-			if(!Main.game.getActiveNPC().equals(visitor)) { // Do not delete NPCs who are visiting the player when the player is whoring themselves out, as they get cleaned up automatically
+			if(!visitor.equals(Main.game.getActiveNPC())) { // Do not delete NPCs who are visiting the player when the player is whoring themselves out, as they get cleaned up automatically
 				Main.game.banishNPC(visitor);
 			}
 		}
