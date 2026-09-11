@@ -167,7 +167,7 @@ public class Clitoris implements BodyPartInterface {
 	}
 	
 	public String setClitorisSize(GameCharacter owner, int clitSize) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.clitSize = Math.max(0, Math.min(clitSize, ClitorisSize.SEVEN_STALLION.getMaximumValue()));
 			return "";
 		}
@@ -234,7 +234,7 @@ public class Clitoris implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenetrationGirth.FOUR_FAT.getValue()
 	 */
 	public String setGirth(GameCharacter owner, int girth) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
@@ -324,7 +324,7 @@ public class Clitoris implements BodyPartInterface {
 			}
 		}
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -554,7 +554,7 @@ public class Clitoris implements BodyPartInterface {
 	
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Clitoris.class) && getType().getRace().isFeralPartsAvailable());

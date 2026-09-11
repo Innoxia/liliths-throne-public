@@ -232,6 +232,9 @@ public class GenericPlace implements XMLSaving {
 	public boolean removePlaceUpgrade(Cell c, AbstractPlaceUpgrade upgrade) {
 		if(placeUpgrades.remove(upgrade)) {
 			upgrade.applyRemovalEffects(c);
+			if(Main.game.isStarted()) {
+				Main.game.getOccupancyUtil().setSlaveJobsRecalculationRequired(true);
+			}
 			return true;
 		} else {
 			return false;

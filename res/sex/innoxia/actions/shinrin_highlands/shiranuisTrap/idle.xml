@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) && !flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship) && sex.getOngoingActionsMap(shiranui).get(PENETRATION_PENIS).keySet().iterator().next()!=npc]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+			<fetish>FETISH_PENIS_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>ORIFICE_MOUTH</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects/>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Wait]]></title>
+	<tooltip><![CDATA[
+		As Shiranui is busy fucking Meraxis's throat, there's little for you to do except wait.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				As Shiranui fucks Meraxis's face, all you can do is kiss the [meraxis.race]'s cheek and feel her mouth bulging out as she takes the youko's [shiranui.cock+] down her throat.
+			]]></text>
+		</description>
+		
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!npc.isPlayer()]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				With her face pushed up against your cheek, Meraxis passionately kisses you even as Shiranui pushes her [shiranui.cock+] down your throat.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -180,9 +180,11 @@
 			<flag dailyReset="true">meraxis_daily_sex</flag>
 			
 		<!-- Duels -->
-			<flag dailyReset="true">meraxis_duel_daily_complete</flag>
 			<flag dailyReset="false">meraxis_duel_place_dominion</flag>
 			<flag dailyReset="false">meraxis_duel_place_elis</flag>
+			<flag dailyReset="false">meraxis_duel_place_hideout</flag>
+			
+			<flag dailyReset="true">meraxis_duel_daily_complete</flag>
 			<flag dailyReset="false">meraxis_duel_reward_money</flag>
 			<flag dailyReset="false">meraxis_duel_reward_transform</flag>
 			<flag dailyReset="false">meraxis_duel_reward_sex</flag>
@@ -421,7 +423,7 @@
 		<flag dailyReset="true">spa_talk_posters</flag>
 		<flag dailyReset="true">spa_talk_sheep</flag>
 		<flag dailyReset="false">spa_sheep_introduced</flag>
-	
+		
 		<!-- Amazon Camp: -->
 		<flag dailyReset="false">amazon_camp_discovered</flag>
 		<!-- Aurokaris: -->
@@ -497,6 +499,28 @@
 			<flag dailyReset="false">sword_history_revealed</flag>
 			<flag dailyReset="false">sword_talk_quest_complete</flag>
 			
+	
+	<!-- Elis defence meeting -->
+		<flag dailyReset="false">meraxis_walls_end_fountain_scene_crowd_present</flag>
+		<flag dailyReset="false">meraxis_walls_end_fountain_scene_demons_present</flag>
+		<flag dailyReset="false">elis_defence_meeting_weapons</flag>
+		<flag dailyReset="false">elis_defence_meeting_spells</flag>
+		
+	<!-- Shinrin Highlands -->
+		<flag dailyReset="false">transformed_by_shiranui</flag>
+		<flag dailyReset="false">stripped_by_shiranui</flag>
+		<flag dailyReset="false">shiranui_painting_sex</flag>
+		<!-- Shiranui sex -->
+		<flag dailyReset="false">shiranui_sex_kissing</flag>
+		<flag dailyReset="false">shiranui_sex_cock_worship</flag>
+			
+	<!-- Meraxis's Hideout: -->
+		<flag dailyReset="false">hideout_takahashi_talked_meraxis</flag>
+		<flag dailyReset="false">hideout_takahashi_talked_potions</flag>
+		<flag dailyReset="false">hideout_takahashi_talked_youko</flag>
+		
+		<flag dailyReset="true">hideout_collected_potion_today</flag>
+		<flag dailyReset="true">takahashi_daily_sex</flag>
 			
 			
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [#flags.setSavedLong(id, value)] calls)
@@ -534,6 +558,8 @@
 	angelixx_club_progress (used to track progress through the clubbing scene with Angelixx)
 	
 	fia_whiskey_sips (tracking how many sips of whiskey the player has had when meeting Fia in a bar)
+	
+	shiranuis_trap_fires_extinguished (tracking how many of the fires the player has extinguished while in Shiranui's trap)
 	-->
 	
 </dialogueFlags>

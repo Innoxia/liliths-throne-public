@@ -61,6 +61,8 @@
 		<itemTags> 
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>FITS_BIPEDS</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>USED_BY_BONDAGE_APPLIERS</tag>
 		</itemTags>
 	</coreAttributes>
 

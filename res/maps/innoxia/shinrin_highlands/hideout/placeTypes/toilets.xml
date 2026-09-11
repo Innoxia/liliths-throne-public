@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[toilets]]></name>
+	<tooltipDescription><![CDATA[The hideout's toilet facilities consist of a traditional Japanese-style squat toilet and a simple wash hand basin.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Meraxis's hideout]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLUE_LIGHT</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_toilets</dialogue>
+	<populationPresent/>
+	<furniturePresent>false</furniturePresent>
+	<wallsPresent wallName="wall">true</wallsPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

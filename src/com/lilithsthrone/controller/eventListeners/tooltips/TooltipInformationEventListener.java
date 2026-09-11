@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
@@ -1046,7 +1047,7 @@ public class TooltipInformationEventListener implements EventListener {
 					int crotchBreastAddition = crotchBreasts?24:0;
 					int spinneretAddition = spinneret?24:0;
 					
-					int[] dimensions = new int[]{419, elemental?108+(((Elemental)owner).getSummoner().isPlayer()?28:0):(522+crotchBreastAddition+spinneretAddition)};
+					int[] dimensions = new int[]{460/*419*/, elemental?108+(((Elemental)owner).getSummoner().isPlayer()?28:0):(522+crotchBreastAddition+spinneretAddition)};
 					int imagePadding = 0;
 					int imageWidth = 0;
 					if (displayImage) {
@@ -1063,6 +1064,7 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.setLength(0);
 
 					BodyShape bodyShape = owner.getBodyShape();
+					AgeCategory ageCategory = owner.getAppearsAsAge();
 					boolean feral = owner.isFeral();
 					
 					tooltipSB.append("<div class='title'>" //  style='color:" + owner.getRace().getColour().toWebHexString() + ";'
@@ -1078,6 +1080,8 @@ public class TooltipInformationEventListener implements EventListener {
 								?""
 								:"<div class='subTitle' style='font-weight:normal; margin:0; padding:0; background:#00000000; width:100%;'>"
 									+ "<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(owner.getFemininity().getName(false))+"</span>"
+											+" | "
+									+ "<span style='color:"+ageCategory.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(ageCategory.getName())+"</span>"
 									+" | "
 									+ "<span style='color:"+bodyShape.toWebHexStringColour()+";'>"+Util.capitaliseSentence(bodyShape.getName(false))+" body</span>"
 									+" | "

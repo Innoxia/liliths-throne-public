@@ -199,7 +199,7 @@ public class OffspringSeed implements XMLSaving {
 			gender = Gender.getGenderFromUserPreferences(false, false);
 		} else {
 			gender = Gender.getBasicGender(
-					Math.random()<mother.getRace().getChanceForMaleOffspring()
+					Math.random()<mother.getTrueSubspecies().getChanceForMaleOffspring()
 						?Femininity.MASCULINE
 						:Femininity.FEMININE);
 		}

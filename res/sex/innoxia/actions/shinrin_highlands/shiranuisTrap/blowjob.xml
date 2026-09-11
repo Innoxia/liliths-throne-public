@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!flags.hasFlag(FLAG_innoxia_shiranui_sex_kissing) && !flags.hasFlag(FLAG_innoxia_shiranui_sex_cock_worship) && sex.getOngoingActionsMap(shiranui).get(PENETRATION_PENIS).keySet().iterator().next()==npc]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+			<fetish>FETISH_PENIS_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>ORIFICE_MOUTH</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects/>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Blowjob]]></title>
+	<tooltip><![CDATA[
+		Service Shiranui's cock with your mouth.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				As Shiranui's [shiranui.cock+] is pushed into [npc.namePos] mouth, [npc.she] eagerly [npc.verb(wrap)] [npc.her] [npc.lips+] around the youko's throbbing shaft and [npc.verb(give)] her an enthusiastic blowjob.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

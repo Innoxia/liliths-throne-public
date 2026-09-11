@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.getEyePairs()<4)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		#IF(npc.getEyePairs()==3)
+			[#flags.setInt('extremeTF', 100)]
+		#ELSEIF(npc.getEyePairs()==2)
+			[#flags.setInt('extremeTF', 33+RND.nextInt(66))]
+		#ELSE
+			[#flags.setInt('extremeTF', RND.nextInt(100))]
+		#ENDIF
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[Eye-multiplication]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		Wouldn't it be so much fun to have more eyes?!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		What fun!
+	]]></applicationSpeechEnd>
+	
+	<!-- 33% chance of 2 eye pairs -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<33]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setEyePairs(2)]
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 33% chance of 3 eye pairs -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setEyePairs(3)]
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 33% chance of 4 eye pairs -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>=66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setEyePairs(4)]
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

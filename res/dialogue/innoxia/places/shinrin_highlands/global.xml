@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="shinrin_highlands">
+		<content folderPath="txt/places/shinrin_highlands/global">SHINRIN_HIGHLANDS</content>
+		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id="river">
+		<content folderPath="txt/places/shinrin_highlands/global">RIVER</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+</dialogueNodes>

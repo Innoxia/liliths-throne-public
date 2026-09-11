@@ -436,6 +436,10 @@ public enum RaceStage {
 	public String getName() {
 		return name;
 	}
+
+	public String getNameColoured() {
+		return "<span style='color:"+getColour().toWebHexString()+";'>"+name+"</span>";
+	}
 	
 	public Colour getColour() {
 		return colour;

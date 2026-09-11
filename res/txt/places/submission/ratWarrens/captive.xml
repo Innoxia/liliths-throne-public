@@ -2617,7 +2617,18 @@
 		You wake up some time later to discover that you've been carried back to Murk's milking room, and, judging from the fact that the other milkers are sleepily moaning in their stocks, it must be morning. With a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
 	</p>
 	<p>
-		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling
+		#IF(pc.hasLegs())
+			 between your legs.
+		#ELSE
+			 in your groin.
+		#ENDIF
+		#IF(pc.isTaur())
+			 After shuffling around a little, you feel
+		#ELSE
+			 Quickly moving your fingers down to your groin, you discover
+		#ENDIF
+		 that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
 	</p>
 	<p>
 		[murk.speechNoEffects(Feelin' empty down there?)] you hear the familiar voice of Murk call out from behind you. As you turn to face the chubby rat-boy, he smirks down at you and continues, [murk.speechNoEffects(Don't ya worry; me fat cock's gonna be fillin' yer dirty little cunt soon enough!)]
@@ -2636,7 +2647,18 @@
 		You wake up some time later to discover that you've been carried back to Murk's milking room, and with a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
 	</p>
 	<p>
-		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable whine as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling
+		#IF(pc.hasLegs())
+			 between your legs.
+		#ELSE
+			 in your groin.
+		#ENDIF
+		#IF(pc.isTaur())
+			 After shuffling around a little, you feel
+		#ELSE
+			 Quickly moving your fingers down to your groin, you discover
+		#ENDIF
+		 that your vagina has been stretched out considerably, and you let out an uncomfortable whine as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
 	</p>
 	]]>
 	</htmlContent>

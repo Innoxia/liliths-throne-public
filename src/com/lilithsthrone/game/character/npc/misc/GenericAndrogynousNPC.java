@@ -34,8 +34,9 @@ public class GenericAndrogynousNPC extends NPC {
 				25, Month.JUNE, 15,
 				1, Gender.N_P_V_HERMAPHRODITE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(false, 0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
-		
-		this.setFemininity(50);
+		if(!isImported) {
+			this.setFemininity(50);
+		}
 	}
 	
 	@Override

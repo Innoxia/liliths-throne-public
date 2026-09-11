@@ -335,7 +335,7 @@ public class Ghost extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_flats", PresetColour.CLOTHING_BLACK, false), true, this);
 
-		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ARION_REPORT)) {
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ELIS_DEFENCE_PLAN)) {
 			this.resetAreasKnownByCharactersMap();
 		}
 	}
@@ -365,7 +365,7 @@ public class Ghost extends NPC {
 		this.setEssenceCount(250);
 		this.equipOffhandWeaponFromNowhere(getDagger());
 
-		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ARION_REPORT)) {
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ELIS_DEFENCE_PLAN)) {
 			this.resetAreasKnownByCharactersMap();
 		}
 	}

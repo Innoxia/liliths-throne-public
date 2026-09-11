@@ -2362,7 +2362,7 @@ public class CMFetishAttack {
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Let me tell you the best ways to get knocked up!)]"
 									:"[npc.speech(Ever wanted to fuck a pregnant [npc.girl]?)]"),
-						"[npc.Name] pushes out [npc.her] pregnant belly and [npc.verb(giggle)] at [npc2.name], "
+						"[npc.Name] [npc.verb(push)] out [npc.her] pregnant belly and [npc.verb(giggle)] at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I'll tell you all about how I got knocked up!)]"
 									:"[npc.speech(Fucking pregnant [npc.girls] is the best thing ever! Come on, I'll show you!)]"),

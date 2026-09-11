@@ -179,6 +179,28 @@ public class World implements XMLSaving {
 	/**
 	 * @param location The starting location from which to search for the place.
 	 * @param place The place of the cell which is being looked for.
+	 * @return The cell which has the 'place' place type that's furthest from the starting location. Will return null if no cell with the defined place type is found.
+	 */
+	public Cell getFurthestCell(Vector2i location, AbstractPlaceType place) {
+		float distance = 0;
+		Cell furthestCell = null;
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(place)) {
+					float newDistance = Vector2i.getDistance(location, grid[i][j].getLocation());
+					if(newDistance > distance) {
+						furthestCell = grid[i][j];
+						distance = newDistance;
+					}
+				}
+			}
+		}
+		return furthestCell;
+	}
+	
+	/**
+	 * @param location The starting location from which to search for the place.
+	 * @param place The place of the cell which is being looked for.
 	 * @return The distance to the cell which has the 'place' place type that's closest to the starting location. Will return 10000 if no cell with the defined place type is found.
 	 */
 	public float getClosestCellDistance(Vector2i location, AbstractPlaceType place) {

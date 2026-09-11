@@ -325,7 +325,7 @@ public enum PersonalityTrait {
 			return UtilText.parse(target,
 					"<p style='text-align:center;'>"
 							+ (target.hasPersonalityTrait(LISP)
-								?"[style.colourDisabled([npc.Name] already speaks with a lisp, so nothing happens...)]"
+								?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
 								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
 						+ "</p>");
 		}
@@ -354,7 +354,7 @@ public enum PersonalityTrait {
 			return UtilText.parse(target,
 					"<p style='text-align:center;'>"
 							+ (target.hasPersonalityTrait(STUTTER)
-								?"[style.colourDisabled([npc.Name] already speaks with a stutter, so nothing happens...)]"
+								?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a stutter, so nothing happens...)]"
 								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a stutter)]!")
 						+ "</p>");
 		}
@@ -412,7 +412,7 @@ public enum PersonalityTrait {
 			return UtilText.parse(target,
 					"<p style='text-align:center;'>"
 							+ (target.hasPersonalityTrait(SLOVENLY)
-								?"[style.colourDisabled([npc.Name] already speaks in a slovenly manner, so nothing happens...)]"
+								?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] in a slovenly manner, so nothing happens...)]"
 								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking in a slovenly manner)]!")
 						+ "</p>");
 		}

@@ -2972,47 +2972,47 @@ public class ClothingType {
 	}
 	
 	public static List<AbstractClothingType> getAllClothing() {
-		return allClothing;
+		return new ArrayList<>(allClothing);
 	}
 	
 	public static List<AbstractClothingType> getAllClothingInSet(AbstractSetBonus setBonus) {
-		return setClothing.get(setBonus);
+		return new ArrayList<>(setClothing.get(setBonus));
 	}
 
 	public static List<AbstractClothingType> getModdedClothingList() {
-		return moddedClothingList;
+		return new ArrayList<>(moddedClothingList);
 	}
 
 	public static List<InventorySlot> getCoreClothingSlots() {
-		return coreClothingSlots;
+		return new ArrayList<>(coreClothingSlots);
 	}
 
 	public static List<InventorySlot> getLingerieSlots() {
-		return lingerieSlots;
+		return new ArrayList<>(lingerieSlots);
 	}
 	
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMap() {
-		return commonClothingMap;
+		return new HashMap<>(commonClothingMap);
 	}
 
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMapFemale() {
-		return commonClothingMapFemale;
+		return new HashMap<>(commonClothingMapFemale);
 	}
 
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMapMale() {
-		return commonClothingMapMale;
+		return new HashMap<>(commonClothingMapMale);
 	}
 
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMapAndrogynous() {
-		return commonClothingMapAndrogynous;
+		return new HashMap<>(commonClothingMapAndrogynous);
 	}
 	
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMapFemaleIncludingAndrogynous() {
-		return commonClothingMapFemaleIncludingAndrogynous;
+		return new HashMap<>(commonClothingMapFemaleIncludingAndrogynous);
 	}
 	
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMapMaleIncludingAndrogynous() {
-		return commonClothingMapMaleIncludingAndrogynous;
+		return new HashMap<>(commonClothingMapMaleIncludingAndrogynous);
 	}
 
 }

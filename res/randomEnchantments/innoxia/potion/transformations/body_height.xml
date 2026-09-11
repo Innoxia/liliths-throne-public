@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.isShortStature())
+			0
+		#ELSE
+			100
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		#IF(npc.getHeightValue()>=HEIGHT_SEVEN_COLOSSAL.getMedianValue())
+			[#flags.setInt('extremeTF', 0)]
+		#ELSEIF(npc.getHeightValue()<=HEIGHT_ONE_SHORT.getMedianValue())
+			[#flags.setInt('extremeTF', 100)]
+		#ELSE
+			[#flags.setInt('extremeTF', RND.nextInt(100))]
+		#ENDIF
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Shrinking
+		#ELSE
+			Growth
+		#ENDIF
+	]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Down you go!
+		#ELSE
+			Up you go!
+		#ENDIF
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			You'll have fun being small!
+		#ELSE
+			You'll have fun being tall!
+		#ENDIF
+	]]></applicationSpeechEnd>
+	
+	<!-- 50% chance of normal TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<50]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.incrementHeight(-50, false)]
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 50% chance of extreme TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>=50]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.incrementHeight(50, false)]
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

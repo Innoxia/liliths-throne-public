@@ -167,6 +167,7 @@ import com.lilithsthrone.game.character.npc.fields.Nir;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
 import com.lilithsthrone.game.character.npc.fields.Oglix;
 import com.lilithsthrone.game.character.npc.fields.Penelope;
+import com.lilithsthrone.game.character.npc.fields.Shiranui;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Sleip;
 import com.lilithsthrone.game.character.npc.fields.Sterope;
@@ -1144,6 +1145,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("innoxia_dominion_sex_shop") || !Main.isVersionOlderThan(loadingVersion, "0.4.9.12"))
 							&& (!worldType.equals("innoxia_dominion_sex_shop_factory") || !Main.isVersionOlderThan(loadingVersion, "0.4.9.13"))
 							&& (!worldType.equals("BOUNTY_HUNTER_LODGE_UPSTAIRS") || !Main.isVersionOlderThan(loadingVersion, "0.4.10.2"))
+							&& (!worldType.equals("innoxia_shinrin_highlands_hideout") || !Main.isVersionOlderThan(loadingVersion, "0.4.11.6"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
 //                          && !worldType.equals("REBEL_BASE")
@@ -2742,6 +2744,9 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ursa.class))) { addNPC(new Ursa(), false); addedNpcs.add(Ursa.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Aurokaris.class))) { addNPC(new Aurokaris(), false); addedNpcs.add(Aurokaris.class); }
 			
+			// Shinrin Highlands:
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Shiranui.class))) { addNPC(new Shiranui(), false); addedNpcs.add(Shiranui.class); }
+			
 			// Elder lilin:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lunette.class))) { addNPC(new Lunette(), false); addedNpcs.add(Lunette.class); }
 			if(addedNpcs.contains(Lunette.class)) {
@@ -2884,9 +2889,23 @@ public class Game implements XMLSaving {
 				character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			}
 		}
-
+		
 		if(loopDebug) {
 			System.out.println("companions done");
+		}
+		
+		// If a place type has been modified, need to recalculate availability of slave jobs before running occupancyUtil.performHourlyUpdate()
+		if(occupancyUtil.isSlaveJobsRecalculationRequired()) {
+			System.out.println(":3");
+			for(String slaveId : occupancyUtil.getAllCharacters()) {
+				try {
+					GameCharacter occupant = Main.game.getNPCById(slaveId);
+					occupant.recalculateSlaveJobs();
+					System.out.println("reset: "+occupant.getName());
+				} catch (Exception e) {
+				}
+			}
+			occupancyUtil.setSlaveJobsRecalculationRequired(false);
 		}
 		
 		// Occupancy:
@@ -4437,7 +4456,7 @@ public class Game implements XMLSaving {
 								: "")
 					+ "</div>"
 				+ "</div>"
-				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>"+Main.GAME_NAME+" v"+Main.VERSION_NUMBER+"</i></p>"
+				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>"+Main.NAME_OF_GAME+" v"+Main.VERSION_NUMBER+"</i></p>"
 				+ "</body>";
 	}
 

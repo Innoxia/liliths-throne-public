@@ -129,12 +129,33 @@ public interface SexActionInterface {
 		return false;
 	}
 	
+	/**
+	 * @return The characters who should be used when parsing this action's description.
+	 *  This defaults to <code>Main.sex.getCharacterPerformingAction()</code> for 'npc' and <code>Main.sex.getCharacterTargetedForSexAction(this)</code> for 'npc2'.
+	 */
+	public default List<GameCharacter> getCharactersForParsing() {
+		return Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
+	}
+	
 	public abstract String getActionTitle();
 
 	public abstract String getActionDescription();
+
+//	/**
+//	 * @return A short, one-sentence description of this action, mainly to be used in recorded sex scene playbacks.
+//	 */
+//	public abstract String getBriefDescription();
+//
+//	@Override
+//	public String getBriefDescription() {
+//		return UtilText.returnStringAtRandom(
+//				"",
+//				"",
+//				"");
+//	}
 	
 	public abstract String getDescription();
-	
+
 	public default Colour getHighlightColour() {
 		return null;
 	}
@@ -1348,10 +1369,10 @@ public interface SexActionInterface {
 			return new Response(
 					this.endsSex()
 						?getActionTitle()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+						:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 					this.endsSex()
 						?getActionDescription()+getArousalHitWarning()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
+						:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning()),
 					Main.sex.SEX_DIALOGUE,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -1445,10 +1466,10 @@ public interface SexActionInterface {
 			return new ResponseEffectsOnly(
 					this.endsSex()
 						?getActionTitle()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+						:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 					this.endsSex()
 						?getActionDescription()+getArousalHitWarning()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning())){
+						:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning())){
 				@Override
 				public void effects() {
 					SexActionInterface.this.applyEffects();
@@ -1516,10 +1537,10 @@ public interface SexActionInterface {
 			return new Response(
 					this.endsSex()
 						?getActionTitle()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+						:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 					this.endsSex()
 						?getActionDescription()+getArousalHitWarning()
-						:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
+						:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning()),
 					null,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -1637,10 +1658,10 @@ public interface SexActionInterface {
 		return new Response(
 				this.endsSex()
 					?getActionTitle()
-					:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionTitle()),
+					:UtilText.parse(getCharactersForParsing(), getActionTitle()),
 				this.endsSex()
 					?getActionDescription()+getArousalHitWarning()
-					:UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
+					:UtilText.parse(getCharactersForParsing(), getActionDescription()+getArousalHitWarning()),
 				null,
 				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),

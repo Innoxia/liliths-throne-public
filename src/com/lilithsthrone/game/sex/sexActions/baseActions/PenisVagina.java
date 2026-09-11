@@ -697,8 +697,9 @@ public class PenisVagina {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
-		
-		private List<GameCharacter> getCharactersForParsing() {
+
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return PenisVagina.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 
@@ -1475,7 +1476,8 @@ public class PenisVagina {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
 
-		private List<GameCharacter> getCharactersForParsing() {
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return PenisVagina.getCharactersForParsing(Main.sex.getCharacterPerformingAction());
 		}
 

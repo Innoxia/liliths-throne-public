@@ -961,7 +961,7 @@
 					
 					[#flags.setFlag(FLAG_innoxia_sword_mission_react_needed, true)]
 					
-					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ARION_REPORT))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN))]
 				]]></effects>
 			</response>
 		</responses>

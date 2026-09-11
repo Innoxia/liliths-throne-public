@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(!npc.hasVagina())
+			0
+		#ELSE
+			100
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('extremeTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Pussy-beautification
+		#ELSE
+			Cunt-uglification
+		#ENDIF
+	]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Let's make your pussy the prettiest in town!
+		#ELSE
+			Let's make that cunt of yours a really nasty, ugly one!
+		#ENDIF
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			~Mmm!~ Your pussy's so cute!
+		#ELSE
+			~Eww!~ Your cunt's so nasty!
+		#ENDIF
+	]]></applicationSpeechEnd>
+	
+	<!-- 50% chance of normal TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<50]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setVaginaCapacity(CAPACITY_ZERO_IMPENETRABLE, true)]
+			[#npc.setVaginaWetness(WETNESS_THREE_WET)]
+			[#npc.setVaginaLabiaSize(LABIA_SIZE_ZERO_TINY)]
+			[#npc.setVaginaClitorisSize(CLITORIS_SIZE_ZERO_AVERAGE)]
+			[#npc.setVaginaSquirter(false)]
+			
+			[#npc.removeVaginaOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			
+			[#npc.removeGirlcumModifier(FLUID_MODIFIER_MUSKY)]
+			
+			#IF(game.isPubicHairEnabled())
+				[#npc.setPubicHair(BODY_HAIR_ZERO_NONE)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 50% chance of extreme TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>=50]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(game.isGapeContentEnabled())
+				[#npc.setVaginaCapacity(CAPACITY_SEVEN_GAPING, true)]
+			#ELSE
+				[#npc.setVaginaCapacity(CAPACITY_FOUR_LOOSE, true)]
+			#ENDIF
+			[#npc.setVaginaWetness(WETNESS_SEVEN_DROOLING)]
+			[#npc.setVaginaLabiaSize(LABIA_SIZE_FOUR_MASSIVE)]
+			#IF(npc.getVaginaClitorisSize()<CLITORIS_SIZE_ONE_BIG.getMedianValue())
+				[#npc.setVaginaClitorisSize(CLITORIS_SIZE_ONE_BIG)]
+			#ENDIF
+			[#npc.setVaginaSquirter(true)]
+			
+			[#npc.addVaginaOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			
+			[#npc.addGirlcumModifier(FLUID_MODIFIER_MUSKY)]
+			
+			#IF(game.isPubicHairEnabled())
+				[#npc.setPubicHair(BODY_HAIR_SEVEN_WILD)]
+			#ENDIF
+			
+			#IF(npc.getCovering(npc.getVaginaCovering()).getPrimaryColour().getDarkerLinkedColours().contains(COLOUR_SKIN_DARK))
+				[#npc.setSkinCovering(npc.getVaginaCovering(), COLOUR_SKIN_DARK, false)]
+			#ELSEIF(!npc.getCovering(npc.getVaginaCovering()).getPrimaryColour().getDarkerLinkedColours().isEmpty())
+				[#npc.setSkinCovering(npc.getVaginaCovering(), npc.getCovering(npc.getVaginaCovering()).getPrimaryColour().getDarkerLinkedColours().get(0), false)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

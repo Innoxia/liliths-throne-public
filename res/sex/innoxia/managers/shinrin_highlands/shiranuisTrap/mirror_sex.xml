@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+
+	<title/>
+	<wallName/>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[false]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[true]]></exposingReactions>
+	<positionsAvailable exclusive="false">
+		<position><![CDATA[STANDING]]></position>
+		<position><![CDATA[ALL_FOURS]]></position>
+	</positionsAvailable>
+	<publicSex>
+		<isPublic><![CDATA[true]]></isPublic>
+		<startingDescription><![CDATA[
+			The mirror scenes continue to play out as you get fucked by the real Shiranui...
+		]]></startingDescription>
+		<randomDescriptions enabled="true">
+			<description><![CDATA[In one of the mirrors, you're getting mating-pressed by an evilly-grinning Shiranui.]]></description>
+			<description><![CDATA[The scene in one mirror is that of you on all fours, with Shiranui frantically humping you from behind.]]></description>
+			<description><![CDATA[The mirror scenes continue to play, and in one of them you're eagerly bouncing up and down on Shiranui's fat cock.]]></description>
+			<description><![CDATA[In one of the mirrors, you're being pushed up against the inside wall of the mirror while Shiranui relentlessly fucks you from behind.]]></description>
+			<description><![CDATA[One of the mirror scenes shows you on all fours, with your head down and ass up as Shiranui rhythmically drives her cock in and out of you.]]></description>
+		</randomDescriptions>
+	</publicSex>
+	
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+				<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[ONGOING_ONLY]]></control>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>shiranui</characterId>
+			<slotsAvailable excluded="false">
+				<slot><![CDATA[LYING_DOWN_MISSIONARY]]></slot>
+				<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+			</slotsAvailable>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[true]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[KNOT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<uniqueSexActions/>
+            <preferences>
+                <character id="pc">
+                    <foreplay copyForMain="true">
+                        <performing><![CDATA[PENETRATION_PENIS]]></performing>
+                        <targeted><![CDATA[
+							#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+								ORIFICE_VAGINA
+							#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+								ORIFICE_ANUS
+							#ELSE
+								ORIFICE_MOUTH
+							#ENDIF
+						]]></targeted>
+                    </foreplay>
+                </character>
+            </preferences>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+	</characterInformationContainer>
+		
+</sexManager>

@@ -120,9 +120,14 @@
 	<htmlContent tag="OCCUPANT_START_STILL_PREGNANT"><![CDATA[
 	<p>
 		#IF (npc.getPregnantLitter()!=null && npc.getPregnantLitter().isFatherId(pc.getId()))
-			As the door swings shut behind you, you notice that [npc.name] is still having to deal with the consequences of your incestuous sex, and is cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands].
+			As the door swings shut behind you, you notice that [npc.name] is still having to deal with the consequences of your incestuous sex, and is
 		#ELSE
-			As the door swings shut behind you, you notice that [npc.name] is still cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands].
+			As the door swings shut behind you, you notice that [npc.name] is still
+		#ENDIF
+		#IF(npc.isTaur())
+			 sporting a [style.colourSex(pregnant belly)].
+		#ELSE
+			 cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands].
 		#ENDIF
 		 Reminding [npc.herHim] to go and see Lilaya when [npc.sheIs] ready to give birth, you smile at [npc.herHim] as [npc.she] promises to do just that.
 	</p>
@@ -1365,7 +1370,13 @@
 	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_STILL_PREGNANT"><![CDATA[
 	<p>
-		As [npc.name] stands in the doorway before you, you notice that [npc.sheIs] still cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands]. Reminding [npc.herHim] that [npc.sheIs] more than welcome to get help from Lilaya when [npc.sheIs] ready to give birth, you smile at [npc.herHim] as [npc.she] promises to do just that.
+		As [npc.name] stands in the doorway before you, you notice that [npc.sheIs] still 
+		#IF(npc.isTaur())
+			 sporting a [style.colourSex(pregnant belly)].
+		#ELSE
+			 cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands].
+		#ENDIF
+		Reminding [npc.herHim] that [npc.sheIs] more than welcome to get help from Lilaya when [npc.sheIs] ready to give birth, you smile at [npc.herHim] as [npc.she] promises to do just that.
 	</p>
 	]]>
 	</htmlContent>

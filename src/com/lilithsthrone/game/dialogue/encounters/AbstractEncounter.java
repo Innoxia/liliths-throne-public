@@ -43,6 +43,8 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public abstract class AbstractEncounter {
 
+	//TODO remove the handling of hard-coded encounters and use the ExternalEncounterData instead of the Overridden getDialogues() method.
+	
 	protected static AbstractCoreItem randomItem;
 	
 	protected static final double INCEST_ENCOUNTER_RATE = 0.2f;
@@ -56,46 +58,6 @@ public abstract class AbstractEncounter {
 
 	private List<String> placeTypeIds;
 	private List<ExternalEncounterData> possibleEncounters;
-	
-	/**
-	 * Utility class to store data loaded from external files.
-	 */
-	private class ExternalEncounterData {
-		private String name;
-		private String triggerConditional;
-		private boolean opportunistic;
-		private String dialogueId;
-		
-		public ExternalEncounterData(String name, String triggerConditional, boolean opportunistic, String dialogueId) {
-			this.name = name;
-			this.triggerConditional = triggerConditional;
-			this.opportunistic = opportunistic;
-			this.dialogueId = dialogueId;
-		}
-		
-		public float getTriggerChance() {
-			try {
-				return Float.valueOf(UtilText.parse(this.getTriggerConditional()).trim());
-			} catch(Exception ex) {
-				System.err.println("Error in AbstractEncounter's ExternalEncounterData: getTriggerChance() for '"+getName()+"' failed to parse!");
-				ex.printStackTrace();
-				return 0f;
-			}
-		}
-		
-		public String getName() {
-			return name;
-		}
-		public String getTriggerConditional() {
-			return triggerConditional;
-		}
-		public boolean isOpportunistic() {
-			return opportunistic;
-		}
-		public String getDialogueId() {
-			return dialogueId;
-		}
-	}
 	
 	public AbstractEncounter() {
 	}
@@ -377,10 +339,21 @@ public abstract class AbstractEncounter {
 		return null;
 	}
 	
-	protected abstract DialogueNode initialiseEncounter(EncounterType node);
+	public abstract DialogueNode initialiseEncounter(EncounterType node);
 	
 	public abstract Map<EncounterType, Float> getDialogues();
-
+	
+	/**
+	 * <b>IMPORTANT NOTE:</b> This is only used for encounters defined externally via xml files, and will return null if this AbstractEncounter is hard-coded.
+	 * @return A List of ExternalEncounterData representing all of the dialogues which can trigger via this AbstractEncounter.
+	 */
+	public List<ExternalEncounterData> getPossibleEncounters() throws NullPointerException {
+		if(!this.fromExternalFile) {
+			throw new NullPointerException();
+		}
+		return possibleEncounters;
+	}
+	
 	public boolean isAnyEncounterAvailable() {
 		return getBaseRandomEncounter(true)!=null;
 	}
@@ -439,6 +412,17 @@ public abstract class AbstractEncounter {
 			Main.game.encounterAtSeconds = new Value<>(Main.game.getSecondsPassed(), dialogueNode);
 		}
 	}
+//	
+//	/**
+//	 * @return The DialogueNode which is returned when the EncounterType is triggered.
+//	 * @throws IllegalArgumentException This is thrown if isFromExternalFile() returns true, as externally-defined Encounters do not use EncounterType.
+//	 */
+//	public DialogueNode getAssociatedDialogueNode(EncounterType type) throws IllegalArgumentException {
+//		if(this.isFromExternalFile()) {
+//			throw new IllegalArgumentException();
+//		}
+//		
+//	}
 	
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 		
@@ -655,7 +639,7 @@ public abstract class AbstractEncounter {
 					ItemType.OFFSPRING_MAP.getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 				@Override
 				public void effects() {
-					Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.OFFSPRING_MAP), null, false);
+					Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.OFFSPRING_MAP), Main.game.getPlayer(), false);
 				}
 			};
 		}
