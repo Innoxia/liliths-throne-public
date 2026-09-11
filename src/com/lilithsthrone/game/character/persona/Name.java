@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -704,7 +705,7 @@ public class Name {
 	private static Map<String, List<NameTriplet>> importNames(File XMLFile, String author, boolean mod, String raceID) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
+				Document doc = DocBuilders.parseDoc(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
