@@ -40,6 +40,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -297,12 +298,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.SizedStack;
-import com.lilithsthrone.utils.Units;
-import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
@@ -830,7 +826,9 @@ public class Game implements XMLSaving {
 			try {
 				Main.game.getOccupancyUtil().saveAsXML(game, doc);
 			}catch(Exception ex) {
+				SaveBackups.FAILURE_DETECTED = true;
 				System.err.println("SlaveryUtil saving failed!");
+				ex.printStackTrace();
 				Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "SlaveryUtil failure"), false);
 			}
 
@@ -842,7 +840,9 @@ public class Game implements XMLSaving {
 			XMLUtil.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
 			XMLUtil.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("coreInfo saving failed!");
+			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
 		}
 
@@ -855,7 +855,9 @@ public class Game implements XMLSaving {
 				event.saveAsXML(eventLogNode, doc);
 			}
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("eventLog saving failed!");
+			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "eventLog failure"), false);
 		}
 
@@ -871,7 +873,9 @@ public class Game implements XMLSaving {
 				}
 			}
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("slaveryEventLog saving failed!");
+			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "slaveryEventLog failure"), false);
 		}
 
@@ -885,7 +889,9 @@ public class Game implements XMLSaving {
 //					}
 			}
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("maps saving failed!");
+			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "maps failure"), false);
 		}
 
@@ -895,7 +901,9 @@ public class Game implements XMLSaving {
 			game.appendChild(characterNode);
 			Main.game.getPlayer().saveAsXML(characterNode, doc);
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("playerCharacter saving failed!");
+			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
 		}
 
@@ -907,6 +915,7 @@ public class Game implements XMLSaving {
 				character.saveAsXML(characterNode, doc);
 			}
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("NPC saving failed!");
 			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
@@ -920,6 +929,7 @@ public class Game implements XMLSaving {
 				offspringSeed.saveAsXML(characterNode, doc);
 			}
 		} catch(Exception ex) {
+			SaveBackups.FAILURE_DETECTED = true;
 			System.err.println("offspringSeed saving failed!");
 			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
