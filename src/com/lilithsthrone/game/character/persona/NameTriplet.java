@@ -7,6 +7,8 @@ package com.lilithsthrone.game.character.persona;
  */
 public class NameTriplet {
 	
+	public static NameTriplet EMPTY = new NameTriplet("");
+	
 	private String masculine, androgynous, feminine;
 
 	public NameTriplet(String masculine, String androgynous, String feminine) {

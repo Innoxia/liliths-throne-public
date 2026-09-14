@@ -552,7 +552,7 @@ public class Yui extends NPC {
 		
 		client.setPlayerKnowsName(false);
 		
-		client.setPetName(Main.game.getPlayer(), Util.randomItemFrom(new String[] {"bitch", "cunt", "slut"}));
+		client.setPetName(Main.game.getPlayer(), new NameTriplet(Util.randomItemFrom(new String[] {"bitch", "cunt", "slut"})));
 		
 		client.unequipAllClothingIntoVoid(true, true);
 
@@ -795,13 +795,13 @@ public class Yui extends NPC {
 				}
 				client.setGenericName("gang member");
 				client.setDescription("This stranger is a member of a local gang, and is interested only in fucking you...");
-				client.setPetName(Main.game.getPlayer(), Util.randomItemFrom(new String[] {"bitch", "cunt", "slut"}));
+				client.setPetName(Main.game.getPlayer(), new NameTriplet(Util.randomItemFrom(new String[] {"bitch", "cunt", "slut"})));
 				client.setOccupation(Occupation.NPC_GANG_MEMBER);
 				
 			} else {
 				client.setGenericName("stranger");
 				client.setDescription("This stranger is completely unknown to you, and is interested only in fucking you...");
-				client.setPetName(Main.game.getPlayer(), Util.randomItemFrom(new String[] {"bitch", "cunt", "slut"}));
+				client.setPetName(Main.game.getPlayer(), new NameTriplet(Util.randomItemFrom(new String[] {"bitch", "cunt", "slut"})));
 			}
 		}
 
