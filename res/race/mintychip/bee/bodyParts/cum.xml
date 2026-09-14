@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- For a commented example of a fluid type, see 'milk.xml'. -->
+	
+	<race>mintychip_bee</race>
+	
+	<transformationName><![CDATA[bee]]></transformationName>
+	
+	<baseFluidType>CUM</baseFluidType>
+	
+	<flavour>HONEY</flavour>
+	
+	<namesMasculine>
+		<name><![CDATA[bee-]]></name>
+	</namesMasculine>
+	
+	<namesFeminine>
+		<name><![CDATA[bee-]]></name>
+	</namesFeminine>
+	
+	<descriptorsMasculine/>
+	
+	<descriptorsFeminine/>
+	
+	<defaultFluidModifiers>
+		<modifier>STICKY</modifier>
+		<modifier>SLIMY</modifier>
+	</defaultFluidModifiers>
+	
+</fluid>

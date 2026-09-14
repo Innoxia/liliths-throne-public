@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>mintychip_bee</race>
+	
+	<colour>mintychip_beeYellow</colour>
+	<secondaryColour>mintychip_beeYellow</secondaryColour>
+	<tertiaryColour>mintychip_beeYellow</tertiaryColour>
+	
+	<mainSubspecies>true</mainSubspecies>
+	
+	<baseSlaveValue>10000</baseSlaveValue>
+	
+	<attributeItemId>mintychip_race_bee_honey_mead</attributeItemId>
+	
+	<transformativeItemId>mintychip_race_bee_honey_pudding</transformativeItemId>
+	
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	
+	<shortStature>false</shortStature>
+	
+	<bipedalSubspecies>true</bipedalSubspecies>
+	
+	<aquatic>false</aquatic>
+	
+	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
+	This is applied *after* the parent race's 'applyRaceChanges' method.
+	The character's body that's being changed can be accessed via using 'targetedBody'.
+	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
+	<applySubspeciesChanges/>
+	<!-- This conditional statement determines if a body is detected as being an instance of this subspecies.
+	It should return an integer value, with 0 being returned if this subspecies' requirements are not met by the supplied body/race.
+	You should usually return a value of 100 if the requirements are met, or something higher if this subspecies should have a higher priority than other subspecies which may also detect this body as being an instance of their subspecies.
+	The body that's being checked can be accessed via using 'targetedBody'.
+	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_mintychip_bee)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<!-- All non-striped bees are classified as spotted just to catch any which have accidentally had their covering set to something other than spotted or striped. -->
+	
+	<!-- The name of the svg file which represents this subspecies' icon.
+	It should be located in the same folder as this xml file.
+	The 'displaySize' attribute defines how much (if any) this icon should be shrunk to fit onto the background image.
+		This is so that you can make your icon a full-sized svg, so that it's a full size for use in other places (such as for the book image or item backgrounds) and resize it just for this subspecies icon.
+		The default value I use is 80 (corresponding to 80% of the image's full size), but you can define it however you like, or even omit it entirely (in which case a value of 100 is used).
+		A setting of 100 means that no resizing will be made to your icon image. -->
+	<iconName displaySize="80">icon</iconName>
+	
+	<!-- The name of the svg file which represents the background for this subspecies' icon.
+	It should be located in the same folder as this xml file.
+	You can leave this blank to use the game's default background. -->
+	<backgroundName/>
+	
+	<!-- Book information:
+	Books are automatically-generated items which reveal information about the game's subspecies.
+	There is a unique book created for every unique value defined for each subspecies' 'advancedDescriptionId' field.
+	i.e. If I defined a different 'advancedDescriptionId' for spotted and striped bees, the game would make a book for each of them.
+		As it stands, I have defined both spotted and striped bee subspecies to use the 'bee_advanced' xml file, so there will only be one book type generated.	-->
+		
+	<!-- The icon to be used on the book's front cover.
+	It should be located in the same folder as this xml file. -->
+	<bookIconName>icon</bookIconName>
+	
+	<!-- The name for the book. -->
+	<bookName>Busy Bees</bookName> 
+	<basicDescriptionId>BEE_BASIC</basicDescriptionId>
+	<advancedDescriptionId>BEE_ADVANCED</advancedDescriptionId> 
+	
+	<!-- The default preference for this subspecies spawning.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	
+	<!-- Names for this subspecies when in a non-feral form.
+	Formatting for bipeds (which should probably be left to be covered by the 'namesDefault' element) should usually follow the pattern of X-morph, X-boy, X-girl. -->
+	<nameAnthro>
+		<namesDefault> <!-- You must include this 'namesDefault' element, which will be used for any undefined legConfiguration names (for example, if the player somehow became a TAIL_LONG bee). -->
+			<name><![CDATA[bee-morph]]></name>
+			<namePlural><![CDATA[bee-morphs]]></namePlural>
+			<singularMaleName><![CDATA[bee-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[bee-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[bee-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[bee-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	
+	<!-- You can also define names for use in the game's silly mode by creating an element identical to the 'nameAnthro' one above, but instead called 'nameAnthroSillyMode'.
+	See the 'res/race/NoStepOnSnek/snake/subspecies/snake.xml' file for an example in use. -->
+	
+	<!-- A brief description and identification requirements of this subspecies. -->
+	<description><![CDATA[An anthropomorphic bee, known as a 'bee-morph.']]></description>
+	
+	<nameHalfDemon>
+		<namesDefault> <!-- If you include the parent element 'nameHalfDemon', you must define this 'namesDefault' element. -->
+			<name><![CDATA[raja ofu]]></name>
+			<namePlural><![CDATA[raja ofu]]></namePlural>
+			<singularMaleName><![CDATA[raja ofu]]></singularMaleName>
+			<singularFemaleName><![CDATA[raja ofu]]></singularFemaleName>
+			<pluralMaleName><![CDATA[raja ofu]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[raja ofu]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	
+	<!-- Attributes related to this subspecies when in a feral form. -->
+	<feralAttributes>
+		<!-- As ferals can only be of one leg configuration, there is no need to define names based on a 'legConfiguration' attribute as done with half-demons and anthro names.
+		As such, just define your names like so: -->
+		<name><![CDATA[bee]]></name>
+		<namePlural><![CDATA[bees]]></namePlural>
+		<singularMaleName><![CDATA[bee]]></singularMaleName>
+		<singularFemaleName><![CDATA[bee]]></singularFemaleName>
+		<pluralMaleName><![CDATA[bees]]></pluralMaleName>
+		<pluralFemaleName><![CDATA[bees]]></pluralFemaleName>
+		
+		<legConfiguration>BIPEDAL</legConfiguration>
+		
+		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
+		
+		<sizeHeight>false</sizeHeight>
+		<size>150</size>
+		<serpentTailLength>0.1</serpentTailLength>
+		
+		<!-- The number of breast rows this feral form has on their chest.
+		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->
+		<breastRowCount>0</breastRowCount>
+		<!-- The number of nipples per breast.
+		If the 'breastRowCount' is 0, this value is never used. -->
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<!-- The number of breast rows this feral form has near their crotch. -->
+		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<!-- The number of nipples per crotch breast. -->
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		
+		<!-- Whether this feral form has arms or wings. -->
+		<armsOrWingsPresent>true</armsOrWingsPresent>
+		<!-- Whether this feral form has fingers which they can use to manipulate objects. -->
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<!-- Whether or not this feral form has hair on its head that's clearly distinct from the rest of its fur (which also includes manes). -->
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] bee-like body is very quick, and [npc.she] [npc.has] a primal urge to consume honey and other sweets.
+	]]></statusEffectDescription>
+	
+	<statusEffectAttributeModifiers>
+		<attribute value="10">MAJOR_PHYSIQUE</attribute>
+		<attribute value="-50">FERTILITY</attribute>
+		<attribute value="15">DAMAGE_LUST</attribute>
+		<attribute value="25">CRITICAL_DAMAGE</attribute>
+	</statusEffectAttributeModifiers>
+	
+	<extraEffects/>
+
+	
+	<perkWeightings>
+		<category masculineWeighting="3" feminineWeighting="2">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="3">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	
+	<regionLocations>
+		<region rarity="TWO_RARE">FIELD_CITY</region>
+		<region rarity="TWO_RARE">FIELDS</region>
+	<!--If grassland wilderness get added as a seprerate location, add a rarity of two for that here. -->
+		<region rarity="THREE_UNCOMMON">WOODLAND</region>
+	</regionLocations>
+	
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	
+	<placeLocations/>
+	
+	<flags/>
+
+	
+</subspecies>

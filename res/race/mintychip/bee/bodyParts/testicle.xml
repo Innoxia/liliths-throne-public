@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	
+	<race>mintychip_bee</race>
+	
+	<coveringType>mintychip_bee_chitin</coveringType>
+	
+	<fluidType>mintychip_bee_cum</fluidType>
+	
+	<internal>true</internal>
+	
+	<names/>
+	<namesPlural/>
+	
+	<descriptors/>
+	
+</testicle>

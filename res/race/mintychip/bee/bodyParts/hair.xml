@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hair>
+	<race>mintychip_bee</race>
+	
+	<transformationName><![CDATA[bee]]></transformationName>
+	
+	<coveringType>mintychip_bee_hair</coveringType>
+	
+	<tags>
+		<tag>HAIR_HANDLES_IN_SEX</tag>
+		<tag>HAIR_IGNORE_PLAYER_SETTINGS</tag>
+	</tags>
+	
+	<determiner><![CDATA[a head of]]></determiner>
+	
+	<name><![CDATA[hair]]></name>
+	
+	<namePlural pluralByDefault="false"><![CDATA[hairs]]></namePlural> 
+	
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	
+	<transformationDescription><![CDATA[
+		The transformation only lasts a matter of moments, leaving [npc.herHim] with fuzzy hair.
+		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldbee(bee hair)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], bee-like hair
+	]]></bodyDescription>
+	
+</hair>
