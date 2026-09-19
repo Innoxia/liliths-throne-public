@@ -83,6 +83,7 @@ import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 
 /**
  * @since 0.1.0
@@ -7649,11 +7650,29 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+      boolean isFreeButtSlut = true;
+
+      if(target.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
+        for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+          if(c.getItemTags().contains(ItemTag.CHASTITY)) {
+            for(BlockedParts blockedParts : c.getBlockedPartsMap(target, c.getSlotEquippedTo())) {
+              if(blockedParts.blockedBodyParts.contains(CoverableArea.ANUS)) {
+                isFreeButtSlut = false;
+                break;
+              }
+            }
+          }
+        }
+      } else {
+        isFreeButtSlut = false;
+      }
+
 			return target.isWearingChastity()
 					&& !target.isDoll()
 					&& !target.hasStatusEffect(CHASTITY_2)
 					&& !target.hasStatusEffect(CHASTITY_3)
-					&& !target.hasStatusEffect(CHASTITY_4);
+					&& !target.hasStatusEffect(CHASTITY_4)
+          && !(isFreeButtSlut || target.hasFetish(Fetish.FETISH_DENIAL_SELF));
 		}
 		@Override
 		public int getApplicationLength(GameCharacter target) {
@@ -7745,11 +7764,29 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+      boolean isFreeButtSlut = true;
+
+      if(target.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
+        for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+          if(c.getItemTags().contains(ItemTag.CHASTITY)) {
+            for(BlockedParts blockedParts : c.getBlockedPartsMap(target, c.getSlotEquippedTo())) {
+              if(blockedParts.blockedBodyParts.contains(CoverableArea.ANUS)) {
+                isFreeButtSlut = false;
+                break;
+              }
+            }
+          }
+        }
+      } else {
+        isFreeButtSlut = false;
+      }
+
 			return target.isWearingChastity()
 					&& !target.isDoll()
 					&& !target.hasStatusEffect(CHASTITY_1)
 					&& !target.hasStatusEffect(CHASTITY_2)
-					&& !target.hasStatusEffect(CHASTITY_3);
+					&& !target.hasStatusEffect(CHASTITY_3)
+          && !(isFreeButtSlut || target.hasFetish(Fetish.FETISH_DENIAL_SELF));
 		}
 		@Override
 		public boolean isSexEffect() {
