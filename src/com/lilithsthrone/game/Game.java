@@ -40,6 +40,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.character.npc.NPCRegistry;
+import com.lilithsthrone.threading.DocBuilders;
+import com.lilithsthrone.threading.NPCThread;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -577,7 +580,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(file);
+				Document doc = DocBuilders.parseDoc(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -624,7 +627,7 @@ public class Game implements XMLSaving {
 
 		if (file.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(file);
+				Document doc = DocBuilders.parseDoc(file);
 
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -662,7 +665,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(file);
+				Document doc = DocBuilders.parseDoc(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -709,7 +712,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(file);
+				Document doc = DocBuilders.parseDoc(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -978,7 +981,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(file);
+				Document doc = DocBuilders.parseDoc(file);
 
 				long time = System.nanoTime();
 				if(debug) {
@@ -1443,7 +1446,7 @@ public class Game implements XMLSaving {
 				}
 
 				// Add in new NPCS:
-				Main.game.initUniqueNPCs();
+				NPCRegistry.initUniqueNPCs(true);
 
 				//TODO This needs more thorough testing...
 				// In versions prior to v0.4.1, deleted NPCs who had relationship or sex data with the player were moved to an empty tile instead of being deleted.
@@ -2319,14 +2322,15 @@ public class Game implements XMLSaving {
 	public void initNewGame(DialogueNode startingDialogueNode) {
 		NPCMap.clear();
 		OffspringSeedMap.clear();
-		initUniqueNPCs();
+		NPCThread.deInitialize();
+		setStarted(false); // Fixes an issue when trying to import save, NPCs trying to do some js.eval() before anything was ready.
+		NPCRegistry.initUniqueNPCs(false);
 
 		// This is due to the fact that on new world creation, the player is placed at coordinates (0, 0), which reveals the three squares at the bottom left corner of the map:
 		Main.game.getActiveWorld().getCell(0, 0).setDiscovered(false);
 		Main.game.getActiveWorld().getCell(0, 1).setDiscovered(false);
 		Main.game.getActiveWorld().getCell(1, 0).setDiscovered(false);
-		
-		setStarted(false);
+
 		
 		SlaverAlleyDialogue.dailyReset();
 		
@@ -2356,10 +2360,11 @@ public class Game implements XMLSaving {
 			MainController.updateUI();
 		}
 	}
-	
-	private void initUniqueNPCs() {
+
+	@Deprecated
+	private void initUniqueNPCs() { // TODO Remove
 		// Set up NPCs:
-		try {
+		/*try {
 			List<Class<? extends NPC>> addedNpcs = new ArrayList<>();
 			
 			// Misc.:
@@ -2802,7 +2807,7 @@ public class Game implements XMLSaving {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	// Main updating for game mechanics, as everything is based on turns.
