@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -128,7 +129,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	public AbstractTentacleType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
+				Document doc = DocBuilders.parseDoc(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
