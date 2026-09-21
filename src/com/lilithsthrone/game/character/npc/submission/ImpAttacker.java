@@ -81,7 +81,7 @@ public class ImpAttacker extends NPC {
 	
 	public ImpAttacker(AbstractSubspecies subspecies, Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Main.game.getStartingDate().minusYears(Util.random.nextInt(28) + GameCharacter.MINIMUM_AGE).minusDays(Util.random.nextInt(364)),
 				3, gender, subspecies, RaceStage.GREATER,
 				new CharacterInventory(false, 10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 		

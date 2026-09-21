@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.submission;
 import java.time.Month;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,7 +50,7 @@ public class BatCavernSlimeAttacker extends NPC {
 	
 	public BatCavernSlimeAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Main.game.getStartingDate().minusYears(Util.random.nextInt(28) + GameCharacter.MINIMUM_AGE).minusDays(Util.random.nextInt(364)),
 				3, gender, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(false, 10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 

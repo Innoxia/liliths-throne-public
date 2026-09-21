@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.fields;
 import java.time.Month;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -64,7 +65,7 @@ public class LunetteMelee extends NPC {
 
 	private static List<String> defaultNamePrefixes = Util.newArrayListOfValues("angry", "furious", "wrathful");
 	private static String defaultName = "marauder";
-	
+
 	public LunetteMelee() {
 		this(defaultNamePrefixes, defaultName, false);
 	}
@@ -76,7 +77,7 @@ public class LunetteMelee extends NPC {
 	public LunetteMelee(List<String> namePrefixes, String name, boolean isImported) {
 		super(isImported,
 				null, null, "",
-				Util.random.nextInt(100)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Main.game.getStartingDate().minusYears(Util.random.nextInt(100) + GameCharacter.MINIMUM_AGE).minusDays(Util.random.nextInt(364)),
 				30,
 				null, null, null,
 				new CharacterInventory(false, 10),

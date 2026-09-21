@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -58,7 +59,7 @@ public class ModdedCharacter extends NPC {
 
 	public ModdedCharacter(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Main.game.getStartingDate().minusYears(Util.random.nextInt(28) + GameCharacter.MINIMUM_AGE).minusDays(Util.random.nextInt(364)),
 				3,
 				null, null, null,
 				new CharacterInventory(false, 10),

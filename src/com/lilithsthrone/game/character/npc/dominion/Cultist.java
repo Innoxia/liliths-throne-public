@@ -68,7 +68,7 @@ public class Cultist extends NPC {
 	public Cultist(boolean isImported) {
 		super(isImported, null, null,
 				"",
-				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Main.game.getStartingDate().minusYears(Util.random.nextInt(30) + GameCharacter.MINIMUM_AGE).minusDays(Util.random.nextInt(364)),
 				15,
 				Gender.F_P_V_B_FUTANARI,
 				Subspecies.DEMON,

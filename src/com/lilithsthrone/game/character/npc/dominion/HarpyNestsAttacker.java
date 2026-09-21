@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 
@@ -58,7 +59,7 @@ public class HarpyNestsAttacker extends NPC {
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Main.game.getStartingDate().minusYears(Util.random.nextInt(28) + GameCharacter.MINIMUM_AGE).minusDays(Util.random.nextInt(364)),
 				4,
 				null, null, null,
 				new CharacterInventory(false, 10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);

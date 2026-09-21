@@ -165,11 +165,28 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			AbstractPlaceType startingPlace,
 			boolean addedToContacts,
 			NPCGenerationFlag... generationFlags) {
-		super(isImported,
-				nameTriplet, surname, description, level,
+		this(isImported, nameTriplet, surname, description,
 				age<MINIMUM_AGE
-					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0)
-					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0),
+						?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, Math.min(birthMonth.maxLength(), birthDay), 12, 0)
+						:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, Math.min(birthMonth.maxLength(), birthDay), 12, 0),
+				level, startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace, addedToContacts, generationFlags);
+	}
+
+	protected NPC(boolean isImported,
+			NameTriplet nameTriplet,
+			String surname,
+			String description,
+			LocalDateTime birthday,
+			int level,
+			Gender startingGender,
+			AbstractSubspecies startingSubspecies,
+			RaceStage stage,
+			CharacterInventory inventory,
+			AbstractWorldType worldLocation,
+			AbstractPlaceType startingPlace,
+			boolean addedToContacts,
+			NPCGenerationFlag... generationFlags) {
+		super(nameTriplet, surname, description, level, birthday,
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
