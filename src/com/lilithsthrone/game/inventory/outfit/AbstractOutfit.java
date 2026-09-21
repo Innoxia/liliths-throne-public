@@ -31,6 +31,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
@@ -334,7 +335,8 @@ public abstract class AbstractOutfit {
 							.stream()
 							.map(e -> {
 								try {
-									AbstractClothing ac = AbstractClothing.loadFromXML(e.getMandatoryFirstOf("clothing").getInnerElement(), e.getDocument());
+									Element clothingElement = e.getMandatoryFirstOf("clothing");
+									AbstractClothing ac = AbstractClothing.loadFromXML(clothingElement.getInnerElement(), e.getDocument());
 									
 									try {
 										UtilText.setClothingTypeForParsing(ac.getClothingType());
@@ -345,33 +347,59 @@ public abstract class AbstractOutfit {
 									} catch (XMLMissingTagException e1) {
 									}
 									
-									String colourText = e.getAttribute("colour");
-									if(colourText.startsWith("presetColourGroup")) {
-										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
-										List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
-										colours.removeIf(c->!ac.getClothingType().getColourReplacement(0).getAllColours().contains(c));
-										if(!colours.isEmpty()) {
-											ac.setColour(0, Util.randomItemFrom(colours));
+									// After 0.3.7.8 the XML clothing format changed, so this needs to support the format used by outfits:
+									
+									// This avoids using Util.intToPrimarySequence because that is used for text display, and these strings must not change from version to version.
+									String[] suffixes = {
+											"",
+											"Secondary",
+											"Tertiary",
+											// Add more to support e.g. rainbow stockings.
+									};
+									
+									for(int i = 0; i < Math.min(suffixes.length, ac.getClothingType().getColourReplacements().size()); i++) {
+										String attrName = "colour" + suffixes[i]; // colour, colourSecondary, etc.
+										String colourText = clothingElement.getAttribute(attrName);
+										if(colourText.startsWith("presetColourGroup")) {
+											int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
+											List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
+											int i2 = i; // to make "effectively final".
+											colours.removeIf(c->!ac.getClothingType().getColourReplacement(i2).getAllColours().contains(c));
+											if(!colours.isEmpty()) {
+												ac.setColour(i, Util.randomItemFrom(colours));
+											}
+										} else if(!colourText.isEmpty()) {
+											Colour colour = PresetColour.getColourFromId(colourText);
+											if(ac.getClothingType().getColourReplacement(i).getAllColours().contains(colour)) {
+												ac.setColour(i, colour);
+											}
 										}
 									}
-	
-									colourText = e.getAttribute("colourSecondary");
-									if(colourText.startsWith("presetColourGroup")) {
-										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
-										List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
-										colours.removeIf(c->!ac.getClothingType().getColourReplacement(1).getAllColours().contains(c));
-										if(!colours.isEmpty()) {
-											ac.setColour(1, Util.randomItemFrom(colours));
+									
+									String patternId = clothingElement.getAttribute("pattern");
+									if(!patternId.isEmpty()) {
+										if(Pattern.getPattern(patternId) == null) {
+											patternId = Pattern.getPatternIdByName(patternId);
 										}
+										ac.setPattern(patternId);
 									}
-	
-									colourText = e.getAttribute("colourTertiary");
-									if(colourText.startsWith("presetColourGroup")) {
-										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
-										List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
-										colours.removeIf(c->!ac.getClothingType().getColourReplacement(2).getAllColours().contains(c));
-										if(!colours.isEmpty()) {
-											ac.setColour(2, Util.randomItemFrom(colours));
+
+									for(int i = 0; i < Math.min(suffixes.length, ac.getClothingType().getPatternColourReplacements().size()); i++) {
+										String attrName = "patternColour" + suffixes[i]; // patternColour, patternColourSecondary, etc.
+										String colourText = clothingElement.getAttribute(attrName);
+										if(colourText.startsWith("presetColourGroup")) {
+											int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
+											List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
+											int i2 = i; // to make "effectively final".
+											colours.removeIf(c->!ac.getClothingType().getPatternColourReplacement(i2).getAllColours().contains(c));
+											if(!colours.isEmpty()) {
+												ac.setPatternColour(i, Util.randomItemFrom(colours));
+											}
+										} else if(!colourText.isEmpty()) {
+											Colour colour = PresetColour.getColourFromId(colourText);
+											if(ac.getClothingType().getPatternColourReplacement(i).getAllColours().contains(colour)) {
+												ac.setPatternColour(i, colour);
+											}
 										}
 									}
 									
