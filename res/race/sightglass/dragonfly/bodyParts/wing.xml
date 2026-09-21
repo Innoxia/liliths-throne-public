@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wing>
+	<race>sightglass_dragonfly</race>
+	<transformationName><![CDATA[dragonfly]]></transformationName>
+	<coveringType>sightglass_dragonfly_wingchitin</coveringType>
+	<allowsFlight>true</allowsFlight>
+	<minimumSize>ZERO_TINY</minimumSize>
+	<maximumSize>FOUR_HUGE</maximumSize>
+	<name><![CDATA[wing]]></name>
+	<namePlural><![CDATA[wings]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[membranous]]></descriptor>
+		<descriptor><![CDATA[chitinous]]></descriptor>
+		<descriptor><![CDATA[dragonfly-like]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[membranous]]></descriptor>
+		<descriptor><![CDATA[chitinous]]></descriptor>
+		<descriptor><![CDATA[dragonfly-like]]></descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		#IF(npc.getLegConfiguration().isWingsOnLegConfiguration())
+			[npc.She] [npc.verb(let)] out a gasp as a sting of pain accompanies two pairs of [npc.wingSize], chitinous wings as they push out from the sides of [npc.her] [npc.legConfiguration] body.
+		#ELSE
+			[npc.She] [npc.verb(let)] out a gasp as a sting of pain accompanies two pairs of [npc.wingSize], chitinous wings as they push out from [npc.her] shoulder blades.
+		#ENDIF
+		<br/>[npc.Name] now [npc.has] [style.boldDarkTeal(dragonfly-like wings)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.sheHasFull] two pairs of [npc.wingSize], dragonfly-like wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].
+	]]></bodyDescription>
+</wing>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>sightglass_dragonfly</race>
+	<transformationName><![CDATA[dragonfly]]></transformationName>
+	<baseFluidType>GIRLCUM</baseFluidType>
+	<flavour>GIRL_CUM</flavour>
+	<namesMasculine/>
+	<namesFeminine/>
+	<descriptorsMasculine>
+		<name><![CDATA[dragonfly]]></name>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<name><![CDATA[dragonfly]]></name>
+	</descriptorsFeminine>
+	<defaultFluidModifiers>
+		<modifier>SLIMY</modifier>
+		<modifier>STICKY</modifier>
+	</defaultFluidModifiers>
+</fluid>

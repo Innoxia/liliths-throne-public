@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>sightglass_dragonfly</racialBody>
+	<applyRaceChanges><![CDATA[
+		#IF(RND.nextInt(100)<20 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
+			[#targetedBody.getArm().setArmRows(null, 2)]
+		#ENDIF
+	]]></applyRaceChanges>
+	<name><![CDATA[dragonfly-morph]]></name>
+	<namePlural><![CDATA[dragonfly-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="BIPEDAL"><![CDATA[dragonfly]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="BIPEDAL"><![CDATA[dragonflies]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[dragonfly]]></defaultTransformName>
+	<colour>sightglass_darkTeal</colour>
+	<disposition>NEUTRAL</disposition>
+	<racialClass>INSECT</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>TRUE</flyingRace>
+	<combatBehaviour>BALANCED</combatBehaviour>
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	<numberOfOffspringLow>2</numberOfOffspringLow>
+	<numberOfOffspringHigh>3</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>
