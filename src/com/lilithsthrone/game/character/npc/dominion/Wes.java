@@ -299,7 +299,7 @@ public class Wes extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#ef9424";
 		}

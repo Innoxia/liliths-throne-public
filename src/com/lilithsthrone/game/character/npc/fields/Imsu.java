@@ -246,7 +246,7 @@ public class Imsu extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#d18484";
 	}
 	

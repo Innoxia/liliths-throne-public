@@ -151,7 +151,7 @@ public class Lunette extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		//TODO
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#71009E";

@@ -287,7 +287,7 @@ public class Fae extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#ff99cb";
 	}
 	

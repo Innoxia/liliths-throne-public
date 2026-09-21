@@ -239,7 +239,7 @@ public class SupplierPartner extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#d2ba74";
 	}
 	

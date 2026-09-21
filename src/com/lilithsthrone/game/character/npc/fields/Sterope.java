@@ -376,7 +376,7 @@ public class Sterope extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#f282f7";
 	}
 	

@@ -258,7 +258,7 @@ public class Nizhoni extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#ff997a";
 	}
 	

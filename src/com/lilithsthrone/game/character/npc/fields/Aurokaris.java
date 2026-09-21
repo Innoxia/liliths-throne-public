@@ -279,7 +279,7 @@ public class Aurokaris extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return PresetColour.BASE_PERIWINKLE.toWebHexString();
 	}
 	

@@ -256,7 +256,7 @@ public class Ursa extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return PresetColour.BASE_BROWN.toWebHexString();
 	}
 	

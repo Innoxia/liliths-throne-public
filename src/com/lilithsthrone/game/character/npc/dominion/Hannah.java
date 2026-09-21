@@ -308,7 +308,7 @@ public class Hannah extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#c484da";
 	}
 	

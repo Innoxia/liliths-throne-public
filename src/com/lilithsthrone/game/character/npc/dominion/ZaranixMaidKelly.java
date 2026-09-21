@@ -285,7 +285,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#E48AFF";
 	}
 	
