@@ -10,28 +10,30 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum DifficultyLevel {
 	
-	NORMAL("Human", "The way the game is meant to be played. No level scaling and no damage modifications.", PresetColour.RACE_HUMAN, false, 1, 1),
+	NORMAL("Human", "The way the game is meant to be played. No level scaling and no damage modifications.", PresetColour.RACE_HUMAN, false, 1f, 1f, 1f),
 
-	LEVEL_SCALING("Morph", "Enemies level up alongside your character, but do normal damage.", PresetColour.RACE_CAT_MORPH, true, 1, 1),
+	LEVEL_SCALING("Morph", "Enemies level up alongside your character, but do normal damage.", PresetColour.RACE_CAT_MORPH, true, 1f, 1f, 1f),
 	
-	HARD("Demon", "Enemies level up alongside your character and do 200% damage.", PresetColour.RACE_DEMON, true, 2, 1),
+	HARD("Demon", "Enemies level up alongside your character with 130% mod and do 200% damage.", PresetColour.RACE_DEMON, true, 1.3f, 2f, 1f),
 	
-	NIGHTMARE("Lilin", "Enemies level up alongside your character, do 200% damage, and take only 50% damage from all sources.", PresetColour.BASE_PURPLE, true, 2, 0.5f),
+	NIGHTMARE("Lilin", "Enemies level up alongside your character with 150% mod, do 200% damage, and take only 50% damage from all sources.", PresetColour.BASE_PURPLE, true, 1.5f, 2f, 0.5f),
 	
-	HELL("Lilith", "Enemies are always 2x your character's level, do 400% damage, and take only 25% damage from all sources. Be prepared to lose. A lot.", PresetColour.BASE_CRIMSON, true, 4, 0.25f);
+	HELL("Lilith", "Enemies level up alongside your character with 170% mod, do 400% damage, and take only 25% damage from all sources. Be prepared to lose. A lot.", PresetColour.BASE_CRIMSON, true, 1.7f, 4f, 0.25f);
 
 	private String name;
 	private String description;
 	private Colour colour;
 	private boolean isNPCLevelScaling;
+	private float levelScalingNPC;
 	private float damageModifierNPC;
 	private float damageModifierPlayer;
 	
-	private DifficultyLevel(String name, String description, Colour colour, boolean isNPCLevelScaling, float damageModifierNPC, float damageModifierPlayer) {
+	private DifficultyLevel(String name, String description, Colour colour, boolean isNPCLevelScaling, float levelScalingNPC, float damageModifierNPC, float damageModifierPlayer) {
 		this.name = name;
 		this.description = description;
 		this.colour = colour;
 		this.isNPCLevelScaling = isNPCLevelScaling;
+		this.levelScalingNPC = levelScalingNPC;
 		this.damageModifierNPC = damageModifierNPC;
 		this.damageModifierPlayer = damageModifierPlayer;
 	}
@@ -50,6 +52,11 @@ public enum DifficultyLevel {
 
 	public boolean isNPCLevelScaling() {
 		return isNPCLevelScaling;
+	}
+	
+	public float getNPCLevelScaling()
+	{
+		return levelScalingNPC;
 	}
 
 	public float getDamageModifierNPC() {
