@@ -1403,7 +1403,7 @@ public enum SlaveJob {
 		return (skipIfAlreadyAssigned && character.getSlaveJob(hour)==this)
 				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
 						&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
-						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)<this.getSlaveLimit());
+						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this) - (character.getSlaveJob(hour)==this?1:0)<this.getSlaveLimit());
 	}
 	
 	
