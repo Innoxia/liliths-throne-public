@@ -2246,6 +2246,7 @@ public enum RenderingEngine {
 				
 				if (x < Main.game.getActiveWorld().WORLD_WIDTH && x >= 0 && y < Main.game.getActiveWorld().WORLD_HEIGHT && y >= 0) {// If within  bounds of map:
 					AbstractPlaceType placeType = cellFocused.getPlace().getPlaceType();
+					String placeSVG = cellFocused.getPlace().getSVGString();
 
 					if (cellFocused.isDiscovered() || Main.game.isMapReveal()) { // If the tile is discovered:
 						if (placeType.equals(PlaceType.GENERIC_IMPASSABLE)) {
@@ -2271,8 +2272,8 @@ public enum RenderingEngine {
 								}
 								
 								// Put place icon onto tile:
-								if (cellFocused.getPlace().getSVGString() != null) {
-									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");
+								if (placeSVG != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + placeSVG + "</div></div>");
 								}
 								
 								mapSB.append("<b class='hotkey-icon" + (cellFocused.getPlace().isDangerous() ? " dangerous" : "") + "'>"
@@ -2304,8 +2305,8 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (cellFocused.getPlace().getSVGString() != null) {
-									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");
+								if (placeSVG != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + placeSVG + "</div></div>");
 								}
 								
 								mapSB.append("<b class='hotkey-icon" + (cellFocused.getPlace().isDangerous() ? " dangerous" : "") + "'>"
@@ -2337,8 +2338,8 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (cellFocused.getPlace().getSVGString() != null) {
-									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");
+								if (placeSVG != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + placeSVG + "</div></div>");
 								}
 								
 								mapSB.append("<b class='hotkey-icon" + (cellFocused.getPlace().isDangerous() ? " dangerous" : "") + "'>"
@@ -2370,8 +2371,8 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (cellFocused.getPlace().getSVGString() != null) {
-									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");
+								if (placeSVG != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + placeSVG + "</div></div>");
 								}
 
 								mapSB.append("<b class='hotkey-icon" + (cellFocused.getPlace().isDangerous() ? " dangerous" : "") + "'>"
@@ -2394,16 +2395,16 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (cellFocused.getPlace().getSVGString() != null) {
+								if (placeSVG != null) {
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
 										mapSB.append("<div class='place-icon' style='margin:calc(18% - 1px); width:64%;'>"
 												+ "<div class='map-tile-content' style='background-color:"+getPlayerIconColour(cellFocused.getPlace().isDangerous()).toWebHexString()+";"
 														+ "border:1px solid "
 															+getPlayerIconColour(cellFocused.getPlace().isDangerous()).getShades()[1]
 														+"; border-radius:50%;'>"
-												+ cellFocused.getPlace().getSVGString() + "</div></div>");
+												+ placeSVG + "</div></div>");
 									} else {
-										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + cellFocused.getPlace().getSVGString() + "</div></div>");
+										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + placeSVG + "</div></div>");
 									}
 
 								} else if (y == playerPosition.getY() && x == playerPosition.getX()) {
@@ -2508,7 +2509,7 @@ public enum RenderingEngine {
 	
 	private void appendNotVisitedLayer(World world, int x, int y) {
 		if(!world.getCell(x, y).isTravelledTo()) {
-			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:rgba(0,0,0,0.5);'></div>");
+			mapSB.append("<div style='position:absolute;width:100%;height:100%;top:0;left:0;background-color:rgba(0,0,0,0.5);pointer-events:none;'></div>");
 		}
 	}
 

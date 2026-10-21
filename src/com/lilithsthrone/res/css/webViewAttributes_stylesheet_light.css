@@ -361,12 +361,10 @@ h6{
 }
 .map-tile.movement:hover{
 	cursor:pointer;
-	border-color:#9798e7;
 	-webkit-user-select: none;
 }
 .map-tile.movement.dangerous:hover{
 	cursor:pointer;
-	border-color:#e74696;
 	-webkit-user-select: none;
 }
 

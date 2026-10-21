@@ -1459,9 +1459,9 @@ public class PresetColour {
 		if(id.equals("CLOTHING_MULTICOLOURED")) {
 			return PresetColour.CLOTHING_RED;
 		}
-		String modId = id.replaceAll("SLIME_", "COVERING_");
-		modId = modId.replaceAll("HORN_", "COVERING_");
-		modId = modId.replaceAll("ANTLER_", "COVERING_");
+		String modId = id.replace("SLIME_", "COVERING_");
+		modId = modId.replace("HORN_", "COVERING_");
+		modId = modId.replace("ANTLER_", "COVERING_");
 
 		modId = Util.getClosestStringMatchUnordered(modId, 1, idToColourMap.keySet());
 		

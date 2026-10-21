@@ -1920,11 +1920,10 @@ position:relative;
 	background-color:rgba(255, 255, 255, 0.2);
 	border-radius:5px;
 }
-.inventory-item-slot .overlay:hover{
-    background:transparent;
-}
-.inventory-item-slot:hover .inventory-icon-content{
-    filter: brightness(1.3);
+/* JFX26 WebKit: 'filter: brightness' here made icons vanish on hover and broke clicks; use the standard overlay highlight instead. */
+.inventory-item-slot:hover .overlay{
+    background-color:rgba(255, 255, 255, 0.2);
+    border-radius:5px;
 }
 
 .title-button{

@@ -224,10 +224,11 @@ public class Colour {
 	}
 	
 	public String getId() {
-		if(PresetColour.getAllPresetColours().contains(this)) {
-			return PresetColour.getIdFromColour(this);
+		String presetId = PresetColour.getIdFromColour(this);
+		if(presetId!=null) {
+			return presetId;
 		}
-		return this.toWebHexString().replaceAll("#", "");
+		return this.toWebHexString().replace("#", "");
 	}
 	
 	@Override

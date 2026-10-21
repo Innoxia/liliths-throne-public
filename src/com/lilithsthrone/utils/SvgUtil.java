@@ -25,7 +25,7 @@ public class SvgUtil {
 	private static final java.util.regex.Pattern SHADE_SEC_3_PATTERN = java.util.regex.Pattern.compile("#ffccaa|#fca(?!\\d)");
 	private static final java.util.regex.Pattern SHADE_TER_1_PATTERN = java.util.regex.Pattern.compile("#ffdd55|#fd5(?!\\d)");
 	private static final java.util.regex.Pattern SHADE_TER_3_PATTERN = java.util.regex.Pattern.compile("#ffeeaa|#fea(?!\\d)");
-	
+
 	public static String colourReplacementPattern(String gradientReplacementID, List<Colour> patternColours, List<ColourReplacement> patternColourReplacements, String inputString) {
 		String s = inputString;
 	

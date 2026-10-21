@@ -183,6 +183,10 @@ public class MainController implements Initializable {
 	
 	// Misc:
 	private boolean allowInput;
+	/** True while the main content WebView is mid async load (webEngine.loadContent), i.e. the displayed response buttons do not yet correspond to the current dialogue node.
+	 * Used to ignore premature response clicks/hotkeys that would otherwise act on the stale (previous scene's) buttons. */
+	private volatile boolean mainContentLoading = false;
+	private volatile boolean attributeContentLoading = false;
 	private KeyCode[] lastKeys;
 	
 	static Colour flashMessageColour = null;
@@ -1229,6 +1233,9 @@ public class MainController implements Initializable {
 	private void unbindListeners(Document document) {
 		cookieManager.getCookieStore().removeAll();
 		if(document!=null) {
+			if(document==documentAttributes) {
+				((EventTarget) document).removeEventListener("click", mapMovementDelegateListener, true);
+			}
 			for(EventListenerData data : EventListenerDataMap.get(document)) {
 				((EventTarget) document.getElementById(data.ID)).removeEventListener(data.type, data.listener, data.useCapture);
 			}
@@ -1294,6 +1301,9 @@ public class MainController implements Initializable {
 				if (newState == State.SUCCEEDED) {
 					unbindListeners(document);
 					manageMainListeners();
+					mainContentLoading = false;
+				} else if (newState == State.FAILED) {
+					mainContentLoading = false;
 				}
 			});
 		}
@@ -1357,6 +1367,9 @@ public class MainController implements Initializable {
 				if (newState == State.SUCCEEDED) {
 					unbindListeners(documentAttributes);
 					manageAttributeListeners();
+					attributeContentLoading = false;
+				} else if (newState == State.FAILED) {
+					attributeContentLoading = false;
 				}
 			});
 		}
@@ -2836,8 +2849,7 @@ public class MainController implements Initializable {
 	private boolean useJavascriptToSetContent = false;
 	
 	private void setWebEngineContent(WebEngine engine, String content) {
-		content=content.replaceAll("[\r\n]", "");
-		content=content.replaceAll("\"", "'");
+		content=content.replace("\r", "").replace("\n", "").replace('"', '\'');
 		
 		engine.executeScript(
 			"document.open('text/html');"
@@ -2851,10 +2863,12 @@ public class MainController implements Initializable {
 				&& !Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
 				&& !Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
 				&& !Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)) {
+			mainContentLoading = false; // Synchronous path: listeners are (re)bound immediately below, so input stays valid.
 			unbindListeners(document);
 			setWebEngineContent(webEngine, content);
 			manageMainListeners();
 		} else {
+			mainContentLoading = true; // Async path: cleared in the webEngine loadWorker SUCCEEDED handler once the new buttons are bound.
 			webEngine.loadContent(content);
 		}
 	}
@@ -2898,10 +2912,12 @@ public class MainController implements Initializable {
 	
 	public void setAttributePanelContent(String content) {
 		if(useJavascriptToSetContent) {
+			attributeContentLoading = false;
 			unbindListeners(documentAttributes);
 			setWebEngineContent(webEngineAttributes, content);
 			manageAttributeListeners();
 		} else {
+			attributeContentLoading = true;
 			webEngineAttributes.loadContent(content);
 		}
 	}
@@ -3173,6 +3189,9 @@ public class MainController implements Initializable {
 	}
 
 	private void moveTile(int xOffset, int yOffset) {
+		if(mainContentLoading || attributeContentLoading) {
+			return;
+		}
 		Vector2i location = Main.game.getPlayer().getLocation();
 		if (location.getY() + yOffset < Main.game.getActiveWorld().WORLD_HEIGHT
 				&& location.getY() + yOffset >= 0
@@ -3236,6 +3255,11 @@ public class MainController implements Initializable {
 
 	public WebEngine getWebEngine() {
 		return webEngine;
+	}
+
+	/** @return True while the main content WebView is mid async load, i.e. the displayed response buttons do not yet correspond to the current dialogue node. */
+	public boolean isMainContentLoading() {
+		return mainContentLoading;
 	}
 
 	public WebEngine getWebEngineTooltip() {

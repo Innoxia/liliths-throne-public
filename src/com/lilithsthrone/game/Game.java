@@ -3594,9 +3594,35 @@ public class Game implements XMLSaving {
 	 */
 	private int positionAnchor = 0;
 	private String dialogueTitle = "";
+	private long lastTurnInputTime = 0L;
+	/**
+	 * Minimum milliseconds between processed player inputs while in a turn-based scene (sex or combat).
+	 * <br/>Response buttons are bound by slot index, but the active node's getResponse() remaps each slot as the scene
+	 * state advances (in sex: normal action -> orgasm/end action -> the 'continue' that calls endSex(); in combat: the
+	 * move slot -> the victory/defeat 'continue'). Spam-clicking a single slot hundreds of times per second otherwise walks
+	 * straight through that remapping - reverting a sex scene to the pre-sex dialogue, or auto-advancing every combat turn
+	 * and instantly winning - before the new buttons can visually register. Debouncing input gives the freshly-rendered
+	 * action layout time to appear so the player acts deliberately instead of accidentally ending the scene.
+	 */
+	private static final long TURN_INPUT_DEBOUNCE_MS = 150L;
 	public void setContent(int index) {
 		if(OptionsDialogue.startingNewGame) {
 			return;
+		}
+		if(Main.mainController.isMainContentLoading()) {
+			// Ignore response selections that arrive before the new dialogue's buttons have finished rendering.
+			// During the async content load the previous scene's buttons are still live; acting on them (e.g. spam-clicking
+			// through a combat->sex transition) would resolve the click against a stale button and could revert the scene.
+			return;
+		}
+		if(Main.game.isInSex() || Main.game.isInCombat()) {
+			long now = System.currentTimeMillis();
+			if(now - lastTurnInputTime < TURN_INPUT_DEBOUNCE_MS) {
+				// Drop rapid spam-clicks during sex/combat so they can't blow through the changing action layout
+				// (ending a sex scene early, or auto-advancing combat turns to an instant win/loss).
+				return;
+			}
+			lastTurnInputTime = now;
 		}
 		informationTooltips = new HashMap<>();
 		
