@@ -130,10 +130,16 @@ public class PhoneDialogue {
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
 			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
-				this.relationships.add(0, "Incubator-mother");
+				int insertIndex = 0;
+				this.relationships.add(insertIndex, "Incubator-mother");
 
+				if(npc.getMother()!=null && npc.getMother().isPlayer()) {
+					insertIndex++;
+					this.relationships.add(insertIndex, "mother");
+				}
 				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
-					this.relationships.add(1, "father");
+					insertIndex++;
+					this.relationships.add(insertIndex, "father");
 				}
 
 			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
@@ -174,10 +180,16 @@ public class PhoneDialogue {
 //			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(os, Relationship.Parent);
 //			this.relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(os.getIncubator()!=null && os.getIncubator().isPlayer()) {
-				this.relationships.add(0, "Incubator-mother");
-
+				int insertIndex = 0;
+				this.relationships.add(insertIndex, "Incubator-mother");
+				
+				if(os.getMother()!=null && os.getMother().isPlayer()) {
+					insertIndex++;
+					this.relationships.add(insertIndex, "mother");
+				}
 				if(os.getFather()!=null && os.getFather().isPlayer()) {
-					this.relationships.add(1, "father");
+					insertIndex++;
+					this.relationships.add(insertIndex, "father");
 				}
 
 			} else if(os.getMother()!=null && os.getMother().isPlayer()) {
@@ -2078,6 +2090,8 @@ public class PhoneDialogue {
 			int daughtersFathered=0;
 			int offspringIncubatedCount=0;
 			
+			List<String> implantedLittersEncountered = new ArrayList<>();
+			
 			// Birthed with player as the mother:
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()){
 				sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
@@ -2090,16 +2104,21 @@ public class PhoneDialogue {
 			}
 			// Egg-incubated offspring who have been birthed:
 			for (Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+				implantedLittersEncountered.add(litter.getId());
 				for (String id : litter.getOffspring()) {
 					if (id.contains("NPCOffspring")) {
 						//NPCOffspring is always born
 						offspringIncubatedCount += 1;
+						sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+						daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 					} else {
 						try {
 							OffspringSeed o = Main.game.getOffspringSeedById(id);
 							//OffspringSeed may be born or unborn
 							if (o.isBorn()) {
 								offspringIncubatedCount += 1;
+								sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+								daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 							}
 						} catch (Exception ex) {
 							ex.printStackTrace();
@@ -2109,19 +2128,25 @@ public class PhoneDialogue {
 			}
 			// Egg-implanted offspring who have been birthed:
 			for (Litter litter : Main.game.getPlayer().getLittersImplanted()) {
-				for (String id : litter.getOffspring()) {
-					if (id.contains("NPCOffspring")) {
-						//NPCOffspring is always born
-						offspringIncubatedCount += 1;
-					} else {
-						try {
-							OffspringSeed o = Main.game.getOffspringSeedById(id);
-							//OffspringSeed may be born or unborn
-							if (o.isBorn()) {
-								offspringIncubatedCount += 1;
+				if(!implantedLittersEncountered.contains(litter.getId())) {
+					for (String id : litter.getOffspring()) {
+						if (id.contains("NPCOffspring")) {
+							//NPCOffspring is always born
+							offspringIncubatedCount += 1;
+							sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+							daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+						} else {
+							try {
+								OffspringSeed o = Main.game.getOffspringSeedById(id);
+								//OffspringSeed may be born or unborn
+								if (o.isBorn()) {
+									offspringIncubatedCount += 1;
+									sonsBirthed+=litter.getSonsFromMother()+litter.getSonsFromFather();
+									daughtersBirthed+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
 							}
-						} catch (Exception ex) {
-							ex.printStackTrace();
 						}
 					}
 				}
@@ -2137,7 +2162,7 @@ public class PhoneDialogue {
 			int childrenMet = Main.game.getOffspring().size();
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered+offspringIncubatedCount);
 			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
-
+			
 			UtilText.nodeContentSB.append(
 					"<div class='subTitle'>Total offspring: "+ totalChildren+" (Children met: "+ percentageMet +"%)</div>"
 					

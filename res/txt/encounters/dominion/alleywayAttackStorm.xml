@@ -95,11 +95,11 @@
 		#ELSE
 			<p>
 				#IF(npc.getPregnantLitter().isFatherId(pc.getId()))
-					You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb],
+					You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb],
 				#ELSEIF(companions && npc.getPregnantLitter().isFatherId(com.getId()))
-					You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb],
+					You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb],
 				#ELSE
-					You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb],
+					You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb],
 				#ENDIF
 				 [npc.speech(I'm so fucking horny! Just give up and let me fuck you!)]
 			</p>
@@ -202,21 +202,54 @@
 		#IF(!npc.isCharacterReactedToPregnancy(pc))
 				#IF(npc.getPregnantLitter().isFatherId(pc.getId()))
 					<p>
-						As you prepare to respond, you notice that there's something very different about [npc.name]. [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and as you look down, you see the consequence of ejaculating inside of [npc.herHim], as [npc.sheIs] now sporting a [style.colourSex(pregnant belly)].
+						As you prepare to respond, you notice that there's something very different about [npc.name].
+						#IF(npc.isTaur())
+							 As [npc.she] turns to one side, you look down to see the consequence of
+						#ELSE
+							 [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and you look down to see the consequence of
+						#ENDIF
+						#IF(npc.isPregnancyFertilisationNormal())
+							 giving [npc.herHim] a creampie,
+						#ELSE
+							 having risky sex with [npc.herHim],
+						#ENDIF
+						 for [npc.sheIs] quite clearly sporting a [style.colourSex(pregnant belly)].
 					</p>
 					<p>
 						[npc.speech(Yeah, it was you! You got me knocked up! You want to fuck me again, don't you?!)] she exclaims, the horny excitement in [npc.her] voice clearly giving away the fact that [npc.sheIs] being heavily affected by the ongoing arcane storm.
 					</p>
 				#ELSEIF(companions && npc.getPregnantLitter().isFatherId(com.getId()))
 					<p>
-						As you step forwards and start to say hello, you immediately notice that there's something very different about [npc.name]. [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and as you look down, you see the consequence of [com.name] having ejaculated inside of [npc.herHim], as [npc.sheIs] now sporting a [style.colourSex(pregnant belly)].
+						As you step forwards and start to say hello, you immediately notice that there's something very different about [npc.name].
+						#IF(npc.isTaur())
+							 As [npc.she] turns to one side, you look down to see the consequence of
+						#ELSE
+							 [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and you look down to see the consequence of
+						#ENDIF
+						#IF(npc.isPregnancyFertilisationNormal())
+							 [com.name] having given [npc.herHim] a creampie,
+						#ELSE
+							 [com.name] having had risky sex with [npc.herHim],
+						#ENDIF
+						 for [npc.sheIs] quite clearly sporting a [style.colourSex(pregnant belly)].
 					</p>
 					<p>
 						[npc.speech(Yeah, it was you, [com.name]! You got me knocked up! You want to fuck me again, don't you?!)] she exclaims, the horny excitement in [npc.her] voice clearly giving away the fact that [npc.sheIs] being heavily affected by the ongoing arcane storm.
 					</p>
 				#ELSE
 					<p>
-						As you step forwards and start to say hello, you immediately notice that there's something very different about [npc.name]. [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and as you look down, you see the consequence of your previous companion having ejaculated inside of [npc.herHim], as [npc.sheIs] now sporting a [style.colourSex(pregnant belly)].
+						As you step forwards and start to say hello, you immediately notice that there's something very different about [npc.name].
+						#IF(npc.isTaur())
+							 As [npc.she] turns to one side, you look down to see the consequence of
+						#ELSE
+							 [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and you look down to see the consequence of
+						#ENDIF
+						#IF(npc.isPregnancyFertilisationNormal())
+							 your previous companion having given [npc.herHim] a creampie,
+						#ELSE
+							 your previous companion having had risky sex with [npc.herHim],
+						#ENDIF
+						 for [npc.sheIs] quite clearly sporting a [style.colourSex(pregnant belly)].
 					</p>
 					<p>
 						[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! You want to fuck me like this, don't you!)] she exclaims, the horny excitement in [npc.her] voice clearly giving away the fact that [npc.sheIs] being heavily affected by the ongoing arcane storm.
@@ -225,7 +258,7 @@
 			</p>
 		#ELSE
 			<p>
-				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb], [npc.speech(That's right, I'm still pregnant! You want to fuck me like this, don't you?!)]
+				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she] desperately [npc.moansVerb], [npc.speech(That's right, I'm still pregnant! You want to fuck me like this, don't you?!)]
 			</p>
 		#ENDIF
 	#ENDIF

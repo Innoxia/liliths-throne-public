@@ -47,7 +47,7 @@ public abstract class SexAction implements SexActionInterface {
 	protected Map<GameCharacter, Set<AbstractFetish>> characterFetishesForPartner;
 	
 	// External file variables:
-
+	
 	protected boolean mod = false;
 	protected boolean fromExternalFile = false;
 	protected String author = "Innoxia";
@@ -198,7 +198,7 @@ public abstract class SexAction implements SexActionInterface {
 	public CorruptionLevel getCorruptionNeeded(){
 		return minimumCorruptionNeeded;
 	}
-
+	
 	@Override
 	public abstract String getActionTitle();
 

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- These 'enchantment' files are used to populate the unidentified enchantments which can randomly spawn on clothing -->
 <enchantment>
 
 	<!-- true if this enchantment is intended for a positive random enchantment, or false if it's negative.

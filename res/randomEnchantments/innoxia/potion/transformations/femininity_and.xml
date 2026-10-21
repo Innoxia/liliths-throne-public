@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.getFemininity()!=FEMININITY_ANDROGYNOUS)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing/>
+	
+	<name defaultPrepend="true"><![CDATA[Androgyny]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		It's so fun when nobody knows if you're a girl or a guy!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		You look perfect!
+	]]></applicationSpeechEnd>
+	
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.setFemininity(50)]
+			
+			#IF(npc.getHairRawLengthValue()<20)
+				[#npc.setHairLength(20)]
+			#ENDIF
+			
+			#IF(npc.getAssSize().getValue()!=ASS_SIZE_THREE_NORMAL.getValue())
+				[#npc.setAssSize(ASS_SIZE_THREE_NORMAL)]
+			#ENDIF
+			#IF(npc.getHipSize().getValue()!=HIP_SIZE_THREE_GIRLY.getValue())
+				[#npc.setHipSize(HIP_SIZE_THREE_GIRLY)]
+			#ENDIF
+			
+			#IF(npc.getBreastSize().getValue()!=CUP_SIZE_AA.getValue())
+				[#npc.setCupSize(CUP_SIZE_AA)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

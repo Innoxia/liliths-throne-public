@@ -316,17 +316,6 @@ public class BodyChanging {
 			return allRaces;
 		} else if (target.isDoll()) {
 			return Util.newArrayListOfValues(Race.NONE, target.getFleshSubspecies().getRace());
-		} else if (isHalfDemon()) {
-			if (forceDemon) {
-				return Util.newArrayListOfValues(Race.DEMON);
-			}
-			allowedRaces.add(target.getHalfDemonSubspecies().getRace());
-			if (allowHDDemon) {
-				allowedRaces.add(Race.DEMON);
-			}
-			if (allowHDHuman) {
-				allowedRaces.add(Race.HUMAN);
-			}
 		} else if(target.isYouko()) {
 			allowedRaces.add(Race.FOX_MORPH);
 			allowedRaces.add(Race.HUMAN);
@@ -338,6 +327,17 @@ public class BodyChanging {
 						) {
 					allowedRaces.add(race);
 				}
+			}
+		} else if (isHalfDemon()) {
+			if (forceDemon) {
+				return Util.newArrayListOfValues(Race.DEMON);
+			}
+			allowedRaces.add(target.getHalfDemonSubspecies().getRace());
+			if (allowHDDemon) {
+				allowedRaces.add(Race.DEMON);
+			}
+			if (allowHDHuman) {
+				allowedRaces.add(Race.HUMAN);
 			}
 		} else if (ScarlettsShop.isSlaveCustomisationMenu()) {
 			for (AbstractRace race : allRaces) {
@@ -412,11 +412,11 @@ public class BodyChanging {
 	private static boolean isDemonTFMenu() {
 		return !isDebugMenu()
 				&& (getTarget().getSubspeciesOverride()==Subspecies.IMP
-				|| getTarget().getSubspeciesOverride()==Subspecies.IMP_ALPHA
-				|| getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON
-				|| getTarget().getSubspeciesOverride()==Subspecies.DEMON
-				|| getTarget().getSubspeciesOverride()==Subspecies.LILIN
-				|| getTarget().getSubspeciesOverride()==Subspecies.ELDER_LILIN);
+					|| getTarget().getSubspeciesOverride()==Subspecies.IMP_ALPHA
+					|| getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON
+					|| getTarget().getSubspeciesOverride()==Subspecies.DEMON
+					|| getTarget().getSubspeciesOverride()==Subspecies.LILIN
+					|| getTarget().getSubspeciesOverride()==Subspecies.ELDER_LILIN);
 	}
 
 	private static boolean isSelfTFMenu() {
@@ -428,7 +428,7 @@ public class BodyChanging {
 
 	private static boolean isSlimeTFMenu() {
 		return !isDebugMenu()
-				&& !isDemonTFMenu()
+//				&& !isDemonTFMenu()
 				&& !isSelfTFMenu()
 				&& getTarget().getBodyMaterial()==BodyMaterial.SLIME;
 	}

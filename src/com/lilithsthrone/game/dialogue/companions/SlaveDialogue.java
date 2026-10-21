@@ -518,7 +518,7 @@ public class SlaveDialogue {
 				if(!getSlave().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
 					sb.append("<p>");
 						sb.append("As you look at the [npc.race], it's impossible not to notice the fact that [npc.sheIs] sporting a round belly.");
-						sb.append(" [npc.She] absent-mindedly strokes [npc.her] swollen bump as [npc.she] returns your gaze,");
+						sb.append(" [npc.She] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she] returns your gaze,");
 					
 					GameCharacter father = getSlave().getPregnantLitter().getFather();
 					

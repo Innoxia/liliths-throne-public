@@ -806,7 +806,7 @@ public class CreationController {
 	}
 	
 	public static void initCrotchBreastCountListeners() {
-		for (int i = 1; i<=Breast.MAXIMUM_BREAST_ROWS; i++) {
+		for (int i = 0; i<=Breast.MAXIMUM_BREAST_ROWS; i++) {
 			String id = "BREAST_CROTCH_COUNT_"+i;
 			if (MainController.document.getElementById(id) != null) {
 				int finalI = i;

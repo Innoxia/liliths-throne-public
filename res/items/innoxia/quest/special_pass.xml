@@ -25,6 +25,7 @@
 		<effectTooltipLines>
 			<line><![CDATA[[style.colourGood(Grants access)] to Enforcer HQ's requisitions area]]></line>
 			<line><![CDATA[Provides [style.colourExcellent(immunity)] to [style.colourBlueDark(illegal)] item confiscations]]></line>
+			<line><![CDATA[Provides [style.colourTerrible(no immunity)] to [style.colourBlueDark(highly illegal)] item confiscations]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[

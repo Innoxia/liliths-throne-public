@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.hasPenis() && !npc.hasFetish(FETISH_IMPREGNATION))
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing/>
+	
+	<name defaultPrepend="true"><![CDATA[the Father]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		There's nothing better than getting some slut pregnant!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		Now go and knock someone up!
+	]]></applicationSpeechEnd>
+	
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.addFetish(FETISH_IMPREGNATION)]
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

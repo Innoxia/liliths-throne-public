@@ -69,7 +69,7 @@ public class Hair implements BodyPartInterface {
 	}
 	
 	public String setType(GameCharacter owner, AbstractHairType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			if(owner!=null) {
 				owner.postTransformationCalculation();
@@ -117,7 +117,7 @@ public class Hair implements BodyPartInterface {
 		this.length = Math.max(0, Math.min(length, HairLength.SEVEN_TO_FLOOR.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -163,7 +163,7 @@ public class Hair implements BodyPartInterface {
 	public String setStyle(GameCharacter owner, HairStyle style) {
 		this.style = style;
 		
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			return "";
 		}
 		StringBuilder sb = new StringBuilder();
@@ -272,7 +272,7 @@ public class Hair implements BodyPartInterface {
 			}
 		}
 		this.neckFluff = neckFluff;
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -292,7 +292,7 @@ public class Hair implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Hair.class) && getType().getRace().isFeralPartsAvailable());

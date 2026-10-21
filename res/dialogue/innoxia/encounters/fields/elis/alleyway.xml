@@ -18,6 +18,11 @@
 			[#flags.setFlag(FLAG_innoxia_elis_alleyway_talked, false)]
 			[#flags.setFlag(FLAG_innoxia_alleyway_transformations_applied, false)]
 			
+			
+			#IF(!npc.isAffectionAggressionTrigger(pc))
+				[#npc.setPlayerKnowsName(true)]
+			#ENDIF
+			
 			#IF(npc.getPlayerSurrenderCount()>=4)
 				#IF(npc.hasStatusEffect(SE_WEATHER_STORM_VULNERABLE))
 					[#flags.setSavedLong('randomResponseIndex', 4)]
@@ -36,7 +41,7 @@
 			#ENDIF
 			
 			#IF(npc.hasEncounteredBefore())
-				#IF(npc.getAffectionLevel(pc).isWillFightPlayer())
+				#IF(npc.isAffectionAggressionTrigger(pc))
 					#IF(npc.getPlayerSurrenderCount()>=4)
 						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway', 'START_REPEAT_SUBMITTED'))]
 					#ELSEIF(npc.getPlayerSurrenderCount()==3)
@@ -61,7 +66,7 @@
 			<!-- Mugger is hostile responses: -->
 				<!-- Fight: -->
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[
 						#IF(npc.getPlayerSurrenderCount()>=4)
@@ -124,7 +129,7 @@
 				</response>
 				<!-- Pay: -->
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Offer money (#IF(pc.getMoney()>=flags.getMuggerDemand3())[style.moneyFormat([#flags.getMuggerDemand3()], span)]#ELSE[style.moneyFormatUncoloured([#flags.getMuggerDemand3()], span)]#ENDIF)]]></responseTitle>
@@ -145,7 +150,7 @@
 				</response>
 				<!-- Submit: -->
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && !npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && !npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[3]]></index>
 					<responseTitle><![CDATA[Offer body]]></responseTitle>
@@ -153,7 +158,7 @@
 					<nextDialogue><![CDATA[null]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[3]]></index>
 					<responseTitle><![CDATA[Offer body]]></responseTitle>
@@ -189,7 +194,7 @@
 				</response>
 				<!-- Surrender: -->
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isApplyingPostCombatTransformations() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && npc.isApplyingPostCombatTransformations() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[4]]></index>
 					<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
@@ -215,7 +220,7 @@
 			<!-- Bitch content (all text content is at the end of the txt/encounters/fields/elis/alleyway.txt file): -->
 				<!-- Initial acceptance: -->
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()==3 && game.isFootContentEnabled() && npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<requiredFetishes>
@@ -240,7 +245,7 @@
 					]]></effects>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<requiredFetishes>
@@ -264,7 +269,7 @@
 					]]></effects>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && !npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()==3 && (!game.isFootContentEnabled() || !npc.getFetishDesire(FETISH_FOOT_GIVING).isPositive() || !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)) && !npc.getFetishDesire(FETISH_SADIST).isPositive()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<colour><![CDATA[GENERIC_SEX]]></colour>
@@ -434,7 +439,7 @@
 			<!-- Mugger is pacified responses: -->
 				<!-- Talk: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Talk]]></responseTitle>
@@ -452,7 +457,7 @@
 				</response>
 				<!-- Offer money: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Offer money (#IF(pc.getMoney()>=flags.getMuggerDemand3())[style.moneyFormat([#flags.getMuggerDemand3()], span)]#ELSE[style.moneyFormatUncoloured([#flags.getMuggerDemand3()], span)]#ENDIF)]]></responseTitle>
@@ -472,7 +477,7 @@
 				</response>
 				<!-- Sex (as dom): -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && !npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && !npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[3]]></index>
 					<responseTitle><![CDATA[Sex (dom)]]></responseTitle>
@@ -480,7 +485,7 @@
 					<nextDialogue><![CDATA[null]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[3]]></index>
 					<responseTitle><![CDATA[
@@ -513,7 +518,7 @@
 				</response>
 				<!-- Sex (as sub): -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && !npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && !npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[4]]></index>
 					<responseTitle><![CDATA[Sex (sub)]]></responseTitle>
@@ -521,7 +526,7 @@
 					<nextDialogue><![CDATA[null]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.isAttractedTo(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[4]]></index>
 					<responseTitle><![CDATA[
@@ -554,7 +559,7 @@
 				</response>
 				<!-- Offer room: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3 && (!pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) || !npc.isAffectionHighEnoughToInviteHome())]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3 && (!pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) || !npc.isAffectionHighEnoughToInviteHome())]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[5]]></index>
 					<responseTitle><![CDATA[Offer room]]></responseTitle>
@@ -565,7 +570,7 @@
 					<nextDialogue><![CDATA[null]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3 && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && !pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3 && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && !pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[5]]></index>
 					<responseTitle><![CDATA[Offer room]]></responseTitle>
@@ -575,7 +580,7 @@
 					<nextDialogue><![CDATA[null]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3 && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION) && !game.isFreeRoomAvailableForOccupant()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3 && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION) && !game.isFreeRoomAvailableForOccupant()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[5]]></index>
 					<responseTitle><![CDATA[Offer room]]></responseTitle>
@@ -585,7 +590,7 @@
 					<nextDialogue><![CDATA[null]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3 && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION) && game.isFreeRoomAvailableForOccupant()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3 && pc.hasQuest(QUEST_LINE_SIDE_ACCOMMODATION) && npc.isAffectionHighEnoughToInviteHome() && pc.isQuestCompleted(QUEST_LINE_SIDE_ACCOMMODATION) && game.isFreeRoomAvailableForOccupant()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[5]]></index>
 					<responseTitle><![CDATA[Offer room]]></responseTitle>
@@ -600,7 +605,7 @@
 				</response>
 				<!-- Request TF: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3 && npc.isApplyingPostCombatTransformations() && flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3 && npc.isApplyingPostCombatTransformations() && flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[6]]></index>
 					<responseTitle><![CDATA[Get transformed]]></responseTitle>
@@ -611,7 +616,7 @@
 					<effects/>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3 && npc.isApplyingPostCombatTransformations() && !flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3 && npc.isApplyingPostCombatTransformations() && !flags.hasFlag(FLAG_innoxia_alleyway_transformations_applied)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[6]]></index>
 					<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
@@ -634,7 +639,7 @@
 				</response>
 				<!-- Fight: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[10]]></index>
 					<colour><![CDATA[GENERIC_COMBAT]]></colour>
@@ -649,7 +654,7 @@
 				</response>
 				<!-- Leave: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!npc.getAffectionLevel(pc).isWillFightPlayer() && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!npc.isAffectionAggressionTrigger(pc) && npc.getPlayerSurrenderCount()<3]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[0]]></index>
 					<responseTitle><![CDATA[Leave]]></responseTitle>

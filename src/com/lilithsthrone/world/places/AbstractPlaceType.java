@@ -534,16 +534,7 @@ public class AbstractPlaceType {
 	 * <br/>If you want this place type's core encounter, use getCoreEncounterType().
 	 */
 	public AbstractEncounter getEncounterType() {
-		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
-		
-		if(encounterType!=null && encounterType.getTotalChanceValue()>0) {
-			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
-		}
-		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
-			if(enc.getTotalChanceValue()>0) {
-				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
-			}
-		}
+		Map<AbstractEncounter, Float> possibleEncountersMap = getPossibleEncountersMap(false);
 		
 		if(possibleEncountersMap.isEmpty()) {
 			return null;
@@ -558,6 +549,25 @@ public class AbstractPlaceType {
 		
 		return ae;
 	}
+
+	/**
+	 * @return A mapping of every possible AbstractEncounter which can trigger on this PlaceType to the chance of the AbstractEncounter being triggered.
+	 */
+	public Map<AbstractEncounter, Float> getPossibleEncountersMap(boolean includeZeroChances) {
+		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
+		
+		if(encounterType!=null && (includeZeroChances || encounterType.getTotalChanceValue()>0)) {
+			possibleEncountersMap.put(encounterType, encounterType.getTotalChanceValue());
+		}
+		for(AbstractEncounter enc : Encounter.getAddedEncounters(this.getId())) {
+			if(enc.getTotalChanceValue()>0 || includeZeroChances) {
+				possibleEncountersMap.put(enc, enc.getTotalChanceValue());
+			}
+		}
+		
+		return possibleEncountersMap;
+	}
+	
 	
 	protected DialogueNode getBaseDialogue(Cell cell) {
 		return dialogue;

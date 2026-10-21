@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.getFemininity().getMedianFemininity()<FEMININITY_FEMININE.getMinimumFemininity())
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('extremeTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[Femininity]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		You'd look better as a girl!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		You look so hot!
+	]]></applicationSpeechEnd>
+	
+	<!-- 66% chance of normal TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setFemininity(75)]
+			
+			#IF(npc.getHairRawLengthValue()<25)
+				[#npc.setHairLength(25)]
+			#ENDIF
+			
+			#IF(npc.getAssSize().getValue()<ASS_SIZE_THREE_NORMAL.getValue())
+				[#npc.setAssSize(ASS_SIZE_THREE_NORMAL)]
+			#ENDIF
+			#IF(npc.getHipSize().getValue()<HIP_SIZE_THREE_GIRLY.getValue())
+				[#npc.setHipSize(HIP_SIZE_THREE_GIRLY)]
+			#ENDIF
+			
+			#IF(npc.getBreastSize().getValue()<CUP_SIZE_B.getValue())
+				[#npc.setCupSize(CUP_SIZE_B)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 33% chance of extreme TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>=66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setFemininity(95)]
+			
+			#IF(npc.getHairRawLengthValue()<50)
+				[#npc.setHairLength(50)]
+			#ENDIF
+			
+			#IF(npc.getAssSize().getValue()<ASS_SIZE_FOUR_LARGE.getValue())
+				[#npc.setAssSize(ASS_SIZE_FOUR_LARGE)]
+			#ENDIF
+			#IF(npc.getHipSize().getValue()<HIP_SIZE_FOUR_WOMANLY.getValue())
+				[#npc.setHipSize(HIP_SIZE_FOUR_WOMANLY)]
+			#ENDIF
+			
+			#IF(npc.getBreastSize().getValue()<CUP_SIZE_D.getValue())
+				[#npc.setCupSize(CUP_SIZE_D)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	
+</potionEnchantment>

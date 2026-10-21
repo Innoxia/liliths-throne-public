@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- These 'potionEnchantment' files are used to populate the random effects of the 'Cultist's Mystery Potion' item -->
+<potionEnchantment>
+
+	<!-- true if this enchantment is intended for a positive random enchantment, or false if it's negative.
+		Transformative effects should be considered to be negative. -->
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<!-- This should return a positive integer value.
+		A default random enchantment has a weighting of 100.
+		Random enchantments in the base game will typically be in the range of 0-100, with some being up to 1000.
+		Use a weighting of 0 if you want it to never be selected.
+		Do not define a value of more than Integer.MAX_VALUE, which is 2,147,483,647.
+		You can use the 'npc' parsing target to reference the character who is drinking this potion.
+			In the example below, this weighting will only be 10 if the drinker is already lactating or lactation content is off -->
+	<spawnWeighting><![CDATA[
+		#IF(npc.isLactating() || !game.isLactationContentEnabled())
+			10
+		#ELSE
+			100
+		#ENDIF
+	]]></spawnWeighting>
+	
+	
+	<!-- The contents of this block are parsed before the 'name', 'applicationSpeechStart', and 'applicationSpeechEnd' elements are parsed, and before any of the conditional checks in the 'potionEffects' element are parsed.
+		As such, this can be used for setting up variables which need to be referenced in multiple 'conditional' elements.
+		You can omit this field or leave it blank; it's just an optional extra for if you want to set up more complex conditional checks.
+		I've used an int and a boolean here for demonstration purposes, but you can set whatever you like in this section.
+			At the time of this file's creation (v0.4.11.4), methods within DialogueFlags support the setting of ints, booleans, Strings, and Objects:
+				https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/DialogueFlags.java -->
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('extremeTF', RND.nextInt(100))]
+		[#flags.setBool('cowTF', RND.nextInt(100)<50)]
+	]]></conditionalPreParsing>
+	
+	
+	<!-- The name which this potion should have.
+		This name is useful for debugging and is also displayed to the player when the player consumes it.
+		By default it will be appended to "Youko's potion of ", and it's recommended to use something that fits the theme of the transformation.
+			You can disable the default addition of "Youko's potion of " by setting the optional attribute, 'defaultPrepend' to false.
+			e.g.
+				The example below will grant the potion the name "Youko's potion of the Milky Cow"
+				Instead, if you defined defaultPrepend="false", then the name would simply be "the Milky Cow" -->
+	<name defaultPrepend="true"><![CDATA[the Milky Cow]]></name>
+	
+	
+	<!-- When a character consumes the 'Cultist's Mystery Potion' item, they can hear a ghostly voice in their head.
+		This section defines the speech which the character hears before any of the effects are applied.
+		It can be left blank or omitted entirely if you don't want the character to hear anything.
+		You can define the 'replaceAll' to be true if you want this section to completely replace the default text that's generated when drinking a potion.
+			If you do this, please use html formatting (i.e. wrapping paragraphs in <p> tags)-->
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		#IF(game.isLactationContentEnabled())
+			One milky cow, coming right up!
+		#ELSE
+			One fat-titted cow, coming right up!
+		#ENDIF
+	]]></applicationSpeechStart>
+	
+	<!-- This section defines the speech which the character hears after all of the effects have been applied.
+		It can be left blank or omitted entirely if you don't want the character to hear anything.
+		You can define the 'replaceAll' to be true if you want this section to completely replace the default text that's generated when drinking a potion.
+			If you do this, please use html formatting (i.e. wrapping paragraphs in <p> tags)-->
+	<applicationSpeechEnd replaceAll="false"/>
+	
+	
+	<!-- The 'potionEffects' elements, of which there can be multiple, define which effects should be applied when the potion is consumed.
+		Each 'potionEffects' element can contain a 'conditional' element.
+		You can use the 'npc' parsing target to reference the character who is drinking this potion.
+		You'll most likely want to be making use of the methods within the GameCharacter class for this, as the methods in there are those responsible for modifying characters:
+			https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/GameCharacter.java
+		Remember that when parsing methods, using one '#' at the start means that any text returned by the methods will be added to the final result(e.g. [#npc.setsetFemininity(100)] ), but if you use two '#', the text will not be added (e.g. [##npc.setFemininity(100)] )-->
+		
+	<!-- As this potionEffects has a blank 'conditional' element, its effects will always be applied. -->
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.setFemininity(75)]
+			#IF(npc.getMuscleValue()>25)
+				[#npc.setMuscle(25)]
+			#ENDIF
+			#IF(npc.getBodySizeValue()<75)
+				[#npc.setBodySize(75)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<!-- If a cow TF is required, transform the user to havea  cow-tail and ears.
+		If you're applying racial transformations, remember to check that the target's isAbleToHaveRaceTransformed() method is returning true, otherwise the text log will be a lot of "Nothing happens...".
+			It's easier to perform this check within the 'conditional' element rather than within the 'effect' element.
+		If you ever want to get a generic type for a particular race, it might be easiest to use this code: npc.getTrueRace().getRacialBody() or RACE_HUMAN.getRacialBody()
+			By doing that, you'll gain access to the Race's AbstractRacialBody: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/AbstractRacialBody.java
+			From there, you can make use of the methods which return body part types, such as getAssType(), getEyeType(), getVaginaType(), etc.
+			e.g. To set the drinker's penis to the same type as their race:
+				[#npc.setPenisType(npc.getTrueRace().getRacialBody().getPenisType())]
+			e.g. To set the drinker's vagina to the type that's used by the ferret subspecies (which requires getting the Race from the subspecies with the id 'dsg_ferret_subspecies_ferret'):
+				[#npc.setVaginaType(SUBSPECIES_dsg_ferret_subspecies_ferret.getRace().getRacialBody().getVaginaType())]
+			-->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getBool('cowTF') && npc.isAbleToHaveRaceTransformed()]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setEarType(EAR_TYPE_COW_MORPH)]
+			[#npc.setTailType(TAIL_TYPE_COW_MORPH)]
+		]]></effect>
+	</potionEffects>
+	
+	<!-- The 'extremeTF' variable which was set in the 'conditionalPreParsing' element above is now used to give a 66% chance of a less severe transformation. -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#game.isLactationContentEnabled() && flags.getInt('extremeTF')<66]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(npc.getBreastSize().getValue()<CUP_SIZE_HH.getValue())
+				[#npc.setCupSize(CUP_SIZE_HH)]
+			#ENDIF
+			[#npc.setNippleSize(NIPPLE_SIZE_FOUR_MASSIVE)]
+			[#npc.setAreolaeSize(AREOLAE_SIZE_FOUR_MASSIVE)]
+			[#npc.addNippleOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			
+			#IF(npc.getBreastRawMilkStorageValue()<1000)
+				[#npc.setBreastMilkStorage(1000)]
+			#ENDIF
+			[##npc.fillMilkToMaxStorage()]
+			
+			#IF(npc.hasBreastsCrotch())
+				#IF(npc.getBreastCrotchSize().getValue()<CUP_SIZE_DD.getValue())
+					[#npc.setBreastCrotchSize(CUP_SIZE_DD)]
+				#ENDIF
+				#IF(npc.getBreastCrotchRawMilkStorageValue()<1000)
+					[#npc.setBreastCrotchMilkStorage(1000)]
+				#ENDIF
+				[##npc.fillMilkCrotchToMaxStorage()]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<!-- There's a 33% chance of a more severe transformation. -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#game.isLactationContentEnabled() && flags.getInt('extremeTF')>=66]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(npc.getBreastSize().getValue()<CUP_SIZE_N.getValue())
+				[#npc.setCupSize(CUP_SIZE_N)]
+			#ENDIF
+			[#npc.setNippleSize(NIPPLE_SIZE_FOUR_MASSIVE)]
+			[#npc.setAreolaeSize(AREOLAE_SIZE_FOUR_MASSIVE)]
+			[#npc.addNippleOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			
+			#IF(npc.getBreastRawMilkStorageValue()<5000)
+				[#npc.setBreastMilkStorage(5000)]
+			#ENDIF
+			[##npc.fillMilkToMaxStorage()]
+			
+			#IF(npc.hasBreastsCrotch())
+				#IF(npc.getBreastCrotchSize().getValue()<CUP_SIZE_HH.getValue())
+					[#npc.setBreastCrotchSize(CUP_SIZE_HH)]
+				#ENDIF
+				#IF(npc.getBreastCrotchRawMilkStorageValue()<5000)
+					[#npc.setBreastCrotchMilkStorage(5000)]
+				#ENDIF
+				[##npc.fillMilkCrotchToMaxStorage()]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

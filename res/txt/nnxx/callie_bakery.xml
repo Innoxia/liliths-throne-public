@@ -447,7 +447,7 @@
 		Producing [style.intToString([#callie.getFlamesToNextUpgrade()])] flames, you place the money in Callie's tip jar and tell her that you're happy to help her improve her business.
 	</p>
 	<p>
-		[callie.speech(Are you serious?)] the horse-girl asks, wide-eyed, as she watches you fill her tip jar. After you've confirmed that the money is for her, she happily beams at you and gleefully declares, [callie.speech(That's such a great help, thank you so muhc, [pc.name]! You should see an improvement in here as soon as tomorrow!)]
+		[callie.speech(Are you serious?)] the horse-girl asks, wide-eyed, as she watches you fill her tip jar. After you've confirmed that the money is for her, she happily beams at you and gleefully declares, [callie.speech(That's such a great help, thank you so much, [pc.name]! You should see an improvement in here as soon as tomorrow!)]
 	</p>
 	<p>
 		Taking the tip jar off the counter, Callie safely locks it away beneath the counter, before leaning forwards and flashing you her cleavage as she asks, [callie.speech(So, can I get you a doughnut?)]

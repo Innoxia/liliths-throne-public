@@ -861,7 +861,7 @@ public class CMBasicAttack {
 				AbstractWeapon primaryWeapon = getMainWeapon(turnIndex, source, i);
     			if(weapon!=null) {
     				damages.add(getFormattedDamageRange(source, target, weapon.getDamageType(), Attack.OFFHAND, weapon, isCrit));
-    			} else if(primaryWeapon!=null && !primaryWeapon.getWeaponType().isTwoHanded()) {
+    			} else if(primaryWeapon==null || !primaryWeapon.getWeaponType().isTwoHanded()) {
     				damages.add(getFormattedDamageRange(source, target, DamageType.UNARMED.getParentDamageType(source, null), Attack.OFFHAND, null, isCrit));
     			}
     		}
@@ -885,7 +885,7 @@ public class CMBasicAttack {
 				AbstractWeapon primaryWeapon = getMainWeapon(turnIndex, source, i);
     			if(weapon!=null) {
     				damages.add(getFormattedDamage(weapon.getDamageType(), weapon.getWeaponType().getDamage(), target, damageHasBeenApplied, isTargetAtMaximumLust(target)));
-    			} else if(primaryWeapon!=null && !primaryWeapon.getWeaponType().isTwoHanded()) {
+    			} else if(primaryWeapon==null || !primaryWeapon.getWeaponType().isTwoHanded()) {
     				damages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), source.getUnarmedDamage(), target, damageHasBeenApplied, isTargetAtMaximumLust(target)));
     			}
     		}
@@ -1026,7 +1026,7 @@ public class CMBasicAttack {
     					}
     				}
             		
-    			} else if(primaryWeapon!=null && !primaryWeapon.getWeaponType().isTwoHanded()) {
+    			} else if(primaryWeapon==null || !primaryWeapon.getWeaponType().isTwoHanded()) {
     				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, null, isCrit);
     				boolean maxLust = isTargetAtMaximumLust(target);
     				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);

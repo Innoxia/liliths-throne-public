@@ -84,7 +84,7 @@ public class Ass implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractAssType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			anus.setType(type.getAnusType());
 			if(owner!=null) {
@@ -137,7 +137,7 @@ public class Ass implements BodyPartInterface {
 		int oldSize = this.assSize;
 		this.assSize = Math.max(0, Math.min(assSize, AssSize.SEVEN_GIGANTIC.getValue()));
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -194,7 +194,7 @@ public class Ass implements BodyPartInterface {
 		this.hipSize = Math.max(0, Math.min(hipSize, HipSize.SEVEN_ABSURDLY_WIDE.getValue()));
 		int sizeChange = this.hipSize - oldSize;
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -221,7 +221,7 @@ public class Ass implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Ass.class) && getType().getRace().isFeralPartsAvailable());

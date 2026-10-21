@@ -59,7 +59,7 @@ public class AlleywayAttackerDialogue {
 	}
 	
 	private static boolean isWantsToFight() {
-		return getMugger().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
+		return getMugger().isAffectionAggressionTrigger(Main.game.getPlayer());
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -105,11 +105,14 @@ public class AlleywayAttackerDialogue {
 	public static final DialogueNode ALLEY_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			if(!isWantsToFight()) { // Catch for if the player has somehow raised this npc's affection without using the talk option. Should be impossible but someone managed it somehow (maybe with mods)
+				getMugger().setPlayerKnowsName(true);
+			}
 			getMugger().generatePostCombatPotions();
 			transformationsApplied = false;
 			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);
 			
-			if(getMugger().getPlayerSurrenderCount()>=4) { 
+			if(getMugger().getPlayerSurrenderCount()>=4) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) { // Even if immune, only give fuck option as others dno't make sense to trigger during a storm
 					Main.game.getDialogueFlags().setSavedLong("randomResponseIndex", 4);
 				} else {

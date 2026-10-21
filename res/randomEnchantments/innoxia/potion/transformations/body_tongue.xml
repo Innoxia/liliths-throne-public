@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.getTongueLength()>=TONGUE_LENGTH_TWO_VERY_LONG.getMedianValue())
+			0
+		#ELSE
+			100
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing/>
+	
+	<name defaultPrepend="true"><![CDATA[Tongue-twisting]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		Giving you a really freaky tongue would be fun!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		~Ooh!~ I'm sure you'll have lots of fun with that thing!
+	]]></applicationSpeechEnd>
+	
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.setTongueLength(TONGUE_LENGTH_THREE_EXTREMELY_LONG.getMedianValue())]
+			[#npc.addTongueModifier(TONGUE_MODIFIER_RIBBED)]
+			[#npc.addTongueModifier(TONGUE_MODIFIER_TENTACLED)]
+			[#npc.addTongueModifier(TONGUE_MODIFIER_STRONG)]
+			[#npc.addTongueModifier(TONGUE_MODIFIER_BIFURCATED)]
+			
+			#IF(npc.getFaceWetness().getValue()<WETNESS_FIVE_SLOPPY.getValue())
+				[#npc.setFaceWetness(WETNESS_FIVE_SLOPPY.getValue())]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

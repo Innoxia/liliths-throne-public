@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.main.Main;
 
 /**
  * All SexSlots that are used in the LYING_DOWN position.
@@ -272,6 +273,16 @@ public class SexSlotLyingDown {
 			}
 			return "Prone bone";
 		}
+		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			if(orgasmingCharacter.equals(targetedCharacter) || !Main.game.isInSex()) {
+				return super.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
+			}
+			if(Main.sex.getSexPositionSlot(targetedCharacter).hasTag(SexSlotTag.LYING_DOWN_ON_FRONT)) {
+				return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] down at the back of [npc2.her] head.";
+			}
+			return super.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
+		}
 	};
 	public static final SexSlot MISSIONARY_TWO = new SexSlot(MISSIONARY) {
 		@Override
@@ -285,6 +296,10 @@ public class SexSlotLyingDown {
 				return super.getName(target);
 			}
 			return "Prone bone";
+		}
+		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			return MISSIONARY.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot MISSIONARY_THREE = new SexSlot(MISSIONARY) {
@@ -300,6 +315,10 @@ public class SexSlotLyingDown {
 			}
 			return "Prone bone";
 		}
+		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			return MISSIONARY.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
+		}
 	};
 	public static final SexSlot MISSIONARY_FOUR = new SexSlot(MISSIONARY) {
 		@Override
@@ -313,6 +332,10 @@ public class SexSlotLyingDown {
 				return super.getName(target);
 			}
 			return "Prone bone";
+		}
+		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			return MISSIONARY.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	

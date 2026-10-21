@@ -70,12 +70,18 @@
 	</personalityChances>
 	
 	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
-	This is applied *after* the parent race's 'applyRaceChanges' method.
-	The character's body that's being changed can be accessed via using 'targetedBody'. -->
+		This is applied *after* the parent race's 'applyRaceChanges' method.
+		The character's body that's being changed can be accessed via using 'targetedBody'.
+		You can also use the 'npc' target to access the character who's being transformed into this subspecies.
+			CAREFUL! The 'npc' and/or their body might be null (if they are still in the process of being initialised when loading from a saved game), so if you want to apply any changes by using the npc's methods, you should first check for null and provide an alternative method, like in the example below.
+		Any text returned by this element might be used in the game - use one '#' to return text from a method, and two '##' to return nothing.
+			If in doubt, just always use methods via using 'targetedBody', as they will automatically check for nulls, and put '##' everywhere and don't worry about returning any text - it's probably only ever going to be used in the "Youko's Mystery Potion" effects. -->
 	<applySubspeciesChanges><![CDATA[
-		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
-		#IF(targetedBody.isFeminine())
-			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.12)]
+		[##targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
+		#IF(npc!=null && npc.getBody()!=null && npc.isFeminine())
+			[#npc.setHeight(npc.getHeightValue()*1.12)]
+		#ELSEIF(targetedBody.isFeminine())
+			[##targetedBody.setHeight(targetedBody.getHeightValue()*1.12)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	

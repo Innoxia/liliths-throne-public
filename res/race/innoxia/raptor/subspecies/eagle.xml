@@ -25,7 +25,7 @@
 			[#targetedBody.setMuscle(targetedBody.getMuscle()+20)]
 		#ENDIF
 		#IF(targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_raptor_feathers, true).getPrimaryColour()==COLOUR_COVERING_BROWN_DARK && targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_raptor_hair, true).getPrimaryColour()==COLOUR_COVERING_WHITE))
-			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_raptor_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BROWN_DARK, false, COLOUR_COVERING_BROWN_DARK, false)]
+			[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_innoxia_raptor_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BROWN_DARK, false, COLOUR_COVERING_BROWN_DARK, false)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[

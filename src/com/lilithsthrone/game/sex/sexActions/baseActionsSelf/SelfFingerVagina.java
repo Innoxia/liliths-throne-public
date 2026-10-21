@@ -66,10 +66,10 @@ public class SelfFingerVagina {
 		@Override
 		public String getDescription() {
 			return "As [npc.name] [npc.verb(feel)] "+getRandomCharacterCumDescription(true)+" sliding down over [npc.her] [npc.skin], a fun idea suddenly springs into [npc.her] mind."
-						+ " Pulling [npc.her] [npc.fingers] out of [npc.her] [npc.pussy+], [npc.she] [npc.verb(reach)] up to the "+getRandomCharacterCumDescription(false)+" that's splattered over [npc.her] body, before scooping up some of the fresh seed."
+						+ " Pulling [npc.her] [npc.fingers] out of [npc.her] [npc.pussy+], [npc.she] [npc.verb(reach)] up to "+getRandomCharacterCumDescription(false)+" that's splattered over [npc.her] body, before scooping up some of the fresh seed."
 						+ " Satisfied that [npc.sheHas] collected enough, [npc.she] [npc.verb(push)] [npc.her] [npc.fingers] back into [npc.her] hungry pussy."
 						+ "<br/>"
-						+ "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(feel)] the "+getRandomCharacterCumDescription(false)+" on [npc.her] fingers being pushed deep into [npc.her] cunt,"
+						+ "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(feel)] "+getRandomCharacterCumDescription(false)+" on [npc.her] fingers being pushed deep into [npc.her] cunt,"
 							+ " and [npc.moansVerb+] as [npc.she] [npc.verb(start)] fingering [npc.herself] once again, using the slick cum as lubricant."
 						+ " Grinding [npc.her] hips against [npc.her] [npc.hand], [npc.name] [npc.verb(let)] out a desperate, shuddering [npc.moan] at the feeling of being inseminated.";
 		}
@@ -131,10 +131,10 @@ public class SelfFingerVagina {
 		@Override
 		public String getDescription() {
 			return "As [npc.name] [npc.verb(feel)] "+getRandomCharacterCumDescription(true)+" sliding down over [npc.her] [npc.skin], a fun idea suddenly springs into [npc.her] mind."
-					+ " Lifting [npc.her] [npc.fingers] to the "+getRandomCharacterCumDescription(false)+" that's splattered over [npc.her] body, [npc.she] [npc.verb(scoop)] up some of the fresh seed."
+					+ " Lifting [npc.her] [npc.fingers] to "+getRandomCharacterCumDescription(false)+" that's splattered over [npc.her] body, [npc.she] [npc.verb(scoop)] up some of the fresh seed."
 					+ " Satisfied that [npc.sheHas] collected enough, [npc.she] [npc.verb(push)] [npc.her] [npc.fingers] into [npc.her] hungry pussy."
 					+ "<br/>"
-					+ "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(feel)] the "+getRandomCharacterCumDescription(false)+" on [npc.her] fingers being pushed deep into [npc.her] cunt,"
+					+ "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(feel)] "+getRandomCharacterCumDescription(false)+" on [npc.her] fingers being pushed deep into [npc.her] cunt,"
 						+ " and [npc.moansVerb+] as [npc.she] [npc.verb(start)] fingering [npc.herself], using the slick cum as lubricant."
 					+ " Grinding [npc.her] hips against [npc.her] [npc.hand], [npc.name] [npc.verb(let)] out a desperate, shuddering [npc.moan] at the feeling of being inseminated.";
 		}

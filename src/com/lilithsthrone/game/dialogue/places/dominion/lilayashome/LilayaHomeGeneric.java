@@ -1309,8 +1309,15 @@ public class LilayaHomeGeneric {
 			if(responseTab==2) {
 				return getLilayasHouseDollStationResponses(index);
 			}
-			if (index == 1 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_garden_access_found"))) {
-				return new Response("Lilaya's dungeon",
+			
+			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
+			if(index==0) {
+				return null;
+			}
+
+			List<Response> responses = new ArrayList<>();
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_garden_access_found"))) {
+				responses.add(new Response("Lilaya's dungeon",
 						"Press the disguised button to open the secret passage down to Lilaya's dungeon.",
 						DialogueManager.getDialogueFromId("acexp_dominion_lilaya_dungeon_stairsUp_garden")) {
 					@Override
@@ -1319,8 +1326,26 @@ public class LilayaHomeGeneric {
 						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("acexp/dominion/lilaya_dungeon", "DUNGEON_ENTRY"));
 						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("acexp_dungeon"), PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs_garden"), false);
 					}
-				};
+				});
+				
 			}
+			for(int i=0; i<charactersPresent.size(); i++) {
+				GameCharacter slave = charactersPresent.get(i);
+				responses.add(new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public Colour getHighlightColour() {
+						return slave.getFemininity().getColour();
+					}
+					@Override
+					public void effects() {
+						SlaveDialogue.initDialogue((NPC) slave, false);
+					}
+				});
+			}
+			if(responses.size()>index-1) {
+				return responses.get(index-1);
+			}
+			
 			return null;
 		}
 	};

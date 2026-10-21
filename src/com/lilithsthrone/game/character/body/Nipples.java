@@ -190,7 +190,7 @@ public class Nipples implements BodyPartInterface {
 
 	public String setNippleSize(GameCharacter owner, int nippleSize) {
 		int boundNippleSize = Math.max(0, Math.min(nippleSize, NippleSize.FOUR_MASSIVE.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.nippleSize = boundNippleSize;
 			return "";
 		}
@@ -218,7 +218,7 @@ public class Nipples implements BodyPartInterface {
 	}
 	
 	public String setNippleShape(GameCharacter owner, NippleShape nippleShape) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.nippleShape = nippleShape;
 			return "";
 		}
@@ -270,7 +270,7 @@ public class Nipples implements BodyPartInterface {
 	}
 	
 	public String setAreolaeShape(GameCharacter owner, AreolaeShape areolaeShape) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.areolaeShape = areolaeShape;
 			return "";
 		}
@@ -314,7 +314,7 @@ public class Nipples implements BodyPartInterface {
 
 	public String setAreolaeSize(GameCharacter owner, int areolaeSize) {
 		int boundAreolaeSize = Math.max(0, Math.min(areolaeSize, AreolaeSize.FOUR_MASSIVE.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.areolaeSize = boundAreolaeSize;
 			return "";
 		}
@@ -391,7 +391,7 @@ public class Nipples implements BodyPartInterface {
 	
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		if(this.isCrotchNipples()) {

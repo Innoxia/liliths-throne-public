@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(!npc.hasPenis())
+			0
+		#ELSE
+			100
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		#IF(npc.getPenisRawSizeValue()<PENIS_LENGTH_ONE_TINY.getMedianValue())
+			[#flags.setInt('extremeTF', 100)]
+		#ELSEIF(npc.getPenisRawSizeValue()<PENIS_LENGTH_SIX_GIGANTIC.getMedianValue())
+			[#flags.setInt('extremeTF', 0)]
+		#ELSE
+			[#flags.setInt('extremeTF', RND.nextInt(100))]
+		#ENDIF
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Cock-shrinking
+		#ELSE
+			Cock-growth
+		#ENDIF
+	]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Let's shrink that dick of yours right down!
+		#ELSE
+			Let's make that cock of yours much bigger!
+		#ENDIF
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		#IF(flags.getInt('extremeTF')<50)
+			Haha! What a cute little cock!
+		#ELSE
+			~Mmm!~ Now that's a big cock!
+		#ENDIF
+	]]></applicationSpeechEnd>
+	
+	<!-- 50% chance of normal TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<50]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(npc.getPenisRawSizeValue()>PENIS_LENGTH_TWO_AVERAGE.getMedianValue())
+				[#npc.setPenisSize(PENIS_LENGTH_ONE_TINY)]
+			#ELSE
+				[#npc.setPenisSize(2)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 50% chance of extreme TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>=50]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(npc.getPenisRawSizeValue()<PENIS_LENGTH_TWO_AVERAGE.getMedianValue())
+				[#npc.setPenisSize(PENIS_LENGTH_FOUR_HUGE)]
+			#ELSE
+				[#npc.incrementPenisSize(20)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

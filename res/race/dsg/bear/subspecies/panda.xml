@@ -52,8 +52,8 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		[#targetedBody.setCovering(BODY_COVERING_TYPE_dsg_bear_fur, COVERING_PATTERN_MARKED, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]
-		[#targetedBody.setCovering(BODY_COVERING_TYPE_dsg_bear_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BLACK, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_dsg_bear_fur, COVERING_PATTERN_MARKED, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(npc, BODY_COVERING_TYPE_dsg_bear_hair, COVERING_PATTERN_NONE, COLOUR_COVERING_BLACK, false, COLOUR_COVERING_BLACK, false)]
 		[#targetedBody.updateCoverings(true, true, true, true)]
 		[#targetedBody.getEye().setPupilShape(null, EYE_SHAPE_VERTICAL)]
 	]]></applySubspeciesChanges>

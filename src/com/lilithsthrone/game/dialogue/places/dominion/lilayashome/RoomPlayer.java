@@ -227,7 +227,7 @@ public class RoomPlayer {
 										?"24 hours"
 										:((timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
 												+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")))
-									+ "until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+									+ " until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
 							AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 						@Override
 						public void effects() {

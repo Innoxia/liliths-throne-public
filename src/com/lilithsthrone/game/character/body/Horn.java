@@ -79,7 +79,7 @@ public class Horn implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractHornType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			if(owner!=null) {
 				owner.postTransformationCalculation();
@@ -140,7 +140,7 @@ public class Horn implements BodyPartInterface {
 
 	public String setHornRows(GameCharacter owner, int rows) {
 		rows = Math.max(1, Math.min(rows, MAXIMUM_ROWS));
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.rows = rows;
 			return "";
 		}
@@ -182,7 +182,7 @@ public class Horn implements BodyPartInterface {
 
 	public String setHornsPerRow(GameCharacter owner, int hornsPerRow) {
 		hornsPerRow = Math.max(1, Math.min(hornsPerRow, MAXIMUM_HORNS_PER_ROW));
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.hornsPerRow = hornsPerRow;
 			return "";
 		}
@@ -244,7 +244,7 @@ public class Horn implements BodyPartInterface {
 		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
 		
-		if (owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -276,7 +276,7 @@ public class Horn implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Horn.class) && getType().getRace().isFeralPartsAvailable());

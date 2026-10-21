@@ -70,7 +70,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		
 		int oldWetness = this.wetness;
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -119,7 +119,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -194,7 +194,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		
 		int oldDepth = this.depth;
 		this.depth = Math.max(0, Math.min(depth, OrificeDepth.SEVEN_FATHOMLESS.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -237,7 +237,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		int oldElasticity = this.elasticity;
 		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
 		int elasticityChange = this.elasticity - oldElasticity;
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -278,7 +278,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		int oldPlasticity = this.plasticity;
 		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
 		int plasticityChange = this.plasticity - oldPlasticity;
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -331,7 +331,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		
 		orificeModifiers.add(modifier);
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -389,7 +389,7 @@ public class OrificePenisUrethra implements OrificeInterface {
 		
 		orificeModifiers.remove(modifier);
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		

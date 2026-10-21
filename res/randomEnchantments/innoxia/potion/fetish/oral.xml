@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(!npc.hasFetish(FETISH_ORAL_GIVING))
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing/>
+	
+	<name defaultPrepend="true"><![CDATA[Oral Obsession]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		Lips wrapped around fat, throbbing cocks... Tongues delving deep into hot, wet pussies... That'll be your future! 
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		~Mmm!~ Now go and have some oral fun!
+	]]></applicationSpeechEnd>
+	
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.addFetish(FETISH_ORAL_GIVING)]
+			[#npc.addFetish(FETISH_ORAL_RECEIVING)]
+			
+			[#npc.incrementLipSize(1)]
+			[#npc.incrementTongueLength(3)]
+			[#npc.incrementFaceWetness(1)]
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

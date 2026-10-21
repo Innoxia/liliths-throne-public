@@ -64,7 +64,7 @@ public class Wing implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractWingType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			this.setSize(owner, this.getSizeValue());
 			if(owner!=null) {
@@ -142,7 +142,7 @@ public class Wing implements BodyPartInterface {
 	}
 	
 	public String setSize(GameCharacter owner, int wingSize) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			int effectiveSize = Math.max(this.getType().getMinimumSize().getValue(), Math.min(wingSize, this.getType().getMaximumSize().getValue()));
 			this.size = effectiveSize;
 			return "";
@@ -187,12 +187,12 @@ public class Wing implements BodyPartInterface {
 		}
 		sb.append("</p>");
 		
-		return sb.toString();
+		return UtilText.parse(owner, sb.toString());
 	}
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Wing.class) && getType().getRace().isFeralPartsAvailable());

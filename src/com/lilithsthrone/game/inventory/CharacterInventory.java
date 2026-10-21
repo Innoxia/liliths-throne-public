@@ -568,6 +568,13 @@ public class CharacterInventory implements XMLSaving {
 	}
 
 	/**
+	 * @return A float from 0->1 representing the percentage of space that's occupied in this inventory.
+	 */
+	public float getInventorySpaceTaken() {
+		return getInventorySlotsTaken() / (float)getMaximumInventorySpace();
+	}
+	
+	/**
 	 * @return true if this inventory contains any unique clothing, weapons, or items.
 	 */
 	public boolean isAnyQuestItemPresent() {

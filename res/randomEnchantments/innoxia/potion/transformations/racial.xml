@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(!npc.isAbleToHaveRaceTransformed())
+			0
+		#ELSE
+			500
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing replaceAll="false"><![CDATA[
+		[#var rnd = RND.nextInt(100);]
+		
+		[#flags.setObject('potionSubspecies', util.static.randomItemFrom(subspecies.static.getCommonSubspecies(util.static.newArrayListOfValues(npc.getSubspecies()))))]
+		
+		#IF(flags.getObject('potionSubspecies')==SUBSPECIES_HUMAN)
+			[#flags.setObject('potionRaceStage', RACE_STAGE_HUMAN)]
+		#ELSEIF(rnd<33)
+			[#flags.setObject('potionRaceStage', RACE_STAGE_PARTIAL)]
+		#ELSEIF(rnd<66)
+			[#flags.setObject('potionRaceStage', RACE_STAGE_LESSER)]
+		#ELSE
+			[#flags.setObject('potionRaceStage', RACE_STAGE_GREATER)]
+		#ENDIF
+		
+		#IF(npc.isFeminine())
+			[#flags.setString('potionRaceName', flags.getObject('potionSubspecies').getSingularFemaleName(null))]
+		#ELSE
+			[#flags.setString('potionRaceName', flags.getObject('potionSubspecies').getSingularMaleName(null))]
+		#ENDIF
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[[#flags.getObject('potionRaceStage').getName()] [#flags.getString('potionRaceName')]]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		It's time for you to get a new look! How about... Hmm... Oh, I know! Being
+		#IF(flags.getObject('potionRaceStage')!=RACE_STAGE_HUMAN)
+			 [#utilText.static.generateSingularDeterminer(flags.getObject('potionRaceStage').getName())]
+			#IF(flags.getObject('potionRaceStage')==RACE_STAGE_PARTIAL)
+				 [#RACE_STAGE_LESSER.getNameColoured()]
+			#ELSE
+				 [#flags.getObject('potionRaceStage').getNameColoured()]
+			#ENDIF
+		#ELSE
+			[#utilText.static.generateSingularDeterminer(flags.getString('potionRaceName'))]
+		#ENDIF
+		 <span style='color:[#flags.getObject('potionSubspecies').getColour(npc).toWebHexString()];'>[#flags.getString('potionRaceName')]</span>
+		 would suit you perfectly!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd/>
+	
+	<potionEffects>
+		<conditional><![CDATA[
+			[#!npc.isAbleToHaveRaceTransformed()]
+		]]></conditional>
+		<effect><![CDATA[
+			<p style='text-align:center;'>
+				[style.italicsDisabled(Nothing happens, as [npc.namePos] race is unable to be transformed...)]
+			</p>
+		]]></effect>
+	</potionEffects>
+	
+	<potionEffects>
+		<conditional><![CDATA[
+			[#npc.isAbleToHaveRaceTransformed()]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(flags.getObject('potionRaceStage').isEarFurry())
+				[#npc.setEarType(flags.getObject('potionSubspecies').getRace().getRacialBody().getEarType())]
+			#ELSE
+				[#npc.setEarType(EAR_TYPE_HUMAN)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isEyeFurry())
+				[#npc.setEyeType(flags.getObject('potionSubspecies').getRace().getRacialBody().getEyeType())]
+			#ELSE
+				[#npc.setEyeType(EYE_TYPE_HUMAN)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isHairFurry())
+				[#npc.setHairType(flags.getObject('potionSubspecies').getRace().getRacialBody().getHairType())]
+			#ELSE
+				[#npc.setHairType(HAIR_TYPE_HUMAN)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isAntennaFurry())
+				[#npc.setAntennaType(flags.getObject('potionSubspecies').getRace().getRacialBody().getRandomAntennaType(false))]
+			#ELSE
+				[#npc.setAntennaType(ANTENNA_TYPE_NONE)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isHornFurry())
+				[#npc.setHornType(flags.getObject('potionSubspecies').getRace().getRacialBody().getRandomHornType(false))]
+			#ELSE
+				[#npc.setHornType(HORN_TYPE_NONE)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isTailFurry())
+				[#npc.setTailType(flags.getObject('potionSubspecies').getRace().getRacialBody().getRandomTailType(false))]
+			#ELSE
+				[#npc.setTailType(TAIL_TYPE_NONE)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isWingFurry())
+				[#npc.setWingType(flags.getObject('potionSubspecies').getRace().getRacialBody().getRandomWingType(false))]
+			#ELSE
+				[#npc.setWingType(WING_TYPE_NONE)]
+			#ENDIF
+
+			#IF(flags.getObject('potionRaceStage').isAssFurry())
+				[#npc.setAssType(flags.getObject('potionSubspecies').getRace().getRacialBody().getAssType())]
+			#ELSE
+				[#npc.setAssType(ASS_TYPE_HUMAN)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isBreastFurry())
+				[#npc.setBreastType(flags.getObject('potionSubspecies').getRace().getRacialBody().getBreastType())]
+				#IF(npc.hasBreastsCrotch())
+					[#npc.setBreastCrotchType(flags.getObject('potionSubspecies').getRace().getRacialBody().getBreastType())]
+				#ENDIF
+			#ELSE
+				[#npc.setBreastType(BREAST_TYPE_HUMAN)]
+				#IF(npc.hasBreastsCrotch())
+					[#npc.setBreastCrotchType(BREAST_TYPE_NONE)]
+				#ENDIF
+			#ENDIF
+
+			#IF(flags.getObject('potionRaceStage').isArmFurry())
+				[#npc.setArmType(flags.getObject('potionSubspecies').getRace().getRacialBody().getArmType())]
+			#ELSE
+				[#npc.setArmType(ARM_TYPE_HUMAN)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isLegFurry())
+				[#npc.setLegType(flags.getObject('potionSubspecies').getRace().getRacialBody().getLegType())]
+			#ELSE
+				[#npc.setLegType(LEG_TYPE_HUMAN)]
+			#ENDIF
+
+			#IF(flags.getObject('potionRaceStage').isSkinFurry())
+				[#npc.setTorsoType(flags.getObject('potionSubspecies').getRace().getRacialBody().getTorsoType())]
+			#ELSE
+				[#npc.setTorsoType(TORSO_TYPE_HUMAN)]
+			#ENDIF
+			#IF(flags.getObject('potionRaceStage').isFaceFurry())
+				[#npc.setFaceType(flags.getObject('potionSubspecies').getRace().getRacialBody().getFaceType())]
+			#ELSE
+				[#npc.setFaceType(FACE_TYPE_HUMAN)]
+			#ENDIF
+
+			#IF(npc.hasPenisIgnoreDildo())
+				#IF(flags.getObject('potionRaceStage').isPenisFurry())
+					[#npc.setPenisType(flags.getObject('potionSubspecies').getRace().getRacialBody().getPenisType())]
+				#ELSE
+					[#npc.setPenisType(PENIS_TYPE_HUMAN)]
+				#ENDIF
+			#ENDIF
+			#IF(npc.hasVagina())
+				#IF(flags.getObject('potionRaceStage').isVaginaFurry())
+					[#npc.setVaginaType(flags.getObject('potionSubspecies').getRace().getRacialBody().getVaginaType())]
+				#ELSE
+					[#npc.setVaginaType(VAGINA_TYPE_HUMAN)]
+				#ENDIF
+			#ENDIF
+			
+			[#flags.getObject('potionSubspecies').getRace().applyRaceChanges(npc.getBody())]
+			[#flags.getObject('potionSubspecies').applySpeciesChanges(npc, npc.getBody())]
+			[##npc.getBody().calculateRace(npc)]
+		]]></effect>
+	</potionEffects>
+	
+	<!--[##npc.setBody(npc.getGender(), flags.getObject('potionSubspecies'), flags.getObject('potionRaceStage'), true)]-->
+	
+	<!--
+			#IF(flags.getObject('potionRaceStage').isTentacleFurry())
+				[#npc.setTentacleType(flags.getObject('potionSubspecies').getRace().getRacialBody().getTentacleType())]
+			#ENDIF
+	-->
+	
+</potionEnchantment>

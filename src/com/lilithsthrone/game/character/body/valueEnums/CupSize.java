@@ -188,6 +188,10 @@ public enum CupSize {
 		return measurement;
 	}
 	
+	public int getValue() {
+		return getMeasurement();
+	}
+	
 	public static CupSize getMaximumCupSize() {
 		return XXX_N;
 	}

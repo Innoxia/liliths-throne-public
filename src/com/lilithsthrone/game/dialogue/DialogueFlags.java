@@ -87,6 +87,7 @@ public class DialogueFlags implements XMLSaving {
 	private Map<String, Boolean> tempBooleans;
 	private Map<String, String> tempStrings;
 	private Map<String, Integer> tempIntegers;
+	private Map<String, Object> tempObjects;
 	
 	
 	public DialogueFlags() {
@@ -438,6 +439,7 @@ public class DialogueFlags implements XMLSaving {
 		tempBooleans = new HashMap<>();
 		tempStrings = new HashMap<>();
 		tempIntegers = new HashMap<>();
+		tempObjects = new HashMap<>();
 	}
 	
 	public void setBool(String id, boolean value) {
@@ -471,6 +473,17 @@ public class DialogueFlags implements XMLSaving {
 			return Integer.MIN_VALUE;
 		}
 		return tempIntegers.get(id);
+	}
+
+	public void setObject(String id, Object value) {
+		tempObjects.put(id, value);
+	}
+	
+	public Object getObject(String id) {
+		if(!tempObjects.containsKey(id)) {
+			return null;
+		}
+		return tempObjects.get(id);
 	}
 	
 	// Misc. variables:

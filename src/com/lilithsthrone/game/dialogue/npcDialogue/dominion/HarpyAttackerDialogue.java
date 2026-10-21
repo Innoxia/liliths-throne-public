@@ -54,7 +54,7 @@ public class HarpyAttackerDialogue {
 	}
 	
 	private static boolean isWantsToFight() {
-		return getHarpy().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
+		return getHarpy().isAffectionAggressionTrigger(Main.game.getPlayer());
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -100,6 +100,9 @@ public class HarpyAttackerDialogue {
 	public static final DialogueNode HARPY_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			if(!isWantsToFight()) { // Catch for if the player has somehow raised this npc's affection without using the talk option. Should be impossible but someone managed it somehow (maybe with mods)
+				getHarpy().setPlayerKnowsName(true);
+			}
 			getHarpy().generatePostCombatPotions();
 			transformationsApplied = false;
 			Main.game.getDialogueFlags().setFlag("innoxia_alleyway_transformations_applied", false);

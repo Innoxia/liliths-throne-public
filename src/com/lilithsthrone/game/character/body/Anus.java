@@ -147,7 +147,7 @@ public class Anus implements BodyPartInterface {
 	}
 	
 	public String setAssHair(GameCharacter owner, BodyHair assHair) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.assHair=assHair;
 			return "";
 		}
@@ -196,7 +196,7 @@ public class Anus implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Anus.class) && getType().getRace().isFeralPartsAvailable());

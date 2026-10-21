@@ -183,12 +183,12 @@ public class Tongue implements BodyPartInterface {
 
 	public String addTongueModifier(GameCharacter owner, TongueModifier modifier) {
 		if(hasTongueModifier(modifier)) {
-			return owner==null ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+			return !isCharacterInitialised(owner) ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		tongueModifiers.add(modifier);
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -299,7 +299,7 @@ public class Tongue implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tongue.class) && getType().getRace().isFeralPartsAvailable());

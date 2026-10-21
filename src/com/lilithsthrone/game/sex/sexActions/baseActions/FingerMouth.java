@@ -81,6 +81,14 @@ public class FingerMouth {
 			SexParticipantType.NORMAL) {
 
 		@Override
+		public List<GameCharacter> getCharactersForParsing() {
+			return Util.newArrayListOfValues(
+					Main.sex.getCharacterPerformingAction(),
+					Main.sex.getCharacterTargetedForSexAction(this),
+					getBlowjobReceiver());
+		}
+		
+		@Override
 		public void applyEffects(){
 			Main.sex.setPrimaryOngoingCharacter(Main.sex.getCharacterTargetedForSexAction(this), getBlowjobReceiver(), SexAreaPenetration.PENIS);
 		}
@@ -128,32 +136,22 @@ public class FingerMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Assist [npc2.namePos] efforts in giving "+(UtilText.parse(getBlowjobReceiver(), "[npc.name]"))+" a blowjob.";
+			return "Assist [npc2.namePos] efforts in giving [npc3.name] a blowjob.";
 		}
 
 		@Override
 		public String getDescription() {
 			if(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.DOM_ROUGH) {
-				return UtilText.parse(
-						Util.newArrayListOfValues(
-								Main.sex.getCharacterPerformingAction(),
-								Main.sex.getCharacterTargetedForSexAction(this),
-								getBlowjobReceiver()),
-						UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 								(Main.sex.getCharacterTargetedForSexAction(this).hasHair() && Main.sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
 									?"Reaching up and roughly taking a fistful of [npc2.namePos] [npc2.hair+], [npc.name] [npc.verb(force)] [npc2.her] head down into [npc3.namePos] groin while ordering [npc2.herHim] to choke on [npc3.her] [npc3.cock+]."
 									:""),
 								"Roughly grabbing hold of the sides of [npc2.namePos] head, [npc.name] violently [npc.verb(slam)] [npc2.namePos] head up and down, forcing [npc2.herHim] to [npc2.verb(continue)] sucking [npc3.namePos] [npc3.cock+].",
 								"Snarling a series of lewd, degrading remarks into [npc2.her] [npc2.ear], [npc.name] [npc.verb(slam)] [npc2.namePos] head into [npc3.namePos] crotch,"
-										+ " thereby forcing [npc2.herHim] to take [npc3.her] [npc3.cock+] fully into [npc2.her] mouth."));
+										+ " thereby forcing [npc2.herHim] to take [npc3.her] [npc3.cock+] fully into [npc2.her] mouth.");
 				
 			} else {
-				return UtilText.parse(
-						Util.newArrayListOfValues(
-								Main.sex.getCharacterPerformingAction(),
-								Main.sex.getCharacterTargetedForSexAction(this),
-								getBlowjobReceiver()),
-						UtilText.returnStringAtRandom(
+				return UtilText.returnStringAtRandom(
 								(Main.sex.getCharacterTargetedForSexAction(this).hasHair() && Main.sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
 									?"Reaching up and running [npc.her] [npc.fingers+] through [npc2.namePos] [npc2.hair+],"
 											+ " [npc.name] [npc.verb(gather)] it up and [npc.verb(hold)] "+(Main.sex.getCharacterTargetedForSexAction(this).getHairType().isDefaultPlural(Main.sex.getCharacterTargetedForSexAction(this))?"them":"it")
@@ -161,7 +159,7 @@ public class FingerMouth {
 									:""),
 								"Taking hold of the sides of [npc2.namePos] head, [npc.name] [npc.verb(help)] to lift and push [npc2.her] head up and down, helping [npc2.herHim] to continue sucking on [npc3.namePos] [npc3.cock+].",
 								"Giving [npc2.herHim] some lewd words of encouragement, [npc.name] [npc.verb(help)] to push [npc2.namePos] head into [npc3.namePos] crotch,"
-										+ " thereby ensuring that [npc2.she] [npc2.verb(take)] [npc3.her] [npc3.cock+] fully into [npc2.her] mouth."));
+										+ " thereby ensuring that [npc2.she] [npc2.verb(take)] [npc3.her] [npc3.cock+] fully into [npc2.her] mouth.");
 			}
 		}
 	};

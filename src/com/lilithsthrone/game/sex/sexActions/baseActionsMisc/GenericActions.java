@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -1244,7 +1245,9 @@ public class GenericActions {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
+			return 
+//					!Main.sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
+					Main.sex.getCharacterTargetedForSexAction(this).hasStatusEffect(StatusEffect.PSYCHOACTIVE)
 					&& !Main.sex.getCharacterTargetedForSexAction(this).isAsleep()
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || (Main.sex.getCharacterTargetedForSexAction(this).getLust()>25 && Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM)));
 		}
@@ -1309,7 +1312,9 @@ public class GenericActions {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
+			return 
+//					!Main.sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
+					Main.sex.getCharacterTargetedForSexAction(this).hasStatusEffect(StatusEffect.PSYCHOACTIVE)
 					&& !Main.sex.getCharacterTargetedForSexAction(this).isAsleep()
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || (Main.sex.getCharacterTargetedForSexAction(this).getLust()<75 && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM)));
 		}

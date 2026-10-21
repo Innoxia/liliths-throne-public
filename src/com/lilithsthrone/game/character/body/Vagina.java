@@ -173,7 +173,7 @@ public class Vagina implements BodyPartInterface {
 			this.orificeVagina.hymen=true;
 		}
 		
-		if(!Main.game.isStarted() || owner==null) {// This always overrides pregnancy prevention, as the only times where this is true are for utility methods:
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {// This always overrides pregnancy prevention, as the only times where this is true are for utility methods:
 			this.type = type;
 			this.girlcum.setType(type.getFluidType());
 			this.eggLayer = type.isEggLayer();
@@ -367,7 +367,7 @@ public class Vagina implements BodyPartInterface {
 		this.labiaSize = Math.max(0, Math.min(labiaSize, LabiaSize.FOUR_MASSIVE.getValue()));
 		int sizeChange = this.labiaSize - oldSize;
 
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -415,7 +415,7 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	public String setPierced(GameCharacter owner, boolean pierced) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.pierced = pierced;
 			return "";
 		}
@@ -450,7 +450,7 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	public String setEggLayer(GameCharacter owner, boolean eggLayer) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.eggLayer = eggLayer;
 			return "";
 		}
@@ -496,7 +496,7 @@ public class Vagina implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Vagina.class) && getType().getRace().isFeralPartsAvailable());

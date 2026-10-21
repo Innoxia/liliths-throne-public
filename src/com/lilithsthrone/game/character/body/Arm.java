@@ -74,7 +74,7 @@ public class Arm implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractArmType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			if(owner!=null) {
 				owner.postTransformationCalculation();
@@ -119,7 +119,7 @@ public class Arm implements BodyPartInterface {
 	}
 
 	public String setArmRows(GameCharacter owner, int armRows) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			armRows = Math.max(1, Math.min(armRows, MAXIMUM_ROWS));
 			this.armRows = armRows;
 			if(owner!=null) {
@@ -208,7 +208,7 @@ public class Arm implements BodyPartInterface {
 	}
 
 	public String setUnderarmHair(GameCharacter owner, BodyHair underarmHair) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.underarmHair = underarmHair;
 			return "";
 		}
@@ -257,7 +257,7 @@ public class Arm implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Arm.class) && getType().getRace().isFeralPartsAvailable());

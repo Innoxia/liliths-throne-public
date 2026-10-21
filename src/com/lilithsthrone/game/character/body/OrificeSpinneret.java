@@ -98,7 +98,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		
 		int oldWetness = this.wetness;
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -147,7 +147,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -246,7 +246,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		
 		int oldDepth = this.depth;
 		this.depth = Math.max(0, Math.min(depth, OrificeDepth.SEVEN_FATHOMLESS.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -287,7 +287,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		}
 		int oldElasticity = this.elasticity;
 		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -328,7 +328,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		}
 		int oldPlasticity = this.plasticity;
 		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -380,7 +380,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		
 		orificeModifiers.add(modifier);
 		
-		if(owner==null || owner.getBody()==null) {
+		if(!isCharacterInitialised(owner) || owner.getBody()==null) {
 			return "";
 		}
 		if(!owner.hasSpinneret()) {
@@ -434,7 +434,7 @@ public class OrificeSpinneret implements OrificeInterface {
 		
 		orificeModifiers.remove(modifier);
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
