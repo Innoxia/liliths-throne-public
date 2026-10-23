@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eye>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>sightglass_roach_eye</coveringType>
+	<tags/>
+	<defaultPairCount>1</defaultPairCount>
+	<defaultIrisShape>ROUND</defaultIrisShape>
+	<defaultPupilShape>ROUND</defaultPupilShape>
+	<name><![CDATA[eye]]></name>
+	<namePlural><![CDATA[eyes]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[roach-like]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[roach-like]]></descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into lustrous roach-like eyes, with the compound eyes bulging out of [npc.her] face.
+		<br/>[npc.Name] now [npc.has] [style.boldBrownDark(roach-like eyes)] of a solid [npc.irisColour(true)] colour.
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.eyePairs] roach-like eyes. Lens of the compound eyes are a reflective, solid [npc.irisColour(true)] colour, and bulge from [npc.her] face.
+	]]></bodyDescription>
+</eye>

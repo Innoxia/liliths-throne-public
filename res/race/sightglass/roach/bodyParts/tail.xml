@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach abdomen]]></transformationName>
+	<coveringType>sightglass_roach_chitin</coveringType>
+	<spinneret>false</spinneret>
+	<defaultGirth>4</defaultGirth>
+	<defaultLengthAsPercentageOfHeight>0.75</defaultLengthAsPercentageOfHeight>
+	<tags>
+		<tag>TAIL_TYPE_GENERIC</tag>
+		<tag>TAIL_TAPERING_BULBOUS</tag>
+		<tag>TAIL_NEVER_SUITABLE_FOR_PENETRATION</tag>
+	</tags>
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	<name><![CDATA[abdomen]]></name>
+	<namePlural><![CDATA[abdomen]]></namePlural> 
+	<descriptorsMasculine>
+		<descriptor>roach-like</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>roach-like</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsFeminine>
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+	</tipDescriptorsFeminine>
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A chitinous, oval-shaped roach-like abdomen sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. 
+			<br/>[npc.Name] now [npc.has] a [style.boldBrownDark(roach-like abdomen)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			Chitinous, oval-shaped roach-like abdomens sprout from just above [npc.her] ass, rapidly growing in size until they're about [npc.tailLength] long.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldBrownDark(roach-like abdomens)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] roach abdomen, which fits gracefully aside [npc.her] torso.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] roach abdomens, which fit gracefully aside [npc.her] torso.
+		#ENDIF
+	]]></bodyDescription>
+</tail>

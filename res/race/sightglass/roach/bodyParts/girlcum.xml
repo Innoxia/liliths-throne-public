@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<baseFluidType>GIRLCUM</baseFluidType>
+	<flavour>GIRL_CUM</flavour>
+	<namesMasculine/>
+	<namesFeminine/>
+	<descriptorsMasculine>
+		<name><![CDATA[roach]]></name>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<name><![CDATA[roach]]></name>
+	</descriptorsFeminine>
+	<defaultFluidModifiers>
+		<modifier>SLIMY</modifier>
+		<modifier>STICKY</modifier>
+		<modifier>MUSKY</modifier>
+	</defaultFluidModifiers>
+</fluid>
